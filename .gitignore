@@ -1,0 +1,19 @@
+# Variáveis de ambiente e chaves secretas (NUNCA SUBIR)
+.env
+.env.*
+
+# Ambiente virtual Python
+venv/
+env/
+ENV/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Arquivos gerados e temporários
+laudos/
+scratch/
+*.log
+*.tmp
