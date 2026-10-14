@@ -88,10 +88,12 @@ def _selecionar_comparaveis(anuncios, imovel, lat, lon, limite) -> list[dict]:
     """Filtra por área semelhante e ordena por: mesmo bairro, distância e diferença de área."""
     area = _area_imovel(imovel)
     bairro = _norm(imovel.get("bairro"))
-    for tolerancia in (0.4, 0.6, 1.0):
+    for tolerancia in (0.4, 0.6, 1.0, 1.5, 2.0):
         candidatos = [a for a in anuncios if abs(a["area"] - area) <= area * tolerancia]
         if len(candidatos) >= MIN_AMOSTRAS:
             break
+    if len(candidatos) < MIN_AMOSTRAS:
+        candidatos = list(anuncios)
     for a in candidatos:
         a["distancia_km"] = portais.distancia_km(lat, lon, a["lat"], a["lon"])
         a["mesmo_bairro"] = bool(bairro) and _norm(a["bairro"]) == bairro

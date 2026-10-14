@@ -6,6 +6,7 @@ import glob
 import json
 import os
 import tempfile
+import time
 from datetime import datetime
 from pathlib import Path
 
@@ -15,8 +16,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+import feed_parser
 import gerar_pdf
 import pipeline
+import reavaliacao_carteira
+import importlib
+importlib.reload(reavaliacao_carteira)
 import tools
 from llm import ClienteLLM
 
@@ -135,7 +140,12 @@ with st.sidebar:
 st.markdown('<div class="main-header">Sistema de Avaliação Imobiliária Inteligente</div>', unsafe_allow_html=True)
 st.markdown('<div class="sub-header">Extração automática de matrículas com Visão Computacional, amostragem em tempo real e laudo pericial NBR 14653</div>', unsafe_allow_html=True)
 
-tab_nova, tab_historico = st.tabs(["📄 Nova Avaliação", "📂 Histórico de Laudos Gerados"])
+tab_nova, tab_vendas, tab_locacao, tab_historico = st.tabs([
+    "📄 Avaliação via Matrícula",
+    "🏷️ Carteira de VENDAS (151 imóveis)",
+    "🔑 Carteira de LOCAÇÃO (92 imóveis)",
+    "📂 Histórico de Laudos Gerados",
+])
 
 
 # ==================== ABA 1: NOVA AVALIAÇÃO ====================
@@ -307,7 +317,444 @@ with tab_nova:
                 st.error(f"Erro durante o processamento: {e}")
 
 
-# ==================== ABA 2: HISTÓRICO DE LAUDOS ====================
+# ==================== CARREGAMENTO CENTRAL DO FEED E AUDITORIA ====================
+@st.cache_data(ttl=1800, show_spinner=False)
+def _obter_dados_feed(url: str):
+    return feed_parser.carregar_feed_xml(url)
+
+try:
+    dados_feed = _obter_dados_feed(feed_parser.URL_FEED_PADRAO)
+    imoveis_lista = dados_feed.get("imoveis", [])
+    cabecalho = dados_feed.get("cabecalho", {})
+except Exception as e:
+    st.error(f"Erro ao carregar o feed XML: {e}")
+    imoveis_lista = []
+    cabecalho = {}
+
+# Carrega a auditoria consolidada do cache em disco de forma dinâmica
+PASTA_PROJETO = Path(__file__).resolve().parent
+CAMINHO_CACHE_AUDITORIA = PASTA_PROJETO / "dados_auditoria_completa.json"
+
+
+def obter_dados_auditoria_atualizados() -> dict:
+    """Lê sempre a auditoria mais recente do arquivo no disco."""
+    if CAMINHO_CACHE_AUDITORIA.exists():
+        try:
+            return json.loads(CAMINHO_CACHE_AUDITORIA.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    return {}
+
+
+def executar_auditoria_com_progresso_ui(operacao: str):
+    """Executa a reavaliação de carteira exibindo cronômetro, temporizador e progresso ao vivo."""
+    import auditar_carteira_completa
+
+    st.markdown("---")
+    st.markdown(f"### ⏱️ Reavaliação em Tempo Real • Carteira de {operacao}")
+    st.caption("Cruzando todo o estoque ativo com comparáveis reais do ZAP Imóveis (NBR 14653).")
+
+    card_container = st.container()
+    with card_container:
+        c1, c2, c3, c4 = st.columns(4)
+        with c1:
+            ph_tempo_dec = st.empty()
+            ph_tempo_dec.metric("⏱️ Tempo Decorrido", "00:00")
+        with c2:
+            ph_tempo_est = st.empty()
+            ph_tempo_est.metric("⏳ Estimado Restante", "Calculando...")
+        with c3:
+            ph_progresso = st.empty()
+            ph_progresso.metric("📊 Progresso", "0 / 0 (0%)")
+        with c4:
+            ph_velocidade = st.empty()
+            ph_velocidade.metric("⚡ Velocidade", "-")
+
+        ph_bar = st.progress(0.0)
+        ph_status = st.empty()
+        ph_status.info("🚀 Iniciando auditoria: conectando ao feed e coletando comparáveis em paralelo...")
+
+    def _prog_callback(atual, total, msg, seg_decorrido, seg_restante):
+        pct = min(1.0, max(0.0, atual / total)) if total > 0 else 0.0
+        ph_bar.progress(pct)
+
+        m_dec, s_dec = divmod(int(seg_decorrido), 60)
+        ph_tempo_dec.metric("⏱️ Tempo Decorrido", f"{m_dec:02d}:{s_dec:02d}")
+
+        if seg_restante > 0 and atual > 3:
+            m_res, s_res = divmod(int(seg_restante), 60)
+            ph_tempo_est.metric("⏳ Estimado Restante", f"{m_res:02d}:{s_res:02d}")
+        else:
+            ph_tempo_est.metric("⏳ Estimado Restante", "Calculando...")
+
+        ph_progresso.metric("📊 Progresso", f"{atual}/{total} ({pct*100:.0f}%)")
+
+        if seg_decorrido > 0.5 and atual > 0:
+            vel = atual / seg_decorrido
+            ph_velocidade.metric("⚡ Velocidade", f"{vel:.1f} imov/s")
+
+        ph_status.markdown(f"🔍 **Analisando:** `{msg}`")
+
+    auditar_carteira_completa.executar_auditoria_completa(progress_callback=_prog_callback)
+
+    ph_bar.progress(1.0)
+    ph_tempo_est.metric("⏳ Estimado Restante", "00:00")
+    ph_status.success("🎉 **Reavaliação concluída com sucesso! Atualizando painel...**")
+    time.sleep(1.2)
+    st.rerun()
+
+
+def render_painel_operacao(imoveis_lista: list, operacao: str, api_key_val: str = ""):
+    imoveis_op = [x for x in imoveis_lista if x.get("transacao") == operacao]
+    key_suf = "vendas" if operacao == "Venda" else "locacao"
+    rotulo_preco = "Preço de Venda" if operacao == "Venda" else "Aluguel Mensal"
+    rotulo_m2 = "R$/m² de Venda" if operacao == "Venda" else "R$/m² Aluguel"
+    icone = "🏷️" if operacao == "Venda" else "🔑"
+
+    dados_aud = obter_dados_auditoria_atualizados()
+    secao_aud = dados_aud.get(key_suf, {}) or dados_aud.get(key_suf.rstrip("s"), {})
+    stats = secao_aud.get("estatisticas", {})
+    auditados_op = secao_aud.get("imoveis", [])
+
+    # Fallback se a estrutura não tiver o nó específico
+    if not auditados_op and imoveis_op:
+        auditados_op = [r for r in dados_aud.get("imoveis", []) if r.get("Transação") == operacao]
+
+    residenciais_com_desvio = [r for r in auditados_op if r.get("Desvio_Num") is not None]
+    total_res = len(residenciais_com_desvio)
+
+    # Barra de Resumo no Topo
+    c1, c2, c3, c4 = st.columns(4)
+    with c1:
+        st.metric(f"Total {operacao}", f"{len(imoveis_op)} imóveis", f"Imobiliária: {cabecalho.get('imobiliaria', 'Expandh')}")
+    with c2:
+        pct_audit = (total_res / len(imoveis_op) * 100) if imoveis_op else 0
+        st.metric("Auditados com Mercado", f"{total_res} de {len(imoveis_op)} imóveis", f"{pct_audit:.0f}% da carteira auditada")
+    with c3:
+        if operacao == "Venda":
+            precos = [x["preco"] for x in imoveis_op if x["preco"] > 0]
+            vgv = sum(precos)
+            st.metric("VGV Total da Carteira", f"R$ {vgv/1_000_000:.1f} Milhões", f"Ticket Médio: R$ {vgv/len(precos):,.0f}" if precos else "-")
+        else:
+            alugueis = [x["preco"] for x in imoveis_op if x["preco"] > 0]
+            alug_medio = sum(alugueis)/len(alugueis) if alugueis else 0
+            st.metric("Aluguel Médio Anunciado", f"R$ {alug_medio:,.2f}/mês", f"{len(alugueis)} unidades locáveis")
+    with c4:
+        cidades_op = sorted(list({x['cidade'] for x in imoveis_op if x['cidade']}))
+        st.metric("Praças Atendidas", f"{len(cidades_op)} cidades", ", ".join(cidades_op[:2]))
+
+    st.markdown("---")
+
+    sub_tab_lote, sub_tab_ind = st.tabs([
+        f"📊 Diagnóstico Geral da Carteira ({len(imoveis_op)} imóveis)",
+        f"🔍 Auditar Imóvel Individual de {operacao}",
+    ])
+
+    with sub_tab_lote:
+        if auditados_op:
+            q_super = stats.get("muito_acima", 0)
+            q_acima = stats.get("acima", 0)
+            q_justo = stats.get("justo", 0)
+            q_oport = stats.get("oportunidade", 0)
+
+            if total_res > 0 and (q_super + q_acima + q_justo + q_oport == 0):
+                q_super = sum(1 for r in residenciais_com_desvio if "Muito Acima" in r["Status"])
+                q_acima = sum(1 for r in residenciais_com_desvio if "Acima do Mercado" in r["Status"])
+                q_justo = sum(1 for r in residenciais_com_desvio if "Preço Justo" in r["Status"])
+                q_oport = sum(1 for r in residenciais_com_desvio if "Oportunidade" in r["Status"])
+
+            col_h1, col_h2 = st.columns([3, 1])
+            with col_h1:
+                st.markdown(f"#### 📈 Saúde e Posicionamento da Carteira de {operacao.upper()}")
+            with col_h2:
+                if st.button(f"🔄 Reexecutar Auditoria de {operacao}", key=f"reexec_{key_suf}", use_container_width=True):
+                    executar_auditoria_com_progresso_ui(operacao)
+
+            k1, k2, k3, k4 = st.columns(4)
+            with k1:
+                st.metric(
+                    "🔴 Muito Acima (> 15%)",
+                    f"{q_super} imóveis",
+                    f"{q_super/total_res*100:.1f}% da base" if total_res else "0%",
+                    help=f"Imóveis com alto risco de ficarem encalhados e baixa liquidez. Prioridade para renegociação com proprietário.",
+                )
+            with k2:
+                st.metric(
+                    "🟡 Levemente Acima (+5% a 15%)",
+                    f"{q_acima} imóveis",
+                    f"{q_acima/total_res*100:.1f}% da base" if total_res else "0%",
+                    help="Margem para negociação comercial com compradores ou inquilinos.",
+                )
+            with k3:
+                st.metric(
+                    "🟢 No Preço Justo (±5%)",
+                    f"{q_justo} imóveis",
+                    f"{q_justo/total_res*100:.1f}% da base" if total_res else "0%",
+                    help="Posicionamento perfeito e alta competitividade nos portais.",
+                )
+            with k4:
+                st.metric(
+                    "🔵 Oportunidades (< -7%)",
+                    f"{q_oport} imóveis",
+                    f"{q_oport/total_res*100:.1f}% da base" if total_res else "0%",
+                    help="Preço abaixo do mercado. Potencial de fechamento acelerado.",
+                )
+
+            st.markdown("---")
+
+            col_f_status, col_btn_csv = st.columns([2, 1])
+            with col_f_status:
+                opcoes_status = [
+                    f"Todos os Imóveis de {operacao} ({len(auditados_op)})",
+                    f"🔴 Apenas Muito Acima ({q_super})",
+                    f"🟡 Apenas Acima do Mercado ({q_acima})",
+                    f"🟢 Apenas no Preço Justo ({q_justo})",
+                    f"🔵 Apenas Oportunidades ({q_oport})",
+                    f"⚪ Sem Comparáveis Suficientes ({len(auditados_op) - total_res})",
+                ]
+                escolha_st = st.selectbox("Filtrar tabela por diagnóstico:", opcoes_status, index=0, key=f"st_sel_{key_suf}")
+
+            tabela_f = auditados_op
+            if "Muito Acima" in escolha_st:
+                tabela_f = [r for r in tabela_f if "Muito Acima" in r["Status"]]
+            elif "Acima do Mercado" in escolha_st:
+                tabela_f = [r for r in tabela_f if "Acima do Mercado" in r["Status"]]
+            elif "Preço Justo" in escolha_st:
+                tabela_f = [r for r in tabela_f if "Preço Justo" in r["Status"]]
+            elif "Oportunidades" in escolha_st:
+                tabela_f = [r for r in tabela_f if "Oportunidade" in r["Status"]]
+            elif "Sem Comparáveis" in escolha_st:
+                tabela_f = [r for r in tabela_f if r.get("Desvio_Num") is None]
+
+            df_ex = pd.DataFrame(tabela_f)
+            df_fmt = df_ex.copy()
+            df_fmt[rotulo_preco] = df_fmt["Preço Anunciado (R$)"].apply(lambda v: f"R$ {v:,.0f}".replace(",", ".") if pd.notnull(v) and v else "R$ 0")
+            df_fmt["Valor Mercado"] = df_fmt["Valor Mercado Estimado (R$)"].apply(
+                lambda v: f"R$ {v:,.0f}".replace(",", ".") if pd.notnull(v) and v else "-"
+            )
+            df_fmt["Diferença"] = df_fmt["Diferença (R$)"].apply(
+                lambda v: f"R$ {v:+,.0f}".replace(",", ".") if pd.notnull(v) and v is not None else "-"
+            )
+
+            cols_tab = ["Código", "Tipo", "Bairro", "Área (m²)", rotulo_preco, "Valor Mercado", "Desvio (%)", "Status", "Ação Comercial Recomendada"]
+            st.dataframe(df_fmt[cols_tab], use_container_width=True, hide_index=True)
+
+            with col_btn_csv:
+                st.write("")
+                csv_nome = f"auditoria_{key_suf}_expandh.csv"
+                caminho_csv = PASTA_PROJETO / "laudos" / csv_nome
+                if caminho_csv.exists():
+                    with open(caminho_csv, "rb") as f_c:
+                        st.download_button(
+                            label=f"📥 Baixar Planilha de {operacao} (.CSV / Excel)",
+                            data=f_c,
+                            file_name=csv_nome,
+                            mime="text/csv",
+                            type="primary",
+                            key=f"btn_dl_{key_suf}",
+                            use_container_width=True,
+                        )
+        else:
+            st.warning(f"Nenhuma auditoria executada ainda para a carteira de {operacao}.")
+            if st.button(f"🚀 Executar Auditoria Geral de {operacao} Agora", type="primary", key=f"btn_init_{key_suf}"):
+                executar_auditoria_com_progresso_ui(operacao)
+
+    with sub_tab_ind:
+        st.markdown(f"#### 🎯 Selecionar Imóvel de {operacao}")
+        fc1, fc2, fc3 = st.columns([1.2, 1.5, 1.5])
+        with fc1:
+            tipos_disp = ["Todos"] + sorted(list({x["tipo"] for x in imoveis_op if x.get("tipo")}))
+            f_tp = st.selectbox("Tipo de Imóvel", tipos_disp, index=0, key=f"ftp_{key_suf}")
+        with fc2:
+            bairros_disp = ["Todos"] + sorted(list({x["bairro"] for x in imoveis_op if x.get("bairro")}))
+            f_br = st.selectbox("Bairro", bairros_disp, index=0, key=f"fbr_{key_suf}")
+        with fc3:
+            f_bc = st.text_input("Buscar Código ou Logradouro", placeholder="Ex: código ou rua...", key=f"fbc_{key_suf}")
+
+        filtrados_ind = imoveis_op
+        if f_tp != "Todos":
+            filtrados_ind = [x for x in filtrados_ind if x["tipo"] == f_tp]
+        if f_br != "Todos":
+            filtrados_ind = [x for x in filtrados_ind if x["bairro"] == f_br]
+        if f_bc:
+            bterm = f_bc.lower().strip()
+            filtrados_ind = [
+                x for x in filtrados_ind
+                if bterm in x.get("id", "").lower()
+                or bterm in x.get("endereco", "").lower()
+                or bterm in x.get("titulo", "").lower()
+                or bterm in x.get("bairro", "").lower()
+            ]
+
+        if not filtrados_ind:
+            st.warning("Nenhum imóvel encontrado com os filtros selecionados.")
+        else:
+            opcoes_im = {
+                f"[{x['id']}] {x['tipo']} • {x['bairro']} • R$ {x['preco']:,.0f}" + (
+                    f" (Pacote R$ {x['preco'] + x['condominio'] + x['iptu']:,.0f})" if operacao == "Locação" else ""
+                ): x
+                for x in filtrados_ind
+            }
+            sel_label = st.selectbox("Selecione o imóvel para auditar:", list(opcoes_im.keys()), key=f"sel_im_{key_suf}")
+            imovel_sel = opcoes_im[sel_label]
+
+            col_f, col_d = st.columns([1, 2])
+            with col_f:
+                if imovel_sel.get("foto_capa"):
+                    st.image(
+                        imovel_sel["foto_capa"],
+                        use_container_width=True,
+                        caption=f"Foto • Cód: {imovel_sel['id']}",
+                    )
+                else:
+                    st.info("📷 Sem foto principal cadastrada")
+
+            with col_d:
+                st.markdown(f"### {imovel_sel.get('titulo') or imovel_sel.get('tipo')}")
+                st.write(f"📍 **Endereço:** {imovel_sel.get('endereco')}, {imovel_sel.get('bairro')} - {imovel_sel.get('cidade')}/SP")
+                st.write(f"📐 **Área:** {imovel_sel.get('area_principal')} m² ({imovel_sel.get('quartos')} quartos | {imovel_sel.get('suites')} suíte(s) | {imovel_sel.get('vagas')} vagas)")
+                st.write(f"💰 **{rotulo_preco}:** R$ {imovel_sel.get('preco', 0):,.2f} ({rotulo_m2}: R$ {imovel_sel.get('preco_m2', 0):,.2f}/m²)")
+                if operacao == "Locação":
+                    pct_total = imovel_sel.get("preco", 0) + imovel_sel.get("condominio", 0) + imovel_sel.get("iptu", 0)
+                    st.info(f"📦 **Pacote Completo de Locação:** **R$ {pct_total:,.2f} / mês** (Aluguel R$ {imovel_sel.get('preco', 0):,.0f} + Condomínio R$ {imovel_sel.get('condominio', 0):,.0f} + IPTU R$ {imovel_sel.get('iptu', 0):,.0f})")
+                elif imovel_sel.get("condominio") or imovel_sel.get("iptu"):
+                    st.write(f"🏷️ Condomínio: R$ {imovel_sel.get('condominio', 0):,.2f} | IPTU: R$ {imovel_sel.get('iptu', 0):,.2f}")
+
+            # Detecção e Ajuste de Corredor Nobre / Comercial (NBR 14653)
+            fator_loc_auto, justif_auto = reavaliacao_carteira.identificar_fator_corredor(imovel_sel)
+            if fator_loc_auto > 1.0:
+                st.info(f"⭐ **Polo de Valorização / Corredor Comercial Nobre Detectado:**\n{justif_auto}")
+
+            with st.expander("⚙️ Ajuste Técnico de Localização (NBR 14653 • Fator de Corredor / Zona)", expanded=(fator_loc_auto > 1.0)):
+                fator_loc_input = st.slider(
+                    "Fator de Ponderação de Localização (Floc):",
+                    min_value=0.50,
+                    max_value=3.50,
+                    value=float(fator_loc_auto),
+                    step=0.05,
+                    key=f"slider_floc_{imovel_sel['id']}_{key_suf}",
+                    help="Ajusta o valor unitário caso o imóvel esteja em via nobre/comercial, esquina ou corredor arterial em relação aos comparáveis gerais da cidade.",
+                )
+
+            btn_rev_ind = st.button(f"🚀 Reavaliar Este Imóvel de {operacao} no ZAP", type="primary", use_container_width=True, key=f"btn_reval_{key_suf}")
+
+            if btn_rev_ind:
+                with st.spinner(f"Consultando concorrência ao vivo no ZAP para {imovel_sel.get('tipo')} no {imovel_sel.get('bairro')}..."):
+                    res_aud = reavaliacao_carteira.reavaliar_imovel_feed(imovel_sel, fator_oferta=pipeline.FATOR_OFERTA, fator_localizacao=fator_loc_input)
+
+                if not res_aud.get("sucesso"):
+                    st.warning(f"⚠️ Não foi possível reavaliar: {res_aud.get('motivo')}")
+                else:
+                    st.success("✅ Auditoria de mercado concluída com sucesso!")
+                    st.markdown("---")
+
+                    rk1, rk2, rk3, rk4 = st.columns(4)
+                    with rk1:
+                        st.metric(
+                            f"{rotulo_preco} Anunciado",
+                            f"R$ {res_aud['preco_anunciado']:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                        )
+                    with rk2:
+                        st.metric(
+                            "Valor Justo de Mercado",
+                            f"R$ {res_aud['valor_fechamento_estimado']:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                            f"Faixa: R$ {res_aud['faixa_min']:,.0f} - R$ {res_aud['faixa_max']:,.0f}",
+                        )
+                    with rk3:
+                        dp = res_aud["desvio_pct"]
+                        st.metric(
+                            "Desvio vs. Mercado",
+                            f"{dp:+.1f}%",
+                            res_aud["status"],
+                            delta_color="inverse" if dp > 0 else "normal",
+                        )
+                    with rk4:
+                        st.metric(
+                            "Mediana da Concorrência",
+                            f"R$ {res_aud['mediana_m2_concorrencia']:,.2f}/m²",
+                            f"{res_aud['n_amostras']} imóveis analisados",
+                        )
+
+                    st.info(f"**Diagnóstico:** {res_aud['diagnostico']}\n\n**Ação Comercial Recomendada:** {res_aud['acao_sugerida']}")
+
+                    # Amostras do ZAP
+                    amostras = res_aud.get("amostras", [])
+                    if amostras:
+                        st.markdown(f"#### 🏘️ Comparáveis Reais de {operacao} no ZAP Imóveis")
+                        df_cp = pd.DataFrame([
+                            {
+                                "Bairro": a.get("bairro"),
+                                "Área": f"{a.get('area')} m²",
+                                rotulo_preco: f"R$ {a.get('preco'):,.0f}",
+                                rotulo_m2: f"R$ {a.get('preco')/a.get('area'):,.0f}",
+                                "Distância": f"{a.get('distancia_km'):.2f} km" if a.get("distancia_km") else "-",
+                                "Link do Anúncio": a.get("url", ""),
+                            }
+                            for a in amostras
+                        ])
+                        st.dataframe(
+                            df_cp,
+                            use_container_width=True,
+                            hide_index=True,
+                            column_config={
+                                "Link do Anúncio": st.column_config.LinkColumn("Ver no ZAP")
+                            },
+                        )
+
+                    # Roteiro WhatsApp
+                    st.markdown("#### 💬 Roteiro de Negociação para o Proprietário")
+                    llm_c = None
+                    if api_key_val:
+                        try:
+                            llm_c = ClienteLLM()
+                        except Exception:
+                            pass
+                    roteiro_msg = reavaliacao_carteira.gerar_argumentario_proprietario(res_aud, llm=llm_c)
+                    st.text_area("Mensagem Pronta para WhatsApp:", value=roteiro_msg, height=140, key=f"txt_rot_{key_suf}")
+
+                    # Laudo PDF
+                    if st.button("📄 Gerar Laudo PDF Deste Imóvel", key=f"btn_pdf_{key_suf}"):
+                        with st.spinner("Compilando Laudo PDF NBR 14653..."):
+                            pasta_s = Path("laudos")
+                            pasta_s.mkdir(exist_ok=True)
+                            carimbo_f = datetime.now().strftime("%Y%m%d_%H%M%S")
+                            caminho_pdf_f = pasta_s / f"laudo_{key_suf}_{imovel_sel['id']}_{carimbo_f}.pdf"
+
+                            imp = reavaliacao_carteira.converter_item_feed_para_imovel(imovel_sel)
+                            merp = pipeline.etapa2_market_intelligence(imp)
+                            venp = pipeline.etapa3_sales_valuation(imp, merp)
+                            locp = pipeline.etapa4_rental_valuation(imp, merp, venp)
+                            dp = {"imovel": imp, "mercado": merp, "venda": venp, "locacao": locp}
+
+                            gerar_pdf.criar_laudo_pdf(dp, caminho_pdf_f)
+
+                            with open(caminho_pdf_f, "rb") as fp:
+                                st.download_button(
+                                    label=f"📥 Baixar Laudo de {operacao} (PDF)",
+                                    data=fp,
+                                    file_name=caminho_pdf_f.name,
+                                    mime="application/pdf",
+                                    type="primary",
+                                    key=f"dl_pdf_btn_{key_suf}",
+                                    use_container_width=True,
+                                )
+
+
+# ==================== ABA 2: CARTEIRA DE VENDAS ====================
+with tab_vendas:
+    st.subheader("🏷️ Carteira de VENDAS • Auditoria & Reprecificação")
+    st.caption("Precificação de venda, comparação com fechamentos NBR e diagnóstico de liquidez.")
+    render_painel_operacao(imoveis_lista, "Venda", api_key)
+
+
+# ==================== ABA 3: CARTEIRA DE LOCAÇÃO ====================
+with tab_locacao:
+    st.subheader("🔑 Carteira de LOCAÇÃO • Auditoria & Rentabilidade")
+    st.caption("Precificação de aluguel mensal, custo total de ocupação (pacote) e comparáveis ao vivo.")
+    render_painel_operacao(imoveis_lista, "Locação", api_key)
+
+
+# ==================== ABA 3: HISTÓRICO DE LAUDOS ====================
 with tab_historico:
     st.subheader("Laudos Gerados Anteriormente")
     arquivos_laudos = sorted(glob.glob("laudos/*.pdf"), reverse=True)

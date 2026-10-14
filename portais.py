@@ -1,8 +1,6 @@
 """
 Coleta de anúncios reais no ZAP Imóveis (mesma base do VivaReal).
-
-Usa a API JSON que o próprio site consome (glue-api). Não é uma API oficial/documentada:
-pode mudar ou ser bloqueada a qualquer momento, e o uso deve respeitar os termos do portal.
+Suporta Residencial (Casas, Apartamentos), Terrenos/Lotes e Comercial (Salas, Salões, Galpões).
 """
 import math
 import time
@@ -15,9 +13,9 @@ HEADERS = {
                   "(KHTML, like Gecko) Chrome/130.0 Safari/537.36",
     "x-domain": "www.zapimoveis.com.br",
 }
-TAMANHO_PAGINA = 24     # a API recusa páginas acima de ~30
-MAX_ANUNCIOS = 240      # teto por busca (10 páginas)
-PAUSA_ENTRE_PAGINAS = 1.0
+TAMANHO_PAGINA = 24
+MAX_ANUNCIOS = 240
+PAUSA_ENTRE_PAGINAS = 0.5
 
 UF_NOME = {
     "AC": "Acre", "AL": "Alagoas", "AP": "Amapá", "AM": "Amazonas", "BA": "Bahia", "CE": "Ceará",
@@ -28,7 +26,6 @@ UF_NOME = {
     "SC": "Santa Catarina", "SP": "São Paulo", "SE": "Sergipe", "TO": "Tocantins",
 }
 
-# Parâmetros de tipo que efetivamente filtram na API (testado com apartamentos).
 FILTROS_TIPO = {
     "APARTMENT": {
         "unitTypes": "APARTMENT",
@@ -44,13 +41,34 @@ FILTROS_TIPO = {
     },
 }
 
+MAPEAMENTO_UNIT_TYPES = {
+    "APARTMENT": ["APARTMENT", "FLAT", "KITNET"],
+    "HOME": ["HOME", "CONDOMINIUM", "VILLAGE_HOUSE"],
+    "LAND_LOT": ["RESIDENTIAL_ALLOTMENT_LAND", "COMMERCIAL_ALLOTMENT_LAND", "LAND_LOT", "ALLOTMENT_LAND"],
+    "OFFICE": ["OFFICE", "COMMERCIAL_BUILDING"],
+    "SHED": ["SHED_DEPOSIT_WAREHOUSE"],
+    "BUSINESS": ["BUSINESS", "COMMERCIAL_PROPERTY", "COMMERCIAL_BUILDING", "STORE", "COMMERCIAL"],
+    "COMMERCIAL_ALL": ["OFFICE", "BUSINESS", "SHED_DEPOSIT_WAREHOUSE", "COMMERCIAL_BUILDING", "COMMERCIAL_PROPERTY", "STORE", "COMMERCIAL"],
+    "FARM": ["FARM", "AGRICULTURAL"],
+}
+
 
 def tipo_zap(tipo_imovel: str) -> str | None:
     t = (tipo_imovel or "").lower()
-    if "apart" in t or "apto" in t or "flat" in t:
+    if "apart" in t or "apto" in t or "flat" in t or "kitnet" in t:
         return "APARTMENT"
-    if "casa" in t or "sobrado" in t:
+    if "casa" in t or "sobrado" in t or "condo" in t:
         return "HOME"
+    if "terreno" in t or "lote" in t or "allotment" in t:
+        return "LAND_LOT"
+    if "sala" in t or "escrit" in t or "office" in t or "consult" in t:
+        return "OFFICE"
+    if "galp" in t or "barrac" in t or "armaz" in t or "industrial" in t or "shed" in t:
+        return "SHED"
+    if "ponto" in t or "loja" in t or "sal" in t or "comercial" in t or "business" in t or "edificio" in t:
+        return "BUSINESS"
+    if "chac" in t or "sitio" in t or "rancho" in t or "farm" in t:
+        return "FARM"
     return None
 
 
@@ -61,15 +79,19 @@ def _primeiro(lista, padrao=0):
 def _normalizar(item: dict, negocio: str) -> dict | None:
     l = item.get("listing", {})
     preco = next((p.get("price") for p in l.get("pricingInfos", []) if p.get("businessType") == negocio), None)
+    # Para terrenos, prefere área total do terreno; para construídos, área útil
     area = _primeiro(l.get("usableAreas")) or _primeiro(l.get("totalAreas"))
-    if not preco or not area:
+    if not preco or not area or float(area) <= 0:
         return None
     end = l.get("address", {})
     ponto = end.get("point") or {}
     link = (item.get("link") or {}).get("href", "")
+    uts = l.get("unitTypes", [])
+    tipo_real = uts[0] if uts else ""
     return {
         "id": l.get("id"),
-        "tipo": _primeiro(l.get("unitTypes"), ""),
+        "tipo": tipo_real,
+        "tipos_lista": uts,
         "preco": float(preco),
         "area": float(area),
         "quartos": _primeiro(l.get("bedrooms")),
@@ -85,7 +107,7 @@ def _normalizar(item: dict, negocio: str) -> dict | None:
 
 
 def buscar_anuncios(cidade: str, uf: str, tipo: str, negocio: str = "SALE") -> list[dict]:
-    """Baixa os anúncios da cidade (venda: SALE, aluguel: RENTAL) para o tipo informado."""
+    """Baixa os anúncios da cidade para a tipologia solicitada (Residencial, Terreno, Comercial)."""
     params = {
         "business": negocio,
         "categoryPage": "RESULT",
@@ -93,25 +115,54 @@ def buscar_anuncios(cidade: str, uf: str, tipo: str, negocio: str = "SALE") -> l
         "addressCity": cidade,
         "addressState": UF_NOME.get(uf.upper(), uf),
         "size": TAMANHO_PAGINA,
-        **FILTROS_TIPO[tipo],
     }
+
+    if tipo in FILTROS_TIPO:
+        params.update(FILTROS_TIPO[tipo])
+    elif tipo in ("OFFICE", "SHED", "BUSINESS", "COMMERCIAL_ALL"):
+        params["usageTypes"] = "COMMERCIAL"
+
+    tipos_validos = MAPEAMENTO_UNIT_TYPES.get(tipo, [tipo])
+    # Fallback amplo se for comercial
+    eh_comercial = tipo in ("OFFICE", "SHED", "BUSINESS")
+
     anuncios, vistos, inicio, total = [], set(), 0, None
     while inicio < MAX_ANUNCIOS and (total is None or inicio < total):
         params["from"] = inicio
-        r = requests.get(BASE_URL, params=params, headers=HEADERS, timeout=30)
-        r.raise_for_status()
-        busca = r.json()["search"]
-        total = busca.get("totalCount", 0)
-        itens = busca["result"]["listings"]
+        try:
+            r = requests.get(BASE_URL, params=params, headers=HEADERS, timeout=25)
+            r.raise_for_status()
+            busca = r.json()["search"]
+            total = busca.get("totalCount", 0)
+            itens = busca["result"]["listings"]
+        except Exception:
+            break
+
         if not itens:
             break
+
         for item in itens:
             a = _normalizar(item, negocio)
-            if a and a["tipo"] == tipo and a["id"] not in vistos:
+            if not a:
+                continue
+            # Verifica compatibilidade de tipologia
+            bate_tipo = a["tipo"] in tipos_validos or any(ut in tipos_validos for ut in a.get("tipos_lista", []))
+            if bate_tipo and a["id"] not in vistos:
                 vistos.add(a["id"])
                 anuncios.append(a)
+
         inicio += TAMANHO_PAGINA
         time.sleep(PAUSA_ENTRE_PAGINAS)
+
+    # Se coletou poucas amostras para um subtipo comercial específico (ex: galpão ou sala),
+    # complementa com outros comerciais da mesma cidade para não deixar sem amostragem
+    if eh_comercial and len(anuncios) < 3 and tipo != "COMMERCIAL_ALL":
+        comerciais_gerais = buscar_anuncios(cidade, uf, "COMMERCIAL_ALL", negocio)
+        for cg in comerciais_gerais:
+            if cg["id"] not in vistos:
+                vistos.add(cg["id"])
+                anuncios.append(cg)
+
     return anuncios
 
 
