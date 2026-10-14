@@ -77,11 +77,73 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
+# ==================== CONTROLE DE ACESSO (AUTENTICAÇÃO POR SENHA) ====================
+def check_password() -> bool:
+    """Verifica se o usuário está autenticado ou solicita a senha de acesso."""
+    if st.session_state.get("authenticated", False):
+        return True
+
+    # Obter senha esperada (Streamlit Cloud Secrets > .env > padrão "expandh2026")
+    senha_esperada = "expandh2026"
+    try:
+        if "APP_PASSWORD" in st.secrets:
+            senha_esperada = str(st.secrets["APP_PASSWORD"])
+    except Exception:
+        pass
+    senha_esperada = os.getenv("APP_PASSWORD", senha_esperada)
+
+    # Layout centralizado da tela de login
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        st.markdown("<br><br>", unsafe_allow_html=True)
+        st.markdown("""
+        <div style="background: #ffffff; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); text-align: center;">
+            <img src="https://img.icons8.com/fluency/96/real-estate.png" width="72" style="margin-bottom: 8px;" />
+            <h2 style="color: #1E3A8A; margin-bottom: 4px;">Expandh Imobiliária</h2>
+            <p style="color: #64748B; font-size: 0.95rem; margin-bottom: 12px;">Portal de Inteligência & Avaliação de Carteira • NBR 14653</p>
+            <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 10px; margin-bottom: 15px;">
+                <span style="color: #1E40AF; font-size: 0.85rem; font-weight: 500;">🔒 Área Restrita para a Equipe de Corretores e Diretoria</span>
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        with st.form("form_login"):
+            senha_digitada = st.text_input(
+                "Digite a Senha de Acesso",
+                type="password",
+                placeholder="••••••••",
+                help="Insira a senha fornecida pela diretoria da Expandh Imobiliária"
+            )
+            btn_entrar = st.form_submit_button("Acessar Painel 🚀", use_container_width=True, type="primary")
+
+            if btn_entrar:
+                if senha_digitada == senha_esperada:
+                    st.session_state["authenticated"] = True
+                    st.rerun()
+                else:
+                    st.error("❌ Senha incorreta. Verifique com a administração da Expandh.")
+
+    return False
+
+if not check_password():
+    st.stop()
+
+
 # ==================== BARRA LATERAL (CONFIGURAÇÕES) ====================
 with st.sidebar:
     st.image("https://img.icons8.com/fluency/96/real-estate.png", width=64)
     st.title("AvaliaIA Pro")
     st.caption("Engenharia de Avaliações com IA • NBR 14653")
+    
+    # Status de login e botão de Sair
+    col_status, col_btn = st.columns([1.8, 1.2])
+    with col_status:
+        st.markdown("<small style='color: #16A34A; font-weight: 600;'>🟢 Conectado</small><br><small style='color: #64748B;'>Equipe Expandh</small>", unsafe_allow_html=True)
+    with col_btn:
+        if st.button("🚪 Sair", key="btn_logout", help="Encerrar sessão no painel"):
+            st.session_state["authenticated"] = False
+            st.rerun()
+            
     st.markdown("---")
 
     st.subheader("⚙️ Configurações da Avaliação")
