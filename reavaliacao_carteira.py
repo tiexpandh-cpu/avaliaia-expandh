@@ -125,12 +125,24 @@ def identificar_fator_corredor(item_feed: dict) -> tuple[float, str]:
     is_galpao = ("galpão" in tipo or tipo_zap == "SHED")
     vagas = int(item_feed.get("vagas") or 0)
 
+    # Extração de número para checagem auxiliar caso não haja coordenadas
+    numero_int = None
+    try:
+        numero_int = int("".join(c for c in str(item_feed.get("numero", "")) if c.isdigit()))
+    except Exception:
+        pass
+
     # 1. NÚCLEO DA PRAÇA 21 DE ABRIL (Barão do Rio Branco, Washington Luís, Aprígio de Araújo, Sebastião Sampaio, Cel. Francisco Schmidt, Expedicionário Lellis)
-    pertence_nucleo = any(r in texto_busca for r in RUAS_NUCLEO_PRACA_21) or (dist_praca is not None and dist_praca <= 0.45 and "centro" in texto_busca)
+    # Exige proximidade física estrita (raio máximo <= 0.38 km da Praça 21), pois essas vias se estendem por quilômetros
+    if dist_praca is not None:
+        pertence_nucleo = (dist_praca <= 0.38) and (any(r in texto_busca for r in RUAS_NUCLEO_PRACA_21) or "centro" in texto_busca)
+    else:
+        pertence_nucleo = any(r in texto_busca for r in RUAS_NUCLEO_PRACA_21) and "centro" in texto_busca and (numero_int is None or numero_int <= 1500)
+
     if pertence_nucleo:
         if is_terreno:
             f = 1.20 if transacao == "Locação" else 3.00
-            return f, f"Núcleo Praça 21 de Abril (Centro). Floc = {f:.2f}x para terrenos no centro."
+            return f, f"Núcleo Praça 21 de Abril (Centro - {dist_praca*1000:.0f}m da praça). Floc = {f:.2f}x para terrenos no centro."
         elif is_galpao:
             return 1.00, "Centro (Restrição de tráfego pesado/carga para galpões). Floc = 1.00x."
         elif is_sala:
@@ -149,26 +161,33 @@ def identificar_fator_corredor(item_feed: dict) -> tuple[float, str]:
             return 1.30, "Núcleo Praça 21 de Abril (Centro Nobre). Floc = 1.30x pela infraestrutura e vocação mista/comercial."
 
     # 2. RUAS CRUZANTES E ENTORNO IMEDIATO DA PRAÇA 21 DE ABRIL
-    pertence_cruzantes = any(r in texto_busca for r in RUAS_CRUZANTES_PRACA_21) or (dist_praca is not None and dist_praca <= 0.85 and "centro" in texto_busca)
+    # Exige proximidade física no anel secundário central (raio máximo <= 0.55 km da Praça 21).
+    # Imóveis além de 550m (ex: Fioravante Sicchieri 1570 a 850m/1.4km) ficam fora do polo comercial da praça.
+    if dist_praca is not None:
+        pertence_cruzantes = (dist_praca <= 0.55) and (any(r in texto_busca for r in RUAS_CRUZANTES_PRACA_21) or "centro" in texto_busca)
+    else:
+        pertence_cruzantes = any(r in texto_busca for r in RUAS_CRUZANTES_PRACA_21) and "centro" in texto_busca and (numero_int is None or numero_int <= 1000)
+
     if pertence_cruzantes:
+        dist_str = f" ({dist_praca*1000:.0f}m da praça)" if dist_praca is not None else ""
         if is_terreno:
             f = 1.10 if transacao == "Locação" else 2.20
-            return f, f"Ruas Cruzantes da Praça 21 de Abril (Centro). Floc = {f:.2f}x para terrenos na malha central."
+            return f, f"Ruas Cruzantes da Praça 21 de Abril{dist_str}. Floc = {f:.2f}x para terrenos na malha central."
         elif is_galpao:
             return 1.00, "Entorno Central (Galpão com restrição de carga). Floc = 1.00x."
         elif is_sala:
             if transacao == "Locação":
                 if vagas > 0:
-                    return 1.15, f"Ruas Cruzantes da Praça 21 ({vagas} vaga(s) privativas). Floc = 1.15x."
+                    return 1.15, f"Ruas Cruzantes da Praça 21{dist_str} ({vagas} vaga(s) privativas). Floc = 1.15x."
                 else:
-                    return 1.00, "Ruas Cruzantes da Praça 21 (Sem vaga privativa). Floc = 1.00x (estacionamento na rua)."
+                    return 1.00, f"Ruas Cruzantes da Praça 21{dist_str} (Sem vaga privativa). Floc = 1.00x (estacionamento na rua)."
             else:
-                return 1.80, "Ruas Cruzantes da Praça 21 (Venda). Floc = 1.80x."
+                return 1.80, f"Ruas Cruzantes da Praça 21{dist_str} (Venda). Floc = 1.80x."
         elif is_comercial:
             f = 1.15 if transacao == "Locação" else 1.90
-            return f, f"Ruas Cruzantes da Praça 21. Floc = {f:.2f}x para imóvel comercial no entorno central."
+            return f, f"Ruas Cruzantes da Praça 21{dist_str}. Floc = {f:.2f}x para imóvel comercial no entorno central."
         else:
-            return 1.15, "Ruas Cruzantes da Praça 21 de Abril (Centro). Floc = 1.15x para imóveis na malha central."
+            return 1.15, f"Ruas Cruzantes da Praça 21 de Abril{dist_str}. Floc = 1.15x para imóveis na malha central."
 
     # 3. OUTROS EIXOS ESPECÍFICOS FORA DO CENTRO
     if "antônio paschoal" in texto_busca or "antonio paschoal" in texto_busca:
@@ -271,15 +290,35 @@ def reavaliar_imovel_feed(item_feed: dict, fator_oferta: float = 0.90, fator_loc
             # Ponderação equilibrada: 40% portal ZAP + 60% estoque real comprovado Expandh
             mediana_m2_oferta = round((mediana_m2_oferta * 0.40) + (bench_m2 * 0.60), 2)
 
+    tipo_l = (item_feed.get("tipo") or "").lower()
+    is_terr = (item_feed.get("tipo_zap") == "LAND_LOT" or "terreno" in tipo_l or "lote" in tipo_l)
+
     # Identificação ou aplicação de Fator de Localização / Corredor Nobre (NBR 14653)
     fator_loc_auto, justificativa_loc = identificar_fator_corredor(item_feed)
     fator_loc = fator_localizacao if fator_localizacao is not None else fator_loc_auto
 
-    mediana_m2_ajustada = mediana_m2_oferta * fator_loc
-    valor_oferta_estimado = mediana_m2_ajustada * area
+    # Homogeneização de Área / Fator de Escala (NBR 14653-2)
+    # Evita avaliar glebas/áreas grandes com base em lotes padrão residenciais sem ajuste de escala
+    fator_escala = 1.0
+    justificativa_escala = ""
+    if is_terr and amostras:
+        areas_validas = [a["area"] for a in amostras if a.get("area", 0) > 0]
+        if areas_validas:
+            area_amostras_mediana = statistics.median(areas_validas)
+            razao_area = area / area_amostras_mediana
+            if razao_area > 1.4:
+                # Terreno significativamente maior que os lotes das amostras (gleba/área de expansão)
+                fator_escala = round((area_amostras_mediana / area) ** 0.25, 3)
+                fator_escala = max(fator_escala, 0.40)
+                justificativa_escala = f"Homogeneização de Escala NBR 14653: {fator_escala:.2f}x (área de {area:,.0f} m² vs lote padrão de {area_amostras_mediana:,.0f} m²)."
+            elif razao_area < 0.70:
+                # Terreno menor que o lote padrão
+                fator_escala = round((area_amostras_mediana / area) ** 0.20, 3)
+                fator_escala = min(fator_escala, 1.30)
+                justificativa_escala = f"Homogeneização de Escala NBR 14653: {fator_escala:.2f}x (lote compacto de {area:,.0f} m² vs padrão de {area_amostras_mediana:,.0f} m²)."
 
-    tipo_l = (item_feed.get("tipo") or "").lower()
-    is_terr = (item_feed.get("tipo_zap") == "LAND_LOT" or "terreno" in tipo_l or "lote" in tipo_l)
+    mediana_m2_ajustada = mediana_m2_oferta * fator_loc * fator_escala
+    valor_oferta_estimado = mediana_m2_ajustada * area
 
     # Fator de oferta para fechamento (terrenos e pontos comerciais nobres no centro têm pouca margem de barganha)
     if fator_loc > 1.0:
@@ -324,6 +363,9 @@ def reavaliar_imovel_feed(item_feed: dict, fator_oferta: float = 0.90, fator_loc
             status = "🟢 Preço Justo"
             acao_sugerida = f"Manter o valor de R$ {preco_anunciado:,.0f}. Ponto comercial nobre/central com alta liquidez e visibilidade."
 
+    if justificativa_escala:
+        diagnostico += f" {justificativa_escala}"
+
     return {
         "sucesso": True,
         "codigo": item_feed.get("id"),
@@ -341,7 +383,9 @@ def reavaliar_imovel_feed(item_feed: dict, fator_oferta: float = 0.90, fator_loc
         "mediana_m2_base": round(mediana_m2_oferta, 2),
         "fator_localizacao_aplicado": fator_loc,
         "justificativa_localizacao": justificativa_loc if fator_loc > 1.0 else "",
-        "fator_oferta_aplicado": fator_oferta,
+        "fator_escala_aplicado": fator_escala,
+        "justificativa_escala": justificativa_escala,
+        "fator_oferta_aplicado": fator_of,
         "desvio_pct": desvio_pct,
         "diferenca_rs": diferenca_rs,
         "status": status,

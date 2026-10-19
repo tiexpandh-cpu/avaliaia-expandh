@@ -151,6 +151,10 @@ def executar_auditoria_completa(progress_callback=None):
             "Diagnóstico": diagnostico,
             "Ação Comercial Recomendada": acao,
             "Foto": im.get("foto_capa", ""),
+            "Fator Localização": res.get("fator_localizacao_aplicado", 1.0) if res.get("sucesso") else 1.0,
+            "Justificativa Localização": res.get("justificativa_localizacao", "") if res.get("sucesso") else "",
+            "Fator Escala": res.get("fator_escala_aplicado", 1.0) if res.get("sucesso") else 1.0,
+            "Justificativa Escala": res.get("justificativa_escala", "") if res.get("sucesso") else "",
             "Data Auditoria": datetime.now().strftime("%d/%m/%Y"),
         }
         resultados.append(item_resultado)
