@@ -120,17 +120,31 @@ def identificar_fator_corredor(item_feed: dict) -> tuple[float, str]:
         dist_praca = portais.distancia_km(LAT_PRACA_21_ABRIL, LON_PRACA_21_ABRIL, lat, lon)
 
     is_comercial = (tipo_zap in ["BUSINESS", "OFFICE", "COMMERCIAL"] or "comercial" in tipo or "salão" in tipo or "ponto" in tipo or "prédio" in tipo or "loja" in tipo)
+    is_sala = ("sala" in tipo or tipo_zap == "OFFICE")
     is_terreno = (tipo_zap == "LAND_LOT" or "terreno" in tipo or "lote" in tipo)
+    is_galpao = ("galpão" in tipo or tipo_zap == "SHED")
+    vagas = int(item_feed.get("vagas") or 0)
 
     # 1. NÚCLEO DA PRAÇA 21 DE ABRIL (Barão do Rio Branco, Washington Luís, Aprígio de Araújo, Sebastião Sampaio, Cel. Francisco Schmidt, Expedicionário Lellis)
     pertence_nucleo = any(r in texto_busca for r in RUAS_NUCLEO_PRACA_21) or (dist_praca is not None and dist_praca <= 0.45 and "centro" in texto_busca)
     if pertence_nucleo:
         if is_terreno:
-            f = 1.25 if transacao == "Locação" else 3.00
+            f = 1.20 if transacao == "Locação" else 3.00
             return f, f"Núcleo Praça 21 de Abril (Centro). Floc = {f:.2f}x para terrenos no centro."
+        elif is_galpao:
+            return 1.00, "Centro (Restrição de tráfego pesado/carga para galpões). Floc = 1.00x."
+        elif is_sala:
+            # Calibração comercial: salas no centro sem vaga sofrem com gargalo de estacionamento
+            if transacao == "Locação":
+                if vagas > 0:
+                    return 1.20, f"Núcleo Praça 21 de Abril ({vagas} vaga(s) privativas). Floc = 1.20x."
+                else:
+                    return 1.05, "Núcleo Praça 21 de Abril (Sem vaga privativa). Floc = 1.05x (gargalo de estacionamento no centro neutraliza o prêmio)."
+            else:
+                return 2.20, "Núcleo Praça 21 de Abril (Centro Nobre - Venda). Floc = 2.20x."
         elif is_comercial:
-            f = 2.20 if transacao == "Locação" else 2.50
-            return f, f"Núcleo Praça 21 de Abril (Comercial Nobre). Floc = {f:.2f}x para ponto comercial nobre de alto fluxo."
+            f = 1.30 if transacao == "Locação" else 2.50
+            return f, f"Núcleo Praça 21 de Abril (Comércio de Rua/Varejo). Floc = {f:.2f}x pelo fluxo de pedestres na calçada."
         else:
             return 1.30, "Núcleo Praça 21 de Abril (Centro Nobre). Floc = 1.30x pela infraestrutura e vocação mista/comercial."
 
@@ -138,11 +152,21 @@ def identificar_fator_corredor(item_feed: dict) -> tuple[float, str]:
     pertence_cruzantes = any(r in texto_busca for r in RUAS_CRUZANTES_PRACA_21) or (dist_praca is not None and dist_praca <= 0.85 and "centro" in texto_busca)
     if pertence_cruzantes:
         if is_terreno:
-            f = 1.15 if transacao == "Locação" else 2.20
+            f = 1.10 if transacao == "Locação" else 2.20
             return f, f"Ruas Cruzantes da Praça 21 de Abril (Centro). Floc = {f:.2f}x para terrenos na malha central."
+        elif is_galpao:
+            return 1.00, "Entorno Central (Galpão com restrição de carga). Floc = 1.00x."
+        elif is_sala:
+            if transacao == "Locação":
+                if vagas > 0:
+                    return 1.15, f"Ruas Cruzantes da Praça 21 ({vagas} vaga(s) privativas). Floc = 1.15x."
+                else:
+                    return 1.00, "Ruas Cruzantes da Praça 21 (Sem vaga privativa). Floc = 1.00x (estacionamento na rua)."
+            else:
+                return 1.80, "Ruas Cruzantes da Praça 21 (Venda). Floc = 1.80x."
         elif is_comercial:
-            f = 1.65 if transacao == "Locação" else 1.90
-            return f, f"Ruas Cruzantes da Praça 21 de Abril. Floc = {f:.2f}x para imóvel comercial no entorno central."
+            f = 1.15 if transacao == "Locação" else 1.90
+            return f, f"Ruas Cruzantes da Praça 21. Floc = {f:.2f}x para imóvel comercial no entorno central."
         else:
             return 1.15, "Ruas Cruzantes da Praça 21 de Abril (Centro). Floc = 1.15x para imóveis na malha central."
 
@@ -224,6 +248,28 @@ def reavaliar_imovel_feed(item_feed: dict, fator_oferta: float = 0.90, fator_loc
     # 3. Cálculo estatístico
     precos_m2 = [a["preco"] / a["area"] for a in amostras]
     mediana_m2_oferta = statistics.median(precos_m2)
+
+    # BENCHMARK EMPÍRICO DA CARTEIRA EXPANDH (Produtos Reais Ativos):
+    # Para locação comercial, ancoramos nas medianas comprovadas do estoque Expandh
+    # evitando distorções de amostras infladas ou com falta de estacionamento
+    tipo_base = item_feed.get("tipo", "")
+    tipo_l = tipo_base.lower()
+    is_terr = (item_feed.get("tipo_zap") == "LAND_LOT" or "terreno" in tipo_l or "lote" in tipo_l)
+    is_com = (item_feed.get("tipo_zap") in ["BUSINESS", "OFFICE", "COMMERCIAL"] or any(k in tipo_l for k in ["comercial", "sala", "salão", "prédio", "galpão"]))
+
+    if negocio == "RENTAL" and (is_com or is_terr):
+        regiao = "Centro" if "centro" in (item_feed.get("bairro") or "").lower() else "Bairros"
+        benchmark_carteira = {
+            "Sala Comercial": {"Centro": 38.20, "Bairros": 26.20},
+            "Ponto Comercial / Salão": {"Centro": 22.00, "Bairros": 22.00},
+            "Prédio Comercial": {"Centro": 28.00, "Bairros": 22.00},
+            "Galpão Industrial": {"Centro": 18.00, "Bairros": 20.00},
+            "Terreno Comercial": {"Centro": 4.50, "Bairros": 5.50},
+        }
+        bench_m2 = benchmark_carteira.get(tipo_base, {}).get(regiao)
+        if bench_m2:
+            # Ponderação equilibrada: 40% portal ZAP + 60% estoque real comprovado Expandh
+            mediana_m2_oferta = round((mediana_m2_oferta * 0.40) + (bench_m2 * 0.60), 2)
 
     # Identificação ou aplicação de Fator de Localização / Corredor Nobre (NBR 14653)
     fator_loc_auto, justificativa_loc = identificar_fator_corredor(item_feed)
