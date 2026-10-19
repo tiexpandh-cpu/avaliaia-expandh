@@ -317,15 +317,18 @@ with tab_nova:
 
                 # Salvar arquivos
                 pasta_saida = Path("laudos")
+                pasta_saida = Path("laudos")
                 pasta_saida.mkdir(exist_ok=True)
                 carimbo = datetime.now().strftime("%Y%m%d_%H%M%S")
                 caminho_laudo_md = pasta_saida / f"laudo_{carimbo}.md"
-                caminho_laudo_pdf = pasta_saida / f"laudo_{carimbo}.pdf"
+                caminho_laudo_com = pasta_saida / f"laudo_comercial_{carimbo}.pdf"
+                caminho_laudo_per = pasta_saida / f"laudo_pericial_{carimbo}.pdf"
                 caminho_dados_json = pasta_saida / f"dados_{carimbo}.json"
 
                 caminho_laudo_md.write_text(laudo_md, encoding="utf-8")
                 caminho_dados_json.write_text(json.dumps(dados, ensure_ascii=False, indent=2), encoding="utf-8")
-                gerar_pdf.criar_laudo_pdf(dados, caminho_laudo_pdf)
+                gerar_pdf.criar_laudo_pdf(dados, caminho_laudo_com, tipo_laudo="comercial")
+                gerar_pdf.criar_laudo_pdf(dados, caminho_laudo_per, tipo_laudo="completo")
 
                 progresso.progress(100, text="✅ Avaliação concluída com sucesso!")
                 st.toast("Laudo gerado com sucesso!", icon="🎉")
@@ -351,28 +354,38 @@ with tab_nova:
                     st.metric("Cap Rate (Rentabilidade)", f"{cap:.2f}% a.a.")
 
                 # Botões de Download em Destaque
-                st.markdown("### 📥 Documentos Gerados")
+                st.markdown("### 📥 Documentos Oficiais Expandh")
                 col_btn1, col_btn2, col_btn3 = st.columns(3)
                 with col_btn1:
-                    with open(caminho_laudo_pdf, "rb") as f_pdf:
+                    with open(caminho_laudo_com, "rb") as f_com:
                         st.download_button(
-                            label="📑 Baixar Laudo Oficial em PDF",
-                            data=f_pdf,
-                            file_name=f"Laudo_Avaliacao_{imovel.get('cidade')}_{carimbo}.pdf",
+                            label="📄 Baixar Laudo Comercial (1 Pág)",
+                            data=f_com,
+                            file_name=f"Laudo_Comercial_Expandh_{imovel.get('cidade')}_{carimbo}.pdf",
                             mime="application/pdf",
                             type="primary",
                             use_container_width=True,
+                            help="Documento visual de 1 página com logo Expandh e QR Code, perfeito para WhatsApp e proprietários."
                         )
                 with col_btn2:
-                    with open(caminho_laudo_md, "rb") as f_md:
+                    with open(caminho_laudo_per, "rb") as f_per:
                         st.download_button(
-                            label="📄 Baixar Texto em Markdown (.md)",
-                            data=f_md,
-                            file_name=f"Laudo_{carimbo}.md",
-                            mime="text/markdown",
+                            label="📑 Baixar Laudo Pericial NBR 14653",
+                            data=f_per,
+                            file_name=f"Laudo_Pericial_Expandh_{imovel.get('cidade')}_{carimbo}.pdf",
+                            mime="application/pdf",
                             use_container_width=True,
+                            help="Laudo técnico completo de 3-4 páginas com fundamentação ABNT e comparáveis ZAP."
                         )
                 with col_btn3:
+                    with open(caminho_dados_json, "rb") as f_json:
+                        st.download_button(
+                            label="📊 Baixar Dados Brutos (.json)",
+                            data=f_json,
+                            file_name=f"Dados_{carimbo}.json",
+                            mime="application/json",
+                            use_container_width=True,
+                        )
                     with open(caminho_dados_json, "rb") as f_json:
                         st.download_button(
                             label="📊 Baixar Dados Brutos (.json)",
@@ -899,31 +912,70 @@ def render_painel_operacao(imoveis_lista: list, operacao: str, api_key_val: str 
 
                     st.markdown("---")
 
-                    # Laudo PDF
-                    if st.button("📄 Gerar Laudo PDF Deste Imóvel", key=f"btn_pdf_{key_suf}"):
-                        with st.spinner("Compilando Laudo PDF NBR 14653..."):
-                            pasta_s = Path("laudos")
-                            pasta_s.mkdir(exist_ok=True)
-                            carimbo_f = datetime.now().strftime("%Y%m%d_%H%M%S")
-                            caminho_pdf_f = pasta_s / f"laudo_{key_suf}_{imovel_sel['id']}_{carimbo_f}.pdf"
+                    # Emissão de Laudos PDF com Identidade Oficial Expandh
+                    st.markdown("#### 📑 Emissão de Laudos em PDF (Identidade Oficial Expandh)")
+                    st.caption("Laudos personalizados com logotipo oficial da Expandh Imobiliária, dados de contato e QR Code de validação.")
 
-                            imp = reavaliacao_carteira.converter_item_feed_para_imovel(imovel_sel)
-                            merp = pipeline.etapa2_market_intelligence(imp)
-                            venp = pipeline.etapa3_sales_valuation(imp, merp)
-                            locp = pipeline.etapa4_rental_valuation(imp, merp, venp)
-                            dp = {"imovel": imp, "mercado": merp, "venda": venp, "locacao": locp}
+                    col_pdf1, col_pdf2 = st.columns(2)
+                    with col_pdf1:
+                        if st.button("📄 Gerar Laudo Comercial (1 Pág)", key=f"btn_pdf_com_{imovel_sel['id']}_{key_suf}", use_container_width=True):
+                            with st.spinner("Gerando Laudo Comercial Expandh..."):
+                                pasta_s = Path("laudos")
+                                pasta_s.mkdir(exist_ok=True)
+                                carimbo_f = datetime.now().strftime("%Y%m%d_%H%M%S")
+                                caminho_pdf_com = pasta_s / f"laudo_comercial_{key_suf}_{imovel_sel['id']}_{carimbo_f}.pdf"
 
-                            gerar_pdf.criar_laudo_pdf(dp, caminho_pdf_f)
+                                imp = reavaliacao_carteira.converter_item_feed_para_imovel(imovel_sel)
+                                merp = pipeline.etapa2_market_intelligence(imp)
+                                venp = pipeline.etapa3_sales_valuation(imp, merp)
+                                locp = pipeline.etapa4_rental_valuation(imp, merp, venp)
+                                dp = {"imovel": imp, "mercado": merp, "venda": venp, "locacao": locp}
 
-                            with open(caminho_pdf_f, "rb") as fp:
+                                gerar_pdf.criar_laudo_pdf(dp, caminho_pdf_com, tipo_laudo="comercial")
+                                st.session_state[f"pdf_com_{imovel_sel['id']}"] = str(caminho_pdf_com)
+
+                        pdf_com_path = st.session_state.get(f"pdf_com_{imovel_sel['id']}")
+                        if pdf_com_path and Path(pdf_com_path).exists():
+                            with open(pdf_com_path, "rb") as fp_c:
                                 st.download_button(
-                                    label=f"📥 Baixar Laudo de {operacao} (PDF)",
-                                    data=fp,
-                                    file_name=caminho_pdf_f.name,
+                                    label="📥 Baixar Laudo Comercial (1 Pág)",
+                                    data=fp_c,
+                                    file_name=Path(pdf_com_path).name,
                                     mime="application/pdf",
                                     type="primary",
-                                    key=f"dl_pdf_btn_{key_suf}",
+                                    key=f"dl_pdf_com_{imovel_sel['id']}_{key_suf}",
                                     use_container_width=True,
+                                    help="Relatório executivo conciso com logo Expandh e QR Code, ideal para WhatsApp e proprietários."
+                                )
+
+                    with col_pdf2:
+                        if st.button("📑 Gerar Laudo Pericial NBR 14653", key=f"btn_pdf_per_{imovel_sel['id']}_{key_suf}", use_container_width=True):
+                            with st.spinner("Compilando Laudo Pericial NBR 14653..."):
+                                pasta_s = Path("laudos")
+                                pasta_s.mkdir(exist_ok=True)
+                                carimbo_f = datetime.now().strftime("%Y%m%d_%H%M%S")
+                                caminho_pdf_per = pasta_s / f"laudo_pericial_{key_suf}_{imovel_sel['id']}_{carimbo_f}.pdf"
+
+                                imp = reavaliacao_carteira.converter_item_feed_para_imovel(imovel_sel)
+                                merp = pipeline.etapa2_market_intelligence(imp)
+                                venp = pipeline.etapa3_sales_valuation(imp, merp)
+                                locp = pipeline.etapa4_rental_valuation(imp, merp, venp)
+                                dp = {"imovel": imp, "mercado": merp, "venda": venp, "locacao": locp}
+
+                                gerar_pdf.criar_laudo_pdf(dp, caminho_pdf_per, tipo_laudo="completo")
+                                st.session_state[f"pdf_per_{imovel_sel['id']}"] = str(caminho_pdf_per)
+
+                        pdf_per_path = st.session_state.get(f"pdf_per_{imovel_sel['id']}")
+                        if pdf_per_path and Path(pdf_per_path).exists():
+                            with open(pdf_per_path, "rb") as fp_p:
+                                st.download_button(
+                                    label="📥 Baixar Laudo Pericial Completo",
+                                    data=fp_p,
+                                    file_name=Path(pdf_per_path).name,
+                                    mime="application/pdf",
+                                    key=f"dl_pdf_per_{imovel_sel['id']}_{key_suf}",
+                                    use_container_width=True,
+                                    help="Documento técnico completo com fundamentação ABNT, regressão estatística e comparáveis."
                                 )
 
 
