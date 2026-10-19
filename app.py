@@ -22,10 +22,12 @@ import pipeline
 import reavaliacao_carteira
 import argumentario
 import mapa_carteira
+import resumo_matinal
 import importlib
 importlib.reload(reavaliacao_carteira)
 importlib.reload(argumentario)
 importlib.reload(mapa_carteira)
+importlib.reload(resumo_matinal)
 import tools
 from llm import ClienteLLM
 
@@ -259,13 +261,19 @@ with st.sidebar:
 st.markdown('<div class="main-header">Sistema de Avaliação Imobiliária Inteligente</div>', unsafe_allow_html=True)
 st.markdown('<div class="sub-header">Extração automática de matrículas com Visão Computacional, amostragem em tempo real e laudo pericial NBR 14653</div>', unsafe_allow_html=True)
 
-tab_nova, tab_vendas, tab_locacao, tab_mapa, tab_historico = st.tabs([
-    "📄 Avaliação via Matrícula",
+tab_briefing, tab_vendas, tab_locacao, tab_mapa, tab_nova, tab_historico = st.tabs([
+    "☀️ Briefing Matinal & Oportunidades",
     f"🏷️ Carteira de VENDAS ({len(imoveis_venda)} imóveis)",
     f"🔑 Carteira de LOCAÇÃO ({len(imoveis_locacao)} imóveis)",
     f"🗺️ Mapa da Carteira ({len(imoveis_lista)} imóveis)",
+    "📄 Avaliação via Matrícula",
     "📂 Histórico de Laudos Gerados",
 ])
+
+
+# ==================== ABA 0: BRIEFING MATINAL & OPORTUNIDADES ====================
+with tab_briefing:
+    resumo_matinal.render_painel_briefing()
 
 
 # ==================== ABA 1: NOVA AVALIAÇÃO ====================

@@ -1,0 +1,47 @@
+name: Resumo Matinal Diário Expandh
+
+on:
+  schedule:
+    # 08:30 no horário de Brasília (UTC-3) corresponde a 11:30 UTC
+    - cron: '30 11 * * *'
+  workflow_dispatch: # Permite disparar manualmente pelo painel do GitHub
+
+jobs:
+  executar-resumo-matinal:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Clonar Repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Instalar Dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Executar Sincronização e Resumo Matinal
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        run: |
+          python resumo_matinal.py --salvar
+
+      - name: Publicar Atualizações no Repositório
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "Expandh IA Bot"
+          git add historico_briefings/
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "chore: sincronizacao automatica e resumo matinal [skip ci]"
+            git push
+          else
+            echo "Nenhuma alteração na carteira para comitar."
+          fi
