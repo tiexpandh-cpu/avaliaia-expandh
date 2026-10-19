@@ -104,7 +104,7 @@ class NumberedCanvas(canvas.Canvas):
         self.setLineWidth(0.5)
         self.line(1.5 * cm, 1.8 * cm, 19.5 * cm, 1.8 * cm)
 
-        self.drawString(1.5 * cm, 1.3 * cm, "Expandh Imobiliária • Sertãozinho/SP • Tel: (16) 2105-3333 • CRECI 034821-J")
+        self.drawString(1.5 * cm, 1.3 * cm, "Expandh Imobiliária • Sertãozinho/SP • Tel: (16) 2105-3333 • CRECI SP J - 11597")
         texto_pagina = f"Página {self._pageNumber} de {page_count}"
         self.drawRightString(19.5 * cm, 1.3 * cm, texto_pagina)
         self.restoreState()
@@ -115,24 +115,26 @@ def _obter_bloco_cabecalho_expandh(styles, titulo_doc: str, subtitulo_doc: str):
     qr_draw = _criar_qr_drawing("https://api.whatsapp.com/send?phone=551621053333&text=Ola%20Expandh", 42)
 
     if CAMINHO_LOGO.exists():
-        logo_el = Image(str(CAMINHO_LOGO), width=4.8 * cm, height=1.28 * cm)
+        # Proporção natural da logo oficial Expandh recortada (558x404 -> ~1.38:1)
+        logo_el = Image(str(CAMINHO_LOGO), width=2.6 * cm, height=1.88 * cm)
     else:
         logo_el = Paragraph("<b>EXPANDH</b><br/><font color='#D97706'>IMOBILIÁRIA</font>", styles["DocTitle"])
 
     info_expandh = (
         f"<b>{titulo_doc}</b><br/>"
         f"<font color='#64748B'>{subtitulo_doc}</font><br/>"
-        f"<font color='#1E3A8A' size='7'><b>Expandh Imobiliária • CRECI 034821-J • Sertãozinho/SP</b></font>"
+        f"<font color='#1E3A8A' size='7'><b>Expandh Imobiliária • CRECI SP J - 11597 • Sertãozinho/SP</b></font>"
     )
 
     t_header = Table(
         [
             [logo_el, Paragraph(info_expandh, styles["DocSubtitle"]), qr_draw]
         ],
-        colWidths=[5.2 * cm, 10.8 * cm, 2.0 * cm],
+        colWidths=[3.2 * cm, 12.8 * cm, 2.0 * cm],
     )
     t_header.setStyle(TableStyle([
         ("VALIGN", (0, 0), (-1, -1), "MIDDLE"),
+        ("ALIGN", (0, 0), (0, 0), "LEFT"),
         ("ALIGN", (2, 0), (2, 0), "RIGHT"),
         ("TOPPADDING", (0, 0), (-1, -1), 0),
         ("BOTTOMPADDING", (0, 0), (-1, -1), 4),
@@ -674,7 +676,7 @@ def criar_laudo_completo_pdf(dados: dict, caminho_pdf: Path) -> Path:
     assinatura_data = [
         [
             Paragraph("____________________________________________________<br/><b>EXPANDH IMOBILIÁRIA</b><br/>Departamento de Engenharia e Avaliações", ParagraphStyle("Ass1", parent=styles["BodyCustom"], alignment=1)),
-            Paragraph(f"<b>Responsabilidade Técnica:</b> CRECI 034821-J<br/><b>Data Base:</b> {datetime.now().strftime('%d/%m/%Y')}<br/><b>Status:</b> Laudo Auditado NBR 14653", ParagraphStyle("Ass2", parent=styles["BodyCustom"], alignment=0)),
+            Paragraph(f"<b>Responsabilidade Técnica:</b> CRECI SP J - 11597<br/><b>Data Base:</b> {datetime.now().strftime('%d/%m/%Y')}<br/><b>Status:</b> Laudo Auditado NBR 14653", ParagraphStyle("Ass2", parent=styles["BodyCustom"], alignment=0)),
         ]
     ]
     t_ass = Table(assinatura_data, colWidths=[9.0 * cm, 9.0 * cm])

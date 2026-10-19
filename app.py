@@ -100,10 +100,18 @@ def check_password() -> bool:
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
         st.markdown("<br><br>", unsafe_allow_html=True)
-        st.markdown("""
+        logo_base64 = ""
+        caminho_logo = Path("assets/logo_expandh.png")
+        if caminho_logo.exists():
+            import base64
+            with open(caminho_logo, "rb") as f:
+                logo_base64 = base64.b64encode(f.read()).decode("utf-8")
+        img_tag = f'<img src="data:image/png;base64,{logo_base64}" width="140" style="margin-bottom: 8px;" />' if logo_base64 else '<img src="https://img.icons8.com/fluency/96/real-estate.png" width="72" style="margin-bottom: 8px;" />'
+
+        st.markdown(f"""
         <div style="background: #ffffff; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); text-align: center;">
-            <img src="https://img.icons8.com/fluency/96/real-estate.png" width="72" style="margin-bottom: 8px;" />
-            <h2 style="color: #1E3A8A; margin-bottom: 4px;">Expandh Imobiliária</h2>
+            {img_tag}
+            <h2 style="color: #1E3A8A; margin-bottom: 4px; margin-top: 4px;">Expandh Imobiliária</h2>
             <p style="color: #64748B; font-size: 0.95rem; margin-bottom: 12px;">Portal de Inteligência & Avaliação de Carteira • NBR 14653</p>
             <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 10px; margin-bottom: 15px;">
                 <span style="color: #1E40AF; font-size: 0.85rem; font-weight: 500;">🔒 Área Restrita para a Equipe de Corretores e Diretoria</span>
@@ -163,7 +171,10 @@ if data_pub_raw:
 
 # ==================== BARRA LATERAL (CONFIGURAÇÕES) ====================
 with st.sidebar:
-    st.image("https://img.icons8.com/fluency/96/real-estate.png", width=64)
+    if Path("assets/logo_expandh.png").exists():
+        st.image("assets/logo_expandh.png", width=160)
+    else:
+        st.image("https://img.icons8.com/fluency/96/real-estate.png", width=64)
     st.title("AvaliaIA Pro")
     st.caption("Engenharia de Avaliações com IA • NBR 14653")
     
