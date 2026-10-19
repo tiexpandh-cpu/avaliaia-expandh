@@ -20,8 +20,12 @@ import feed_parser
 import gerar_pdf
 import pipeline
 import reavaliacao_carteira
+import argumentario
+import mapa_carteira
 import importlib
 importlib.reload(reavaliacao_carteira)
+importlib.reload(argumentario)
+importlib.reload(mapa_carteira)
 import tools
 from llm import ClienteLLM
 
@@ -244,10 +248,11 @@ with st.sidebar:
 st.markdown('<div class="main-header">Sistema de Avaliação Imobiliária Inteligente</div>', unsafe_allow_html=True)
 st.markdown('<div class="sub-header">Extração automática de matrículas com Visão Computacional, amostragem em tempo real e laudo pericial NBR 14653</div>', unsafe_allow_html=True)
 
-tab_nova, tab_vendas, tab_locacao, tab_historico = st.tabs([
+tab_nova, tab_vendas, tab_locacao, tab_mapa, tab_historico = st.tabs([
     "📄 Avaliação via Matrícula",
     f"🏷️ Carteira de VENDAS ({len(imoveis_venda)} imóveis)",
     f"🔑 Carteira de LOCAÇÃO ({len(imoveis_locacao)} imóveis)",
+    f"🗺️ Mapa da Carteira ({len(imoveis_lista)} imóveis)",
     "📂 Histórico de Laudos Gerados",
 ])
 
@@ -833,16 +838,66 @@ def render_painel_operacao(imoveis_lista: list, operacao: str, api_key_val: str 
                             },
                         )
 
-                    # Roteiro WhatsApp
-                    st.markdown("#### 💬 Roteiro de Negociação para o Proprietário")
-                    llm_c = None
-                    if api_key_val:
-                        try:
-                            llm_c = ClienteLLM()
-                        except Exception:
-                            pass
-                    roteiro_msg = reavaliacao_carteira.gerar_argumentario_proprietario(res_aud, llm=llm_c)
-                    st.text_area("Mensagem Pronta para WhatsApp:", value=roteiro_msg, height=140, key=f"txt_rot_{key_suf}")
+                    # Roteiro WhatsApp (IA & NBR 14653)
+                    st.markdown("#### 💬 Gerador de Argumentário de WhatsApp (IA)")
+                    st.caption("Cria mensagem persuasiva pronta para envio direto pelo WhatsApp com dados técnicos da NBR 14653.")
+
+                    col_wa_o, col_wa_c, col_wa_k = st.columns([1.5, 1.2, 1.3])
+                    with col_wa_o:
+                        tipo_wa_ind = st.selectbox(
+                            "Objetivo da Mensagem:",
+                            options=[
+                                ("proprietario", "🎯 Reprecificação com Proprietário"),
+                                ("comprador", "🤝 Apresentação para Comprador/Inquilino"),
+                            ],
+                            format_func=lambda x: x[1],
+                            key=f"wa_obj_{imovel_sel['id']}_{key_suf}",
+                        )[0]
+                    with col_wa_c:
+                        cli_wa_ind = st.text_input("Nome do Cliente:", value="Dr. / Sr.", key=f"wa_cli_{imovel_sel['id']}_{key_suf}")
+                    with col_wa_k:
+                        cor_wa_ind = st.text_input("Nome do Consultor:", value="Consultor Expandh", key=f"wa_cor_{imovel_sel['id']}_{key_suf}")
+
+                    col_wa_f, col_wa_btn = st.columns([1.5, 2.5])
+                    with col_wa_f:
+                        fone_wa_ind = st.text_input("WhatsApp com DDD (opcional):", placeholder="16999998888", key=f"wa_tel_{imovel_sel['id']}_{key_suf}")
+                    with col_wa_btn:
+                        st.write("")
+                        st.write("")
+                        btn_gerar_ind = st.button("⚡ Gerar Mensagem com IA", key=f"btn_wa_ind_{imovel_sel['id']}_{key_suf}", type="secondary", use_container_width=True)
+
+                    cache_key_ind = f"msg_wa_cache_{imovel_sel['id']}_{tipo_wa_ind}"
+                    if btn_gerar_ind or cache_key_ind not in st.session_state:
+                        dados_para_wa_ind = {
+                            "Código": imovel_sel["id"],
+                            "Tipo": imovel_sel.get("tipo", "Imóvel"),
+                            "Bairro": imovel_sel.get("bairro", "-"),
+                            "Cidade": imovel_sel.get("cidade", "Sertãozinho"),
+                            "Endereço": imovel_sel.get("endereco_rua", "-"),
+                            "Preço Anunciado (R$)": res_aud["preco_anunciado"],
+                            "Valor Mercado Estimado (R$)": res_aud["valor_mercado_estimado"],
+                            "Desvio (%)": f"{res_aud['desvio_percentual']:+.1f}%",
+                            "Status": res_aud["status"],
+                            "Amostras Usadas": res_aud["n_amostras"],
+                        }
+                        st.session_state[cache_key_ind] = argumentario.gerar_argumentario_whatsapp(
+                            dados_para_wa_ind,
+                            tipo_publico=tipo_wa_ind,
+                            nome_cliente=cli_wa_ind,
+                            nome_corretor=cor_wa_ind,
+                        )
+
+                    msg_texto_ind = st.text_area(
+                        "Mensagem Pronta para WhatsApp:",
+                        value=st.session_state.get(cache_key_ind, ""),
+                        height=160,
+                        key=f"txt_rot_{imovel_sel['id']}_{key_suf}",
+                    )
+
+                    link_wa_ind = argumentario.criar_link_direto_whatsapp(msg_texto_ind, fone_wa_ind)
+                    st.link_button("📲 Abrir no WhatsApp Web / Celular", link_wa_ind, type="primary")
+
+                    st.markdown("---")
 
                     # Laudo PDF
                     if st.button("📄 Gerar Laudo PDF Deste Imóvel", key=f"btn_pdf_{key_suf}"):
@@ -886,7 +941,12 @@ with tab_locacao:
     render_painel_operacao(imoveis_lista, "Locação", api_key)
 
 
-# ==================== ABA 3: HISTÓRICO DE LAUDOS ====================
+# ==================== ABA 4: MAPA GEOGRÁFICO DA CARTEIRA ====================
+with tab_mapa:
+    mapa_carteira.render_painel_mapa(imoveis_lista, obter_dados_auditoria_atualizados())
+
+
+# ==================== ABA 5: HISTÓRICO DE LAUDOS ====================
 with tab_historico:
     st.subheader("Laudos Gerados Anteriormente")
     arquivos_laudos = sorted(glob.glob("laudos/*.pdf"), reverse=True)
