@@ -129,6 +129,34 @@ if not check_password():
     st.stop()
 
 
+# ==================== CARREGAMENTO CENTRAL DO FEED XML ====================
+@st.cache_data(ttl=600, show_spinner=False)
+def _obter_dados_feed(url: str):
+    return feed_parser.carregar_feed_xml(url)
+
+try:
+    dados_feed = _obter_dados_feed(feed_parser.URL_FEED_PADRAO)
+    imoveis_lista = dados_feed.get("imoveis", [])
+    cabecalho = dados_feed.get("cabecalho", {})
+except Exception as e:
+    st.error(f"Erro ao carregar o feed XML: {e}")
+    imoveis_lista = []
+    cabecalho = {}
+
+imoveis_venda = [x for x in imoveis_lista if x.get("transacao") == "Venda"]
+imoveis_locacao = [x for x in imoveis_lista if x.get("transacao") == "Locação"]
+
+# Informações de publicação do Kurole
+data_pub_raw = cabecalho.get("data_publicacao", "")
+data_pub_formatada = "Desconhecida"
+if data_pub_raw:
+    try:
+        dt = datetime.fromisoformat(data_pub_raw)
+        data_pub_formatada = dt.strftime("%d/%m/%Y às %H:%M")
+    except Exception:
+        data_pub_formatada = data_pub_raw
+
+
 # ==================== BARRA LATERAL (CONFIGURAÇÕES) ====================
 with st.sidebar:
     st.image("https://img.icons8.com/fluency/96/real-estate.png", width=64)
@@ -144,6 +172,17 @@ with st.sidebar:
             st.session_state["authenticated"] = False
             st.rerun()
             
+    st.markdown("---")
+    
+    # Status e Sincronização do Feed Kurole
+    st.subheader("📡 Sincronização Kurole (KSI)")
+    st.markdown(f"**Carga no XML:** `{data_pub_formatada}`")
+    st.caption(f"**Total Ativo no Feed:** {len(imoveis_lista)} imóveis ({len(imoveis_venda)} Venda | {len(imoveis_locacao)} Locação)")
+    
+    if st.button("🔄 Sincronizar Feed XML Agora", use_container_width=True, help="Recarrega o arquivo XML mais recente publicado no servidor Kurole"):
+        st.cache_data.clear()
+        st.rerun()
+
     st.markdown("---")
 
     st.subheader("⚙️ Configurações da Avaliação")
@@ -198,14 +237,17 @@ with st.sidebar:
     st.caption("Versão 2.0 • Coleta ao vivo ZAP Imóveis")
 
 
+
+
+
 # ==================== CABEÇALHO PRINCIPAL ====================
 st.markdown('<div class="main-header">Sistema de Avaliação Imobiliária Inteligente</div>', unsafe_allow_html=True)
 st.markdown('<div class="sub-header">Extração automática de matrículas com Visão Computacional, amostragem em tempo real e laudo pericial NBR 14653</div>', unsafe_allow_html=True)
 
 tab_nova, tab_vendas, tab_locacao, tab_historico = st.tabs([
     "📄 Avaliação via Matrícula",
-    "🏷️ Carteira de VENDAS (151 imóveis)",
-    "🔑 Carteira de LOCAÇÃO (92 imóveis)",
+    f"🏷️ Carteira de VENDAS ({len(imoveis_venda)} imóveis)",
+    f"🔑 Carteira de LOCAÇÃO ({len(imoveis_locacao)} imóveis)",
     "📂 Histórico de Laudos Gerados",
 ])
 
@@ -379,21 +421,7 @@ with tab_nova:
                 st.error(f"Erro durante o processamento: {e}")
 
 
-# ==================== CARREGAMENTO CENTRAL DO FEED E AUDITORIA ====================
-@st.cache_data(ttl=1800, show_spinner=False)
-def _obter_dados_feed(url: str):
-    return feed_parser.carregar_feed_xml(url)
-
-try:
-    dados_feed = _obter_dados_feed(feed_parser.URL_FEED_PADRAO)
-    imoveis_lista = dados_feed.get("imoveis", [])
-    cabecalho = dados_feed.get("cabecalho", {})
-except Exception as e:
-    st.error(f"Erro ao carregar o feed XML: {e}")
-    imoveis_lista = []
-    cabecalho = {}
-
-# Carrega a auditoria consolidada do cache em disco de forma dinâmica
+# ==================== CARREGAMENTO DA AUDITORIA CONSOLIDADA ====================
 PASTA_PROJETO = Path(__file__).resolve().parent
 CAMINHO_CACHE_AUDITORIA = PASTA_PROJETO / "dados_auditoria_completa.json"
 
@@ -476,11 +504,50 @@ def render_painel_operacao(imoveis_lista: list, operacao: str, api_key_val: str 
     dados_aud = obter_dados_auditoria_atualizados()
     secao_aud = dados_aud.get(key_suf, {}) or dados_aud.get(key_suf.rstrip("s"), {})
     stats = secao_aud.get("estatisticas", {})
-    auditados_op = secao_aud.get("imoveis", [])
+    auditados_op_raw = secao_aud.get("imoveis", [])
 
     # Fallback se a estrutura não tiver o nó específico
-    if not auditados_op and imoveis_op:
-        auditados_op = [r for r in dados_aud.get("imoveis", []) if r.get("Transação") == operacao]
+    if not auditados_op_raw and imoveis_op:
+        auditados_op_raw = [r for r in dados_aud.get("imoveis", []) if r.get("Transação") == operacao]
+
+    # Sincronização dinâmica com os imóveis ativos do Feed XML:
+    auditados_map = {str(r.get("Código")): r for r in auditados_op_raw if r.get("Código")}
+    auditados_op = []
+    
+    for im in imoveis_op:
+        im_id = str(im.get("id"))
+        if im_id in auditados_map:
+            auditados_op.append(auditados_map[im_id])
+        else:
+            # Imóvel novo do XML ainda sem auditoria ZAP
+            auditados_op.append({
+                "Código": im_id,
+                "Título": im.get("titulo", "-"),
+                "Transação": operacao,
+                "Tipo": im.get("tipo", "-"),
+                "Bairro": im.get("bairro", "-"),
+                "Cidade": im.get("cidade", "-"),
+                "UF": im.get("uf", "SP"),
+                "Endereço": im.get("endereco_rua", "-"),
+                "Área (m²)": im.get("area_principal", 0),
+                "Quartos": im.get("quartos", 0),
+                "Vagas": im.get("vagas", 0),
+                "Preço Anunciado (R$)": im.get("preco", 0),
+                "R$/m² Anunciado": im.get("preco_m2", 0),
+                "Valor Mercado Estimado (R$)": None,
+                "Faixa Mínima (R$)": None,
+                "Faixa Máxima (R$)": None,
+                "Desvio (%)": "-",
+                "Desvio_Num": None,
+                "Diferença (R$)": None,
+                "Status": "⚪ Aguardando Auditoria",
+                "Mediana R$/m² Região": None,
+                "Amostras Usadas": 0,
+                "Diagnóstico": "Imóvel recém-adicionado no feed XML. Execute a reavaliação para coletar amostras ZAP.",
+                "Ação Comercial Recomendada": "Reexecutar auditoria de carteira",
+                "Foto": im.get("foto_capa", ""),
+                "Data Auditoria": None,
+            })
 
     residenciais_com_desvio = [r for r in auditados_op if r.get("Desvio_Num") is not None]
     total_res = len(residenciais_com_desvio)
@@ -514,16 +581,11 @@ def render_painel_operacao(imoveis_lista: list, operacao: str, api_key_val: str 
 
     with sub_tab_lote:
         if auditados_op:
-            q_super = stats.get("muito_acima", 0)
-            q_acima = stats.get("acima", 0)
-            q_justo = stats.get("justo", 0)
-            q_oport = stats.get("oportunidade", 0)
-
-            if total_res > 0 and (q_super + q_acima + q_justo + q_oport == 0):
-                q_super = sum(1 for r in residenciais_com_desvio if "Muito Acima" in r["Status"])
-                q_acima = sum(1 for r in residenciais_com_desvio if "Acima do Mercado" in r["Status"])
-                q_justo = sum(1 for r in residenciais_com_desvio if "Preço Justo" in r["Status"])
-                q_oport = sum(1 for r in residenciais_com_desvio if "Oportunidade" in r["Status"])
+            q_super = sum(1 for r in auditados_op if r.get("Status") and "Muito Acima" in r["Status"])
+            q_acima = sum(1 for r in auditados_op if r.get("Status") and "Acima do Mercado" in r["Status"])
+            q_justo = sum(1 for r in auditados_op if r.get("Status") and "Preço Justo" in r["Status"])
+            q_oport = sum(1 for r in auditados_op if r.get("Status") and "Oportunidade" in r["Status"])
+            q_aguardando = sum(1 for r in auditados_op if r.get("Status") and "Aguardando Auditoria" in r["Status"])
 
             col_h1, col_h2 = st.columns([3, 1])
             with col_h1:
@@ -531,6 +593,9 @@ def render_painel_operacao(imoveis_lista: list, operacao: str, api_key_val: str 
             with col_h2:
                 if st.button(f"🔄 Reexecutar Auditoria de {operacao}", key=f"reexec_{key_suf}", use_container_width=True):
                     executar_auditoria_com_progresso_ui(operacao)
+
+            if q_aguardando > 0:
+                st.info(f"💡 Foram identificados **{q_aguardando} novo(s) imóvel(is)** no feed XML que ainda não possuem amostragem ZAP. Clique no botão ao lado **'🔄 Reexecutar Auditoria de {operacao}'** para calculá-los.")
 
             k1, k2, k3, k4 = st.columns(4)
             with k1:
@@ -572,21 +637,26 @@ def render_painel_operacao(imoveis_lista: list, operacao: str, api_key_val: str 
                     f"🟡 Apenas Acima do Mercado ({q_acima})",
                     f"🟢 Apenas no Preço Justo ({q_justo})",
                     f"🔵 Apenas Oportunidades ({q_oport})",
-                    f"⚪ Sem Comparáveis Suficientes ({len(auditados_op) - total_res})",
                 ]
+                if q_aguardando > 0:
+                    opcoes_status.append(f"⚪ Aguardando Auditoria ({q_aguardando})")
+                opcoes_status.append(f"⚪ Sem Comparáveis Suficientes ({len(auditados_op) - total_res - q_aguardando})")
+
                 escolha_st = st.selectbox("Filtrar tabela por diagnóstico:", opcoes_status, index=0, key=f"st_sel_{key_suf}")
 
             tabela_f = auditados_op
             if "Muito Acima" in escolha_st:
-                tabela_f = [r for r in tabela_f if "Muito Acima" in r["Status"]]
+                tabela_f = [r for r in tabela_f if "Muito Acima" in r.get("Status", "")]
             elif "Acima do Mercado" in escolha_st:
-                tabela_f = [r for r in tabela_f if "Acima do Mercado" in r["Status"]]
+                tabela_f = [r for r in tabela_f if "Acima do Mercado" in r.get("Status", "")]
             elif "Preço Justo" in escolha_st:
-                tabela_f = [r for r in tabela_f if "Preço Justo" in r["Status"]]
+                tabela_f = [r for r in tabela_f if "Preço Justo" in r.get("Status", "")]
             elif "Oportunidades" in escolha_st:
-                tabela_f = [r for r in tabela_f if "Oportunidade" in r["Status"]]
+                tabela_f = [r for r in tabela_f if "Oportunidade" in r.get("Status", "")]
+            elif "Aguardando Auditoria" in escolha_st:
+                tabela_f = [r for r in tabela_f if "Aguardando Auditoria" in r.get("Status", "")]
             elif "Sem Comparáveis" in escolha_st:
-                tabela_f = [r for r in tabela_f if r.get("Desvio_Num") is None]
+                tabela_f = [r for r in tabela_f if r.get("Desvio_Num") is None and "Aguardando Auditoria" not in r.get("Status", "")]
 
             df_ex = pd.DataFrame(tabela_f)
             df_fmt = df_ex.copy()
