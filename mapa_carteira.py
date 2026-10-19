@@ -138,24 +138,44 @@ def render_painel_mapa(imoveis_lista: list, dados_aud: dict):
     if bairro_sel != "Todos os Bairros":
         df_f = df_f[df_f["bairro"] == bairro_sel]
 
-    # KPIs da seleção filtrada
+    # KPIs da seleção filtrada (com identificação visual das cores)
     m1, m2, m3, m4, m5 = st.columns(5)
     with m1:
-        st.metric("📍 Imóveis no Mapa", f"{len(df_f)} imóveis")
+        st.metric("📍 Imóveis Exibidos", f"{len(df_f)} imóveis")
     with m2:
         q_justo = sum(1 for s in df_f["status"] if "Preço Justo" in str(s))
-        st.metric("🟢 No Preço Justo", f"{q_justo} imóveis")
+        st.metric("🟢 Preço Justo (±5%)", f"{q_justo} imóveis")
     with m3:
         q_super = sum(1 for s in df_f["status"] if "Muito Acima" in str(s))
-        st.metric("🔴 Muito Acima", f"{q_super} imóveis")
+        st.metric("🔴 Muito Acima (> 15%)", f"{q_super} imóveis")
     with m4:
         q_acima = sum(1 for s in df_f["status"] if "Acima do Mercado" in str(s) or "Levemente Acima" in str(s))
-        st.metric("🟡 Levemente Acima", f"{q_acima} imóveis")
+        st.metric("🟡 Levemente (+5% a 15%)", f"{q_acima} imóveis")
     with m5:
         q_oport = sum(1 for s in df_f["status"] if "Oportunidade" in str(s))
-        st.metric("🔵 Oportunidades", f"{q_oport} imóveis")
+        st.metric("🔵 Oportunidade (< -7%)", f"{q_oport} imóveis")
 
     st.markdown("---")
+
+    # Barra de Legenda e Controle de Rótulo posicionados diretamente junto ao Mapa
+    col_leg, col_tog = st.columns([3.3, 1.2])
+    with col_leg:
+        st.markdown("""
+        <div style="background: linear-gradient(90deg, #f8fafc 0%, #f1f5f9 100%); padding: 8px 14px; border-radius: 8px; border: 1px solid #cbd5e1; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; font-size: 0.84rem;">
+            <span style="font-weight: 700; color: #1e293b;">🎯 Legenda das Bolinhas:</span>
+            <span><span style="color: #22C55E; font-size: 1.1rem;">●</span> <b>Verde:</b> Justo (±5%)</span>
+            <span><span style="color: #EF4444; font-size: 1.1rem;">●</span> <b>Vermelho:</b> Muito Acima (> 15%)</span>
+            <span><span style="color: #EAB308; font-size: 1.1rem;">●</span> <b>Amarelo:</b> Levemente (+5% a 15%)</span>
+            <span><span style="color: #3B82F6; font-size: 1.1rem;">●</span> <b>Azul:</b> Oportunidades (< -7%)</span>
+            <span><span style="color: #F59E0B; font-size: 1.1rem;">⭘</span> <b>Anel:</b> Centro Nobre (Praça 21)</span>
+        </div>
+        """, unsafe_allow_html=True)
+    with col_tog:
+        mostrar_rotulos = st.toggle(
+            "🏷️ Código junto à bolinha",
+            value=True,
+            help="Exibe o código do imóvel (ex: L7562, V3239) diretamente sobre cada ponto no mapa"
+        )
 
     # Centro do mapa baseado na seleção ou na Praça 21 de Abril
     lat_centro = df_f["lat"].mean() if not df_f.empty else LAT_PRACA_21
@@ -197,16 +217,40 @@ def render_painel_mapa(imoveis_lista: list, dados_aud: dict):
         get_line_color=[245, 158, 11, 230],
     )
 
+    camadas = [camada_praca, camada_imoveis]
+
+    # Camada 3: Rótulos de Texto (Códigos anexados diretamente às bolinhas)
+    if mostrar_rotulos:
+        camada_texto = pdk.Layer(
+            "TextLayer",
+            data=df_f,
+            get_position="[lon, lat]",
+            get_text="id",
+            get_color=[15, 23, 42, 235],
+            get_size=11,
+            get_pixel_offset=[0, -14],
+            font_family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
+            font_weight=700,
+            size_min_pixels=9,
+            size_max_pixels=14,
+            pickable=False,
+        )
+        camadas.append(camada_texto)
+
     tooltip = {
         "html": """
-        <div style="background-color: #1e293b; color: #f8fafc; padding: 12px; border-radius: 8px; font-family: sans-serif; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); font-size: 0.85rem;">
-            <div style="font-weight: 700; color: #38bdf8; font-size: 1.0rem; margin-bottom: 4px;">🏢 {id} • {tipo}</div>
-            <div><b>Endereço:</b> {endereco_rua}, {bairro}</div>
-            <div><b>Operação:</b> {transacao}</div>
-            <hr style="border: none; border-top: 1px solid #475569; margin: 6px 0;" />
-            <div><b>Preço Anunciado:</b> R$ {preco_formatado}</div>
-            <div><b>Valor Mercado (NBR):</b> R$ {mercado_formatado}</div>
-            <div><b>Diagnóstico:</b> <span style="font-weight: 600;">{status}</span> ({desvio})</div>
+        <div style="background-color: #0f172a; color: #f8fafc; padding: 12px 14px; border-radius: 8px; font-family: sans-serif; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.5); font-size: 0.85rem; border: 1px solid #334155; line-height: 1.4;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                <span style="font-weight: 800; color: #38bdf8; font-size: 1.05rem;">🏢 {id} • {tipo}</span>
+                <span style="background: rgba(255,255,255,0.15); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; font-weight: 600;">{transacao}</span>
+            </div>
+            <div style="color: #cbd5e1; margin-bottom: 4px;">📍 {endereco_rua}, {bairro}</div>
+            <hr style="border: none; border-top: 1px solid #334155; margin: 6px 0;" />
+            <div>💰 <b>Preço Anunciado:</b> R$ {preco_formatado}</div>
+            <div>⚖️ <b>Preço de Mercado (NBR):</b> R$ {mercado_formatado}</div>
+            <div style="margin-top: 4px; padding: 4px 8px; background: rgba(255,255,255,0.08); border-radius: 4px;">
+                📊 <b>Diagnóstico:</b> {status} <b>({desvio})</b>
+            </div>
         </div>
         """,
         "style": {"zIndex": "1000"},
@@ -221,24 +265,13 @@ def render_painel_mapa(imoveis_lista: list, dados_aud: dict):
     )
 
     deck = pdk.Deck(
-        layers=[camada_praca, camada_imoveis],
+        layers=camadas,
         initial_view_state=view_state,
         tooltip=tooltip,
         map_style="light",
     )
 
     st.pydeck_chart(deck, use_container_width=True)
-
-    # Legenda e Observações Técnicas
-    st.markdown("""
-    <div style="display: flex; gap: 20px; justify-content: center; margin-top: 5px; margin-bottom: 25px; flex-wrap: wrap;">
-        <span style="font-size: 0.85rem;"><span style="color: #22C55E;">●</span> <b>Verde:</b> Preço Justo (±5%)</span>
-        <span style="font-size: 0.85rem;"><span style="color: #EF4444;">●</span> <b>Vermelho:</b> Muito Acima (> 15%)</span>
-        <span style="font-size: 0.85rem;"><span style="color: #EAB308;">●</span> <b>Amarelo:</b> Levemente Acima (+5% a 15%)</span>
-        <span style="font-size: 0.85rem;"><span style="color: #3B82F6;">●</span> <b>Azul:</b> Oportunidades (< -7%)</span>
-        <span style="font-size: 0.85rem;"><span style="color: #F59E0B;">⭘</span> <b>Anel Dourado:</b> Polo Praça 21 de Abril (Centro Comercial)</span>
-    </div>
-    """, unsafe_allow_html=True)
 
     # ==================== AÇÃO RÁPIDA: ARGUMENTÁRIO WHATSAPP DO MAPA ====================
     st.markdown("---")
