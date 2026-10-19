@@ -126,7 +126,8 @@ def identificar_fator_corredor(item_feed: dict) -> tuple[float, str]:
     pertence_nucleo = any(r in texto_busca for r in RUAS_NUCLEO_PRACA_21) or (dist_praca is not None and dist_praca <= 0.45 and "centro" in texto_busca)
     if pertence_nucleo:
         if is_terreno:
-            return 3.00, "Núcleo Praça 21 de Abril (Polo Comercial Nobre). Floc = 3.00x para terrenos comerciais no centro."
+            f = 1.25 if transacao == "Locação" else 3.00
+            return f, f"Núcleo Praça 21 de Abril (Centro). Floc = {f:.2f}x para terrenos no centro."
         elif is_comercial:
             f = 2.20 if transacao == "Locação" else 2.50
             return f, f"Núcleo Praça 21 de Abril (Comercial Nobre). Floc = {f:.2f}x para ponto comercial nobre de alto fluxo."
@@ -137,7 +138,8 @@ def identificar_fator_corredor(item_feed: dict) -> tuple[float, str]:
     pertence_cruzantes = any(r in texto_busca for r in RUAS_CRUZANTES_PRACA_21) or (dist_praca is not None and dist_praca <= 0.85 and "centro" in texto_busca)
     if pertence_cruzantes:
         if is_terreno:
-            return 2.20, "Ruas Cruzantes da Praça 21 de Abril (Centro). Floc = 2.20x para terrenos na malha central."
+            f = 1.15 if transacao == "Locação" else 2.20
+            return f, f"Ruas Cruzantes da Praça 21 de Abril (Centro). Floc = {f:.2f}x para terrenos na malha central."
         elif is_comercial:
             f = 1.65 if transacao == "Locação" else 1.90
             return f, f"Ruas Cruzantes da Praça 21 de Abril. Floc = {f:.2f}x para imóvel comercial no entorno central."

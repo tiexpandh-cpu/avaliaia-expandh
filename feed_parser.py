@@ -122,12 +122,27 @@ def carregar_feed_xml(fonte: str = URL_FEED_PADRAO) -> dict:
         area_util = _extrair_float(det_el, "LivingArea", 0.0)
         area_total = _extrair_float(det_el, "LotArea", 0.0)
         area_principal = area_util if area_util > 0 else area_total
-
         quartos = _extrair_int(det_el, "Bedrooms", 0)
         suites = _extrair_int(det_el, "Suites", 0)
         banheiros = _extrair_int(det_el, "Bathrooms", 0)
         vagas = _extrair_int(det_el, "Garage", 0)
         descricao = _extrair_texto(det_el, "Description", "")
+
+        # Refinamento inteligente de tipo para terrenos e lotes mal categorizados no XML
+        texto_analise = f"{titulo} {endereco_rua} {descricao}".lower()
+        if ("terreno" in texto_analise or "lote" in texto_analise) and area_util == 0:
+            if "comercial" in texto_analise or "business" in tipo_lower or "commercial" in tipo_lower:
+                tipo_amigavel = "Terreno Comercial"
+                tipo_zap = "LAND_LOT"
+            elif "chácara" in texto_analise or "sitio" in texto_analise:
+                tipo_amigavel = "Chácara / Sítio"
+                tipo_zap = "FARM"
+            else:
+                tipo_amigavel = "Terreno Residencial"
+                tipo_zap = "LAND_LOT"
+        elif "terrenos área" in titulo.lower() and "farm ranch" in tipo_lower:
+            tipo_amigavel = "Terreno Comercial" if "comercial" in texto_analise else "Terreno Residencial"
+            tipo_zap = "LAND_LOT"
 
         # Features / Características
         features = [f.text.strip() for f in det_el.findall(".//{*}Feature") if f.text]
