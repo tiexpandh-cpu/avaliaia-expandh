@@ -290,6 +290,53 @@ def reavaliar_imovel_feed(item_feed: dict, fator_oferta: float = 0.90, fator_loc
             # Ponderação equilibrada: 40% portal ZAP + 60% estoque real comprovado Expandh
             mediana_m2_oferta = round((mediana_m2_oferta * 0.40) + (bench_m2 * 0.60), 2)
 
+    # -------------------------------------------------------------------------
+    # BENCHMARK EMPÍRICO & HOMOGENEIZAÇÃO DE CONDOMÍNIOS FECHADOS (NBR 14653)
+    # Casas em condomínio fechado possuem infraestrutura completa (portaria 24h,
+    # segurança armada/câmeras, clube social, piscina, quadras) e não podem ser
+    # avaliadas pelo preço de casas de rua pública em bairros populares.
+    # -------------------------------------------------------------------------
+    texto_busca_completo = f"{item_feed.get('endereco', '')} {item_feed.get('titulo', '')} {item_feed.get('descricao', '')} {item_feed.get('bairro', '')} {item_feed.get('tipo', '')} {item_feed.get('tipo_original', '')}".lower()
+    taxa_condominio = float(item_feed.get("condominio") or 0.0)
+    is_condo_house = (
+        "condomínio" in tipo_l
+        or "condominio" in tipo_l
+        or "condo" in (item_feed.get("tipo_original") or "").lower()
+        or (("casa" in tipo_l or tipo_zap == "HOME") and (taxa_condominio >= 200.0 or "condomínio" in texto_busca_completo or "condominio" in texto_busca_completo))
+    )
+
+    justificativa_condo = ""
+    piso_minimo_condo = None
+
+    if is_condo_house:
+        if negocio == "SALE":
+            # 1. Condomínio Reserva Terra Nova (Sertãozinho)
+            if "terra nova" in texto_busca_completo or "primo rissato" in texto_busca_completo:
+                # Diretriz pericial Expandh e histórico de vendas: casas no Reserva Terra Nova partem do piso de R$ 700 mil
+                # com padrão construtivo em torno de R$ 5.850/m²
+                mediana_m2_oferta = 5850.0
+                piso_minimo_condo = 700000.0
+                justificativa_condo = "Condomínio Reserva Terra Nova (Portaria 24h, lazer completo e segurança). Casas partem de R$ 700 mil (benchmark R$ 5.850/m²)."
+            # 2. Condomínio Portal das Flores
+            elif "portal das flores" in texto_busca_completo or "eduardo toniello" in texto_busca_completo:
+                mediana_m2_oferta = 4800.0
+                piso_minimo_condo = 500000.0
+                justificativa_condo = "Condomínio Portal das Flores (Lazer e portaria 24h). Benchmark de R$ 4.800/m²."
+            # 3. Condomínios de Alto Padrão (Parque das Aroeiras, Shangri-lá, Morada das Estrelas)
+            elif any(k in texto_busca_completo for k in ["aroeiras", "shangri", "palmeiras", "morada das estrelas"]):
+                mediana_m2_oferta = 9500.0
+                piso_minimo_condo = 1800000.0
+                justificativa_condo = "Condomínio Fechado de Alto Padrão (Parque das Aroeiras / Shangri-lá). Benchmark de R$ 9.500/m²."
+            # 4. Outros Condomínios Fechados Residenciais
+            else:
+                fator_condo = 2.15
+                mediana_m2_oferta = round(mediana_m2_oferta * fator_condo, 2)
+                justificativa_condo = f"Casa em Condomínio Fechado (Fator Condomínio Fechado NBR 14653 = {fator_condo:.2f}x sobre casas de rua aberta)."
+        else:
+            fator_condo_aluguel = 1.50
+            mediana_m2_oferta = round(mediana_m2_oferta * fator_condo_aluguel, 2)
+            justificativa_condo = f"Casa em Condomínio Fechado (Locação com portaria e lazer. Fator NBR 14653 = {fator_condo_aluguel:.2f}x)."
+
     tipo_l = (item_feed.get("tipo") or "").lower()
     is_terr = (item_feed.get("tipo_zap") == "LAND_LOT" or "terreno" in tipo_l or "lote" in tipo_l)
 
@@ -323,10 +370,16 @@ def reavaliar_imovel_feed(item_feed: dict, fator_oferta: float = 0.90, fator_loc
     # Fator de oferta para fechamento (terrenos e pontos comerciais nobres no centro têm pouca margem de barganha)
     if fator_loc > 1.0:
         fator_of = 1.0 if is_terr else max(fator_oferta, 0.95)
+    elif is_condo_house and negocio == "SALE":
+        fator_of = 0.95 # alta liquidez e baixa margem de barganha em condomínio fechado
     else:
         fator_of = fator_oferta
 
     valor_fechamento_estimado = valor_oferta_estimado * fator_of
+    if piso_minimo_condo and valor_fechamento_estimado < piso_minimo_condo:
+        valor_fechamento_estimado = piso_minimo_condo
+        valor_oferta_estimado = round(piso_minimo_condo / fator_of, -3)
+
     valor_fechamento_estimado = round(valor_fechamento_estimado, -3) if valor_fechamento_estimado > 10000 else round(valor_fechamento_estimado, -1)
 
     faixa_min = round(valor_fechamento_estimado * 0.90, -3) if valor_fechamento_estimado > 10000 else round(valor_fechamento_estimado * 0.90, -1)
@@ -363,6 +416,9 @@ def reavaliar_imovel_feed(item_feed: dict, fator_oferta: float = 0.90, fator_loc
             status = "🟢 Preço Justo"
             acao_sugerida = f"Manter o valor de R$ {preco_anunciado:,.0f}. Ponto comercial nobre/central com alta liquidez e visibilidade."
 
+    if justificativa_condo:
+        diagnostico = f"{justificativa_condo} {diagnostico}"
+
     if justificativa_escala:
         diagnostico += f" {justificativa_escala}"
 
@@ -381,6 +437,8 @@ def reavaliar_imovel_feed(item_feed: dict, fator_oferta: float = 0.90, fator_loc
         "faixa_max": faixa_max,
         "mediana_m2_concorrencia": round(mediana_m2_ajustada, 2),
         "mediana_m2_base": round(mediana_m2_oferta, 2),
+        "is_condominio_fechado": is_condo_house,
+        "justificativa_condominio": justificativa_condo,
         "fator_localizacao_aplicado": fator_loc,
         "justificativa_localizacao": justificativa_loc if fator_loc > 1.0 else "",
         "fator_escala_aplicado": fator_escala,

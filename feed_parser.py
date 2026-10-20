@@ -144,6 +144,11 @@ def carregar_feed_xml(fonte: str = URL_FEED_PADRAO) -> dict:
             tipo_amigavel = "Terreno Comercial" if "comercial" in texto_analise else "Terreno Residencial"
             tipo_zap = "LAND_LOT"
 
+        # Refinamento inteligente para Casas em Condomínio Fechado
+        if ("condomínio" in texto_analise or "condominio" in texto_analise or "terra nova" in texto_analise or "portal das flores" in texto_analise or condominio >= 200.0) and "casa" in tipo_amigavel.lower():
+            tipo_amigavel = "Casa em Condomínio"
+            tipo_zap = "HOME"
+
         # Features / Características
         features = [f.text.strip() for f in det_el.findall(".//{*}Feature") if f.text]
 
