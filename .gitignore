@@ -15,5 +15,6 @@ __pycache__/
 # Arquivos gerados e temporários
 laudos/
 scratch/
+screenshot*.png
 *.log
 *.tmp

@@ -326,15 +326,15 @@ def render_painel_briefing():
         st.warning("Não foi possível compilar o briefing no momento.")
         return
 
-    # Banner informativo com data e hora
+    # Banner informativo com data e hora (Estilo Expandh BI)
     st.markdown(f"""
-    <div style="background: linear-gradient(90deg, #1e3a8a 0%, #0284c7 100%); color: white; padding: 14px 20px; border-radius: 10px; margin-bottom: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+    <div class="glass-card" style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(37, 99, 235, 0.15) 100%); border: 1px solid rgba(56, 189, 248, 0.35); border-left: 5px solid #0ea5e9; padding: 18px 22px; margin-bottom: 24px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.35);">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
             <div>
-                <span style="font-size: 1.15rem; font-weight: 700;">📅 Relatório do Dia: {briefing.get('data_briefing')}</span>
-                <span style="font-size: 0.9rem; opacity: 0.9; margin-left: 10px;">(Gerado às {briefing.get('hora_geracao')})</span>
+                <span style="font-size: 1.15rem; font-weight: 800; color: #ffffff;">📅 Relatório do Dia: {briefing.get('data_briefing')}</span>
+                <span style="font-size: 0.85rem; color: #94a3b8; margin-left: 10px;">(Gerado às {briefing.get('hora_geracao')})</span>
             </div>
-            <div style="font-size: 0.85rem; background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 6px;">
+            <div style="font-size: 0.8rem; font-weight: 700; color: #38bdf8; background: rgba(14, 165, 233, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); padding: 5px 12px; border-radius: 9999px;">
                 📡 Feed Kurole: {briefing.get('total_ativos')} imóveis ativos ({briefing.get('total_vendas')} Venda | {briefing.get('total_locacao')} Locação)
             </div>
         </div>
@@ -367,25 +367,25 @@ def render_painel_briefing():
         for idx, op in enumerate(top_op):
             with cols_op[idx]:
                 st.markdown(f"""
-                <div style="background: #ffffff; border: 1px solid #bfdbfe; border-top: 4px solid #2563eb; border-radius: 8px; padding: 15px; min-height: 250px; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                        <span style="font-weight: 700; color: #1e3a8a; font-size: 1.05rem;">{op['codigo']}</span>
-                        <span style="background: #dbeafe; color: #1e40af; font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 12px;">{op['desvio_fmt']}</span>
+                <div class="glass-card" style="border: 1px solid rgba(56, 189, 248, 0.35); border-top: 4px solid #0ea5e9; border-radius: 1rem; padding: 18px; min-height: 260px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 0 15px rgba(14, 165, 233, 0.1);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span style="font-weight: 800; color: #38bdf8; font-size: 1.1rem; letter-spacing: -0.01em;">{op['codigo']}</span>
+                        <span style="background: rgba(14, 165, 233, 0.18); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.4); font-size: 0.75rem; font-weight: 800; padding: 3px 10px; border-radius: 9999px;">{op['desvio_fmt']}</span>
                     </div>
-                    <div style="font-weight: 600; font-size: 0.95rem; color: #0f172a; margin-bottom: 2px;">{op['tipo']} • {op['bairro']}</div>
-                    <div style="color: #64748b; font-size: 0.8rem; margin-bottom: 10px;">{op['titulo'][:45]}...</div>
-                    <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 8px 0;" />
-                    <div style="font-size: 0.82rem; color: #64748b;">Preço de Oferta:</div>
-                    <div style="font-size: 1.15rem; font-weight: 700; color: #16a34a; margin-bottom: 4px;">R$ {op['preco_anunciado_fmt']}</div>
-                    <div style="font-size: 0.82rem; color: #64748b;">Valor de Mercado (NBR): <b style="color: #1e293b;">R$ {op['valor_mercado_fmt']}</b></div>
-                    <div style="margin-top: 10px; font-size: 0.8rem; color: #334155; background: #f8fafc; padding: 8px; border-radius: 6px; border: 1px solid #e2e8f0;">
+                    <div style="font-weight: 700; font-size: 0.95rem; color: #f8fafc; margin-bottom: 4px;">{op['tipo']} • {op['bairro']}</div>
+                    <div style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 12px; line-height: 1.3;">{op['titulo'][:45]}...</div>
+                    <hr style="border: none; border-top: 1px solid rgba(255, 255, 255, 0.08); margin: 10px 0;" />
+                    <div style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 600;">Preço de Oferta:</div>
+                    <div style="font-size: 1.25rem; font-weight: 800; color: #34d399; margin-bottom: 6px;">R$ {op['preco_anunciado_fmt']}</div>
+                    <div style="font-size: 0.8rem; color: #94a3b8;">Valor de Mercado (NBR): <b style="color: #f8fafc;">R$ {op['valor_mercado_fmt']}</b></div>
+                    <div style="margin-top: 12px; font-size: 0.78rem; color: #cbd5e1; background: rgba(15, 23, 42, 0.7); padding: 10px; border-radius: 0.65rem; border: 1px solid rgba(255, 255, 255, 0.06); line-height: 1.3;">
                         💡 {op['diagnostico']}
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
                 st.markdown(f"""
                 <a href="{op['link_wa']}" target="_blank" style="text-decoration: none;">
-                    <div style="background-color: #22c55e; color: white; text-align: center; padding: 9px 12px; border-radius: 6px; font-weight: 700; font-size: 0.85rem; margin-top: 8px; margin-bottom: 8px; box-shadow: 0 2px 4px rgba(34,197,94,0.3);">
+                    <div style="background: linear-gradient(90deg, #10b981 0%, #059669 100%); color: white; text-align: center; padding: 10px 14px; border-radius: 0.75rem; font-weight: 700; font-size: 0.85rem; margin-top: 10px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35); transition: all 0.2s ease;">
                         📲 Enviar WhatsApp Comprador
                     </div>
                 </a>
@@ -407,25 +407,25 @@ def render_painel_briefing():
         for idx, rep in enumerate(top_rep):
             with cols_rep[idx]:
                 st.markdown(f"""
-                <div style="background: #ffffff; border: 1px solid #fecaca; border-top: 4px solid #dc2626; border-radius: 8px; padding: 15px; min-height: 250px; box-shadow: 0 2px 4px rgba(0,0,0,0.04);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                        <span style="font-weight: 700; color: #991b1b; font-size: 1.05rem;">{rep['codigo']}</span>
-                        <span style="background: #fee2e2; color: #b91c1c; font-size: 0.75rem; font-weight: 700; padding: 2px 8px; border-radius: 12px;">{rep['desvio_fmt']}</span>
+                <div class="glass-card" style="border: 1px solid rgba(244, 63, 94, 0.35); border-top: 4px solid #f43f5e; border-radius: 1rem; padding: 18px; min-height: 260px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4), 0 0 15px rgba(244, 63, 94, 0.1);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                        <span style="font-weight: 800; color: #fb7185; font-size: 1.1rem; letter-spacing: -0.01em;">{rep['codigo']}</span>
+                        <span style="background: rgba(244, 63, 94, 0.18); color: #fb7185; border: 1px solid rgba(244, 63, 94, 0.4); font-size: 0.75rem; font-weight: 800; padding: 3px 10px; border-radius: 9999px;">{rep['desvio_fmt']}</span>
                     </div>
-                    <div style="font-weight: 600; font-size: 0.95rem; color: #0f172a; margin-bottom: 2px;">{rep['tipo']} • {rep['bairro']}</div>
-                    <div style="color: #64748b; font-size: 0.8rem; margin-bottom: 10px;">{rep['titulo'][:45]}...</div>
-                    <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 8px 0;" />
-                    <div style="font-size: 0.82rem; color: #64748b;">Preço Anunciado:</div>
-                    <div style="font-size: 1.15rem; font-weight: 700; color: #dc2626; margin-bottom: 4px;">R$ {rep['preco_anunciado_fmt']}</div>
-                    <div style="font-size: 0.82rem; color: #64748b;">Teto Recomendado (NBR): <b style="color: #1e293b;">R$ {rep['valor_mercado_fmt']}</b></div>
-                    <div style="margin-top: 10px; font-size: 0.8rem; color: #334155; background: #fff5f5; padding: 8px; border-radius: 6px; border: 1px solid #fed7d7;">
+                    <div style="font-weight: 700; font-size: 0.95rem; color: #f8fafc; margin-bottom: 4px;">{rep['tipo']} • {rep['bairro']}</div>
+                    <div style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 12px; line-height: 1.3;">{rep['titulo'][:45]}...</div>
+                    <hr style="border: none; border-top: 1px solid rgba(255, 255, 255, 0.08); margin: 10px 0;" />
+                    <div style="font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; font-weight: 600;">Preço Anunciado:</div>
+                    <div style="font-size: 1.25rem; font-weight: 800; color: #fb7185; margin-bottom: 6px;">R$ {rep['preco_anunciado_fmt']}</div>
+                    <div style="font-size: 0.8rem; color: #94a3b8;">Teto Recomendado (NBR): <b style="color: #f8fafc;">R$ {rep['valor_mercado_fmt']}</b></div>
+                    <div style="margin-top: 12px; font-size: 0.78rem; color: #cbd5e1; background: rgba(15, 23, 42, 0.7); padding: 10px; border-radius: 0.65rem; border: 1px solid rgba(255, 255, 255, 0.06); line-height: 1.3;">
                         🚨 {rep['diagnostico']}
                     </div>
                 </div>
                 """, unsafe_allow_html=True)
                 st.markdown(f"""
                 <a href="{rep['link_wa']}" target="_blank" style="text-decoration: none;">
-                    <div style="background-color: #22c55e; color: white; text-align: center; padding: 9px 12px; border-radius: 6px; font-weight: 700; font-size: 0.85rem; margin-top: 8px; margin-bottom: 8px; box-shadow: 0 2px 4px rgba(34,197,94,0.3);">
+                    <div style="background: linear-gradient(90deg, #10b981 0%, #059669 100%); color: white; text-align: center; padding: 10px 14px; border-radius: 0.75rem; font-weight: 700; font-size: 0.85rem; margin-top: 10px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.35); transition: all 0.2s ease;">
                         📲 Enviar WhatsApp Proprietário
                     </div>
                 </a>

@@ -23,69 +23,31 @@ import reavaliacao_carteira
 import argumentario
 import mapa_carteira
 import resumo_matinal
+import tema_bi
 import importlib
 importlib.reload(reavaliacao_carteira)
 importlib.reload(argumentario)
 importlib.reload(mapa_carteira)
 importlib.reload(resumo_matinal)
+importlib.reload(tema_bi)
 import tools
 from llm import ClienteLLM
 
 # Configuração da página
 st.set_page_config(
-    page_title="AvaliaIA • Avaliação Imobiliária",
+    page_title="AvaliaIA • Inteligência Imobiliária Expandh",
     page_icon="🏢",
     layout="wide",
     initial_sidebar_state="expanded",
 )
 
-# Estilização visual moderna
-st.markdown("""
-<style>
-    .main-header {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: #1E3A8A;
-        margin-bottom: 0.2rem;
-    }
-    .sub-header {
-        font-size: 1.0rem;
-        color: #64748B;
-        margin-bottom: 1.5rem;
-    }
-    .metric-card {
-        background: #F8FAFC;
-        border: 1px solid #E2E8F0;
-        border-radius: 10px;
-        padding: 15px;
-        text-align: center;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    }
-    .metric-value {
-        font-size: 1.6rem;
-        font-weight: 700;
-        color: #1E3A8A;
-    }
-    .metric-label {
-        font-size: 0.8rem;
-        color: #64748B;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-    }
-    .stTabs [data-baseweb="tab-list"] {
-        gap: 10px;
-    }
-    .stTabs [data-baseweb="tab"] {
-        border-radius: 6px;
-        padding: 8px 16px;
-    }
-</style>
-""", unsafe_allow_html=True)
+# Injeção do Sistema de Design Expandh BI (Dark Obsidian, Expandh Navy ou Light Corporate)
+st.markdown(tema_bi.obter_css_tema(st.session_state.get("app_theme", "dark")), unsafe_allow_html=True)
 
 
 # ==================== CONTROLE DE ACESSO (AUTENTICAÇÃO POR SENHA) ====================
 def check_password() -> bool:
-    """Verifica se o usuário está autenticado ou solicita a senha de acesso."""
+    """Verifica se o usuário está autenticado ou exibe o Gatekeeper executivo."""
     if st.session_state.get("authenticated", False):
         return True
 
@@ -98,46 +60,7 @@ def check_password() -> bool:
         pass
     senha_esperada = os.getenv("APP_PASSWORD", senha_esperada)
 
-    # Layout centralizado da tela de login
-    col1, col2, col3 = st.columns([1, 2, 1])
-    with col2:
-        st.markdown("<br><br>", unsafe_allow_html=True)
-        logo_base64 = ""
-        caminho_logo = Path("assets/logo_expandh.png")
-        if caminho_logo.exists():
-            import base64
-            with open(caminho_logo, "rb") as f:
-                logo_base64 = base64.b64encode(f.read()).decode("utf-8")
-        img_tag = f'<img src="data:image/png;base64,{logo_base64}" width="140" style="margin-bottom: 8px;" />' if logo_base64 else '<img src="https://img.icons8.com/fluency/96/real-estate.png" width="72" style="margin-bottom: 8px;" />'
-
-        st.markdown(f"""
-        <div style="background: #ffffff; padding: 25px; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); text-align: center;">
-            {img_tag}
-            <h2 style="color: #1E3A8A; margin-bottom: 4px; margin-top: 4px;">Expandh Imobiliária</h2>
-            <p style="color: #64748B; font-size: 0.95rem; margin-bottom: 12px;">Portal de Inteligência & Avaliação de Carteira • NBR 14653</p>
-            <div style="background: #EFF6FF; border: 1px solid #BFDBFE; border-radius: 8px; padding: 10px; margin-bottom: 15px;">
-                <span style="color: #1E40AF; font-size: 0.85rem; font-weight: 500;">🔒 Área Restrita para a Equipe de Corretores e Diretoria</span>
-            </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-        with st.form("form_login"):
-            senha_digitada = st.text_input(
-                "Digite a Senha de Acesso",
-                type="password",
-                placeholder="••••••••",
-                help="Insira a senha fornecida pela diretoria da Expandh Imobiliária"
-            )
-            btn_entrar = st.form_submit_button("Acessar Painel 🚀", use_container_width=True, type="primary")
-
-            if btn_entrar:
-                if senha_digitada == senha_esperada:
-                    st.session_state["authenticated"] = True
-                    st.rerun()
-                else:
-                    st.error("❌ Senha incorreta. Verifique com a administração da Expandh.")
-
-    return False
+    return tema_bi.render_gatekeeper_login(senha_esperada)
 
 if not check_password():
     st.stop()
@@ -180,10 +103,14 @@ with st.sidebar:
     st.title("AvaliaIA Pro")
     st.caption("Engenharia de Avaliações com IA • NBR 14653")
     
+    # Seletor de Tema Visual (BI Style)
+    tema_bi.render_seletor_tema_sidebar()
+    st.markdown("---")
+
     # Status de login e botão de Sair
     col_status, col_btn = st.columns([1.8, 1.2])
     with col_status:
-        st.markdown("<small style='color: #16A34A; font-weight: 600;'>🟢 Conectado</small><br><small style='color: #64748B;'>Equipe Expandh</small>", unsafe_allow_html=True)
+        st.markdown("<small style='color: #10b981; font-weight: 700;'>🟢 CONECTADO</small><br><small style='color: var(--text-muted);'>Equipe Expandh</small>", unsafe_allow_html=True)
     with col_btn:
         if st.button("🚪 Sair", key="btn_logout", help="Encerrar sessão no painel"):
             st.session_state["authenticated"] = False
@@ -257,9 +184,14 @@ with st.sidebar:
 
 
 
-# ==================== CABEÇALHO PRINCIPAL ====================
-st.markdown('<div class="main-header">Sistema de Avaliação Imobiliária Inteligente</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-header">Extração automática de matrículas com Visão Computacional, amostragem em tempo real e laudo pericial NBR 14653</div>', unsafe_allow_html=True)
+# ==================== CABEÇALHO EXECUTIVO EXPANDH BI ====================
+tema_bi.render_header_executivo(
+    total_ativos=len(imoveis_lista),
+    total_venda=len(imoveis_venda),
+    total_locacao=len(imoveis_locacao),
+    data_pub=data_pub_formatada,
+)
+tema_bi.render_modal_metodologia()
 
 tab_briefing, tab_vendas, tab_locacao, tab_mapa, tab_nova, tab_historico = st.tabs([
     "☀️ Briefing Matinal & Oportunidades",
