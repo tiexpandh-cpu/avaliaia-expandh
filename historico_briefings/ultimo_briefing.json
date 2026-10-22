@@ -1,8 +1,8 @@
 {
   "sucesso": true,
-  "data_briefing": "21/10/2026",
-  "hora_geracao": "16:03",
-  "timestamp": "2026-10-21T16:03:42.779874",
+  "data_briefing": "22/10/2026",
+  "hora_geracao": "15:58",
+  "timestamp": "2026-10-22T15:58:10.300605",
   "total_ativos": 250,
   "total_vendas": 153,
   "total_locacao": 97,
@@ -14,79 +14,18 @@
   },
   "novos_imoveis": [
     {
-      "id": "L4484",
-      "titulo": "Casas Padrão em Sertãozinho",
-      "tipo": "Casa",
-      "transacao": "Locação",
-      "bairro": "Conjunto Habitacional Lourenço Domenici",
-      "preco": 2650.0,
-      "preco_formatado": "2.650"
-    },
-    {
-      "id": "L39521",
-      "titulo": "Casas Padrão em Sertãozinho",
-      "tipo": "Casa",
-      "transacao": "Locação",
-      "bairro": "Jardim Campo Belo",
-      "preco": 1100.0,
-      "preco_formatado": "1.100"
-    },
-    {
-      "id": "L19511",
+      "id": "L0779",
       "titulo": "Casas Padrão em Sertãozinho",
       "tipo": "Casa",
       "transacao": "Locação",
       "bairro": "Centro",
-      "preco": 3700.0,
-      "preco_formatado": "3.700"
-    },
-    {
-      "id": "L3185",
-      "titulo": "Casas Padrão em Dumont",
-      "tipo": "Casa",
-      "transacao": "Locação",
-      "bairro": "Nova Dumont",
-      "preco": 1250.0,
-      "preco_formatado": "1.250"
-    },
-    {
-      "id": "V5399",
-      "titulo": "Casa Padrão",
-      "tipo": "Casa",
-      "transacao": "Venda",
-      "bairro": "Alvorada",
-      "preco": 200000.0,
-      "preco_formatado": "200.000"
-    },
-    {
-      "id": "V2828",
-      "titulo": "Casas Condomínio em Sertãozinho",
-      "tipo": "Casa em Condomínio",
-      "transacao": "Venda",
-      "bairro": "Jardim Grande Aliança",
-      "preco": 964000.0,
-      "preco_formatado": "964.000"
+      "preco": 3800.0,
+      "preco_formatado": "3.800"
     }
   ],
-  "total_novos": 6,
-  "mudancas_preco": [
-    {
-      "id": "V79211",
-      "titulo": "Lote em ótima localização",
-      "tipo": "Terreno Residencial",
-      "transacao": "Venda",
-      "bairro": "Jardim Montreal",
-      "preco_antigo": 235000.0,
-      "preco_novo": 210000.0,
-      "preco_antigo_fmt": "235.000",
-      "preco_novo_fmt": "210.000",
-      "diferenca": -25000.0,
-      "diferenca_fmt": "25.000",
-      "variacao_pct": -10.6,
-      "tipo_mudanca": "reducao"
-    }
-  ],
-  "total_mudancas_preco": 1,
+  "total_novos": 1,
+  "mudancas_preco": [],
+  "total_mudancas_preco": 0,
   "top_oportunidades": [
     {
       "codigo": "L30521",
@@ -187,5 +126,5 @@
       "link_wa": "https://api.whatsapp.com/send?text=Ol%C3%A1%2C%20Propriet%C3%A1rio%28a%29%21%20Aqui%20%C3%A9%20o%20Equipe%20Expandh%20da%20%2AExpandh%20Imobili%C3%A1ria%2A.%0A%0AEstive%20fazendo%20hoje%20uma%20revis%C3%A3o%20t%C3%A9cnica%20da%20nossa%20carteira%20ativa%20em%20Sert%C3%A3ozinho%2C%20especialmente%20sobre%20o%20seu%20%2ASala%20Comercial%20no%20Jardim%20das%20Palmeiras%20%28C%C3%B3d.%20V2279%29%2A.%0A%0A%F0%9F%93%8A%20Cruzamos%20os%20dados%20dos%20portais%20com%20as%20normas%20periciais%20%28NBR%2014653%29%20e%20notamos%20que%20a%20m%C3%A9dia%20de%20mercado%20para%20im%C3%B3veis%20semelhantes%20na%20regi%C3%A3o%20est%C3%A1%20em%20torno%20de%20%2AR%24%20269%2C000%2A%20%28o%20valor%20anunciado%20atual%20est%C3%A1%20em%20R%24%201%2C258%2C000%29.%0A%0A%F0%9F%92%A1%20%2APor%20que%20isso%20%C3%A9%20importante%3F%2A%0AQuando%20o%20an%C3%BAncio%20fica%20acima%20da%20faixa%20de%20busca%2C%20o%20algoritmo%20dos%20portais%20reduz%20as%20visualiza%C3%A7%C3%B5es%20e%20os%20compradores%20acabam%20priorizando%20outras%20op%C3%A7%C3%B5es%20do%20bairro.%0A%0APodemos%20alinhar%20uma%20calibragem%20estrat%C3%A9gica%20no%20valor%20para%20%2Aaquecer%20as%20visitas%20e%20acelerar%20o%20fechamento%2A%3F%20Se%20preferir%2C%20posso%20te%20ligar%20ou%20te%20receber%20aqui%20na%20imobili%C3%A1ria%20para%20um%20caf%C3%A9%21%0A%0AUm%20abra%C3%A7o%2C%0A%2AEquipe%20Expandh%20%E2%80%A2%20Expandh%20Imobili%C3%A1ria%2A"
     }
   ],
-  "data_kurole_pub": "2026-10-20T19:06:01"
+  "data_kurole_pub": "2026-10-21T19:07:13"
 }
