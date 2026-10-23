@@ -187,6 +187,8 @@ def analisar_divergencias_imovel(imovel: dict) -> List[dict]:
     transacao = str(imovel.get("transacao", "Venda"))
     preco_cad = float(imovel.get("preco") or 0.0)
     area_cad = float(imovel.get("area_principal") or imovel.get("area_util") or imovel.get("area_total") or 0.0)
+    area_util_cad = float(imovel.get("area_util") or 0.0)
+    area_total_cad = float(imovel.get("area_total") or 0.0)
 
     quartos_cad = int(imovel.get("quartos") or 0)
     suites_cad = int(imovel.get("suites") or 0)
@@ -340,6 +342,26 @@ def analisar_divergencias_imovel(imovel: dict) -> List[dict]:
             "motivo": f"Terreno cadastrado com {quartos_cad} quartos / {banheiros_cad} banheiros.",
             "impacto": "Filtros de terrenos mostram dados incongruentes.",
             "acao": "No Kurole: Zerar quartos/banheiros ou alterar o tipo para 'Casa / Construção'.",
+        })
+
+    # Subdimensionamento tipológico: Sala Comercial vs Complexo / Salão com Pátio
+    tipo_orig = str(imovel.get("tipo_original") or "").lower()
+    is_sala_crm = "office" in tipo_orig or "sala" in tipo_lower
+    tem_perfil_complexo = (
+        any(k in texto_total.lower() for k in ["caminhões", "caminhoes", "carretas", "indústria", "industria", "pátio", "patio", "manobra", "estacionamento interno"])
+        or (area_total_cad >= 2.0 * area_util_cad and area_total_cad >= 350.0 and area_util_cad > 0)
+    )
+    if is_sala_crm and tem_perfil_complexo:
+        divergencias.append({
+            "campo": "Tipologia / Categoria",
+            "categoria": "Tipologia",
+            "severidade": "🔴 Crítica",
+            "cadastro": f"{imovel.get('tipo_original') or tipo_cad} ({area_util_cad:,.0f} m² útil / {area_total_cad:,.0f} m² terreno)",
+            "descricao": "Complexo Comercial-Industrial / Salão com Pátio",
+            "trecho_citado": "Acesso a carretas/caminhões, pátio e amplo terreno",
+            "motivo": f"Subdimensionamento de Tipologia no CRM: Imóvel cadastrado como '{imovel.get('tipo_original') or tipo_cad}', mas a descrição detalha acesso de caminhões/carretas, pátio e terreno de {area_total_cad:,.0f} m².",
+            "impacto": "Grave: Usuários dos portais buscam sala de escritório e rejeitam o preço, enquanto empresas que necessitam de logística e pátio não encontram o anúncio.",
+            "acao": "No Kurole: Atualizar o campo Tipo de Imóvel para 'Salão Comercial' ou 'Complexo Comercial / Galpão Industrial'.",
         })
 
     # -------------------------------------------------------------------------

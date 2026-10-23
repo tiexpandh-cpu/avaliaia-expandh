@@ -316,6 +316,13 @@ def identificar_fator_corredor(item_feed: dict) -> tuple[float, str]:
             f = 1.75 if transacao == "Venda" else 1.30
             return f, "Eixo Comercial - Av. Affonso Trigo (corredor comercial e de serviços)."
 
+    # 4. CORREDOR LOGÍSTICO / INDUSTRIAL - AV. JOÃO SVERZUT
+    # Ligação arterial direta com a Rodovia SP-322 e anel viário (acesso a carretas, caminhões pesados e polo industrial)
+    if any(k in texto_busca for k in ["joão sverzut", "joao sverzut", "sverzut"]):
+        if is_terreno or is_comercial or is_galpao:
+            f = 1.65 if transacao == "Venda" else 1.35
+            return f, "Eixo Logístico/Industrial - Av. João Sverzut (ligação arterial direta com a Rodovia SP-322 e acesso a caminhões/carretas)."
+
     return 1.00, ""
 
 
@@ -561,6 +568,58 @@ def reavaliar_imovel_feed(
         valor_fechamento_estimado = piso_minimo_condo
         valor_oferta_estimado = round(piso_minimo_condo / fator_of, -3)
 
+    # -------------------------------------------------------------------------
+    # MÉTODO EVOLUTIVO NBR 14653-2 PARA COMPLEXOS COMERCIAIS / INDUSTRIAIS
+    # Quando o imóvel comercial possui terreno muito superior à área construída
+    # (pátio de manobras de carretas, galpão com pátio, estacionamento interno),
+    # a engenharia de avaliações determina o valor pelo Método Evolutivo:
+    # Valor Total = Valor do Terreno + Valor das Benfeitorias/Instalações.
+    # -------------------------------------------------------------------------
+    area_construida = float(item_feed.get("area_util") or 0.0)
+    area_terreno = float(item_feed.get("area_total") or 0.0)
+    titulo_l = (item_feed.get("titulo") or "").lower()
+    desc_l = (item_feed.get("descricao") or "").lower()
+    texto_busca_evolutivo = f"{texto_busca_completo} {desc_l}"
+    is_galpao = (item_feed.get("tipo_zap") == "SHED" or "galpão" in tipo_l or "galpao" in tipo_l or "barracão" in tipo_l or "barracao" in tipo_l)
+
+    is_com_complex = (
+        (is_com or is_galpao or "comerciais" in titulo_l or "salão" in tipo_l or "salao" in tipo_l)
+        and (
+            (area_terreno >= 2.0 * area_construida and area_terreno >= 350.0 and area_construida > 0)
+            or any(k in desc_l for k in ["caminhões", "caminhoes", "carretas", "pátio", "patio", "manobra", "estacionamento interno"])
+        )
+    )
+
+    justificativa_evolutivo = ""
+    if is_com_complex and negocio == "SALE" and area_terreno > 0 and area_construida > 0:
+        # Benchmark do terreno conforme corredor / localização pericial
+        if any(k in texto_busca_evolutivo for k in ["sverzut", "rodovia", "sp-322", "sp 322", "distrito industrial"]):
+            bench_m2_terr = 780.0
+            just_loc_terr = "Av. João Sverzut / Corredor SP-322 (Logístico e Industrial)"
+        elif any(k in texto_busca_evolutivo for k in ["antônio paschoal", "antonio paschoal"]):
+            bench_m2_terr = 1800.0
+            just_loc_terr = "Av. Antônio Paschoal (eixo comercial nobre)"
+        elif "centro" in (item_feed.get("bairro") or "").lower() or any(r in texto_busca_evolutivo for r in RUAS_NUCLEO_PRACA_21):
+            bench_m2_terr = 2300.0
+            just_loc_terr = "Centro / Polo Barão do Rio Branco"
+        else:
+            bench_m2_terr = 650.0
+            just_loc_terr = "Zona Urbana / Corredor Comercial"
+
+        custo_m2_benf = 1600.0  # escritórios, banheiros, vestiários, salas de reunião, depósito e pátio pavimentado
+        val_terreno = area_terreno * bench_m2_terr
+        val_benfeitorias = area_construida * custo_m2_benf
+        valor_evolutivo = val_terreno + val_benfeitorias
+
+        valor_fechamento_estimado = valor_evolutivo
+        valor_oferta_estimado = round(valor_evolutivo, -3)
+        mediana_m2_ajustada = round(valor_evolutivo / area, 2)
+        justificativa_evolutivo = (
+            f"Método Evolutivo NBR 14653: Terreno ({area_terreno:,.0f} m² x R$ {bench_m2_terr:,.0f}/m² em {just_loc_terr} = R$ {val_terreno:,.0f}) "
+            f"+ Benfeitorias ({area_construida:,.0f} m² x R$ {custo_m2_benf:,.0f}/m² de escritórios/refeitório/vestiários/pátio = R$ {val_benfeitorias:,.0f}). "
+            f"Valor Patrimonial Total = R$ {valor_evolutivo:,.0f}."
+        )
+
     valor_fechamento_estimado = round(valor_fechamento_estimado, -3) if valor_fechamento_estimado > 10000 else round(valor_fechamento_estimado, -1)
 
     faixa_min = round(valor_fechamento_estimado * 0.90, -3) if valor_fechamento_estimado > 10000 else round(valor_fechamento_estimado * 0.90, -1)
@@ -629,14 +688,22 @@ def reavaliar_imovel_feed(
             diagnostico = "Preço abaixo da média de mercado. Alta atratividade para compradores e investidores."
             acao_sugerida = "Excelente apelo de venda rápida. Proprietário tem margem para subir o valor se desejar."
 
-    if fator_loc > 1.0:
-        diagnostico = f"Preço perfeitamente justificado pela localização no Polo Central da Praça 21 de Abril. {justificativa_loc}"
+    if fator_loc > 1.0 and not justificativa_evolutivo:
+        diagnostico = f"Preço justificado pela localização em corredor nobre/comercial. {justificativa_loc}"
         if abs(desvio_pct) <= 15.0:
             status = "🟢 Preço Justo"
-            acao_sugerida = f"Manter o valor de R$ {preco_anunciado:,.0f}. Ponto comercial nobre/central com alta liquidez e visibilidade."
+            acao_sugerida = f"Manter o valor de R$ {preco_anunciado:,.0f}. Ponto comercial nobre com alta liquidez e visibilidade."
+    elif fator_loc > 1.0 and justificativa_evolutivo:
+        diagnostico = f"{justificativa_loc} {diagnostico}"
 
     if justificativa_condo:
         diagnostico = f"{justificativa_condo} {diagnostico}"
+
+    if justificativa_evolutivo:
+        diagnostico = f"{justificativa_evolutivo} {diagnostico}"
+        if abs(desvio_pct) <= 15.0:
+            status = "🟢 Preço Justo"
+            acao_sugerida = f"Manter o valor anunciado de R$ {preco_anunciado:,.0f}. Complexo logístico/comercial com preço perfeitamente fundamentado pela metodologia pericial NBR 14653."
 
     if justificativa_escala:
         diagnostico += f" {justificativa_escala}"

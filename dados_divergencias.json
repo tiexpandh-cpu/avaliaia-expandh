@@ -1,12 +1,12 @@
 {
   "sucesso": true,
-  "data_auditoria": "23/10/2026 10:00",
+  "data_auditoria": "23/10/2026 12:24",
   "total_imoveis": 251,
-  "imoveis_com_divergencia": 68,
-  "imoveis_sem_divergencia": 183,
-  "pct_carteira_afetada": 27.1,
-  "total_divergencias": 76,
-  "criticas": 25,
+  "imoveis_com_divergencia": 69,
+  "imoveis_sem_divergencia": 182,
+  "pct_carteira_afetada": 27.5,
+  "total_divergencias": 77,
+  "criticas": 26,
   "medias": 51,
   "baixas": 0,
   "por_categoria": {
@@ -14,7 +14,7 @@
     "Suítes": 11,
     "Vagas": 14,
     "Preço / Condicionante": 1,
-    "Tipologia": 2,
+    "Tipologia": 3,
     "Área": 0,
     "Banheiros": 35
   },
@@ -618,6 +618,36 @@
       ]
     },
     {
+      "id": "V2279",
+      "titulo": "Comerciais Salão em Sertãozinho",
+      "tipo": "Ponto Comercial / Salão",
+      "transacao": "Venda",
+      "bairro": "Jardim das Palmeiras",
+      "cidade": "Sertãozinho",
+      "preco": 1258000.0,
+      "area": 170.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2022/2933/sertaozinho-comerciais-salao-jardim-das-palmeiras-25-05-2022_17-14-31-0.jpg",
+      "descricao": "Sertãozinho -SP. Localização excelente próximo da rodovia. Acesso para caminhões e carretas. Escritórios, deposito, sala de reunião, banheiros, vestiários, refeitório e estacionamento interno.\nTERRENO: FRENTE 20 metros.\nIDEAL PARA COMÉRCIO E INDÚSTRIA.\nRef. 9. ref. 2279 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Tipologia / Categoria",
+          "categoria": "Tipologia",
+          "severidade": "🔴 Crítica",
+          "cadastro": "Commercial / Office (170 m² útil / 1,289 m² terreno)",
+          "descricao": "Complexo Comercial-Industrial / Salão com Pátio",
+          "trecho_citado": "Acesso a carretas/caminhões, pátio e amplo terreno",
+          "motivo": "Subdimensionamento de Tipologia no CRM: Imóvel cadastrado como 'Commercial / Office', mas a descrição detalha acesso de caminhões/carretas, pátio e terreno de 1,289 m².",
+          "impacto": "Grave: Usuários dos portais buscam sala de escritório e rejeitam o preço, enquanto empresas que necessitam de logística e pátio não encontram o anúncio.",
+          "acao": "No Kurole: Atualizar o campo Tipo de Imóvel para 'Salão Comercial' ou 'Complexo Comercial / Galpão Industrial'."
+        }
+      ]
+    },
+    {
       "id": "V22211",
       "titulo": "Ótima localização residencial ou comercial.",
       "tipo": "Casa",
@@ -860,7 +890,7 @@
     {
       "id": "L5705",
       "titulo": "Comerciais Salão em Pontal",
-      "tipo": "Sala Comercial",
+      "tipo": "Ponto Comercial / Salão",
       "transacao": "Locação",
       "bairro": "CENTRO",
       "cidade": "Pontal",
@@ -920,7 +950,7 @@
     {
       "id": "L19421",
       "titulo": "Comerciais Salão em Sertãozinho",
-      "tipo": "Sala Comercial",
+      "tipo": "Ponto Comercial / Salão",
       "transacao": "Locação",
       "bairro": "Jardim Jamaica",
       "cidade": "Sertãozinho",
@@ -980,7 +1010,7 @@
     {
       "id": "L24221",
       "titulo": "Comerciais Salão em Sertãozinho",
-      "tipo": "Sala Comercial",
+      "tipo": "Ponto Comercial / Salão",
       "transacao": "Locação",
       "bairro": "Conjunto Habitacional Lúcia Fabro Sverzut",
       "cidade": "Sertãozinho",
@@ -1010,7 +1040,7 @@
     {
       "id": "L72521",
       "titulo": "Comerciais Sala em Sertãozinho",
-      "tipo": "Sala Comercial",
+      "tipo": "Ponto Comercial / Salão",
       "transacao": "Locação",
       "bairro": "Jardim Recreio",
       "cidade": "Sertãozinho",
@@ -1070,7 +1100,7 @@
     {
       "id": "L7325",
       "titulo": "Comerciais Salão em Sertãozinho",
-      "tipo": "Sala Comercial",
+      "tipo": "Ponto Comercial / Salão",
       "transacao": "Locação",
       "bairro": "Centro",
       "cidade": "Sertãozinho",
@@ -1160,7 +1190,7 @@
     {
       "id": "L3059",
       "titulo": "Comerciais Salão em Sertãozinho",
-      "tipo": "Sala Comercial",
+      "tipo": "Ponto Comercial / Salão",
       "transacao": "Locação",
       "bairro": "Jardim Veneto II",
       "cidade": "Sertãozinho",
@@ -1250,7 +1280,7 @@
     {
       "id": "L6059",
       "titulo": "Comerciais Salão em Sertãozinho",
-      "tipo": "Sala Comercial",
+      "tipo": "Ponto Comercial / Salão",
       "transacao": "Locação",
       "bairro": "Jardim Veneto II",
       "cidade": "Sertãozinho",
@@ -1310,7 +1340,7 @@
     {
       "id": "L5156",
       "titulo": "Comerciais Salão em Sertãozinho",
-      "tipo": "Sala Comercial",
+      "tipo": "Ponto Comercial / Salão",
       "transacao": "Locação",
       "bairro": "Shangri-Lá",
       "cidade": "Sertãozinho",
@@ -1370,7 +1400,7 @@
     {
       "id": "L64901",
       "titulo": "Comerciais Salão em Sertãozinho",
-      "tipo": "Sala Comercial",
+      "tipo": "Ponto Comercial / Salão",
       "transacao": "Locação",
       "bairro": "Centro",
       "cidade": "Sertãozinho",
@@ -1460,7 +1490,7 @@
     {
       "id": "L01421",
       "titulo": "Excelente salão comercial com estrutura para realizar seu projeto.",
-      "tipo": "Sala Comercial",
+      "tipo": "Ponto Comercial / Salão",
       "transacao": "Locação",
       "bairro": "Vila Industrial",
       "cidade": "Sertãozinho",
@@ -1550,7 +1580,7 @@
     {
       "id": "L01811",
       "titulo": "Comerciais Salão em Sertãozinho",
-      "tipo": "Sala Comercial",
+      "tipo": "Ponto Comercial / Salão",
       "transacao": "Locação",
       "bairro": "Centro",
       "cidade": "Sertãozinho",
@@ -1700,7 +1730,7 @@
     {
       "id": "L00701",
       "titulo": "Comerciais Salão em Sertãozinho",
-      "tipo": "Sala Comercial",
+      "tipo": "Ponto Comercial / Salão",
       "transacao": "Locação",
       "bairro": "Centro",
       "cidade": "Sertãozinho",
@@ -1790,7 +1820,7 @@
     {
       "id": "V01421",
       "titulo": "Excelente salão comercial com estrutura para realizar seu projeto.",
-      "tipo": "Sala Comercial",
+      "tipo": "Ponto Comercial / Salão",
       "transacao": "Venda",
       "bairro": "Vila Industrial",
       "cidade": "Sertãozinho",
@@ -1880,7 +1910,7 @@
     {
       "id": "V82301",
       "titulo": "Comerciais Salão em Sertãozinho",
-      "tipo": "Sala Comercial",
+      "tipo": "Ponto Comercial / Salão",
       "transacao": "Venda",
       "bairro": "Conjunto Habitacional Maurílio Biagi",
       "cidade": "Sertãozinho",
@@ -2060,7 +2090,7 @@
     {
       "id": "V9809",
       "titulo": "Comerciais Salão em Sertãozinho",
-      "tipo": "Sala Comercial",
+      "tipo": "Ponto Comercial / Salão",
       "transacao": "Venda",
       "bairro": "Jardim Santo Antônio",
       "cidade": "Sertãozinho",

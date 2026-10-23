@@ -149,6 +149,12 @@ def carregar_feed_xml(fonte: str = URL_FEED_PADRAO) -> dict:
             tipo_amigavel = "Casa em Condomínio"
             tipo_zap = "HOME"
 
+        # Refinamento inteligente para Imóveis Comerciais / Salões / Complexos mal categorizados como Sala Comercial
+        if tipo_amigavel == "Sala Comercial" or tipo_zap == "OFFICE":
+            if any(k in texto_analise for k in ["salão", "salao", "galpão", "galpao", "barracão", "barracao", "indústria", "industria", "caminhões", "caminhoes", "carretas", "pátio", "patio"]) or (area_total >= 2.0 * area_util and area_total >= 350.0):
+                tipo_amigavel = "Ponto Comercial / Salão"
+                tipo_zap = "BUSINESS"
+
         # Features / Características
         features = [f.text.strip() for f in det_el.findall(".//{*}Feature") if f.text]
 
