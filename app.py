@@ -33,7 +33,7 @@ importlib.reload(resumo_matinal)
 importlib.reload(tema_bi)
 importlib.reload(auditoria_divergencias)
 import tools
-from llm import ClienteLLM
+from llm import ClienteLLM, obter_chave_gemini, testar_conexao_gemini
 
 # Configuração da página
 st.set_page_config(
@@ -274,17 +274,56 @@ with st.sidebar:
         )
         pipeline.RENTABILIDADE_ALUGUEL_AA = rentabilidade_input
 
-        api_key = (os.environ.get("GEMINI_API_KEY") or "").strip().strip('"').strip("'")
-        if not api_key:
-            try:
-                api_key = (st.secrets.get("GEMINI_API_KEY") or "").strip().strip('"').strip("'")
-            except Exception:
-                pass
-
+        api_key = obter_chave_gemini()
         if api_key and len(api_key) >= 20:
-            st.success("🟢 Chave Gemini Conectada (AI Studio)")
+            st.success(f"🟢 Gemini Ativo (`{api_key[:8]}...{api_key[-4:]}`)")
         else:
-            st.error("🔴 GEMINI_API_KEY não encontrada (.env ou Secrets)")
+            st.error("🔴 Chave Gemini não configurada")
+
+        with st.expander("🔑 Gerenciar Chave Gemini (AI Studio)", expanded=not bool(api_key)):
+            st.caption("Usada para OCR visual de matrículas e redação técnica.")
+            nova_chave_side = st.text_input(
+                "Chave do Google AI Studio:",
+                type="password",
+                placeholder="Insira sua chave...",
+                key="input_gemini_key_sidebar"
+            ).strip()
+            col_sb1, col_sb2 = st.columns(2)
+            with col_sb1:
+                if st.button("💾 Salvar", use_container_width=True, key="btn_save_key_sidebar"):
+                    if len(nova_chave_side) >= 20:
+                        st.session_state["gemini_api_key_override"] = nova_chave_side
+                        os.environ["GEMINI_API_KEY"] = nova_chave_side
+                        try:
+                            caminho_env = Path(".env")
+                            linhas = []
+                            if caminho_env.exists():
+                                for l in caminho_env.read_text(encoding="utf-8").splitlines():
+                                    if l.startswith("GEMINI_API_KEY="):
+                                        linhas.append(f'GEMINI_API_KEY="{nova_chave_side}"')
+                                    else:
+                                        linhas.append(l)
+                            else:
+                                linhas.append(f'GEMINI_API_KEY="{nova_chave_side}"')
+                            caminho_env.write_text("\n".join(linhas), encoding="utf-8")
+                        except Exception:
+                            pass
+                        st.success("Chave salva com sucesso!")
+                        st.rerun()
+                    else:
+                        st.error("Chave inválida.")
+            with col_sb2:
+                if st.button("⚡ Testar", use_container_width=True, key="btn_test_key_sidebar"):
+                    chave_teste = nova_chave_side or api_key
+                    if chave_teste:
+                        ok, msg = testar_conexao_gemini(chave_teste)
+                        if ok:
+                            st.success("✅ Conexão ativa!")
+                        else:
+                            st.error(f"❌ Erro: {msg}")
+                    else:
+                        st.warning("Insira uma chave.")
+            st.caption("👉 [Obter chave no Google AI Studio](https://aistudio.google.com/apikey)")
 
     st.caption("Versão 2.0 • Coleta ao vivo ZAP Imóveis")
 
@@ -301,12 +340,7 @@ tema_bi.render_modal_metodologia()
 
 
 def render_avaliacao_matricula():
-    api_key_atual = (os.environ.get("GEMINI_API_KEY") or "").strip().strip('"').strip("'")
-    if not api_key_atual:
-        try:
-            api_key_atual = (st.secrets.get("GEMINI_API_KEY") or "").strip().strip('"').strip("'")
-        except Exception:
-            pass
+    api_key_atual = obter_chave_gemini()
 
     if not api_key_atual or len(api_key_atual) < 20:
         st.warning(
@@ -319,7 +353,7 @@ def render_avaliacao_matricula():
             nova_chave = st.text_input(
                 "Cole aqui sua chave do Google AI Studio:",
                 type="password",
-                placeholder="Insira sua chave do Google AI Studio...",
+                placeholder="Insira sua chave (ex: AQ.Ab... ou AIzaSy...)",
                 key="nova_gemini_key_matricula"
             ).strip()
         with col_k2:
@@ -327,24 +361,68 @@ def render_avaliacao_matricula():
             st.write("")
             if st.button("💾 Salvar Chave", type="primary", use_container_width=True, key="btn_salvar_key_mat"):
                 if len(nova_chave) >= 20:
+                    st.session_state["gemini_api_key_override"] = nova_chave
                     os.environ["GEMINI_API_KEY"] = nova_chave
-                    caminho_env = Path(".env")
-                    linhas = []
-                    if caminho_env.exists():
-                        for l in caminho_env.read_text(encoding="utf-8").splitlines():
-                            if l.startswith("GEMINI_API_KEY="):
-                                linhas.append(f'GEMINI_API_KEY="{nova_chave}"')
-                            else:
-                                linhas.append(l)
-                    else:
-                        linhas.append(f'GEMINI_API_KEY="{nova_chave}"')
-                    caminho_env.write_text("\n".join(linhas), encoding="utf-8")
+                    try:
+                        caminho_env = Path(".env")
+                        linhas = []
+                        if caminho_env.exists():
+                            for l in caminho_env.read_text(encoding="utf-8").splitlines():
+                                if l.startswith("GEMINI_API_KEY="):
+                                    linhas.append(f'GEMINI_API_KEY="{nova_chave}"')
+                                else:
+                                    linhas.append(l)
+                        else:
+                            linhas.append(f'GEMINI_API_KEY="{nova_chave}"')
+                        caminho_env.write_text("\n".join(linhas), encoding="utf-8")
+                    except Exception:
+                        pass
                     st.success("Chave salva com sucesso!")
                     st.rerun()
                 else:
                     st.error("Chave inválida. Verifique o valor copiado do Google AI Studio.")
         st.caption("👉 [Obtenha uma chave gratuita no Google AI Studio (10 segundos)](https://aistudio.google.com/apikey)")
         st.markdown("---")
+    else:
+        with st.expander(f"🔑 Chave Gemini Conectada (`{api_key_atual[:8]}...{api_key_atual[-4:]}`) — Clique para alterar ou testar"):
+            col_alt1, col_alt2, col_alt3 = st.columns([3, 1, 1])
+            with col_alt1:
+                chave_alterar = st.text_input("Atualizar Chave do Google AI Studio:", type="password", key="key_alterar_mat").strip()
+            with col_alt2:
+                st.write("")
+                st.write("")
+                if st.button("💾 Atualizar", use_container_width=True, key="btn_alterar_mat"):
+                    if len(chave_alterar) >= 20:
+                        st.session_state["gemini_api_key_override"] = chave_alterar
+                        os.environ["GEMINI_API_KEY"] = chave_alterar
+                        try:
+                            caminho_env = Path(".env")
+                            linhas = []
+                            if caminho_env.exists():
+                                for l in caminho_env.read_text(encoding="utf-8").splitlines():
+                                    if l.startswith("GEMINI_API_KEY="):
+                                        linhas.append(f'GEMINI_API_KEY="{chave_alterar}"')
+                                    else:
+                                        linhas.append(l)
+                            else:
+                                linhas.append(f'GEMINI_API_KEY="{chave_alterar}"')
+                            caminho_env.write_text("\n".join(linhas), encoding="utf-8")
+                        except Exception:
+                            pass
+                        st.success("Chave atualizada!")
+                        st.rerun()
+                    else:
+                        st.error("Chave inválida.")
+            with col_alt3:
+                st.write("")
+                st.write("")
+                if st.button("⚡ Testar", use_container_width=True, key="btn_testar_mat"):
+                    chave_teste = chave_alterar or api_key_atual
+                    ok, msg = testar_conexao_gemini(chave_teste)
+                    if ok:
+                        st.success("✅ Conexão ativa!")
+                    else:
+                        st.error(f"❌ Erro: {msg}")
 
     col_upload, col_opcoes = st.columns([2, 1])
 
@@ -524,15 +602,49 @@ def render_avaliacao_matricula():
 
             except Exception as e:
                 msg_erro = str(e)
-                if "401" in msg_erro or "API key not valid" in msg_erro or "UNAUTHENTICATED" in msg_erro or "AIzaSy" in msg_erro:
+                if any(x in msg_erro for x in ["401", "API key not valid", "UNAUTHENTICATED", "ACCESS_TOKEN_TYPE_UNSUPPORTED"]):
                     st.error(
-                        "❌ **Erro de Autenticação (401 - Chave do Gemini Inválida):**\n\n"
-                        f"{msg_erro}\n\n"
-                        "💡 **Como resolver:**\n"
-                        "1. Acesse [Google AI Studio](https://aistudio.google.com/apikey) e crie uma chave gratuita (*'Create API key'*).\n"
-                        "2. As chaves oficiais do Gemini começam obrigatoriamente com `AIzaSy`.\n"
-                        "3. Cole a chave no campo de configuração acima e clique em **Salvar Chave**."
+                        "❌ **Erro de Autenticação (401 - Chave do Gemini Inválida ou Não Reconhecida pelo Servidor):**\n\n"
+                        f"`{msg_erro}`"
                     )
+                    st.warning(
+                        "💡 **Como resolver agora mesmo:**\n"
+                        "Cole a sua nova chave ativa do Google AI Studio abaixo e clique em **Salvar e Reprocessar**:"
+                    )
+                    col_err1, col_err2 = st.columns([3, 1])
+                    with col_err1:
+                        chave_erro = st.text_input(
+                            "Cole sua chave do Google AI Studio:",
+                            type="password",
+                            placeholder="Insira sua chave (ex: AQ.Ab... ou AIzaSy...)",
+                            key="chave_correcao_401"
+                        ).strip()
+                    with col_err2:
+                        st.write("")
+                        st.write("")
+                        if st.button("💾 Salvar e Reprocessar", type="primary", use_container_width=True, key="btn_salvar_erro_401"):
+                            if len(chave_erro) >= 20:
+                                st.session_state["gemini_api_key_override"] = chave_erro
+                                os.environ["GEMINI_API_KEY"] = chave_erro
+                                try:
+                                    caminho_env = Path(".env")
+                                    linhas = []
+                                    if caminho_env.exists():
+                                        for l in caminho_env.read_text(encoding="utf-8").splitlines():
+                                            if l.startswith("GEMINI_API_KEY="):
+                                                linhas.append(f'GEMINI_API_KEY="{chave_erro}"')
+                                            else:
+                                                linhas.append(l)
+                                    else:
+                                        linhas.append(f'GEMINI_API_KEY="{chave_erro}"')
+                                    caminho_env.write_text("\n".join(linhas), encoding="utf-8")
+                                except Exception:
+                                    pass
+                                st.success("Chave salva! Clique novamente em Iniciar Avaliação.")
+                                st.rerun()
+                            else:
+                                st.error("Chave inválida. Verifique o valor copiado.")
+                    st.caption("ℹ️ *Dica para o Streamlit Cloud:* Você também pode salvar esta chave de forma definitiva nas configurações do aplicativo no menu **App Settings > Secrets** com `GEMINI_API_KEY = \"sua_chave\"`.")
                 else:
                     st.error(f"Erro durante o processamento: {e}")
 

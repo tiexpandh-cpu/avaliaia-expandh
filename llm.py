@@ -14,17 +14,49 @@ INTERVALO_MINIMO = float(os.environ.get("INTERVALO_MINIMO_S", "6"))
 MAX_TENTATIVAS = 4
 
 
+def obter_chave_gemini() -> str:
+    """Recupera a chave Gemini com precedência: Session State > os.environ > st.secrets."""
+    chave = ""
+    try:
+        import streamlit as st
+        chave = st.session_state.get("gemini_api_key_override", "")
+    except Exception:
+        pass
+    if not chave:
+        chave = os.environ.get("GEMINI_API_KEY", "")
+    if not chave:
+        try:
+            import streamlit as st
+            chave = st.secrets.get("GEMINI_API_KEY", "")
+        except Exception:
+            pass
+    return (chave or "").strip().strip('"').strip("'")
+
+
+def testar_conexao_gemini(chave: str | None = None) -> tuple[bool, str]:
+    """Testa se a chave informada é válida chamando rapidamente o modelo."""
+    try:
+        chave_usar = chave or obter_chave_gemini()
+        if not chave_usar or len(chave_usar) < 20:
+            return False, "Chave vazia ou muito curta."
+        client = genai.Client(api_key=chave_usar)
+        resp = client.interactions.create(
+            model=os.environ.get("MODELO_EXTRACAO", "gemini-3.5-flash-lite"),
+            input="Diga apenas OK."
+        )
+        if resp and resp.output_text:
+            return True, "Conexão com Google Gemini realizada com sucesso!"
+        return False, "Resposta vazia da API Gemini."
+    except Exception as e:
+        return False, str(e)
+
+
 class ClienteLLM:
-    def __init__(self):
-        chave = os.environ.get("GEMINI_API_KEY")
+    def __init__(self, chave: str | None = None):
         if not chave:
-            try:
-                import streamlit as st
-                chave = st.secrets.get("GEMINI_API_KEY")
-            except Exception:
-                pass
+            chave = obter_chave_gemini()
         if not chave:
-            raise RuntimeError("GEMINI_API_KEY não encontrada no .env ou nas Secrets do Streamlit")
+            raise RuntimeError("GEMINI_API_KEY não encontrada no .env, na sessão ou nas Secrets do Streamlit")
         
         chave = chave.strip().strip('"').strip("'")
         if not chave or len(chave) < 20:
