@@ -58,6 +58,18 @@ def obter_css_tema() -> str:
         width: 6px;
         height: 6px;
     }
+
+    /* Segurança: Ocultar permanentemente botão de visualizar senha (ícone de olho) */
+    button[aria-label*="password" i],
+    button[aria-label*="senha" i],
+    button[aria-label="Show password as plain text"],
+    button[aria-label="Hide password"],
+    div[data-testid="stTextInputRootElement"] button {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+        opacity: 0 !important;
+    }
     ::-webkit-scrollbar-track {
         background: var(--bg-main);
     }
