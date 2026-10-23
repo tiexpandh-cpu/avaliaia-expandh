@@ -240,33 +240,41 @@ def identificar_fator_corredor(item_feed: dict) -> tuple[float, str]:
     except Exception:
         pass
 
-    # 1. NÚCLEO DA PRAÇA 21 DE ABRIL (Barão do Rio Branco, Washington Luís, Aprígio de Araújo, Sebastião Sampaio, Cel. Francisco Schmidt, Expedicionário Lellis)
-    # Exige proximidade física estrita (raio máximo <= 0.38 km da Praça 21), pois essas vias se estendem por quilômetros
+    # 1. NÚCLEO DA PRAÇA 21 DE ABRIL E EIXO COMERCIAL BARÃO DO RIO BRANCO
+    # A Rua Barão do Rio Branco e vias axiais (Washington Luís, Aprígio de Araújo, Sebastião Sampaio, Cel. Francisco Schmidt)
+    # formam o corredor comercial e financeiro contínuo do Centro de Sertãozinho (extensão de até 1.15 km da praça / números até 2200).
+    is_barao_ou_axial = any(r in texto_busca for r in RUAS_NUCLEO_PRACA_21)
+    is_bairro_centro = "centro" in texto_busca
+
     if dist_praca is not None:
-        pertence_nucleo = (dist_praca <= 0.38) and (any(r in texto_busca for r in RUAS_NUCLEO_PRACA_21) or "centro" in texto_busca)
+        pertence_nucleo = (
+            (dist_praca <= 0.38 and (is_barao_ou_axial or is_bairro_centro))
+            or (dist_praca <= 1.15 and is_barao_ou_axial and is_bairro_centro)
+        )
     else:
-        pertence_nucleo = any(r in texto_busca for r in RUAS_NUCLEO_PRACA_21) and "centro" in texto_busca and (numero_int is None or numero_int <= 1500)
+        pertence_nucleo = is_barao_ou_axial and is_bairro_centro and (numero_int is None or numero_int <= 2200)
 
     if pertence_nucleo:
+        dist_str = f" ({dist_praca*1000:.0f}m da praça)" if dist_praca is not None else ""
         if is_terreno:
-            f = 1.20 if transacao == "Locação" else 3.00
-            return f, f"Núcleo Praça 21 de Abril (Centro - {dist_praca*1000:.0f}m da praça). Floc = {f:.2f}x para terrenos no centro."
+            f = 1.30 if transacao == "Locação" else 3.30
+            return f, f"Eixo Comercial Nobre - Rua Barão do Rio Branco / Polo Central{dist_str}. Floc = {f:.2f}x para terrenos no polo comercial (benchmark R$ 2.300/m²)."
         elif is_galpao:
             return 1.00, "Centro (Restrição de tráfego pesado/carga para galpões). Floc = 1.00x."
         elif is_sala:
             # Calibração comercial: salas no centro sem vaga sofrem com gargalo de estacionamento
             if transacao == "Locação":
                 if vagas > 0:
-                    return 1.20, f"Núcleo Praça 21 de Abril ({vagas} vaga(s) privativas). Floc = 1.20x."
+                    return 1.20, f"Núcleo Praça 21 de Abril{dist_str} ({vagas} vaga(s) privativas). Floc = 1.20x."
                 else:
-                    return 1.05, "Núcleo Praça 21 de Abril (Sem vaga privativa). Floc = 1.05x (gargalo de estacionamento no centro neutraliza o prêmio)."
+                    return 1.05, f"Núcleo Praça 21 de Abril{dist_str} (Sem vaga privativa). Floc = 1.05x (gargalo de estacionamento no centro neutraliza o prêmio)."
             else:
-                return 2.20, "Núcleo Praça 21 de Abril (Centro Nobre - Venda). Floc = 2.20x."
+                return 2.20, f"Núcleo Praça 21 de Abril{dist_str} (Centro Nobre - Venda). Floc = 2.20x."
         elif is_comercial:
             f = 1.30 if transacao == "Locação" else 2.50
-            return f, f"Núcleo Praça 21 de Abril (Comércio de Rua/Varejo). Floc = {f:.2f}x pelo fluxo de pedestres na calçada."
+            return f, f"Núcleo Praça 21 de Abril / Eixo Comercial{dist_str} (Comércio de Rua/Varejo). Floc = {f:.2f}x pelo fluxo de pedestres na calçada."
         else:
-            return 1.30, "Núcleo Praça 21 de Abril (Centro Nobre). Floc = 1.30x pela infraestrutura e vocação mista/comercial."
+            return 1.30, f"Núcleo Praça 21 de Abril{dist_str} (Centro Nobre). Floc = 1.30x pela infraestrutura e vocação mista/comercial."
 
     # 2. RUAS CRUZANTES E ENTORNO IMEDIATO DA PRAÇA 21 DE ABRIL
     # Exige proximidade física no anel secundário central (raio máximo <= 0.55 km da Praça 21).
