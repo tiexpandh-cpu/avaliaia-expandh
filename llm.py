@@ -25,6 +25,15 @@ class ClienteLLM:
                 pass
         if not chave:
             raise RuntimeError("GEMINI_API_KEY não encontrada no .env ou nas Secrets do Streamlit")
+        
+        chave = chave.strip().strip('"').strip("'")
+        if not chave.startswith("AIzaSy"):
+            raise ValueError(
+                "A chave configurada em GEMINI_API_KEY não é uma chave de API válida do Google AI Studio. "
+                "Chaves do Gemini começam obrigatoriamente com 'AIzaSy' (o valor atual começa com '" + chave[:6] + "'). "
+                "Obtenha uma chave gratuita em: https://aistudio.google.com/apikey"
+            )
+
         self.client = genai.Client(api_key=chave)
         self._ultima_chamada = 0.0
         self.requisicoes = 0

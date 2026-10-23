@@ -274,15 +274,17 @@ with st.sidebar:
         )
         pipeline.RENTABILIDADE_ALUGUEL_AA = rentabilidade_input
 
-        api_key = os.environ.get("GEMINI_API_KEY", "")
+        api_key = (os.environ.get("GEMINI_API_KEY") or "").strip().strip('"').strip("'")
         if not api_key:
             try:
-                api_key = st.secrets.get("GEMINI_API_KEY", "")
+                api_key = (st.secrets.get("GEMINI_API_KEY") or "").strip().strip('"').strip("'")
             except Exception:
                 pass
 
-        if api_key:
-            st.success("🟢 Chave do Google AI Studio Conectada")
+        if api_key and api_key.startswith("AIzaSy"):
+            st.success("🟢 Chave Gemini Conectada (AI Studio)")
+        elif api_key:
+            st.error("⚠️ Chave Inválida: Deve iniciar com 'AIzaSy' (Google AI Studio)")
         else:
             st.error("🔴 GEMINI_API_KEY não encontrada (.env ou Secrets)")
 
@@ -301,6 +303,51 @@ tema_bi.render_modal_metodologia()
 
 
 def render_avaliacao_matricula():
+    api_key_atual = (os.environ.get("GEMINI_API_KEY") or "").strip().strip('"').strip("'")
+    if not api_key_atual:
+        try:
+            api_key_atual = (st.secrets.get("GEMINI_API_KEY") or "").strip().strip('"').strip("'")
+        except Exception:
+            pass
+
+    if not api_key_atual or not api_key_atual.startswith("AIzaSy"):
+        st.warning(
+            "🔑 **Chave do Google AI Studio Requerida para OCR Visual de Matrículas:**\n\n"
+            "A leitura e extração de dados da matrícula em PDF utiliza a IA do Google Gemini. "
+            "A chave atualmente configurada no sistema é inválida (chaves oficiais do Google AI Studio começam obrigatoriamente com `AIzaSy`)."
+        )
+        col_k1, col_k2 = st.columns([3, 1])
+        with col_k1:
+            nova_chave = st.text_input(
+                "Cole aqui sua chave do Google AI Studio (começa com AIzaSy):",
+                type="password",
+                placeholder="AIzaSy...",
+                key="nova_gemini_key_matricula"
+            ).strip()
+        with col_k2:
+            st.write("")
+            st.write("")
+            if st.button("💾 Salvar Chave", type="primary", use_container_width=True, key="btn_salvar_key_mat"):
+                if nova_chave.startswith("AIzaSy"):
+                    os.environ["GEMINI_API_KEY"] = nova_chave
+                    caminho_env = Path(".env")
+                    linhas = []
+                    if caminho_env.exists():
+                        for l in caminho_env.read_text(encoding="utf-8").splitlines():
+                            if l.startswith("GEMINI_API_KEY="):
+                                linhas.append(f'GEMINI_API_KEY="{nova_chave}"')
+                            else:
+                                linhas.append(l)
+                    else:
+                        linhas.append(f'GEMINI_API_KEY="{nova_chave}"')
+                    caminho_env.write_text("\n".join(linhas), encoding="utf-8")
+                    st.success("Chave salva com sucesso!")
+                    st.rerun()
+                else:
+                    st.error("Chave inválida. Chaves do Gemini AI Studio iniciam com 'AIzaSy'.")
+        st.caption("👉 [Obtenha uma chave gratuita no Google AI Studio (10 segundos)](https://aistudio.google.com/apikey)")
+        st.markdown("---")
+
     col_upload, col_opcoes = st.columns([2, 1])
 
     with col_upload:
@@ -478,7 +525,18 @@ def render_avaliacao_matricula():
                     st.markdown(laudo_md)
 
             except Exception as e:
-                st.error(f"Erro durante o processamento: {e}")
+                msg_erro = str(e)
+                if "401" in msg_erro or "API key not valid" in msg_erro or "UNAUTHENTICATED" in msg_erro or "AIzaSy" in msg_erro:
+                    st.error(
+                        "❌ **Erro de Autenticação (401 - Chave do Gemini Inválida):**\n\n"
+                        f"{msg_erro}\n\n"
+                        "💡 **Como resolver:**\n"
+                        "1. Acesse [Google AI Studio](https://aistudio.google.com/apikey) e crie uma chave gratuita (*'Create API key'*).\n"
+                        "2. As chaves oficiais do Gemini começam obrigatoriamente com `AIzaSy`.\n"
+                        "3. Cole a chave no campo de configuração acima e clique em **Salvar Chave**."
+                    )
+                else:
+                    st.error(f"Erro durante o processamento: {e}")
 
 
 # ==================== CARREGAMENTO DA AUDITORIA CONSOLIDADA ====================
