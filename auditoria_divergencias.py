@@ -364,6 +364,20 @@ def analisar_divergencias_imovel(imovel: dict) -> List[dict]:
             "acao": "No Kurole: Atualizar o campo Tipo de Imóvel para 'Salão Comercial' ou 'Complexo Comercial / Galpão Industrial'.",
         })
 
+    # Subdimensionamento tipológico: Área de Lazer / Festas cadastrada como Casa
+    if "casa" in tipo_lower and any(k in texto_total.lower() for k in ["102 cadeiras", "100 cadeiras", "mesas e cadeiras", "área de festa", "salao de festa", "salão de festa", "jogos de bistrô", "jogos de bistro"]):
+        divergencias.append({
+            "campo": "Tipologia / Categoria",
+            "categoria": "Tipologia",
+            "severidade": "🔴 Crítica",
+            "cadastro": f"{tipo_cad}",
+            "descricao": "Área de Lazer / Espaço para Eventos",
+            "trecho_citado": "Mobiliário para eventos (102 cadeiras, 20 mesas, jogos de bistrô)",
+            "motivo": "Tipologia distorcida: Imóvel cadastrado como 'Casa', porém trata-se de Área de Lazer / Espaço de Eventos com dezenas de mesas e cadeiras para aluguel de festas.",
+            "impacto": "Compradores buscando moradia residencial rejeitam o layout comercial/recreativo, e investidores de aluguel por temporada/festas não encontram o imóvel.",
+            "acao": "No Kurole: Alterar o tipo para 'Área de Lazer / Recreação' ou 'Comercial / Lazer'.",
+        })
+
     # -------------------------------------------------------------------------
     # REGRA 6: ÁREA (Metragem Omitida ou Conflitante)
     # -------------------------------------------------------------------------
@@ -381,6 +395,42 @@ def analisar_divergencias_imovel(imovel: dict) -> List[dict]:
                 "impacto": "Impossibilita o cálculo do preço por metro quadrado (R$/m²) e exclui o imóvel de filtros por área.",
                 "acao": f"No Kurole: Preencher a área útil/total com {m_area.group(1)} m².",
             })
+    elif area_cad > 0:
+        # Conflito de dimensões explícitas no texto (ex: 5x5 metros = 25 m² vs 35 m² cadastrado)
+        m_dim = re.search(r"\b(\d+)\s*[xX]\s*(\d+)\s*(?:m|metros)\b", texto_total, re.I)
+        if m_dim:
+            dim_calc = float(m_dim.group(1)) * float(m_dim.group(2))
+            if abs(dim_calc - area_cad) / area_cad >= 0.25 and abs(dim_calc - area_cad) >= 8:
+                divergencias.append({
+                    "campo": "Área (m²)",
+                    "categoria": "Área",
+                    "severidade": "🔴 Crítica",
+                    "cadastro": f"{area_cad:,.0f} m²",
+                    "descricao": f"{dim_calc:,.0f} m² ({m_dim.group(0)})",
+                    "trecho_citado": m_dim.group(0),
+                    "motivo": f"Área cadastrada ({area_cad:,.0f} m²) diverge substancialmente das dimensões descritas no texto ({m_dim.group(0)} = {dim_calc:,.0f} m²).",
+                    "impacto": "Grave: Distorce o valor por metro quadrado e gera frustração de espaço em visitas.",
+                    "acao": f"No Kurole: Retificar a área útil para {dim_calc:,.0f} m² conforme as dimensões reais.",
+                })
+        # Conflito de metragem de salão comercial expressa no texto (ex: 22,00 Metros Quadrados vs 50 m²)
+        m_sal = re.search(r"sal[aã]o\s*(?:comercial)?\s*(?:\()?\s*(\d+[\.,]?\d*)\s*(?:metros quadrados|m²|m2)", texto_total, re.I)
+        if m_sal:
+            try:
+                val_sal = float(m_sal.group(1).replace(".", "").replace(",", "."))
+                if abs(val_sal - area_cad) / area_cad >= 0.25 and abs(val_sal - area_cad) >= 10:
+                    divergencias.append({
+                        "campo": "Área (m²)",
+                        "categoria": "Área",
+                        "severidade": "🔴 Crítica",
+                        "cadastro": f"{area_cad:,.0f} m²",
+                        "descricao": f"{val_sal:,.0f} m²",
+                        "trecho_citado": m_sal.group(0),
+                        "motivo": f"Conflito de área: Cadastro informa {area_cad:,.0f} m², mas a descrição afirma expressamente {m_sal.group(0)}.",
+                        "impacto": "Grave: O anúncio promete mais que o dobro do tamanho real, causando desconfiança imediata de locatários.",
+                        "acao": f"No Kurole: Atualizar o campo estruturado 'Área Útil' para {val_sal:,.0f} m².",
+                    })
+            except Exception:
+                pass
 
     # -------------------------------------------------------------------------
     # REGRA 7: BANHEIROS (Omissão)
@@ -397,6 +447,39 @@ def analisar_divergencias_imovel(imovel: dict) -> List[dict]:
             "motivo": f"Banheiros não informados no cadastro (Cad: 0 vs Desc: {b_desc}).",
             "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
             "acao": f"No Kurole: Preencher o campo 'Banheiros' com {b_desc}.",
+        })
+
+    # -------------------------------------------------------------------------
+    # REGRA 8: CONDIÇÕES COMERCIAIS & PERMUTA (Oportunidade Comercial)
+    # -------------------------------------------------------------------------
+    if any(k in texto_total.lower() for k in ["aceita permuta", "estuda permuta", "aceita carro", "aceita caminhonete", "aceita veículo", "aceita veiculo", "permuta de menor valor"]):
+        m_perm = re.search(r"(?:aceita|estuda)\s*(?:permuta|troca|carro|caminhonete|ve[ií]culo)[^.\n;]*", texto_total, re.I)
+        divergencias.append({
+            "campo": "Permuta / Negociação",
+            "categoria": "Permuta / Negociação",
+            "severidade": "🟡 Média",
+            "cadastro": "Não destacado nos filtros",
+            "descricao": m_perm.group(0).strip() if m_perm else "Aceita permuta / veículo",
+            "trecho_citado": m_perm.group(0).strip() if m_perm else "Permuta",
+            "motivo": f"Facilidade de negociação anunciada na descrição ('{m_perm.group(0).strip() if m_perm else 'Permuta'}'), mas não marcada nos atributos de negociação do portal.",
+            "impacto": "Comercial: Imóveis que aceitam veículos ou permuta vendem até 40% mais rápido quando a opção 'Aceita Permuta' está habilitada nos portais.",
+            "acao": "No Kurole: Marcar o campo 'Aceita Permuta' ou 'Estuda Troca' nas opções de negociação.",
+        })
+
+    # -------------------------------------------------------------------------
+    # REGRA 9: DIFERENCIAIS NOBRES (ENERGIA SOLAR FOTOVOLTAICA)
+    # -------------------------------------------------------------------------
+    if "energia solar" in texto_total.lower() or "fotovoltaic" in texto_total.lower():
+        divergencias.append({
+            "campo": "Energia Solar Fotovoltaica",
+            "categoria": "Diferenciais Nobres",
+            "severidade": "🟡 Média",
+            "cadastro": "Sem destaque no cadastro estruturado",
+            "descricao": "Sistema de Energia Solar Fotovoltaica",
+            "trecho_citado": "Energia Solar / Fotovoltaica",
+            "motivo": "Benfeitoria nobre citada no texto: Sistema de Energia Solar Fotovoltaica, que reduz a conta de luz a zero e agrega até 8% de valor de venda ao imóvel.",
+            "impacto": "Filtros de sustentabilidade e compradores de alta renda buscam imóveis com geração própria de energia.",
+            "acao": "No Kurole: Marcar a feature 'Energia Solar' ou 'Sustentabilidade' nas características do imóvel.",
         })
 
     return divergencias
@@ -434,6 +517,8 @@ def auditar_todas_divergencias(feed_imoveis: List[dict] = None, forcar_recalculo
         "Tipologia": 0,
         "Área": 0,
         "Banheiros": 0,
+        "Permuta / Negociação": 0,
+        "Diferenciais Nobres": 0,
     }
 
     for im in feed_imoveis:
@@ -450,8 +535,9 @@ def auditar_todas_divergencias(feed_imoveis: List[dict] = None, forcar_recalculo
                     contagem_baixas += 1
 
                 cat = d.get("categoria", "")
-                if cat in por_categoria:
-                    por_categoria[cat] += 1
+                if cat not in por_categoria:
+                    por_categoria[cat] = 0
+                por_categoria[cat] += 1
 
             lista_divergentes.append({
                 "id": im.get("id"),
@@ -542,8 +628,8 @@ def render_painel_divergencias(imoveis_lista: List[dict] = None, departamento: s
         total_com_div = len(imoveis_divs)
         total_sem_div = max(total_auditado - total_com_div, 0)
         pct_afetada = (total_com_div / total_auditado * 100.0) if total_auditado else 0.0
-        n_crit = sum(1 for im in imoveis_divs for d in im.get("divergencias", []) if d.get("gravidade") == "alta")
-        n_med = sum(1 for im in imoveis_divs for d in im.get("divergencias", []) if d.get("gravidade") == "media")
+        n_crit = sum(1 for im in imoveis_divs for d in im.get("divergencias", []) if "Crítica" in d.get("severidade", ""))
+        n_med = sum(1 for im in imoveis_divs for d in im.get("divergencias", []) if "Média" in d.get("severidade", ""))
     elif departamento == "Locação":
         imoveis_divs = [im for im in imoveis_divs_todos if im.get("transacao") == "Locação" or str(im.get("id", "")).startswith("L")]
         imoveis_dep = [im for im in (imoveis_lista or []) if im.get("transacao") == "Locação"]
@@ -551,8 +637,8 @@ def render_painel_divergencias(imoveis_lista: List[dict] = None, departamento: s
         total_com_div = len(imoveis_divs)
         total_sem_div = max(total_auditado - total_com_div, 0)
         pct_afetada = (total_com_div / total_auditado * 100.0) if total_auditado else 0.0
-        n_crit = sum(1 for im in imoveis_divs for d in im.get("divergencias", []) if d.get("gravidade") == "alta")
-        n_med = sum(1 for im in imoveis_divs for d in im.get("divergencias", []) if d.get("gravidade") == "media")
+        n_crit = sum(1 for im in imoveis_divs for d in im.get("divergencias", []) if "Crítica" in d.get("severidade", ""))
+        n_med = sum(1 for im in imoveis_divs for d in im.get("divergencias", []) if "Média" in d.get("severidade", ""))
     else:
         imoveis_divs = imoveis_divs_todos
         total_auditado = dados['total_imoveis']

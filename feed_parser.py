@@ -22,6 +22,7 @@ MAPEAMENTO_TIPOS = {
     "commercial / business": ("Ponto Comercial / Salão", "BUSINESS"),
     "commercial / edificio comercial": ("Prédio Comercial", "BUSINESS"),
     "residential / farm ranch": ("Chácara / Sítio", "FARM"),
+    "residential / penthouse": ("Apartamento / Cobertura", "APARTMENT"),
 }
 
 

@@ -1,22 +1,24 @@
 {
   "sucesso": true,
-  "data_auditoria": "23/10/2026 12:24",
+  "data_auditoria": "23/10/2026 13:49",
   "total_imoveis": 251,
-  "imoveis_com_divergencia": 69,
-  "imoveis_sem_divergencia": 182,
-  "pct_carteira_afetada": 27.5,
-  "total_divergencias": 77,
-  "criticas": 26,
-  "medias": 51,
+  "imoveis_com_divergencia": 78,
+  "imoveis_sem_divergencia": 173,
+  "pct_carteira_afetada": 31.1,
+  "total_divergencias": 93,
+  "criticas": 37,
+  "medias": 56,
   "baixas": 0,
   "por_categoria": {
     "Dormitórios": 13,
     "Suítes": 11,
     "Vagas": 14,
     "Preço / Condicionante": 1,
-    "Tipologia": 3,
-    "Área": 0,
-    "Banheiros": 35
+    "Tipologia": 12,
+    "Área": 2,
+    "Banheiros": 35,
+    "Permuta / Negociação": 3,
+    "Diferenciais Nobres": 2
   },
   "imoveis_divergentes": [
     {
@@ -83,6 +85,58 @@
       ]
     },
     {
+      "id": "V2654",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Jardim São José",
+      "cidade": "Sertãozinho",
+      "preco": 1600000.0,
+      "area": 351.0,
+      "quartos_cad": 4,
+      "suites_cad": 2,
+      "vagas_cad": 3,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2017/1213/sertaozinho-casas-padrao-jardim-sao-jose-06-05-2021_15-21-51-2.jpg",
+      "descricao": "4 dormitórios (2 suítes, 1 suíte c/ closet e hidro), 5 banheiros, 3 salas, 1 sala jantar, 1 sala tv, 1 sala estar, 2 cozinhas planejadas, mezanino, despensa, área de serviço planejada, 3 garagens cobertas, piscina, churrasqueira, salão de festas, laje, porcelanato, ares condicionados, quintal, escritório, alarme, portão eletrônico, interfone, aquecedor solar e cerca elétrica.\nANALISA PERMUTA DE MENOR VALOR.. ref. 2654 atualizado em 22/10.",
+      "total_divergencias": 3,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Dormitórios",
+          "categoria": "Dormitórios",
+          "severidade": "🔴 Crítica",
+          "cadastro": "4 quarto(s)",
+          "descricao": "6 dormitório(s)",
+          "trecho_citado": "2 suítes + 4 dormitórios",
+          "motivo": "Divergência de quartos: Cadastro tem 4, mas o texto descreve 6.",
+          "impacto": "Distorce a avaliação automatizada NBR 14653 e causa desconfiança de compradores.",
+          "acao": "No Kurole: Verificar a planta e retificar para 6 quartos."
+        },
+        {
+          "campo": "Tipologia / Categoria",
+          "categoria": "Tipologia",
+          "severidade": "🔴 Crítica",
+          "cadastro": "Casa",
+          "descricao": "Área de Lazer / Espaço para Eventos",
+          "trecho_citado": "Mobiliário para eventos (102 cadeiras, 20 mesas, jogos de bistrô)",
+          "motivo": "Tipologia distorcida: Imóvel cadastrado como 'Casa', porém trata-se de Área de Lazer / Espaço de Eventos com dezenas de mesas e cadeiras para aluguel de festas.",
+          "impacto": "Compradores buscando moradia residencial rejeitam o layout comercial/recreativo, e investidores de aluguel por temporada/festas não encontram o imóvel.",
+          "acao": "No Kurole: Alterar o tipo para 'Área de Lazer / Recreação' ou 'Comercial / Lazer'."
+        },
+        {
+          "campo": "Permuta / Negociação",
+          "categoria": "Permuta / Negociação",
+          "severidade": "🟡 Média",
+          "cadastro": "Não destacado nos filtros",
+          "descricao": "Aceita permuta / veículo",
+          "trecho_citado": "Permuta",
+          "motivo": "Facilidade de negociação anunciada na descrição ('Permuta'), mas não marcada nos atributos de negociação do portal.",
+          "impacto": "Comercial: Imóveis que aceitam veículos ou permuta vendem até 40% mais rápido quando a opção 'Aceita Permuta' está habilitada nos portais.",
+          "acao": "No Kurole: Marcar o campo 'Aceita Permuta' ou 'Estuda Troca' nas opções de negociação."
+        }
+      ]
+    },
+    {
       "id": "V29021",
       "titulo": "Casas Padrão em Sertãozinho",
       "tipo": "Casa",
@@ -120,6 +174,47 @@
           "motivo": "Divergência de garagens: Cadastro informa 1 vaga(s), mas a descrição cita 2.",
           "impacto": "Pode gerar reclamação de clientes que exigem capacidade exata de estacionamento.",
           "acao": "No Kurole: Confirmar capacidade total coberta/descoberta e uniformizar em 2 vagas."
+        }
+      ]
+    },
+    {
+      "id": "L19421",
+      "titulo": "Comerciais Salão em Sertãozinho",
+      "tipo": "Ponto Comercial / Salão",
+      "transacao": "Locação",
+      "bairro": "Jardim Jamaica",
+      "cidade": "Sertãozinho",
+      "preco": 1200.0,
+      "area": 35.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3856/sertaozinho-comerciais-salao-jardim-jamaica-29-08-2026_10-12-03-6a92daa35dc91.webp",
+      "descricao": "01 Salão 5x5 metros, 01 Banheiro, Ar condicionado, Forro PVC e Piso frio.\n\nObs: PTU Isento. ref. 19421 atualizado em 22/10.",
+      "total_divergencias": 2,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Área (m²)",
+          "categoria": "Área",
+          "severidade": "🔴 Crítica",
+          "cadastro": "35 m²",
+          "descricao": "25 m² (5x5 metros)",
+          "trecho_citado": "5x5 metros",
+          "motivo": "Área cadastrada (35 m²) diverge substancialmente das dimensões descritas no texto (5x5 metros = 25 m²).",
+          "impacto": "Grave: Distorce o valor por metro quadrado e gera frustração de espaço em visitas.",
+          "acao": "No Kurole: Retificar a área útil para 25 m² conforme as dimensões reais."
+        },
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 banheiro",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
         }
       ]
     },
@@ -247,6 +342,88 @@
       ]
     },
     {
+      "id": "V45221",
+      "titulo": "Excelente sobrado em condomínio para morar ou investir",
+      "tipo": "Casa em Condomínio",
+      "transacao": "Venda",
+      "bairro": "Portal das Flores",
+      "cidade": "Sertãozinho",
+      "preco": 560000.0,
+      "area": 117.0,
+      "quartos_cad": 3,
+      "suites_cad": 3,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3777/sertaozinho_casas_condominio_portaldasflores_10-04-2026_17-37-57_1.webp",
+      "descricao": "Sobrado:\nPiso térreo: garagem 2 carros coberta, Sala com ar condicionado, banheiro social, 1 suíte, cozinha com planejados e exaustor, área gourmet com planejados e ar condicionado, lavanderia.\nPiso superior: 1 suíte com planejado e ar condicionado, 1 suíte com planejado.\nÁrea comum de lazer com piscina (infantil e adulto), quiosques com churrasqueiras, forno de pizza, salão de festas, academia e salão de jogos.\nSegurança 24 hs, com câmeras de monitoramento e cerca elétrica.\nIPTU 2026 totalmente pago.\nREF: 31. ref. 45221 atualizado em 22/10.",
+      "total_divergencias": 2,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Suítes",
+          "categoria": "Suítes",
+          "severidade": "🟡 Média",
+          "cadastro": "3 suíte(s)",
+          "descricao": "1 suíte(s)",
+          "trecho_citado": "1 suíte",
+          "motivo": "Contradição no número de suítes: cadastro informa 3, mas a descrição detalha 1.",
+          "impacto": "Gera dúvida no cliente e frustração em visitas presenciais.",
+          "acao": "No Kurole: Alinhar o número de suítes entre cadastro (3) e texto (1)."
+        },
+        {
+          "campo": "Tipologia / Categoria",
+          "categoria": "Tipologia",
+          "severidade": "🔴 Crítica",
+          "cadastro": "Casa em Condomínio",
+          "descricao": "Área de Lazer / Espaço para Eventos",
+          "trecho_citado": "Mobiliário para eventos (102 cadeiras, 20 mesas, jogos de bistrô)",
+          "motivo": "Tipologia distorcida: Imóvel cadastrado como 'Casa', porém trata-se de Área de Lazer / Espaço de Eventos com dezenas de mesas e cadeiras para aluguel de festas.",
+          "impacto": "Compradores buscando moradia residencial rejeitam o layout comercial/recreativo, e investidores de aluguel por temporada/festas não encontram o imóvel.",
+          "acao": "No Kurole: Alterar o tipo para 'Área de Lazer / Recreação' ou 'Comercial / Lazer'."
+        }
+      ]
+    },
+    {
+      "id": "V0659",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Jardim Nova Sertãozinho",
+      "cidade": "Sertãozinho",
+      "preco": 2790000.0,
+      "area": 625.0,
+      "quartos_cad": 4,
+      "suites_cad": 4,
+      "vagas_cad": 4,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2023/2879/sertaozinho-casas-padrao-jardim-nova-sertaozinho-07-07-2023_17-06-53-11.webp",
+      "descricao": "Maravilhoso sobrado com localização privilegiada!\n\nNo primeiro andar, você encontrará duas suítes confortáveis, além de uma suíte máster incrível, equipada com uma banheira de hidromassagem relaxante. Há também uma sala confortável nesse andar.  \n \n\nNo segundo andar, há uma suíte adicional e uma sala de estar com dois ambientes, perfeita para momentos de descontração e convívio social.\n\nNo térreo, você poderá desfrutar de um salão de festas completo, equipado com chopeira, churrasqueira, balcão refrigerado e banheiros. Também há um salão de jogos com banheiros, uma boate completa, um bar, uma claraboia que permite a entrada de luz natural, um lavabo, uma quadra de futebol society e uma piscina para momentos de diversão e relaxamento.. ref. 0659 atualizado em 22/10.",
+      "total_divergencias": 2,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Suítes",
+          "categoria": "Suítes",
+          "severidade": "🟡 Média",
+          "cadastro": "4 suíte(s)",
+          "descricao": "2 suíte(s)",
+          "trecho_citado": "duas suítes",
+          "motivo": "Contradição no número de suítes: cadastro informa 4, mas a descrição detalha 2.",
+          "impacto": "Gera dúvida no cliente e frustração em visitas presenciais.",
+          "acao": "No Kurole: Alinhar o número de suítes entre cadastro (4) e texto (2)."
+        },
+        {
+          "campo": "Tipologia / Categoria",
+          "categoria": "Tipologia",
+          "severidade": "🔴 Crítica",
+          "cadastro": "Casa",
+          "descricao": "Área de Lazer / Espaço para Eventos",
+          "trecho_citado": "Mobiliário para eventos (102 cadeiras, 20 mesas, jogos de bistrô)",
+          "motivo": "Tipologia distorcida: Imóvel cadastrado como 'Casa', porém trata-se de Área de Lazer / Espaço de Eventos com dezenas de mesas e cadeiras para aluguel de festas.",
+          "impacto": "Compradores buscando moradia residencial rejeitam o layout comercial/recreativo, e investidores de aluguel por temporada/festas não encontram o imóvel.",
+          "acao": "No Kurole: Alterar o tipo para 'Área de Lazer / Recreação' ou 'Comercial / Lazer'."
+        }
+      ]
+    },
+    {
       "id": "V9008",
       "titulo": "Casas Padrão em Sertãozinho",
       "tipo": "Casa",
@@ -348,6 +525,36 @@
       ]
     },
     {
+      "id": "V17321",
+      "titulo": "Casas Condomínio em Sertãozinho",
+      "tipo": "Casa em Condomínio",
+      "transacao": "Venda",
+      "bairro": "Jardim Eldorado",
+      "cidade": "Sertãozinho",
+      "preco": 180000.0,
+      "area": 45.0,
+      "quartos_cad": 2,
+      "suites_cad": 0,
+      "vagas_cad": 1,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3816/sertaozinho-casas-condominio-jardim-eldorado-16-06-2026_13-30-44-6a317a34a7790.webp",
+      "descricao": "Área Interna:\n02 Dormitórios, Sala, Banheiro Social c/ Box, Cozinha/Área de Serviço, Laje, Piso Frio e Revestimento.\n\nÁrea externa:\n Garagem coberta para 01 carro,01 Salão de festas com churrasqueira, 01 quadra de basquete e futebol de salão, 01 Playground.\nREF: 04. ref. 17321 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Tipologia / Categoria",
+          "categoria": "Tipologia",
+          "severidade": "🔴 Crítica",
+          "cadastro": "Casa em Condomínio",
+          "descricao": "Área de Lazer / Espaço para Eventos",
+          "trecho_citado": "Mobiliário para eventos (102 cadeiras, 20 mesas, jogos de bistrô)",
+          "motivo": "Tipologia distorcida: Imóvel cadastrado como 'Casa', porém trata-se de Área de Lazer / Espaço de Eventos com dezenas de mesas e cadeiras para aluguel de festas.",
+          "impacto": "Compradores buscando moradia residencial rejeitam o layout comercial/recreativo, e investidores de aluguel por temporada/festas não encontram o imóvel.",
+          "acao": "No Kurole: Alterar o tipo para 'Área de Lazer / Recreação' ou 'Comercial / Lazer'."
+        }
+      ]
+    },
+    {
       "id": "V28811",
       "titulo": "Lote em boa localização no bairro em edificações",
       "tipo": "Terreno Comercial",
@@ -404,6 +611,66 @@
           "motivo": "Suíte omitida no cadastro (Cad: 0 vs Descrição: presente).",
           "impacto": "Grave: O imóvel é completamente excluído dos filtros de busca do ZAP / VivaReal quando compradores filtram por 'mínimo 1 suíte'.",
           "acao": "No Kurole: Atualizar o campo estruturado 'Suítes' de 0 para 1."
+        }
+      ]
+    },
+    {
+      "id": "L54221",
+      "titulo": "Casas Condomínio em Sertãozinho",
+      "tipo": "Casa em Condomínio",
+      "transacao": "Locação",
+      "bairro": "Jardim Eldorado",
+      "cidade": "Sertãozinho",
+      "preco": 1350.0,
+      "area": 78.0,
+      "quartos_cad": 2,
+      "suites_cad": 0,
+      "vagas_cad": 1,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3774/sertaozinho-casas-condominio-jardim-eldorado-08-04-2026_08-16-10-69d638fae82a6.webp",
+      "descricao": "Área Interna:\n02 Dormitórios Sendo um c/Guarda-Roupa, 01 Sala com Lavabo, 01 Cozinha,  Banheiro Social, Piso Frio e Revestimento.\n\nÁrea Externa:\n01 Vaga de Garagem Descoberta, Área de Lazer, Churrasqueira, Salão de Festas, Quadra de Futebol.. ref. 54221 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Tipologia / Categoria",
+          "categoria": "Tipologia",
+          "severidade": "🔴 Crítica",
+          "cadastro": "Casa em Condomínio",
+          "descricao": "Área de Lazer / Espaço para Eventos",
+          "trecho_citado": "Mobiliário para eventos (102 cadeiras, 20 mesas, jogos de bistrô)",
+          "motivo": "Tipologia distorcida: Imóvel cadastrado como 'Casa', porém trata-se de Área de Lazer / Espaço de Eventos com dezenas de mesas e cadeiras para aluguel de festas.",
+          "impacto": "Compradores buscando moradia residencial rejeitam o layout comercial/recreativo, e investidores de aluguel por temporada/festas não encontram o imóvel.",
+          "acao": "No Kurole: Alterar o tipo para 'Área de Lazer / Recreação' ou 'Comercial / Lazer'."
+        }
+      ]
+    },
+    {
+      "id": "L68801",
+      "titulo": "Comerciais Salão em Sertãozinho",
+      "tipo": "Ponto Comercial / Salão",
+      "transacao": "Locação",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 1800.0,
+      "area": 50.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2025/3321/sertaozinho-comerciais-salao-centro-05-12-2025_08-51-40-0.webp",
+      "descricao": "Área Interna: 01 Salão Comercial (22,00 Metros Quadrados) com Rampa para Portadores de Necessidades Especiais, Porta de Vidro, Porta de Rolo, 01 Sala Pequena com Pia e Gabinete, 01 Copa com Pia e Gabinete, Banheiro Social Adaptado para Portadores de Necessidades Especiais, Laje, Piso Frio e Revestimento.\n\nOBS: Proprietário não aceita comercio de bebidas, alimentício e mecânica de carros ou motos.\nIPTU Á PAGAR!\n\nOBS.: Para visitar agendar com o Proprietário. ref. 68801 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Área (m²)",
+          "categoria": "Área",
+          "severidade": "🔴 Crítica",
+          "cadastro": "50 m²",
+          "descricao": "22 m²",
+          "trecho_citado": "Salão Comercial (22,00 Metros Quadrados",
+          "motivo": "Conflito de área: Cadastro informa 50 m², mas a descrição afirma expressamente Salão Comercial (22,00 Metros Quadrados.",
+          "impacto": "Grave: O anúncio promete mais que o dobro do tamanho real, causando desconfiança imediata de locatários.",
+          "acao": "No Kurole: Atualizar o campo estruturado 'Área Útil' para 22 m²."
         }
       ]
     },
@@ -468,6 +735,36 @@
       ]
     },
     {
+      "id": "V1178",
+      "titulo": "Casas Condomínio em Sertãozinho",
+      "tipo": "Casa em Condomínio",
+      "transacao": "Venda",
+      "bairro": "Jardim Boa Vista",
+      "cidade": "Sertãozinho",
+      "preco": 796611.0,
+      "area": 143.0,
+      "quartos_cad": 3,
+      "suites_cad": 3,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2021/2596/sertaozinho-casas-condominio-jardim-nova-europa-29-11-2024_11-21-36-0.webp",
+      "descricao": "Condomínio diferenciado com 3 suítes, sala 2 ambientes, 2 garagens, cozinha e lavanderia. \nArquitetura moderna, acabamento diferenciado e com porcelanato, lazer completo, localização, mobilidade urbana e paisagismo.Academia, salão de festas, Portaria 24 h, ronda noturna, piscina, quiosques, campo de futebol, quadra de Beach Tênis. \nOBS: Casa pronta para entrega das chaves.. ref. 1178 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Tipologia / Categoria",
+          "categoria": "Tipologia",
+          "severidade": "🔴 Crítica",
+          "cadastro": "Casa em Condomínio",
+          "descricao": "Área de Lazer / Espaço para Eventos",
+          "trecho_citado": "Mobiliário para eventos (102 cadeiras, 20 mesas, jogos de bistrô)",
+          "motivo": "Tipologia distorcida: Imóvel cadastrado como 'Casa', porém trata-se de Área de Lazer / Espaço de Eventos com dezenas de mesas e cadeiras para aluguel de festas.",
+          "impacto": "Compradores buscando moradia residencial rejeitam o layout comercial/recreativo, e investidores de aluguel por temporada/festas não encontram o imóvel.",
+          "acao": "No Kurole: Alterar o tipo para 'Área de Lazer / Recreação' ou 'Comercial / Lazer'."
+        }
+      ]
+    },
+    {
       "id": "V09611",
       "titulo": "Imóvel com localização privilegiada para residência ou comércio no centro de Sertãozinho",
       "tipo": "Casa",
@@ -494,6 +791,66 @@
           "motivo": "Suíte omitida no cadastro (Cad: 0 vs Descrição: presente).",
           "impacto": "Grave: O imóvel é completamente excluído dos filtros de busca do ZAP / VivaReal quando compradores filtram por 'mínimo 1 suíte'.",
           "acao": "No Kurole: Atualizar o campo estruturado 'Suítes' de 0 para 2."
+        }
+      ]
+    },
+    {
+      "id": "V8078",
+      "titulo": "Casas Condomínio em Sertãozinho",
+      "tipo": "Casa em Condomínio",
+      "transacao": "Venda",
+      "bairro": "Jardim Boa Vista",
+      "cidade": "Sertãozinho",
+      "preco": 692015.0,
+      "area": 113.0,
+      "quartos_cad": 2,
+      "suites_cad": 2,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2021/2595/sertaozinho-casas-condominio-jardim-terras-de-santa-elisa-15-04-2021_08-55-27-0.jpg",
+      "descricao": "Condomínio diferenciado com 2 suítes, sala 2 ambientes, 2 garagens, cozinha e lavanderia. \nArquitetura moderna, acabamento diferenciado e com porcelanato, lazer completo, localização, mobilidade urbana e paisagismo.\nAcademia, salão de festas, Portaria 24 h, ronda noturna, piscina, quiosques, campo de futebol, quadra de Beach Tênis. \nOBS: Casa pronta para entrega das chaves.. ref. 8078 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Tipologia / Categoria",
+          "categoria": "Tipologia",
+          "severidade": "🔴 Crítica",
+          "cadastro": "Casa em Condomínio",
+          "descricao": "Área de Lazer / Espaço para Eventos",
+          "trecho_citado": "Mobiliário para eventos (102 cadeiras, 20 mesas, jogos de bistrô)",
+          "motivo": "Tipologia distorcida: Imóvel cadastrado como 'Casa', porém trata-se de Área de Lazer / Espaço de Eventos com dezenas de mesas e cadeiras para aluguel de festas.",
+          "impacto": "Compradores buscando moradia residencial rejeitam o layout comercial/recreativo, e investidores de aluguel por temporada/festas não encontram o imóvel.",
+          "acao": "No Kurole: Alterar o tipo para 'Área de Lazer / Recreação' ou 'Comercial / Lazer'."
+        }
+      ]
+    },
+    {
+      "id": "V5693",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Jardim Soljumar",
+      "cidade": "Sertãozinho",
+      "preco": 1310000.0,
+      "area": 325.0,
+      "quartos_cad": 4,
+      "suites_cad": 4,
+      "vagas_cad": 4,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2016/1014/sertaozinho-casas-padrao-jardim-soljumar-19-04-2018_11-41-42-0.jpg",
+      "descricao": "4 dormits. (4suite(s)) (1suite(s) c/ closet), 4 banhs., banheiro ext, 3 sala(s), 1 sala(s) jantar, 1 sala(s) tv, 1 sala(s) estar, cozinha planejada, despensa, área de serviço, 2 garagem(ns) coberta(s), 2 garagem(ns) descoberta(s), piscina, churrasqueira, vestiário, salão de festas, piso frio, forro madeira, mármore, granito, laje, porcelanato, decorado, ar condicionado, quintal, escritório, alarme, portão eletrônico, interfone, ventilador, aquecedor solar, cerca elétrica, terreno 341,7 m2, 325,06 m2 de construção.\n\nObs.: - Visitas somente acompanhadas\n. ref. 5693 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Tipologia / Categoria",
+          "categoria": "Tipologia",
+          "severidade": "🔴 Crítica",
+          "cadastro": "Casa",
+          "descricao": "Área de Lazer / Espaço para Eventos",
+          "trecho_citado": "Mobiliário para eventos (102 cadeiras, 20 mesas, jogos de bistrô)",
+          "motivo": "Tipologia distorcida: Imóvel cadastrado como 'Casa', porém trata-se de Área de Lazer / Espaço de Eventos com dezenas de mesas e cadeiras para aluguel de festas.",
+          "impacto": "Compradores buscando moradia residencial rejeitam o layout comercial/recreativo, e investidores de aluguel por temporada/festas não encontram o imóvel.",
+          "acao": "No Kurole: Alterar o tipo para 'Área de Lazer / Recreação' ou 'Comercial / Lazer'."
         }
       ]
     },
@@ -678,6 +1035,36 @@
       ]
     },
     {
+      "id": "V77111",
+      "titulo": "Excelente área de lazer em ótima localização.",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Jardim Alexandre Balbo",
+      "cidade": "Sertãozinho",
+      "preco": 832000.0,
+      "area": 191.0,
+      "quartos_cad": 2,
+      "suites_cad": 0,
+      "vagas_cad": 4,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2024/3418/sertaozinho_casas_padrao_jardimalexandrebalbo_03-05-2024_17-01-52_1.webp",
+      "descricao": "Área possui: \n Sala, banheiro social, cozinha, 102 cadeiras, 20 mesas, 2 jogos de bistrô com 8 bancos, 1 mesa em madeira com vidro, aparadores de comida, churrasqueira, freezer, geladeira de água, geladeira, fogão industrial, parquinho e piscina.. ref. 77111 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Tipologia / Categoria",
+          "categoria": "Tipologia",
+          "severidade": "🔴 Crítica",
+          "cadastro": "Casa",
+          "descricao": "Área de Lazer / Espaço para Eventos",
+          "trecho_citado": "Mobiliário para eventos (102 cadeiras, 20 mesas, jogos de bistrô)",
+          "motivo": "Tipologia distorcida: Imóvel cadastrado como 'Casa', porém trata-se de Área de Lazer / Espaço de Eventos com dezenas de mesas e cadeiras para aluguel de festas.",
+          "impacto": "Compradores buscando moradia residencial rejeitam o layout comercial/recreativo, e investidores de aluguel por temporada/festas não encontram o imóvel.",
+          "acao": "No Kurole: Alterar o tipo para 'Área de Lazer / Recreação' ou 'Comercial / Lazer'."
+        }
+      ]
+    },
+    {
       "id": "V78401",
       "titulo": "Casas Padrão em Sertãozinho",
       "tipo": "Casa",
@@ -704,36 +1091,6 @@
           "motivo": "Garagem omitida no cadastro (Cad: 0 vs Descrição: 12 vaga(s)).",
           "impacto": "Mais de 65% dos usuários de portais filtram apenas imóveis 'com vaga'. Esse imóvel está invisível para eles.",
           "acao": "No Kurole: Atualizar o campo 'Vagas' de 0 para 12."
-        }
-      ]
-    },
-    {
-      "id": "V2654",
-      "titulo": "Casas Padrão em Sertãozinho",
-      "tipo": "Casa",
-      "transacao": "Venda",
-      "bairro": "Jardim São José",
-      "cidade": "Sertãozinho",
-      "preco": 1600000.0,
-      "area": 351.0,
-      "quartos_cad": 4,
-      "suites_cad": 2,
-      "vagas_cad": 3,
-      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2017/1213/sertaozinho-casas-padrao-jardim-sao-jose-06-05-2021_15-21-51-2.jpg",
-      "descricao": "4 dormitórios (2 suítes, 1 suíte c/ closet e hidro), 5 banheiros, 3 salas, 1 sala jantar, 1 sala tv, 1 sala estar, 2 cozinhas planejadas, mezanino, despensa, área de serviço planejada, 3 garagens cobertas, piscina, churrasqueira, salão de festas, laje, porcelanato, ares condicionados, quintal, escritório, alarme, portão eletrônico, interfone, aquecedor solar e cerca elétrica.\nANALISA PERMUTA DE MENOR VALOR.. ref. 2654 atualizado em 22/10.",
-      "total_divergencias": 1,
-      "tem_critica": true,
-      "divergencias": [
-        {
-          "campo": "Dormitórios",
-          "categoria": "Dormitórios",
-          "severidade": "🔴 Crítica",
-          "cadastro": "4 quarto(s)",
-          "descricao": "6 dormitório(s)",
-          "trecho_citado": "2 suítes + 4 dormitórios",
-          "motivo": "Divergência de quartos: Cadastro tem 4, mas o texto descreve 6.",
-          "impacto": "Distorce a avaliação automatizada NBR 14653 e causa desconfiança de compradores.",
-          "acao": "No Kurole: Verificar a planta e retificar para 6 quartos."
         }
       ]
     },
@@ -824,6 +1181,118 @@
           "motivo": "Divergência de quartos: Cadastro tem 3, mas o texto descreve 4.",
           "impacto": "Distorce a avaliação automatizada NBR 14653 e causa desconfiança de compradores.",
           "acao": "No Kurole: Verificar a planta e retificar para 4 quartos."
+        }
+      ]
+    },
+    {
+      "id": "V23321",
+      "titulo": "A casa do seu sonho está pronta usufruir com seus familiares",
+      "tipo": "Casa em Condomínio",
+      "transacao": "Venda",
+      "bairro": "Parque das Aroeiras",
+      "cidade": "Sertãozinho",
+      "preco": 2900000.0,
+      "area": 281.0,
+      "quartos_cad": 3,
+      "suites_cad": 3,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3803/sertaozinho_casas_condominio_parquedasaroeiras_25-05-2026_16-34-29_7.webp",
+      "descricao": "Sofisticação, tecnologia e conforto em um sobrado recém-construído de alto padrão!\n\nNo pavimento superior, o imóvel conta com uma elegante suíte master com closet e sapateira, além de 2 suítes completas com armários planejados. O acesso aos dormitórios possui corredor com guarda corpo em vidro e uma belíssima escada interna iluminada, também com acabamento em vidro. O charme fica por conta dos imponentes lustres, sendo um com pé-direito de 3 metros e outro de 2 metros na escada, trazendo requinte e modernidade aos ambientes.\n\nNo pavimento inferior, dispõe de lavabo, escritório reversível para dormitório, ampla sala integrada em 2 ambientes e uma moderna cozinha conjugada com espaço gourmet. O ambiente oferece ilha central, cooktop, lava louças, micro-ondas, forno elétrico, churrasqueira e armários planejados, proporcionando praticidade e sofisticação. Lavanderia completa com armários.\n\nA área de lazer é um verdadeiro destaque: piscina aquecida com hidromassagem, iluminação e cascata, ideal para momentos especiais com a família e amigos.\n\nO imóvel ainda oferece diferenciais exclusivos:\nSistema de geração de energia solar com capacidade de até 1000 kWh/mês\nPias e bancadas em Dekton\nTelhado estrutural\nPressurizadores de água quente e fria em todas as torneiras\nReservatório com 3.500 litros de água\n08 aparelhos de ar-condicionado\nArmários planejados em todos os ambientes\n\nUm sobrado moderno, completo e pensado nos mínimos detalhes para oferecer conforto, elegância e alta eficiência.. ref. 23321 atualizado em 22/10.",
+      "total_divergencias": 2,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Suítes",
+          "categoria": "Suítes",
+          "severidade": "🟡 Média",
+          "cadastro": "3 suíte(s)",
+          "descricao": "2 suíte(s)",
+          "trecho_citado": "2 suítes",
+          "motivo": "Contradição no número de suítes: cadastro informa 3, mas a descrição detalha 2.",
+          "impacto": "Gera dúvida no cliente e frustração em visitas presenciais.",
+          "acao": "No Kurole: Alinhar o número de suítes entre cadastro (3) e texto (2)."
+        },
+        {
+          "campo": "Energia Solar Fotovoltaica",
+          "categoria": "Diferenciais Nobres",
+          "severidade": "🟡 Média",
+          "cadastro": "Sem destaque no cadastro estruturado",
+          "descricao": "Sistema de Energia Solar Fotovoltaica",
+          "trecho_citado": "Energia Solar / Fotovoltaica",
+          "motivo": "Benfeitoria nobre citada no texto: Sistema de Energia Solar Fotovoltaica, que reduz a conta de luz a zero e agrega até 8% de valor de venda ao imóvel.",
+          "impacto": "Filtros de sustentabilidade e compradores de alta renda buscam imóveis com geração própria de energia.",
+          "acao": "No Kurole: Marcar a feature 'Energia Solar' ou 'Sustentabilidade' nas características do imóvel."
+        }
+      ]
+    },
+    {
+      "id": "V9809",
+      "titulo": "Comerciais Salão em Sertãozinho",
+      "tipo": "Ponto Comercial / Salão",
+      "transacao": "Venda",
+      "bairro": "Jardim Santo Antônio",
+      "cidade": "Sertãozinho",
+      "preco": 260000.0,
+      "area": 149.0,
+      "quartos_cad": 1,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2021/2722/sertaozinho-comerciais-salao-jardim-santo-antonio-15-09-2021_15-59-45-0.jpg",
+      "descricao": "COMÉRCIO MAIS CASA.\nAnalisa permuta de menor valor como parte de pagamento.\nSalão comercial com 2 banheiros, deposito e cozinha.\nCasa: 1 dormitório, banheiro, sala, cozinha e área de serviço.. ref. 9809 atualizado em 22/10.",
+      "total_divergencias": 2,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "2 banheiro(s)",
+          "trecho_citado": "2 banheiros",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
+        },
+        {
+          "campo": "Permuta / Negociação",
+          "categoria": "Permuta / Negociação",
+          "severidade": "🟡 Média",
+          "cadastro": "Não destacado nos filtros",
+          "descricao": "Aceita permuta / veículo",
+          "trecho_citado": "Permuta",
+          "motivo": "Facilidade de negociação anunciada na descrição ('Permuta'), mas não marcada nos atributos de negociação do portal.",
+          "impacto": "Comercial: Imóveis que aceitam veículos ou permuta vendem até 40% mais rápido quando a opção 'Aceita Permuta' está habilitada nos portais.",
+          "acao": "No Kurole: Marcar o campo 'Aceita Permuta' ou 'Estuda Troca' nas opções de negociação."
+        }
+      ]
+    },
+    {
+      "id": "V35321",
+      "titulo": "Excelente casa em condomínio para morar ou investir",
+      "tipo": "Casa em Condomínio",
+      "transacao": "Venda",
+      "bairro": "Jardim Boa Vista",
+      "cidade": "Sertãozinho",
+      "preco": 850000.0,
+      "area": 142.0,
+      "quartos_cad": 3,
+      "suites_cad": 2,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3810/sertaozinho-casas-condominio-jardim-boa-vista-02-06-2026_10-08-19-6a1ed5c349742.webp",
+      "descricao": "Excelente casa em condomínio. Alto padrão e pronta para morar!\nLocalizada no Condomínio Terra Nova, em Sertãozinho, esta residência se destaca pelo ótimo padrão de acabamento, excelente aproveitamento de espaço e por estar sem uso, ideal para quem busca um imóvel novo e completo.\nO imóvel possui 223,53 m² de terreno (9,5 x 23,53) e 142 m² de área construída, com ambientes bem distribuídos que proporcionam conforto e praticidade no dia a dia. Conta com móveis planejados de alto padrão e diversas melhorias que valorizam ainda mais o imóvel, garantindo sofisticação e funcionalidade em todos os detalhes.\nUma excelente opção para quem deseja morar em condomínio, com mais segurança, tranquilidade e qualidade de vida.\nUm imóvel diferenciado, pronto para receber você e sua família.\nAceita carro / caminhonete na negociação.. ref. 35321 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Permuta / Negociação",
+          "categoria": "Permuta / Negociação",
+          "severidade": "🟡 Média",
+          "cadastro": "Não destacado nos filtros",
+          "descricao": "Aceita carro / caminhonete na negociação",
+          "trecho_citado": "Aceita carro / caminhonete na negociação",
+          "motivo": "Facilidade de negociação anunciada na descrição ('Aceita carro / caminhonete na negociação'), mas não marcada nos atributos de negociação do portal.",
+          "impacto": "Comercial: Imóveis que aceitam veículos ou permuta vendem até 40% mais rápido quando a opção 'Aceita Permuta' está habilitada nos portais.",
+          "acao": "No Kurole: Marcar o campo 'Aceita Permuta' ou 'Estuda Troca' nas opções de negociação."
         }
       ]
     },
@@ -931,36 +1400,6 @@
       "vagas_cad": 0,
       "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3808/sertaozinho-comerciais-barracao-jardim-liberdade-29-05-2026_14-47-32-6a19d1345ab9b.webp",
       "descricao": "Área Interna\n01 Barracão com Estruturas de Ferro , Telhas Galvanizadas e Piso Cimentado, fechado nas laterais e frente e fundos,, 01 Mesanino, 01 Banheiro Social e Portão Manual.. ref. 74321 atualizado em 22/10.",
-      "total_divergencias": 1,
-      "tem_critica": false,
-      "divergencias": [
-        {
-          "campo": "Banheiros",
-          "categoria": "Banheiros",
-          "severidade": "🟡 Média",
-          "cadastro": "0 banheiros",
-          "descricao": "1 banheiro(s)",
-          "trecho_citado": "01 banheiro",
-          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
-          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
-          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
-        }
-      ]
-    },
-    {
-      "id": "L19421",
-      "titulo": "Comerciais Salão em Sertãozinho",
-      "tipo": "Ponto Comercial / Salão",
-      "transacao": "Locação",
-      "bairro": "Jardim Jamaica",
-      "cidade": "Sertãozinho",
-      "preco": 1200.0,
-      "area": 35.0,
-      "quartos_cad": 0,
-      "suites_cad": 0,
-      "vagas_cad": 0,
-      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3856/sertaozinho-comerciais-salao-jardim-jamaica-29-08-2026_10-12-03-6a92daa35dc91.webp",
-      "descricao": "01 Salão 5x5 metros, 01 Banheiro, Ar condicionado, Forro PVC e Piso frio.\n\nObs: PTU Isento. ref. 19421 atualizado em 22/10.",
       "total_divergencias": 1,
       "tem_critica": false,
       "divergencias": [
@@ -1848,66 +2287,6 @@
       ]
     },
     {
-      "id": "V45221",
-      "titulo": "Excelente sobrado em condomínio para morar ou investir",
-      "tipo": "Casa em Condomínio",
-      "transacao": "Venda",
-      "bairro": "Portal das Flores",
-      "cidade": "Sertãozinho",
-      "preco": 560000.0,
-      "area": 117.0,
-      "quartos_cad": 3,
-      "suites_cad": 3,
-      "vagas_cad": 2,
-      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3777/sertaozinho_casas_condominio_portaldasflores_10-04-2026_17-37-57_1.webp",
-      "descricao": "Sobrado:\nPiso térreo: garagem 2 carros coberta, Sala com ar condicionado, banheiro social, 1 suíte, cozinha com planejados e exaustor, área gourmet com planejados e ar condicionado, lavanderia.\nPiso superior: 1 suíte com planejado e ar condicionado, 1 suíte com planejado.\nÁrea comum de lazer com piscina (infantil e adulto), quiosques com churrasqueiras, forno de pizza, salão de festas, academia e salão de jogos.\nSegurança 24 hs, com câmeras de monitoramento e cerca elétrica.\nIPTU 2026 totalmente pago.\nREF: 31. ref. 45221 atualizado em 22/10.",
-      "total_divergencias": 1,
-      "tem_critica": false,
-      "divergencias": [
-        {
-          "campo": "Suítes",
-          "categoria": "Suítes",
-          "severidade": "🟡 Média",
-          "cadastro": "3 suíte(s)",
-          "descricao": "1 suíte(s)",
-          "trecho_citado": "1 suíte",
-          "motivo": "Contradição no número de suítes: cadastro informa 3, mas a descrição detalha 1.",
-          "impacto": "Gera dúvida no cliente e frustração em visitas presenciais.",
-          "acao": "No Kurole: Alinhar o número de suítes entre cadastro (3) e texto (1)."
-        }
-      ]
-    },
-    {
-      "id": "V23321",
-      "titulo": "A casa do seu sonho está pronta usufruir com seus familiares",
-      "tipo": "Casa em Condomínio",
-      "transacao": "Venda",
-      "bairro": "Parque das Aroeiras",
-      "cidade": "Sertãozinho",
-      "preco": 2900000.0,
-      "area": 281.0,
-      "quartos_cad": 3,
-      "suites_cad": 3,
-      "vagas_cad": 2,
-      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3803/sertaozinho_casas_condominio_parquedasaroeiras_25-05-2026_16-34-29_7.webp",
-      "descricao": "Sofisticação, tecnologia e conforto em um sobrado recém-construído de alto padrão!\n\nNo pavimento superior, o imóvel conta com uma elegante suíte master com closet e sapateira, além de 2 suítes completas com armários planejados. O acesso aos dormitórios possui corredor com guarda corpo em vidro e uma belíssima escada interna iluminada, também com acabamento em vidro. O charme fica por conta dos imponentes lustres, sendo um com pé-direito de 3 metros e outro de 2 metros na escada, trazendo requinte e modernidade aos ambientes.\n\nNo pavimento inferior, dispõe de lavabo, escritório reversível para dormitório, ampla sala integrada em 2 ambientes e uma moderna cozinha conjugada com espaço gourmet. O ambiente oferece ilha central, cooktop, lava louças, micro-ondas, forno elétrico, churrasqueira e armários planejados, proporcionando praticidade e sofisticação. Lavanderia completa com armários.\n\nA área de lazer é um verdadeiro destaque: piscina aquecida com hidromassagem, iluminação e cascata, ideal para momentos especiais com a família e amigos.\n\nO imóvel ainda oferece diferenciais exclusivos:\nSistema de geração de energia solar com capacidade de até 1000 kWh/mês\nPias e bancadas em Dekton\nTelhado estrutural\nPressurizadores de água quente e fria em todas as torneiras\nReservatório com 3.500 litros de água\n08 aparelhos de ar-condicionado\nArmários planejados em todos os ambientes\n\nUm sobrado moderno, completo e pensado nos mínimos detalhes para oferecer conforto, elegância e alta eficiência.. ref. 23321 atualizado em 22/10.",
-      "total_divergencias": 1,
-      "tem_critica": false,
-      "divergencias": [
-        {
-          "campo": "Suítes",
-          "categoria": "Suítes",
-          "severidade": "🟡 Média",
-          "cadastro": "3 suíte(s)",
-          "descricao": "2 suíte(s)",
-          "trecho_citado": "2 suítes",
-          "motivo": "Contradição no número de suítes: cadastro informa 3, mas a descrição detalha 2.",
-          "impacto": "Gera dúvida no cliente e frustração em visitas presenciais.",
-          "acao": "No Kurole: Alinhar o número de suítes entre cadastro (3) e texto (2)."
-        }
-      ]
-    },
-    {
       "id": "V82301",
       "titulo": "Comerciais Salão em Sertãozinho",
       "tipo": "Ponto Comercial / Salão",
@@ -1938,32 +2317,32 @@
       ]
     },
     {
-      "id": "V0659",
-      "titulo": "Casas Padrão em Sertãozinho",
+      "id": "V61121",
+      "titulo": "Excelente residência com conforto e bem  localizada.",
       "tipo": "Casa",
       "transacao": "Venda",
-      "bairro": "Jardim Nova Sertãozinho",
+      "bairro": "Jardim Morada das Estrelas",
       "cidade": "Sertãozinho",
-      "preco": 2790000.0,
-      "area": 625.0,
-      "quartos_cad": 4,
-      "suites_cad": 4,
-      "vagas_cad": 4,
-      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2023/2879/sertaozinho-casas-padrao-jardim-nova-sertaozinho-07-07-2023_17-06-53-11.webp",
-      "descricao": "Maravilhoso sobrado com localização privilegiada!\n\nNo primeiro andar, você encontrará duas suítes confortáveis, além de uma suíte máster incrível, equipada com uma banheira de hidromassagem relaxante. Há também uma sala confortável nesse andar.  \n \n\nNo segundo andar, há uma suíte adicional e uma sala de estar com dois ambientes, perfeita para momentos de descontração e convívio social.\n\nNo térreo, você poderá desfrutar de um salão de festas completo, equipado com chopeira, churrasqueira, balcão refrigerado e banheiros. Também há um salão de jogos com banheiros, uma boate completa, um bar, uma claraboia que permite a entrada de luz natural, um lavabo, uma quadra de futebol society e uma piscina para momentos de diversão e relaxamento.. ref. 0659 atualizado em 22/10.",
+      "preco": 802000.0,
+      "area": 188.0,
+      "quartos_cad": 2,
+      "suites_cad": 1,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3731/sertaozinho_casas_padrao_jardimmoradadasestrelas_09-01-2026_15-16-06_4.webp",
+      "descricao": "02 dormitórios (sendo 1 suíte c/ closet e ar- condicionado), sala 2 ambientes, banheiro social, cozinha com armário, hall, lavanderia, área de churrasco c/ armário, quintal, garagem coberta para 2 carros, energia solar, câmera, interfone, cerca elétrica, 05 ventiladores, 2 ares-condicionados, porcelanato, revestimentos e localização face sombra.. ref. 61121 atualizado em 22/10.",
       "total_divergencias": 1,
       "tem_critica": false,
       "divergencias": [
         {
-          "campo": "Suítes",
-          "categoria": "Suítes",
+          "campo": "Energia Solar Fotovoltaica",
+          "categoria": "Diferenciais Nobres",
           "severidade": "🟡 Média",
-          "cadastro": "4 suíte(s)",
-          "descricao": "2 suíte(s)",
-          "trecho_citado": "duas suítes",
-          "motivo": "Contradição no número de suítes: cadastro informa 4, mas a descrição detalha 2.",
-          "impacto": "Gera dúvida no cliente e frustração em visitas presenciais.",
-          "acao": "No Kurole: Alinhar o número de suítes entre cadastro (4) e texto (2)."
+          "cadastro": "Sem destaque no cadastro estruturado",
+          "descricao": "Sistema de Energia Solar Fotovoltaica",
+          "trecho_citado": "Energia Solar / Fotovoltaica",
+          "motivo": "Benfeitoria nobre citada no texto: Sistema de Energia Solar Fotovoltaica, que reduz a conta de luz a zero e agrega até 8% de valor de venda ao imóvel.",
+          "impacto": "Filtros de sustentabilidade e compradores de alta renda buscam imóveis com geração própria de energia.",
+          "acao": "No Kurole: Marcar a feature 'Energia Solar' ou 'Sustentabilidade' nas características do imóvel."
         }
       ]
     },
@@ -2084,36 +2463,6 @@
           "motivo": "Contradição no número de suítes: cadastro informa 4, mas a descrição detalha 1.",
           "impacto": "Gera dúvida no cliente e frustração em visitas presenciais.",
           "acao": "No Kurole: Alinhar o número de suítes entre cadastro (4) e texto (1)."
-        }
-      ]
-    },
-    {
-      "id": "V9809",
-      "titulo": "Comerciais Salão em Sertãozinho",
-      "tipo": "Ponto Comercial / Salão",
-      "transacao": "Venda",
-      "bairro": "Jardim Santo Antônio",
-      "cidade": "Sertãozinho",
-      "preco": 260000.0,
-      "area": 149.0,
-      "quartos_cad": 1,
-      "suites_cad": 0,
-      "vagas_cad": 0,
-      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2021/2722/sertaozinho-comerciais-salao-jardim-santo-antonio-15-09-2021_15-59-45-0.jpg",
-      "descricao": "COMÉRCIO MAIS CASA.\nAnalisa permuta de menor valor como parte de pagamento.\nSalão comercial com 2 banheiros, deposito e cozinha.\nCasa: 1 dormitório, banheiro, sala, cozinha e área de serviço.. ref. 9809 atualizado em 22/10.",
-      "total_divergencias": 1,
-      "tem_critica": false,
-      "divergencias": [
-        {
-          "campo": "Banheiros",
-          "categoria": "Banheiros",
-          "severidade": "🟡 Média",
-          "cadastro": "0 banheiros",
-          "descricao": "2 banheiro(s)",
-          "trecho_citado": "2 banheiros",
-          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
-          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
-          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
         }
       ]
     },
