@@ -243,45 +243,45 @@ with st.sidebar:
             st.cache_data.clear()
             st.rerun()
 
-    # Configurações Técnicas da Avaliação em Expander Compacto
-    with st.expander("⚙️ Configurações da Avaliação", expanded=False):
-        modelo_selecionado = st.selectbox(
-            "Modelo de IA (Google AI Studio)",
-            options=["gemini-3.1-flash-lite", "gemini-3.5-flash-lite"],
-            index=0,
-            help="O Flash-Lite possui 500 requisições diárias gratuitas e lê PDFs nativamente com OCR.",
-        )
-        os.environ["MODELO_EXTRACAO"] = modelo_selecionado
-        os.environ["MODELO_TEXTO"] = modelo_selecionado
+    # Configurações Técnicas da Avaliação (Visível EXCLUSIVAMENTE para a Diretoria)
+    if perfil_usr == "Diretoria":
+        with st.expander("⚙️ Configurações da Avaliação", expanded=False):
+            modelo_selecionado = st.selectbox(
+                "Modelo de IA (Google AI Studio)",
+                options=["gemini-3.5-flash-lite", "gemini-3.1-flash-lite"],
+                index=0,
+                help="O Flash-Lite possui 500 requisições diárias gratuitas e lê PDFs nativamente com OCR.",
+            )
+            os.environ["MODELO_EXTRACAO"] = modelo_selecionado
+            os.environ["MODELO_TEXTO"] = modelo_selecionado
 
-        fator_oferta_input = st.slider(
-            "Fator de Redução de Oferta",
-            min_value=0.80,
-            max_value=1.00,
-            value=0.90,
-            step=0.01,
-            help="Percentual de conversão do preço de anúncio para fechamento efetivo (0.90 = 10% de margem de barganha).",
-        )
-        pipeline.FATOR_OFERTA = fator_oferta_input
+            fator_oferta_input = st.slider(
+                "Fator de Redução de Oferta",
+                min_value=0.80,
+                max_value=1.00,
+                value=0.90,
+                step=0.01,
+                help="Percentual de conversão do preço de anúncio para fechamento efetivo (0.90 = 10% de margem de barganha).",
+            )
+            pipeline.FATOR_OFERTA = fator_oferta_input
 
-        rentabilidade_input = st.number_input(
-            "Premissa Cap Rate Aluguel (% a.a.)",
-            min_value=3.0,
-            max_value=15.0,
-            value=5.5,
-            step=0.1,
-            help="Utilizado quando não houver amostras suficientes de locação na região.",
-        )
-        pipeline.RENTABILIDADE_ALUGUEL_AA = rentabilidade_input
+            rentabilidade_input = st.number_input(
+                "Premissa Cap Rate Aluguel (% a.a.)",
+                min_value=3.0,
+                max_value=15.0,
+                value=5.5,
+                step=0.1,
+                help="Utilizado quando não houver amostras suficientes de locação na região.",
+            )
+            pipeline.RENTABILIDADE_ALUGUEL_AA = rentabilidade_input
 
-        api_key = obter_chave_gemini()
-        if api_key and len(api_key) >= 20:
-            st.success("🟢 Gemini Conectado e Operacional")
-        else:
-            st.error("🔴 Motor Gemini não configurado")
+            api_key = obter_chave_gemini()
+            if api_key and len(api_key) >= 20:
+                st.success("🟢 Gemini Conectado e Operacional")
+            else:
+                st.error("🔴 Motor Gemini não configurado")
 
-        if perfil_usr == "Diretoria":
-            with st.expander("⚙️ Gerenciar Chave Gemini (AI Studio)", expanded=not bool(api_key)):
+            with st.expander("🔑 Gerenciar Chave Gemini (AI Studio)", expanded=not bool(api_key)):
                 st.caption("Configuração administrativa da chave da IA (Google AI Studio).")
                 nova_chave_side = st.text_input(
                     "Chave do Google AI Studio:",
@@ -325,6 +325,8 @@ with st.sidebar:
                         else:
                             st.warning("Insira uma chave.")
                 st.caption("👉 [Obter chave no Google AI Studio](https://aistudio.google.com/apikey)")
+    else:
+        api_key = obter_chave_gemini()
 
     st.caption("Versão 2.0 • Coleta ao vivo ZAP Imóveis")
 
