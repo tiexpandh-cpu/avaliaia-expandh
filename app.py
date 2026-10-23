@@ -24,12 +24,14 @@ import argumentario
 import mapa_carteira
 import resumo_matinal
 import tema_bi
+import auditoria_divergencias
 import importlib
 importlib.reload(reavaliacao_carteira)
 importlib.reload(argumentario)
 importlib.reload(mapa_carteira)
 importlib.reload(resumo_matinal)
 importlib.reload(tema_bi)
+importlib.reload(auditoria_divergencias)
 import tools
 from llm import ClienteLLM
 
@@ -189,10 +191,15 @@ tema_bi.render_header_executivo(
 )
 tema_bi.render_modal_metodologia()
 
-tab_briefing, tab_vendas, tab_locacao, tab_mapa, tab_nova, tab_historico = st.tabs([
+# Contagem prévia de divergências para o rótulo da aba
+dados_div_resumo = auditoria_divergencias.auditar_todas_divergencias(feed_imoveis=imoveis_lista, forcar_recalculo=False)
+total_alertas_div = dados_div_resumo.get("imoveis_com_divergencia", 0)
+
+tab_briefing, tab_vendas, tab_locacao, tab_divergencias, tab_mapa, tab_nova, tab_historico = st.tabs([
     "☀️ Briefing Matinal & Oportunidades",
     f"🏷️ Carteira de VENDAS ({len(imoveis_venda)} imóveis)",
     f"🔑 Carteira de LOCAÇÃO ({len(imoveis_locacao)} imóveis)",
+    f"🔍 Conformidade Cadastral ({total_alertas_div} alertas)",
     f"🗺️ Mapa da Carteira ({len(imoveis_lista)} imóveis)",
     "📄 Avaliação via Matrícula",
     "📂 Histórico de Laudos Gerados",
@@ -728,11 +735,11 @@ def render_painel_operacao(imoveis_lista: list, operacao: str, api_key_val: str 
             # Detecção de Condicionante Financeira (Ágio / Parcelas a Vencer)
             cond_auto = reavaliacao_carteira.identificar_condicionante_preco(imovel_sel)
             if cond_auto["is_condicionado"]:
+                obs_crm_txt = f"\n• **Observação do CRM:** {cond_auto['observacao_interna']}" if cond_auto.get("observacao_interna") else ""
                 st.warning(
                     f"⚠️ **Alerta de Condicionante Financeira (Ágio / Parcelas a Vencer Detectadas)**\n\n"
                     f"• **Gatilho no Anúncio:** *\"{cond_auto['detalhes']}\"*\n"
-                    f"• **Preço Anunciado:** **R$ {imovel_sel.get('preco', 0):,.2f}** *(refere-se apenas à entrada / repasse)*\n"
-                    f"{f'• **Observação do CRM:** {cond_auto[\"observacao_interna\"]}' if cond_auto.get('observacao_interna') else ''}\n\n"
+                    f"• **Preço Anunciado:** **R$ {imovel_sel.get('preco', 0):,.2f}** *(refere-se apenas à entrada / repasse)*{obs_crm_txt}\n\n"
                     f"💡 *Para evitar distorções, o sistema calcula o **Custo Efetivo Total de Aquisição** (Entrada + Saldo Devedor a Vencer) para balizar o valor justo real da NBR 14653.*"
                 )
 
@@ -1034,12 +1041,17 @@ with tab_locacao:
     render_painel_operacao(imoveis_lista, "Locação", api_key)
 
 
-# ==================== ABA 4: MAPA GEOGRÁFICO DA CARTEIRA ====================
+# ==================== ABA 4: CONFORMIDADE CADASTRAL & DIVERGÊNCIAS ====================
+with tab_divergencias:
+    auditoria_divergencias.render_painel_divergencias(imoveis_lista=imoveis_lista)
+
+
+# ==================== ABA 5: MAPA GEOGRÁFICO DA CARTEIRA ====================
 with tab_mapa:
     mapa_carteira.render_painel_mapa(imoveis_lista, obter_dados_auditoria_atualizados())
 
 
-# ==================== ABA 5: HISTÓRICO DE LAUDOS ====================
+# ==================== ABA 6: HISTÓRICO DE LAUDOS ====================
 with tab_historico:
     st.subheader("Laudos Gerados Anteriormente")
     arquivos_laudos = sorted(glob.glob("laudos/*.pdf"), reverse=True)

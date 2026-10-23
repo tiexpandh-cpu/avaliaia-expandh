@@ -1,0 +1,2151 @@
+{
+  "sucesso": true,
+  "data_auditoria": "23/10/2026 08:43",
+  "total_imoveis": 251,
+  "imoveis_com_divergencia": 68,
+  "imoveis_sem_divergencia": 183,
+  "pct_carteira_afetada": 27.1,
+  "total_divergencias": 76,
+  "criticas": 25,
+  "medias": 51,
+  "baixas": 0,
+  "por_categoria": {
+    "Dormitórios": 13,
+    "Suítes": 11,
+    "Vagas": 14,
+    "Preço / Condicionante": 1,
+    "Tipologia": 2,
+    "Área": 0,
+    "Banheiros": 35
+  },
+  "imoveis_divergentes": [
+    {
+      "id": "V7898",
+      "titulo": "Comerciais Barracão em Sertãozinho",
+      "tipo": "Galpão Industrial",
+      "transacao": "Venda",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 1200000.0,
+      "area": 435.0,
+      "quartos_cad": 6,
+      "suites_cad": 0,
+      "vagas_cad": 3,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2021/2688/sertaozinho-comerciais-barracao-centro-26-07-2021_10-56-32-0.jpg",
+      "descricao": "Prédio Comercial no Centro da cidade com 3 garagens descobertas, despensa, 2 banheiros, área de serviço, revestimento e piso vermelhão.\n\nApartamento 1 - 3 dormitórios (1 suíte), banheiro social, sala, cozinha, área de serviço , quintal, piso frio e revestimento.\n\nApartamento 2 - 3 dormitórios (1 suíte), banheiro social, sala, cozinha, área de serviço, quintal, piso frio e revestimento. \n\nTerreno 12,00 X 26,20 = 314,40 m². ref. 7898 atualizado em 22/10.",
+      "total_divergencias": 4,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Suítes",
+          "categoria": "Suítes",
+          "severidade": "🔴 Crítica",
+          "cadastro": "0 suíte(s)",
+          "descricao": "1 suíte(s)",
+          "trecho_citado": "1 suíte",
+          "motivo": "Suíte omitida no cadastro (Cad: 0 vs Descrição: presente).",
+          "impacto": "Grave: O imóvel é completamente excluído dos filtros de busca do ZAP / VivaReal quando compradores filtram por 'mínimo 1 suíte'.",
+          "acao": "No Kurole: Atualizar o campo estruturado 'Suítes' de 0 para 1."
+        },
+        {
+          "campo": "Dormitórios",
+          "categoria": "Dormitórios",
+          "severidade": "🔴 Crítica",
+          "cadastro": "6 quarto(s)",
+          "descricao": "4 dormitório(s)",
+          "trecho_citado": "1 suíte + 3 dormitórios",
+          "motivo": "Divergência de quartos: Cadastro tem 6, mas o texto descreve 4.",
+          "impacto": "Distorce a avaliação automatizada NBR 14653 e causa desconfiança de compradores.",
+          "acao": "No Kurole: Verificar a planta e retificar para 4 quartos."
+        },
+        {
+          "campo": "Tipologia / Categoria",
+          "categoria": "Tipologia",
+          "severidade": "🔴 Crítica",
+          "cadastro": "Galpão Industrial (6 quartos)",
+          "descricao": "Prédio Comercial / Misto com apartamentos",
+          "trecho_citado": "Apartamentos e prédio comercial",
+          "motivo": "Tipologia suspeita: Galpão Industrial cadastrado com 6 dormitórios.",
+          "impacto": "Grave: Usuários que buscam galpão industrial rejeitam o imóvel, e investidores de renda com apartamentos não o encontram.",
+          "acao": "No Kurole: Reclassificar para 'Prédio Comercial' ou desmembrar as unidades no sistema."
+        },
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "2 banheiro(s)",
+          "trecho_citado": "2 banheiros",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
+        }
+      ]
+    },
+    {
+      "id": "V29021",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Shangri-Lá",
+      "cidade": "Sertãozinho",
+      "preco": 597000.0,
+      "area": 237.0,
+      "quartos_cad": 3,
+      "suites_cad": 1,
+      "vagas_cad": 1,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3723/sertaozinho-casas-padrao-shangri-la-11-05-2026_11-57-15-6a01ee4b50cee.webp",
+      "descricao": "Área interna:\n01 Casa com 02 Dormitórios, 01 Sala, 01 Copa, 01 Cozinha, 02 Banheiros, piso frio. (móveis a negociar)\n\nÁrea Externa:\n01 Garagem para 2 Carros. 01 Salão Comercial (*** Maquinas da padaria à negociar***)\nObs: forro de madeira e laje. ref. 29021 atualizado em 22/10.",
+      "total_divergencias": 2,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Dormitórios",
+          "categoria": "Dormitórios",
+          "severidade": "🔴 Crítica",
+          "cadastro": "3 quarto(s)",
+          "descricao": "2 dormitório(s)",
+          "trecho_citado": "02 dormitórios",
+          "motivo": "Divergência de quartos: Cadastro tem 3, mas o texto descreve 2.",
+          "impacto": "Distorce a avaliação automatizada NBR 14653 e causa desconfiança de compradores.",
+          "acao": "No Kurole: Verificar a planta e retificar para 2 quartos."
+        },
+        {
+          "campo": "Vagas de Garagem",
+          "categoria": "Vagas",
+          "severidade": "🟡 Média",
+          "cadastro": "1 vaga(s)",
+          "descricao": "2 vaga(s)",
+          "trecho_citado": "garagem para 2 carros",
+          "motivo": "Divergência de garagens: Cadastro informa 1 vaga(s), mas a descrição cita 2.",
+          "impacto": "Pode gerar reclamação de clientes que exigem capacidade exata de estacionamento.",
+          "acao": "No Kurole: Confirmar capacidade total coberta/descoberta e uniformizar em 2 vagas."
+        }
+      ]
+    },
+    {
+      "id": "L29021",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Locação",
+      "bairro": "Shangri-Lá",
+      "cidade": "Sertãozinho",
+      "preco": 3000.0,
+      "area": 237.0,
+      "quartos_cad": 3,
+      "suites_cad": 1,
+      "vagas_cad": 1,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3723/sertaozinho-casas-padrao-shangri-la-11-05-2026_11-57-15-6a01ee4b50cee.webp",
+      "descricao": "Área interna:\n01 Casa com 02 Dormitórios, 01 Sala, 01 Copa, 01 Cozinha, 02 Banheiros, piso frio. (móveis a negociar)\n\nÁrea Externa:\n01 Garagem para 2 Carros. 01 Salão Comercial (*** Maquinas da padaria à negociar***)\nObs: forro de madeira e laje. ref. 29021 atualizado em 22/10.",
+      "total_divergencias": 2,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Dormitórios",
+          "categoria": "Dormitórios",
+          "severidade": "🔴 Crítica",
+          "cadastro": "3 quarto(s)",
+          "descricao": "2 dormitório(s)",
+          "trecho_citado": "02 dormitórios",
+          "motivo": "Divergência de quartos: Cadastro tem 3, mas o texto descreve 2.",
+          "impacto": "Distorce a avaliação automatizada NBR 14653 e causa desconfiança de compradores.",
+          "acao": "No Kurole: Verificar a planta e retificar para 2 quartos."
+        },
+        {
+          "campo": "Vagas de Garagem",
+          "categoria": "Vagas",
+          "severidade": "🟡 Média",
+          "cadastro": "1 vaga(s)",
+          "descricao": "2 vaga(s)",
+          "trecho_citado": "garagem para 2 carros",
+          "motivo": "Divergência de garagens: Cadastro informa 1 vaga(s), mas a descrição cita 2.",
+          "impacto": "Pode gerar reclamação de clientes que exigem capacidade exata de estacionamento.",
+          "acao": "No Kurole: Confirmar capacidade total coberta/descoberta e uniformizar em 2 vagas."
+        }
+      ]
+    },
+    {
+      "id": "L96401",
+      "titulo": "Comerciais Galpão em Catalão",
+      "tipo": "Galpão Industrial",
+      "transacao": "Locação",
+      "bairro": "Loteamento Residencial Cidade Jardim",
+      "cidade": "Catalão",
+      "preco": 1540.0,
+      "area": 90.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2023/3182/catalao-comerciais-galpao-loteamento-residencial-cidade-jardim-04-05-2023_17-41-21-1.webp",
+      "descricao": "Oportunidade Única em Catalão-GO! Galpão Comercial com Desconto Especial!\n\nLocalizados no charmoso bairro Cidade Jardim em Catalão, este imóvel é ideal para impulsionar o seu negócio. O galpão de 90m² oferece praticidade com 1 porta automática, além de uma copa, lavatório e 2 banheiros. Com forro de PVC, piso em granitina e revestimento de qualidade, é perfeito para diversas atividades comerciais. Estacionamento frontal com 2 vagas adicionais complementam a conveniência.\n\nNão perca esta chance única de fazer parte deste projeto inovador! Entre em contato conosco para mais detalhes e agende sua visita hoje mesmo.\n\nObs: IPTU a pagar. ref. 96401 atualizado em 22/10.",
+      "total_divergencias": 2,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Vagas de Garagem",
+          "categoria": "Vagas",
+          "severidade": "🔴 Crítica",
+          "cadastro": "0 vagas",
+          "descricao": "2 vaga(s)",
+          "trecho_citado": "2 vagas ",
+          "motivo": "Garagem omitida no cadastro (Cad: 0 vs Descrição: 2 vaga(s)).",
+          "impacto": "Mais de 65% dos usuários de portais filtram apenas imóveis 'com vaga'. Esse imóvel está invisível para eles.",
+          "acao": "No Kurole: Atualizar o campo 'Vagas' de 0 para 2."
+        },
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "2 banheiro(s)",
+          "trecho_citado": "2 banheiros",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
+        }
+      ]
+    },
+    {
+      "id": "V8228",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 400000.0,
+      "area": 211.0,
+      "quartos_cad": 3,
+      "suites_cad": 1,
+      "vagas_cad": 4,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2020/2435/sertaozinho-casas-padrao-centro-16-09-2020_15-44-35-0.jpg",
+      "descricao": "Centro - Casa - 3 dormitórios (1 suíte), sala, copa, cozinha, banheiro social, 2 garagens cobertas, área de serviço, churrasqueira, 1 suíte externa, despensa, piso frio, revestimentos, portão eletrônico e quintal.\nRef: 22. ref. 8228 atualizado em 22/10.",
+      "total_divergencias": 2,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Dormitórios",
+          "categoria": "Dormitórios",
+          "severidade": "🔴 Crítica",
+          "cadastro": "3 quarto(s)",
+          "descricao": "4 dormitório(s)",
+          "trecho_citado": "1 suíte + 3 dormitórios",
+          "motivo": "Divergência de quartos: Cadastro tem 3, mas o texto descreve 4.",
+          "impacto": "Distorce a avaliação automatizada NBR 14653 e causa desconfiança de compradores.",
+          "acao": "No Kurole: Verificar a planta e retificar para 4 quartos."
+        },
+        {
+          "campo": "Vagas de Garagem",
+          "categoria": "Vagas",
+          "severidade": "🟡 Média",
+          "cadastro": "4 vaga(s)",
+          "descricao": "2 vaga(s)",
+          "trecho_citado": "2 garagens",
+          "motivo": "Divergência de garagens: Cadastro informa 4 vaga(s), mas a descrição cita 2.",
+          "impacto": "Pode gerar reclamação de clientes que exigem capacidade exata de estacionamento.",
+          "acao": "No Kurole: Confirmar capacidade total coberta/descoberta e uniformizar em 2 vagas."
+        }
+      ]
+    },
+    {
+      "id": "V9008",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Jardim Recreio dos Bandeirantes",
+      "cidade": "Sertãozinho",
+      "preco": 1500000.0,
+      "area": 424.0,
+      "quartos_cad": 3,
+      "suites_cad": 2,
+      "vagas_cad": 4,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2020/2362/sertaozinho-casas-padrao-jardim-sao-jose-16-03-2020_10-39-37-1.jpg",
+      "descricao": "Recreio dos Bandeirantes. Sobrado. Térreo: 1 suítes com closet mais 1 dormitório, banheiro social, sala 2 ambientes com pé direito duplo, escritório, lavabo, cozinha, despensa, área de serviço.\nPiso superior: 1 suítes com closet, sala, academia, varanda e despensa.\nÁrea de lazer com varanda gourmet, churrasqueira, piscina, 2 banheiros.\n2 garagens cobertas e 2 descobertas.\nCompleta em porcelanato, ares condicionados, armários planejados e sistema de segurança.\nTerreno 434,30 m² e Construção 424,12 m².\n. ref. 9008 atualizado em 22/10.",
+      "total_divergencias": 2,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Dormitórios",
+          "categoria": "Dormitórios",
+          "severidade": "🔴 Crítica",
+          "cadastro": "3 quarto(s)",
+          "descricao": "1 dormitório(s)",
+          "trecho_citado": "1 dormitório",
+          "motivo": "Divergência de quartos: Cadastro tem 3, mas o texto descreve 1.",
+          "impacto": "Distorce a avaliação automatizada NBR 14653 e causa desconfiança de compradores.",
+          "acao": "No Kurole: Verificar a planta e retificar para 1 quartos."
+        },
+        {
+          "campo": "Vagas de Garagem",
+          "categoria": "Vagas",
+          "severidade": "🟡 Média",
+          "cadastro": "4 vaga(s)",
+          "descricao": "2 vaga(s)",
+          "trecho_citado": "2 garagens",
+          "motivo": "Divergência de garagens: Cadastro informa 4 vaga(s), mas a descrição cita 2.",
+          "impacto": "Pode gerar reclamação de clientes que exigem capacidade exata de estacionamento.",
+          "acao": "No Kurole: Confirmar capacidade total coberta/descoberta e uniformizar em 2 vagas."
+        }
+      ]
+    },
+    {
+      "id": "L69521",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Locação",
+      "bairro": "Jardim Campo Belo",
+      "cidade": "Sertãozinho",
+      "preco": 1400.0,
+      "area": 100.0,
+      "quartos_cad": 2,
+      "suites_cad": 0,
+      "vagas_cad": 1,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3891/sertaozinho-casas-padrao-jardim-campo-belo-22-10-2026_11-19-14-6ada1b6283558.webp",
+      "descricao": "Área Interna: 02 Dormitórios Sendo 01 Suite, Sala com Ventilador, Cozinha (Pia com Gabinete), Banheiro Social, Laje, Piso Frio e Revestimento.\n\nÁrea Externa: Área de Serviço Coberta, 01 Vaga Garagem, Portão Basculante.\n\nIPTU ISENTO.. ref. 69521 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Suítes",
+          "categoria": "Suítes",
+          "severidade": "🔴 Crítica",
+          "cadastro": "0 suíte(s)",
+          "descricao": "1 suíte(s)",
+          "trecho_citado": "sendo 01 suite",
+          "motivo": "Suíte omitida no cadastro (Cad: 0 vs Descrição: presente).",
+          "impacto": "Grave: O imóvel é completamente excluído dos filtros de busca do ZAP / VivaReal quando compradores filtram por 'mínimo 1 suíte'.",
+          "acao": "No Kurole: Atualizar o campo estruturado 'Suítes' de 0 para 1."
+        }
+      ]
+    },
+    {
+      "id": "L83321",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Locação",
+      "bairro": "São João",
+      "cidade": "Sertãozinho",
+      "preco": 2500.0,
+      "area": 102.0,
+      "quartos_cad": 2,
+      "suites_cad": 0,
+      "vagas_cad": 1,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3805/sertaozinho-casas-padrao-sao-joao-27-05-2026_17-27-31-6a1753b345654.webp",
+      "descricao": "Área Interna\n02 Dormitórios,sendo 01 com Armário e  Ventilador e 01 Suite com Armários e Ar Condicionado,01 Sala  com Ar Condicionado,Ventilador, Rack, Mesa de Canto e   Painel de TV, 01 Banheiro Social, 01 Cozinha com Armários Planejados,Laje, Piso Frio e Revestimento.\n\nÁrea Externa\nGaragem para 01 Automóvel, Área de Serviço,Quintal e Portão Eletrônico\n\nObs: Não aceita animais. ref. 83321 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Suítes",
+          "categoria": "Suítes",
+          "severidade": "🔴 Crítica",
+          "cadastro": "0 suíte(s)",
+          "descricao": "1 suíte(s)",
+          "trecho_citado": "01 suite",
+          "motivo": "Suíte omitida no cadastro (Cad: 0 vs Descrição: presente).",
+          "impacto": "Grave: O imóvel é completamente excluído dos filtros de busca do ZAP / VivaReal quando compradores filtram por 'mínimo 1 suíte'.",
+          "acao": "No Kurole: Atualizar o campo estruturado 'Suítes' de 0 para 1."
+        }
+      ]
+    },
+    {
+      "id": "V28811",
+      "titulo": "Lote em boa localização no bairro em edificações",
+      "tipo": "Terreno Comercial",
+      "transacao": "Venda",
+      "bairro": "Vista da Lago",
+      "cidade": "Sertãozinho",
+      "preco": 67500.0,
+      "area": 254.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2025/3653/sertaozinho_terrenos_padrao_vistadalago_01-08-2025_15-39-54_1.webp",
+      "descricao": "Ótimo para residência ou comercial, terreno pronto para construir e localizado na primeira quadra da Avenida principal.\nR$ 67.500,00 mais parcelas à vencer.. ref. 28811 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Preço & Condicionante",
+          "categoria": "Preço / Condicionante",
+          "severidade": "🔴 Crítica",
+          "cadastro": "R$ 67,500.00 (sem ressalva)",
+          "descricao": "'mais parcelas à vencer'",
+          "trecho_citado": "mais parcelas à vencer",
+          "motivo": "Preço anunciado condicionado a parcelas futuras ('mais parcelas a vencer' / ágio / repasse).",
+          "impacto": "Altíssimo: Algoritmos e compradores leem o preço como valor total quitado, gerando falsas expectativas e distorções na carteira.",
+          "acao": "No Kurole: Preencher o saldo devedor nas notas e ajustar a pedida do ágio para refletir o custo real."
+        }
+      ]
+    },
+    {
+      "id": "L3185",
+      "titulo": "Casas Padrão em Dumont",
+      "tipo": "Casa",
+      "transacao": "Locação",
+      "bairro": "Nova Dumont",
+      "cidade": "Dumont",
+      "preco": 1250.0,
+      "area": 120.0,
+      "quartos_cad": 3,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/1630/dumont-casas-padrao-nova-dumont-20-10-2026_09-40-53-6ad7615556f4d.webp",
+      "descricao": "Área Interna:\n03 Dormitórios (sendo 01 Suíte), Banheiro Social, Sala e Cozinha.\nLaje, Piso frio e Revestimento.\n\nÁrea Externa:\nGaragem Coberta para 02 Automóveis, 01 Varanda, Área de Serviço Coberta e Despensa.\n\nIPTU ISENTO.\n\nOBS.: NÃO ACEITA ANIMAIS DE NENHUMA ESPÉCIE. ref. 3185 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Suítes",
+          "categoria": "Suítes",
+          "severidade": "🔴 Crítica",
+          "cadastro": "0 suíte(s)",
+          "descricao": "1 suíte(s)",
+          "trecho_citado": "sendo 01 suíte",
+          "motivo": "Suíte omitida no cadastro (Cad: 0 vs Descrição: presente).",
+          "impacto": "Grave: O imóvel é completamente excluído dos filtros de busca do ZAP / VivaReal quando compradores filtram por 'mínimo 1 suíte'.",
+          "acao": "No Kurole: Atualizar o campo estruturado 'Suítes' de 0 para 1."
+        }
+      ]
+    },
+    {
+      "id": "L2138",
+      "titulo": "Apartamentos Padrão em Sertãozinho",
+      "tipo": "Apartamento",
+      "transacao": "Locação",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 1560.0,
+      "area": 207.0,
+      "quartos_cad": 3,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2020/2463/sertaozinho-apartamentos-padrao-centro-02-10-2020_10-15-40-0.jpg",
+      "descricao": "Área Interna\n03 Dormitórios, sendo 01 Suíte, 01 Banheiro Social, 01 Sala, 01 Cozinha, Área de Serviço Coberta, Quintal , Laje, Piso Frio e Revestimento.\n\nObs: Não tem Garagem\nObs: IPTU a pagar. ref. 2138 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Suítes",
+          "categoria": "Suítes",
+          "severidade": "🔴 Crítica",
+          "cadastro": "0 suíte(s)",
+          "descricao": "1 suíte(s)",
+          "trecho_citado": "sendo 01 suíte",
+          "motivo": "Suíte omitida no cadastro (Cad: 0 vs Descrição: presente).",
+          "impacto": "Grave: O imóvel é completamente excluído dos filtros de busca do ZAP / VivaReal quando compradores filtram por 'mínimo 1 suíte'.",
+          "acao": "No Kurole: Atualizar o campo estruturado 'Suítes' de 0 para 1."
+        }
+      ]
+    },
+    {
+      "id": "V2969",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Terreno Residencial",
+      "transacao": "Venda",
+      "bairro": "Jardim Santa Rosa",
+      "cidade": "Sertãozinho",
+      "preco": 99000.0,
+      "area": 200.0,
+      "quartos_cad": 1,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2022/2923/sertaozinho-terrenos-padrao-jardim-santa-rosa-17-06-2022_17-36-42-0.jpg",
+      "descricao": "Lote murado e com uma edícula, 1 dormitório, cozinha, banheiro e área de serviço.\nREF:24. ref. 2969 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Tipologia / Categoria",
+          "categoria": "Tipologia",
+          "severidade": "🔴 Crítica",
+          "cadastro": "Terreno Residencial (1 quartos, 1 banheiros)",
+          "descricao": "Construção existente ou cadastro incorreto",
+          "trecho_citado": "",
+          "motivo": "Terreno cadastrado com 1 quartos / 1 banheiros.",
+          "impacto": "Filtros de terrenos mostram dados incongruentes.",
+          "acao": "No Kurole: Zerar quartos/banheiros ou alterar o tipo para 'Casa / Construção'."
+        }
+      ]
+    },
+    {
+      "id": "V09611",
+      "titulo": "Imóvel com localização privilegiada para residência ou comércio no centro de Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 1380000.0,
+      "area": 348.0,
+      "quartos_cad": 4,
+      "suites_cad": 0,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2025/3589/sertaozinho-casas-padrao-centro-06-06-2025_16-25-50-0.webp",
+      "descricao": "* Área Interna:\n*\tLavabo\n*\tSala de Visitas\n*\tSala de Jantar\n*\tSala Escritório\n*\tSala de TV\n*\tCozinha Planejada com armários sob medida\n*\t01 Suíte Master com closet, móveis planejados e banheira de hidromassagem\n*\t02 Suítes Conjugadas com armários planejados e banheira de hidromassagem\n*\tTodos os móveis estão incluídos na venda, proporcionando praticidade e economia\n* Área Externa:\n*\tÁrea Gourmet com balcão, pia, armário e churrasqueira\n*\tDespensa\n*\tBanheiro Social\n*\tLavanderia\n*\tCanil\n*\tPiscina para momentos de lazer e descontração\n* Espaço Profissional Anexo:\n*\tSala para Consultório\n*\tRecepção\n*\tLavabo\n*\tEntrada Exclusiva, ideal para uso profissional ou comercial com total privacidade. ref. 09611 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Suítes",
+          "categoria": "Suítes",
+          "severidade": "🔴 Crítica",
+          "cadastro": "0 suíte(s)",
+          "descricao": "2 suíte(s)",
+          "trecho_citado": "02 suítes",
+          "motivo": "Suíte omitida no cadastro (Cad: 0 vs Descrição: presente).",
+          "impacto": "Grave: O imóvel é completamente excluído dos filtros de busca do ZAP / VivaReal quando compradores filtram por 'mínimo 1 suíte'.",
+          "acao": "No Kurole: Atualizar o campo estruturado 'Suítes' de 0 para 2."
+        }
+      ]
+    },
+    {
+      "id": "V9317",
+      "titulo": "Excelente localização para residir próximo de vários comércio.",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Conjunto Habitacional Antônio Costa Patrão",
+      "cidade": "Sertãozinho",
+      "preco": 295000.0,
+      "area": 148.0,
+      "quartos_cad": 3,
+      "suites_cad": 1,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2024/2072/sertaozinho_casas_padrao_conjuntohabitacionalantoniocostapatrao_30-09-2024_14-01-59_19.webp",
+      "descricao": "Garagem coberta 2 veículos, sala TV, forro de madeira, sala jantar (PVC), 1 banheiro social (PVC), 1 quarto (PVC), cozinha (PVC, 1 suíte (madeira), 1 quarto (laje), 1 cozinha (laje), 1 copa (laje), quintal, churrasqueira, lavanderia, 1 banheiro social.. ref. 9317 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Dormitórios",
+          "categoria": "Dormitórios",
+          "severidade": "🔴 Crítica",
+          "cadastro": "3 quarto(s)",
+          "descricao": "1 dormitório(s)",
+          "trecho_citado": "1 quarto",
+          "motivo": "Divergência de quartos: Cadastro tem 3, mas o texto descreve 1.",
+          "impacto": "Distorce a avaliação automatizada NBR 14653 e causa desconfiança de compradores.",
+          "acao": "No Kurole: Verificar a planta e retificar para 1 quartos."
+        }
+      ]
+    },
+    {
+      "id": "V54911",
+      "titulo": "Imóvel em excelente localização, próximo a Condomínios de alto padrão e ao Parque Linear.",
+      "tipo": "Casa em Condomínio",
+      "transacao": "Venda",
+      "bairro": "Jardim Recreio dos Bandeirantes",
+      "cidade": "Sertãozinho",
+      "preco": 1100000.0,
+      "area": 290.0,
+      "quartos_cad": 3,
+      "suites_cad": 2,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2025/3674/sertaozinho_casas_padrao_jardimrecreiodosbandeirantes_29-08-2025_16-16-48_21.webp",
+      "descricao": "03 quartos, 02 suítes.. ref. 54911 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Dormitórios",
+          "categoria": "Dormitórios",
+          "severidade": "🔴 Crítica",
+          "cadastro": "3 quarto(s)",
+          "descricao": "5 dormitório(s)",
+          "trecho_citado": "02 suítes + 03 quartos",
+          "motivo": "Divergência de quartos: Cadastro tem 3, mas o texto descreve 5.",
+          "impacto": "Distorce a avaliação automatizada NBR 14653 e causa desconfiança de compradores.",
+          "acao": "No Kurole: Verificar a planta e retificar para 5 quartos."
+        }
+      ]
+    },
+    {
+      "id": "V47711",
+      "titulo": "Casa em ótima localização e pronta para morar",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "São João",
+      "cidade": "Sertãozinho",
+      "preco": 664000.0,
+      "area": 184.0,
+      "quartos_cad": 3,
+      "suites_cad": 1,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2025/3617/sertaozinho_casas_padrao_saojoao_15-05-2025_17-54-04_4.webp",
+      "descricao": "03 dormitórios c/ armários (1 suíte), sala, copa, cozinha planejada, banheiro social, despensa, lavanderia, banheiro externo, varanda, quintal, ventiladores, piso frio, assoalho, revestimentos e 02 garagens coberta. ref. 47711 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Dormitórios",
+          "categoria": "Dormitórios",
+          "severidade": "🔴 Crítica",
+          "cadastro": "3 quarto(s)",
+          "descricao": "4 dormitório(s)",
+          "trecho_citado": "1 suíte + 03 dormitórios",
+          "motivo": "Divergência de quartos: Cadastro tem 3, mas o texto descreve 4.",
+          "impacto": "Distorce a avaliação automatizada NBR 14653 e causa desconfiança de compradores.",
+          "acao": "No Kurole: Verificar a planta e retificar para 4 quartos."
+        }
+      ]
+    },
+    {
+      "id": "V4829",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Jardim Liberdade",
+      "cidade": "Sertãozinho",
+      "preco": 485000.0,
+      "area": 187.0,
+      "quartos_cad": 3,
+      "suites_cad": 2,
+      "vagas_cad": 3,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2021/2787/sertaozinho-casas-padrao-jardim-liberdade-22-11-2021_08-34-16-1.jpg",
+      "descricao": "Casa em ótima localização, 3 dormitórios, ( 2 suítes), sala, sala tv, banheiro social, lavabo, cozinha, copa, garagem coberta para 3 carros , despensa, banheiro externo, churrasqueira, portão eletrônico. Completa em armários planejados.. ref. 4829 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Dormitórios",
+          "categoria": "Dormitórios",
+          "severidade": "🔴 Crítica",
+          "cadastro": "3 quarto(s)",
+          "descricao": "5 dormitório(s)",
+          "trecho_citado": "2 suítes + 3 dormitórios",
+          "motivo": "Divergência de quartos: Cadastro tem 3, mas o texto descreve 5.",
+          "impacto": "Distorce a avaliação automatizada NBR 14653 e causa desconfiança de compradores.",
+          "acao": "No Kurole: Verificar a planta e retificar para 5 quartos."
+        }
+      ]
+    },
+    {
+      "id": "V22211",
+      "titulo": "Ótima localização residencial ou comercial.",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 1490000.0,
+      "area": 264.0,
+      "quartos_cad": 3,
+      "suites_cad": 2,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2024/3433/sertaozinho_casas_padrao_centro_31-05-2024_16-01-52_1.webp",
+      "descricao": "3 dormitórios e 2 suítes, sala, cozinha, copa, 2 banheiro social, despensa, área de serviço e quintal.. ref. 22211 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Dormitórios",
+          "categoria": "Dormitórios",
+          "severidade": "🔴 Crítica",
+          "cadastro": "3 quarto(s)",
+          "descricao": "5 dormitório(s)",
+          "trecho_citado": "2 suítes + 3 dormitórios",
+          "motivo": "Divergência de quartos: Cadastro tem 3, mas o texto descreve 5.",
+          "impacto": "Distorce a avaliação automatizada NBR 14653 e causa desconfiança de compradores.",
+          "acao": "No Kurole: Verificar a planta e retificar para 5 quartos."
+        }
+      ]
+    },
+    {
+      "id": "V78401",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 850000.0,
+      "area": 403.0,
+      "quartos_cad": 4,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2023/3188/sertaozinho-casas-padrao-centro-05-05-2023_17-06-58-0.webp",
+      "descricao": "Imóvel em Esquina. Ótimo para comércio.\n4 dormitórios, 1 banheiro, 2 salas, cozinha, despensa e quintal\n12 garagens.\n3 escritórios. Com entrada e garagem independente.\nEsquina das ruas Carlos Gomes e Voluntario Otto Gomes Martins.\n. ref. 78401 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Vagas de Garagem",
+          "categoria": "Vagas",
+          "severidade": "🔴 Crítica",
+          "cadastro": "0 vagas",
+          "descricao": "12 vaga(s)",
+          "trecho_citado": "12 garagens",
+          "motivo": "Garagem omitida no cadastro (Cad: 0 vs Descrição: 12 vaga(s)).",
+          "impacto": "Mais de 65% dos usuários de portais filtram apenas imóveis 'com vaga'. Esse imóvel está invisível para eles.",
+          "acao": "No Kurole: Atualizar o campo 'Vagas' de 0 para 12."
+        }
+      ]
+    },
+    {
+      "id": "V2654",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Jardim São José",
+      "cidade": "Sertãozinho",
+      "preco": 1600000.0,
+      "area": 351.0,
+      "quartos_cad": 4,
+      "suites_cad": 2,
+      "vagas_cad": 3,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2017/1213/sertaozinho-casas-padrao-jardim-sao-jose-06-05-2021_15-21-51-2.jpg",
+      "descricao": "4 dormitórios (2 suítes, 1 suíte c/ closet e hidro), 5 banheiros, 3 salas, 1 sala jantar, 1 sala tv, 1 sala estar, 2 cozinhas planejadas, mezanino, despensa, área de serviço planejada, 3 garagens cobertas, piscina, churrasqueira, salão de festas, laje, porcelanato, ares condicionados, quintal, escritório, alarme, portão eletrônico, interfone, aquecedor solar e cerca elétrica.\nANALISA PERMUTA DE MENOR VALOR.. ref. 2654 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Dormitórios",
+          "categoria": "Dormitórios",
+          "severidade": "🔴 Crítica",
+          "cadastro": "4 quarto(s)",
+          "descricao": "6 dormitório(s)",
+          "trecho_citado": "2 suítes + 4 dormitórios",
+          "motivo": "Divergência de quartos: Cadastro tem 4, mas o texto descreve 6.",
+          "impacto": "Distorce a avaliação automatizada NBR 14653 e causa desconfiança de compradores.",
+          "acao": "No Kurole: Verificar a planta e retificar para 6 quartos."
+        }
+      ]
+    },
+    {
+      "id": "V19601",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 750000.0,
+      "area": 218.0,
+      "quartos_cad": 5,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2023/3256/sertaozinho_casas_padrao_centro_18-07-2023_09-25-11_2.jpg",
+      "descricao": "5 quartos , 1 banheiro interno grande, 1 banheiro externo , 2 cozinhas, 3 salas, 1 lavanderia , 2 garagens cobertas e 2 descobertas, 2 quartinho externos.. ref. 19601 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Vagas de Garagem",
+          "categoria": "Vagas",
+          "severidade": "🔴 Crítica",
+          "cadastro": "0 vagas",
+          "descricao": "2 vaga(s)",
+          "trecho_citado": "2 garagens",
+          "motivo": "Garagem omitida no cadastro (Cad: 0 vs Descrição: 2 vaga(s)).",
+          "impacto": "Mais de 65% dos usuários de portais filtram apenas imóveis 'com vaga'. Esse imóvel está invisível para eles.",
+          "acao": "No Kurole: Atualizar o campo 'Vagas' de 0 para 2."
+        }
+      ]
+    },
+    {
+      "id": "V15701",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Jardim Alexandre Balbo",
+      "cidade": "Sertãozinho",
+      "preco": 580000.0,
+      "area": 225.0,
+      "quartos_cad": 3,
+      "suites_cad": 1,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2023/3276/sertaozinho_casas_padrao_jardimalexandrebalbo_11-08-2023_16-10-13_17.jpg",
+      "descricao": "2 garagens cobertas, portão eletrônico, área pra churrasco, lavanderia, cozinha externa, cozinha interna, sala de tv com saída para varanda com acesso a calçada, 1  quarto com ar condicionado, 1 quarto com ventilador, 1 suíte com ar e armário em cerejeira, 1 banheiro social.. ref. 15701 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Dormitórios",
+          "categoria": "Dormitórios",
+          "severidade": "🔴 Crítica",
+          "cadastro": "3 quarto(s)",
+          "descricao": "1 dormitório(s)",
+          "trecho_citado": "1 quarto",
+          "motivo": "Divergência de quartos: Cadastro tem 3, mas o texto descreve 1.",
+          "impacto": "Distorce a avaliação automatizada NBR 14653 e causa desconfiança de compradores.",
+          "acao": "No Kurole: Verificar a planta e retificar para 1 quartos."
+        }
+      ]
+    },
+    {
+      "id": "V3209",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Jardim Recreio dos Bandeirantes",
+      "cidade": "Sertãozinho",
+      "preco": 750000.0,
+      "area": 209.0,
+      "quartos_cad": 3,
+      "suites_cad": 1,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2021/2700/sertaozinho-casas-padrao-jardim-recreio-dos-bandeirantes-06-08-2021_17-14-24-2.jpg",
+      "descricao": "Jardim Bandeirantes. Casa: 3 dormitórios (1 suite) c/ armários, sala 2 ambientes, cozinha planejada, banheiro social, garagem coberta para 2 carros, área de churrasco, banheiro externo, portão eletrônico, cerca elétrica e interfone.. ref. 3209 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": true,
+      "divergencias": [
+        {
+          "campo": "Dormitórios",
+          "categoria": "Dormitórios",
+          "severidade": "🔴 Crítica",
+          "cadastro": "3 quarto(s)",
+          "descricao": "4 dormitório(s)",
+          "trecho_citado": "1 suite + 3 dormitórios",
+          "motivo": "Divergência de quartos: Cadastro tem 3, mas o texto descreve 4.",
+          "impacto": "Distorce a avaliação automatizada NBR 14653 e causa desconfiança de compradores.",
+          "acao": "No Kurole: Verificar a planta e retificar para 4 quartos."
+        }
+      ]
+    },
+    {
+      "id": "L30521",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Locação",
+      "bairro": "Chácaras Recreio Planalto",
+      "cidade": "Sertãozinho",
+      "preco": 1800.0,
+      "area": 2246.0,
+      "quartos_cad": 1,
+      "suites_cad": 0,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3860/sertaozinho-casas-padrao-chacaras-recreio-planalto-26-08-2026_16-24-09-6a8f3d59886aa.webp",
+      "descricao": "área Interna\n01 Dormitório, 01 Sala, 01 Cozinha com Gabinete e 01 Banheiro Social, Forro de PVC,Piso Frio e Piso Carpete de Madeira.\n\nÁrea Externa\nGaragem Coberta para 02 Automóveis e 01 Vaga Descoberta, 01 Varanda, Área de Serviço Coberta, Quintal com Pedra Brita, Portão Manuel  e Cameras Externas.\n\nObs: IPTU Isento\nObs: Cachorro de preferência fêmeas. ref. 30521 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Vagas de Garagem",
+          "categoria": "Vagas",
+          "severidade": "🟡 Média",
+          "cadastro": "2 vaga(s)",
+          "descricao": "1 vaga(s)",
+          "trecho_citado": "01 vaga descoberta",
+          "motivo": "Divergência de garagens: Cadastro informa 2 vaga(s), mas a descrição cita 1.",
+          "impacto": "Pode gerar reclamação de clientes que exigem capacidade exata de estacionamento.",
+          "acao": "No Kurole: Confirmar capacidade total coberta/descoberta e uniformizar em 1 vagas."
+        }
+      ]
+    },
+    {
+      "id": "L88421",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Locação",
+      "bairro": "Parque Residencial Francisco Paschoal",
+      "cidade": "Sertãozinho",
+      "preco": 1500.0,
+      "area": 123.0,
+      "quartos_cad": 2,
+      "suites_cad": 0,
+      "vagas_cad": 1,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3855/sertaozinho-casas-padrao-parque-residencial-francisco-paschoal-20-08-2026_17-11-27-6a875f6fc8f49.webp",
+      "descricao": "Área Interna\n02 Dormitórios,01 Sala,01 Copa,  01 Cozinha com 01 Bancada de Ardósias e Gabinete de Aço com 04 Portas,01 Banheiro Social, Forro de PVC, Piso Frio e Piso Porcelanato.\n\nÁrea Externa\nÁrea de Serviço, 01 Sala Externa, 01 Despensa,Quintal Cimentado, Garagem para 02 Automóveis sendo 01 Coberta e Portão Manual. ref. 88421 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Vagas de Garagem",
+          "categoria": "Vagas",
+          "severidade": "🟡 Média",
+          "cadastro": "1 vaga(s)",
+          "descricao": "2 vaga(s)",
+          "trecho_citado": "garagem para 02 automóveis",
+          "motivo": "Divergência de garagens: Cadastro informa 1 vaga(s), mas a descrição cita 2.",
+          "impacto": "Pode gerar reclamação de clientes que exigem capacidade exata de estacionamento.",
+          "acao": "No Kurole: Confirmar capacidade total coberta/descoberta e uniformizar em 2 vagas."
+        }
+      ]
+    },
+    {
+      "id": "L5705",
+      "titulo": "Comerciais Salão em Pontal",
+      "tipo": "Sala Comercial",
+      "transacao": "Locação",
+      "bairro": "CENTRO",
+      "cidade": "Pontal",
+      "preco": 1900.0,
+      "area": 581.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/1384/pontal-comerciais-salao-centro-19-10-2026_15-01-51-6ad65b0f17456.webp",
+      "descricao": "Área Interna:\n01 Salão Comercial com duas Portas de Rolo, Cozinha, 02 Banheiros Sociais, Área de Serviço. Laje, Piso Frio e Revestimento.\n\n*** Visitas agendar com o proprietário***. ref. 5705 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "2 banheiro(s)",
+          "trecho_citado": "02 banheiros",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
+        }
+      ]
+    },
+    {
+      "id": "L74321",
+      "titulo": "Comerciais Barracão em Sertãozinho",
+      "tipo": "Galpão Industrial",
+      "transacao": "Locação",
+      "bairro": "Jardim Liberdade",
+      "cidade": "Sertãozinho",
+      "preco": 2500.0,
+      "area": 226.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3808/sertaozinho-comerciais-barracao-jardim-liberdade-29-05-2026_14-47-32-6a19d1345ab9b.webp",
+      "descricao": "Área Interna\n01 Barracão com Estruturas de Ferro , Telhas Galvanizadas e Piso Cimentado, fechado nas laterais e frente e fundos,, 01 Mesanino, 01 Banheiro Social e Portão Manual.. ref. 74321 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 banheiro",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
+        }
+      ]
+    },
+    {
+      "id": "L19421",
+      "titulo": "Comerciais Salão em Sertãozinho",
+      "tipo": "Sala Comercial",
+      "transacao": "Locação",
+      "bairro": "Jardim Jamaica",
+      "cidade": "Sertãozinho",
+      "preco": 1200.0,
+      "area": 35.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3856/sertaozinho-comerciais-salao-jardim-jamaica-29-08-2026_10-12-03-6a92daa35dc91.webp",
+      "descricao": "01 Salão 5x5 metros, 01 Banheiro, Ar condicionado, Forro PVC e Piso frio.\n\nObs: PTU Isento. ref. 19421 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 banheiro",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
+        }
+      ]
+    },
+    {
+      "id": "L4388",
+      "titulo": "Comerciais Barracão em Sertãozinho",
+      "tipo": "Galpão Industrial",
+      "transacao": "Locação",
+      "bairro": "Jardim Veneto II",
+      "cidade": "Sertãozinho",
+      "preco": 2500.0,
+      "area": 143.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2025/2637/sertaozinho-comerciais-barracao-jardim-veneto-ii-17-02-2025_09-41-49-6.webp",
+      "descricao": "Área Interna\n01 Salão Comercial com Telhas Galvanizadas e Piso Cimento, 01 Cozinha com Laje, Piso Frio e Revestimento, 02 Banheiro Social com Laje e Piso Frio.\n\nÁrea de Serviço, Estacionamento Frontal,  Laje e Revestimento.\n\nIPTU: Isento. ref. 4388 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "2 banheiro(s)",
+          "trecho_citado": "02 banheiro",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
+        }
+      ]
+    },
+    {
+      "id": "L24221",
+      "titulo": "Comerciais Salão em Sertãozinho",
+      "tipo": "Sala Comercial",
+      "transacao": "Locação",
+      "bairro": "Conjunto Habitacional Lúcia Fabro Sverzut",
+      "cidade": "Sertãozinho",
+      "preco": 1150.0,
+      "area": 32.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3773/sertaozinho-comerciais-salao-conjunto-habitacional-lucia-fabro-sverzut-09-04-2026_10-00-31-69d7a2efe0fbf.webp",
+      "descricao": "01 Salão Comercial,  01 Banheiro, Forro e Piso Frio.. ref. 24221 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 banheiro",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
+        }
+      ]
+    },
+    {
+      "id": "L72521",
+      "titulo": "Comerciais Sala em Sertãozinho",
+      "tipo": "Sala Comercial",
+      "transacao": "Locação",
+      "bairro": "Jardim Recreio",
+      "cidade": "Sertãozinho",
+      "preco": 2000.0,
+      "area": 32.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3868/sertaozinho-comerciais-sala-jardim-recreio-04-09-2026_09-44-05-6a9abd15bc6d2.webp",
+      "descricao": "Área Interna\n01 Salão Comercial, 01 Copa, 01 Banheiro Social, Laje e Piso Porcelanato.\n\nObs: IPTU Isento. ref. 72521 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 banheiro",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
+        }
+      ]
+    },
+    {
+      "id": "L07421",
+      "titulo": "Comerciais Barracão em Sertãozinho",
+      "tipo": "Galpão Industrial",
+      "transacao": "Locação",
+      "bairro": "Jardim América",
+      "cidade": "Sertãozinho",
+      "preco": 5000.0,
+      "area": 278.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3849/sertaozinho-comerciais-barracao-jardim-america-19-08-2026_15-21-23-6a85f423d9056.webp",
+      "descricao": "Área Interna\nBarracão com Telhas Galvanizadas,  01 Sala , Forro 01 Copa, 01 Banheiro.\n\nÁrea Externa:\nÁrea de Serviço Descoberta c/ tanque, Estacionamento Frontal.. ref. 07421 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 banheiro",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
+        }
+      ]
+    },
+    {
+      "id": "L7325",
+      "titulo": "Comerciais Salão em Sertãozinho",
+      "tipo": "Sala Comercial",
+      "transacao": "Locação",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 3000.0,
+      "area": 33.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/1438/sertaozinho-comerciais-salao-centro-11-03-2026_15-37-46-69b1b67a02a6d.webp",
+      "descricao": "01 Salão com Ar-condicionado,  01 Lavabo com Gabinete e Espelho, Piso Frio e Gesso.\n\nIPTU: Isento. ref. 7325 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 lavabo",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
+        }
+      ]
+    },
+    {
+      "id": "L0608",
+      "titulo": "Comerciais Barracão em Sertãozinho",
+      "tipo": "Galpão Industrial",
+      "transacao": "Locação",
+      "bairro": "Jardim Golive",
+      "cidade": "Sertãozinho",
+      "preco": 3800.0,
+      "area": 190.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/2379/sertaozinho-comerciais-salao-jardim-golive-26-06-2026_09-21-35-6a3e6ecfa8faa.webp",
+      "descricao": "Área Interna:\n01 Barracão Comercial com Ventilador e 02 (dois) aparelhos de ar condicionado, 02 Banheiros Sociais (Sendo 01 para Portadores de Necessidades Especiais)  e 01 Copa.\n\nÁrea Externa.\nPortão Basculante, 04 Câmeras de Segurança e Estacionamento para 04 Automóveis.\n\nOBS: Próximo ao mercado Savegnago Loja 02.. ref. 0608 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "2 banheiro(s)",
+          "trecho_citado": "02 banheiros",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
+        }
+      ]
+    },
+    {
+      "id": "L25421",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Locação",
+      "bairro": "Shangri-Lá",
+      "cidade": "Sertãozinho",
+      "preco": 2200.0,
+      "area": 109.0,
+      "quartos_cad": 3,
+      "suites_cad": 0,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3843/sertaozinho-casas-padrao-shangri-la-06-08-2026_15-25-04-6a74d180e54ad.webp",
+      "descricao": "Área Interna: 03 Dormitórios Sendo 01 com Ventilador, 01 Sala com Ventilador, 01 Cozinha (Pia com Gabinete), 01 Banheiro Social , Laje, Piso Porcelanato e Revestimento.\n\nÁrea Externa: 01 Vaga de Garagem Coberta, Área de Serviço Coberta, Corredor Lateral.\n\nCASO HOUVER INTERESSE EM LOCAÇÃO COMERCIAL O VALOR PODERÁ SER ALTERADO.. ref. 25421 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Vagas de Garagem",
+          "categoria": "Vagas",
+          "severidade": "🟡 Média",
+          "cadastro": "2 vaga(s)",
+          "descricao": "1 vaga(s)",
+          "trecho_citado": "01 vaga de garagem",
+          "motivo": "Divergência de garagens: Cadastro informa 2 vaga(s), mas a descrição cita 1.",
+          "impacto": "Pode gerar reclamação de clientes que exigem capacidade exata de estacionamento.",
+          "acao": "No Kurole: Confirmar capacidade total coberta/descoberta e uniformizar em 1 vagas."
+        }
+      ]
+    },
+    {
+      "id": "L3059",
+      "titulo": "Comerciais Salão em Sertãozinho",
+      "tipo": "Sala Comercial",
+      "transacao": "Locação",
+      "bairro": "Jardim Veneto II",
+      "cidade": "Sertãozinho",
+      "preco": 1200.0,
+      "area": 70.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2023/2860/sertaozinho-comerciais-salao-jardim-veneto-ii-07-03-2023_17-10-44-7.webp",
+      "descricao": "Área Interna\n\n01 Salão Comercial com Porta de Vidro, Pia e 01 Banheiro Social, Laje, Piso Porcelanato e Revestimento\n\nEstacionamento Frontal para 01 Automóvel\n\nObs: IPTU Isento. ref. 3059 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 banheiro",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
+        }
+      ]
+    },
+    {
+      "id": "L92321",
+      "titulo": "Comerciais Galpão em Sertãozinho",
+      "tipo": "Galpão Industrial",
+      "transacao": "Locação",
+      "bairro": "CINEP - Cidade Industrial e Empresarial",
+      "cidade": "Sertãozinho",
+      "preco": 20000.0,
+      "area": 882.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3802/sertaozinho-comerciais-galpao-cinep---cidade-industrial-e-empresarial-29-05-2026_09-25-58-6a1985d660a9e.webp",
+      "descricao": "Área Interna\n01 Galpão Industrial com Estruturas de Ferro, Telhas Galvanizadas e Ponte Rolante de 10 Toneladas, 02 Banheiros sendo Masculino e Feminino, 01 Escritório ,02 Banheiros 01 Copa , Portão Manual, Laje, Piso Frio, Piso Marmore,Piso Concreto e Revestimento.\n\nÁrea Superior\n01 Sala com Escadaria de Ferro, 01 Copa,  e 02 Banheiros\n\nÁrea Externa\nEstacionamento Frontal para 03 Automóveis. ref. 92321 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "2 banheiro(s)",
+          "trecho_citado": "02 banheiros",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
+        }
+      ]
+    },
+    {
+      "id": "L7562",
+      "titulo": "Comerciais Sala em Sertãozinho",
+      "tipo": "Sala Comercial",
+      "transacao": "Locação",
+      "bairro": "Zanini",
+      "cidade": "Sertãozinho",
+      "preco": 750.0,
+      "area": 23.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2020/578/sertaozinho-comerciais-sala-zanini-30-11-2020_10-14-16-0.jpg",
+      "descricao": "Área Interna: 01 Sala Comercial - Sala 218.\n\nTaxa Condomínio: Incluso Água, IPTU, Energia Elétrica da Área Comum, Limpeza e Manutenção da Área Comum e 01 Vaga de Estacionamento.\n\nOBS.: Energia Elétrica da Sala Comercial é cobrada conforme rateio por Andar.. ref. 7562 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Vagas de Garagem",
+          "categoria": "Vagas",
+          "severidade": "🟡 Média",
+          "cadastro": "0 vagas",
+          "descricao": "1 vaga(s)",
+          "trecho_citado": "01 vaga ",
+          "motivo": "Garagem omitida no cadastro (Cad: 0 vs Descrição: 1 vaga(s)).",
+          "impacto": "Mais de 65% dos usuários de portais filtram apenas imóveis 'com vaga'. Esse imóvel está invisível para eles.",
+          "acao": "No Kurole: Atualizar o campo 'Vagas' de 0 para 1."
+        }
+      ]
+    },
+    {
+      "id": "L6059",
+      "titulo": "Comerciais Salão em Sertãozinho",
+      "tipo": "Sala Comercial",
+      "transacao": "Locação",
+      "bairro": "Jardim Veneto II",
+      "cidade": "Sertãozinho",
+      "preco": 1200.0,
+      "area": 70.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2023/2861/sertaozinho-comerciais-salao-jardim-veneto-ii-07-03-2023_16-57-38-0.webp",
+      "descricao": "Área Interna\n\n01 Salão Comercial  com Porta de Vidro, Pia e 01 Banheiro Social, Laje, Piso Porcelanato e Revestimento\n\nEstacionamento Frontal para 01 Automóvel\n\nObs: IPTU Isento. ref. 6059 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 banheiro",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
+        }
+      ]
+    },
+    {
+      "id": "L58811",
+      "titulo": "Comerciais Barracão em Sertãozinho",
+      "tipo": "Galpão Industrial",
+      "transacao": "Locação",
+      "bairro": "Distrito Industrial Maria Lúcia Biagi Americano",
+      "cidade": "Sertãozinho",
+      "preco": 18000.0,
+      "area": 890.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3654/sertaozinho-comerciais-barracao-distrito-industrial-maria-lucia-biagi-americano-06-06-2026_08-31-15-6a2405039b7bc.webp",
+      "descricao": "Área Interna\n01 Barracão Industrial  com Estruturas de Ferro,  Chapas Galvanizadas , Piso Cimento e  Ponte Rolante Completa de 6 Toneladas e Portão com Faces de Correr, Estacionamento Frontal para 04 Automóveis,01 Banheiro Social, 01 Banheiro Geral com 02 Divisórias Acrílicas, Lavatório e Mictório, 01 Sala de Escritório com 01 Guichê, 01 Sala de Almoxarifado, Área de Serviço Coberta ,Forro de PVC, Piso Porcelanato e Revestimento.. ref. 58811 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 banheiro",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
+        }
+      ]
+    },
+    {
+      "id": "L5156",
+      "titulo": "Comerciais Salão em Sertãozinho",
+      "tipo": "Sala Comercial",
+      "transacao": "Locação",
+      "bairro": "Shangri-Lá",
+      "cidade": "Sertãozinho",
+      "preco": 2500.0,
+      "area": 92.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2025/1864/sertaozinho-comerciais-salao-shangri-la-12-12-2025_10-48-46-693c1d3e8ed55.webp",
+      "descricao": "Área Interna:\n\n01 salão comercial com teto em gesso, piso em porcelanato e pia com gabinete.\n\n01 lavabo com piso em porcelanato, parede revestida e pia com gabinete.\n\nÁrea de Serviço:\n\nÁrea descoberta, piso cimentado e tanque.\n\nObs.: IPTU a pagar.. ref. 5156 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 lavabo",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
+        }
+      ]
+    },
+    {
+      "id": "L86021",
+      "titulo": "Comerciais Ponto Comercial em Sertãozinho",
+      "tipo": "Ponto Comercial / Salão",
+      "transacao": "Locação",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 850.0,
+      "area": 139.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2025/3715/sertaozinho-comerciais-ponto-comercial-centro-25-11-2025_08-36-03-3.webp",
+      "descricao": "01 Sala, Laje Branca, Piso Frio, Interfone\n01 Banheiro Social, Claraboia, Piso Frio e Investimento\nRecepção Central, Piso Porcelanato, Câmeras e Interfone\n\nTaxa de Condomínio: Água e Manutenção Externa. ref. 86021 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 banheiro",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
+        }
+      ]
+    },
+    {
+      "id": "L64901",
+      "titulo": "Comerciais Salão em Sertãozinho",
+      "tipo": "Sala Comercial",
+      "transacao": "Locação",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 2300.0,
+      "area": 20.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2024/3341/sertaozinho-comerciais-salao-centro-24-01-2024_14-50-09-12.webp",
+      "descricao": "Área Interna:\n01 Salão Comercial, forro PVC, 02 Banheiros, 01 Sala.\n\nPonto na esquina da Santa Casa.. ref. 64901 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "2 banheiro(s)",
+          "trecho_citado": "02 banheiros",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
+        }
+      ]
+    },
+    {
+      "id": "L22811",
+      "titulo": "Comerciais Sala em Sertãozinho",
+      "tipo": "Sala Comercial",
+      "transacao": "Locação",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 1800.0,
+      "area": 30.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2025/3633/sertaozinho-comerciais-sala-centro-03-07-2025_08-06-48-0.webp",
+      "descricao": "Área Interna\n01 Sala Comercial com Vitrine e Porta de Rolo, 01 Hall com Lavatório e Espelho, 01 Banheiro Social, Laje e Piso Frio. ref. 22811 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 banheiro",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
+        }
+      ]
+    },
+    {
+      "id": "L59321",
+      "titulo": "Comerciais Barracão em Sertãozinho",
+      "tipo": "Galpão Industrial",
+      "transacao": "Locação",
+      "bairro": "Cidade Jardim",
+      "cidade": "Sertãozinho",
+      "preco": 4000.0,
+      "area": 138.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3824/sertaozinho-comerciais-barracao-cidade-jardim-23-06-2026_15-20-59-6a3ace8b02984.webp",
+      "descricao": "Área Interna\nBarracão com Telhas Galvanizadas, 01 Banheiro.\n\nÁrea Externa:\nÁrea de Serviço Descoberta c/ tanque, Estacionamento Frontal.01 Barracão, estrutura de Ferro, Piso Cimentado. ref. 59321 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 banheiro",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
+        }
+      ]
+    },
+    {
+      "id": "L01421",
+      "titulo": "Excelente salão comercial com estrutura para realizar seu projeto.",
+      "tipo": "Sala Comercial",
+      "transacao": "Locação",
+      "bairro": "Vila Industrial",
+      "cidade": "Sertãozinho",
+      "preco": 7500.0,
+      "area": 480.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3829/sertaozinho_comerciais_salao_vilaindustrial_20-07-2026_12-19-07_2.webp",
+      "descricao": "Excelente Salão Comercial à Venda\n\nImóvel comercial amplo e bem estruturado, ideal para empresas, escritórios, clínicas, lojas e diversos segmentos comerciais.\n\nÁrea Térrea\n\nSalão comercial amplo com portas de rolo e ventiladores;\n01 sala com divisórias e ventilador;\n01 sala com ventilador e ar-condicionado;\nCozinha;\n02 banheiros (masculino e feminino);\nAcabamento em laje;\nPiso em mármore e revestimentos de excelente qualidade.\n\nPavimento Superior\n\n01 sala com ventilador e ar-condicionado;\nCopa;\n02 banheiros sociais;\nLaje;\nPiso em mármore e revestimentos.\n\nÁrea Externa\n\nEstacionamento frontal com capacidade para 03 veículos.\n\nImóvel com excelente distribuição dos ambientes, ótima estrutura e acabamento diferenciado, proporcionando conforto e praticidade para clientes e colaboradores. Localização estratégica, ideal para quem busca visibilidade e funcionalidade para o seu negócio.. ref. 01421 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "2 banheiro(s)",
+          "trecho_citado": "02 banheiros",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
+        }
+      ]
+    },
+    {
+      "id": "L62321",
+      "titulo": "Comerciais Galpão em Sertãozinho",
+      "tipo": "Galpão Industrial",
+      "transacao": "Locação",
+      "bairro": "CINEP - Cidade Industrial e Empresarial",
+      "cidade": "Sertãozinho",
+      "preco": 20000.0,
+      "area": 975.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3801/sertaozinho-comerciais-galpao-cinep---cidade-industrial-e-empresarial-29-05-2026_09-06-33-6a198149f3650.webp",
+      "descricao": "Área Interna\n01 Galpão Industrial com Estruturas de Ferro, Telhas Galvanizadas e Ponte Rolante de 10 Toneladas, 01 Almoxarifado, 02 Banheiros sendo Masculino e Feminino, 01 Escritório com Ar Condicionado, 01 Copa e 01 Banheiro Social, Portão Manual, Laje, Piso Frio, Piso Concreto e Revestimento.\n\nÁrea Externa\nEstacionamento Frontal para 03 Automóveis. ref. 62321 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "2 banheiro(s)",
+          "trecho_citado": "02 banheiros",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
+        }
+      ]
+    },
+    {
+      "id": "L5528",
+      "titulo": "Comerciais Prédio em Sertãozinho",
+      "tipo": "Prédio Comercial",
+      "transacao": "Locação",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 1900.0,
+      "area": 50.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/2444/sertaozinho-comerciais-salao-centro-26-03-2026_17-33-39-69c598236c002.webp",
+      "descricao": "Área Interna: \n\n01 Salão Comercial, 01 Escritório com ar condicionado, armário e mesa, 01 Banheiro Social, 01 Cozinha, Laje, Piso Laminado, Sanca com Iluminação Lead, Revestimento.\n\n\nOBS: Visitas Agendadas\nObs: IPTU isento. ref. 5528 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 banheiro",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
+        }
+      ]
+    },
+    {
+      "id": "L01811",
+      "titulo": "Comerciais Salão em Sertãozinho",
+      "tipo": "Sala Comercial",
+      "transacao": "Locação",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 2200.0,
+      "area": 25.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2025/3629/sertaozinho-comerciais-salao-centro-11-07-2025_10-47-27-0.webp",
+      "descricao": "Área Interna\n01 Salão com 02 Portas Automáticas e 02 Portas de Vidro Fixa, 01 Copa,01 Banheiro Social, 01 Depósito, Laje Piso Porcelanato e Revestimento.\n\nObs: IPTU isento apenas 2025. ref. 01811 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 banheiro",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
+        }
+      ]
+    },
+    {
+      "id": "L10421",
+      "titulo": "Comerciais Ponto Comercial em Sertãozinho",
+      "tipo": "Ponto Comercial / Salão",
+      "transacao": "Locação",
+      "bairro": "Jardim Recreio",
+      "cidade": "Sertãozinho",
+      "preco": 1200.0,
+      "area": 45.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3826/sertaozinho-comerciais-ponto-comercial-jardim-recreio-24-06-2026_10-45-34-6a3bdf7e06e16.webp",
+      "descricao": "Área Interna:\n01 Sala, forro PVC, Piso porcelanato, porta de correr, 01 Banheiro.\n\nÁrea Externa:\n01 Claraboia.\n\nTAXA DE ÁGUA É DIVIDIDA POR TRÊS SALAS.. ref. 10421 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 banheiro",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
+        }
+      ]
+    },
+    {
+      "id": "L29321",
+      "titulo": "Comerciais Barracão em Sertãozinho",
+      "tipo": "Galpão Industrial",
+      "transacao": "Locação",
+      "bairro": "Jardim Montreal",
+      "cidade": "Sertãozinho",
+      "preco": 4000.0,
+      "area": 138.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3823/sertaozinho-comerciais-barracao-jardim-montreal-23-06-2026_15-10-53-6a3acc2dd7e93.webp",
+      "descricao": "01 Barracão, estrutura de Ferro, Piso Cimentado, 02 Banheiros, Quintal. ref. 29321 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "2 banheiro(s)",
+          "trecho_citado": "02 banheiros",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
+        }
+      ]
+    },
+    {
+      "id": "L60221",
+      "titulo": "Comerciais Prédio em Sertãozinho",
+      "tipo": "Prédio Comercial",
+      "transacao": "Locação",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 3500.0,
+      "area": 263.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3761/sertaozinho-comerciais-predio-centro-19-03-2026_12-44-48-69bc19f0eb313.webp",
+      "descricao": "Área Interna: 01 Salão Grande com 04 Portas de Rolo e Balcão de Alvenaria, 01 Escritório, 01 Salão no Piso Rebaixado com 01 Porta de Rolo, 02 Cozinhas com 02 Pias cada e Bancada, 02 Banheiros Sociais, Pios Frio e Ardósia, Forro de Madeira, Quintal Fundos Cimentado.. ref. 60221 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "2 banheiro(s)",
+          "trecho_citado": "02 banheiros",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
+        }
+      ]
+    },
+    {
+      "id": "L13811",
+      "titulo": "Comerciais Galpão em Sertãozinho",
+      "tipo": "Galpão Industrial",
+      "transacao": "Locação",
+      "bairro": "Distrito Industrial Waldemar Balbo Júnior (Cruz das Posses)",
+      "cidade": "Sertãozinho",
+      "preco": 10000.0,
+      "area": 642.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2025/3636/sertaozinho-comerciais-galpao-distrito-industrial-waldemar-balbo-junior-cruz-das-posses-03-07-2025_17-03-00-40.webp",
+      "descricao": "Área Interna\n01 Sala de Recepção com Interfone,02 Banheiros, 01 Área de Serviço , Portão Basculante, Laje, Piso Frio, Revestimento, Estruturas de Ferro e Telhas Galvanizadas.\n\nEscritório\n01 Sala de Recepção, 01 Sala  com Ar Condicionado, Ventilador e Divisórias, 01 Copa,  com Pia e Gabinete,02 Banheiros, 01 Almoxarifado com Câmera, Laje, Piso Frio e Revestimento.\n\nPátio\nPiso Concreto e Parte com Asfalto, Portão Eletrônico, Almoxarifado,, Área de Serviço, Área Verde com Pés de Fruíras, Piso Concreto e Telhas Eternit.\n\nObs: IPTU a pagar\nObs: VISITAS AGENDADAS. ref. 13811 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "2 banheiro(s)",
+          "trecho_citado": "02 banheiros",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
+        }
+      ]
+    },
+    {
+      "id": "L00701",
+      "titulo": "Comerciais Salão em Sertãozinho",
+      "tipo": "Sala Comercial",
+      "transacao": "Locação",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 1900.0,
+      "area": 31.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2023/3259/sertaozinho-comerciais-salao-centro-20-07-2023_08-30-52-0.webp",
+      "descricao": "Área Interna:\n01 Salão Comercial, 01 Banheiro Social, Laje e Piso Frio.. ref. 00701 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "1 banheiro(s)",
+          "trecho_citado": "01 banheiro",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 1).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 1."
+        }
+      ]
+    },
+    {
+      "id": "L0038",
+      "titulo": "Comerciais Barracão em Sertãozinho",
+      "tipo": "Galpão Industrial",
+      "transacao": "Locação",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 3500.0,
+      "area": 227.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2020/2459/sertaozinho-comerciais-barracao-centro-23-02-2021_13-42-35-0.jpg",
+      "descricao": "Imóvel localizado no centro da cidade para instalação do seu ponto comercial. \nProprietário aceita negociação e condições especiais como carência no aluguel para as realizações de benfeitorias no imóvel para adequar a sua atividade comercial.\n\nÁrea Interna:\n01 Barracão (Garagem), 01 Quintal nos Fundos, 01 Despensa, 02 Banheiros Sociais, Área de Serviço.\n\nLaje, Piso Vermelhão e Revestimento.\n\nIPTU a pagar\n\n. ref. 0038 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "2 banheiro(s)",
+          "trecho_citado": "02 banheiros",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
+        }
+      ]
+    },
+    {
+      "id": "V8918",
+      "titulo": "Seu sonho de morar bem e com ótima localização.",
+      "tipo": "Apartamento",
+      "transacao": "Venda",
+      "bairro": "Jardim Eldorado",
+      "cidade": "Sertãozinho",
+      "preco": 320000.0,
+      "area": 68.0,
+      "quartos_cad": 2,
+      "suites_cad": 2,
+      "vagas_cad": 1,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/2425/sertaozinho_apartamentos_padrao_jardimeldorado_05-09-2026_09-57-08_15.webp",
+      "descricao": "Área interna: 02 dormitórios com armários planejados (sendo 01 suíte), sala, banheiro social, cozinha com armários, lavanderia, piso frio e revestimentos.\nÁrea externa: 01 vaga garagem coberta, portão eletrônico, interfone, 3º andar, elevador, e face sombra.. ref. 8918 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Suítes",
+          "categoria": "Suítes",
+          "severidade": "🟡 Média",
+          "cadastro": "2 suíte(s)",
+          "descricao": "1 suíte(s)",
+          "trecho_citado": "sendo 01 suíte",
+          "motivo": "Contradição no número de suítes: cadastro informa 2, mas a descrição detalha 1.",
+          "impacto": "Gera dúvida no cliente e frustração em visitas presenciais.",
+          "acao": "No Kurole: Alinhar o número de suítes entre cadastro (2) e texto (1)."
+        }
+      ]
+    },
+    {
+      "id": "V01421",
+      "titulo": "Excelente salão comercial com estrutura para realizar seu projeto.",
+      "tipo": "Sala Comercial",
+      "transacao": "Venda",
+      "bairro": "Vila Industrial",
+      "cidade": "Sertãozinho",
+      "preco": 1355000.0,
+      "area": 480.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3829/sertaozinho_comerciais_salao_vilaindustrial_20-07-2026_12-19-07_2.webp",
+      "descricao": "Excelente Salão Comercial à Venda\n\nImóvel comercial amplo e bem estruturado, ideal para empresas, escritórios, clínicas, lojas e diversos segmentos comerciais.\n\nÁrea Térrea\n\nSalão comercial amplo com portas de rolo e ventiladores;\n01 sala com divisórias e ventilador;\n01 sala com ventilador e ar-condicionado;\nCozinha;\n02 banheiros (masculino e feminino);\nAcabamento em laje;\nPiso em mármore e revestimentos de excelente qualidade.\n\nPavimento Superior\n\n01 sala com ventilador e ar-condicionado;\nCopa;\n02 banheiros sociais;\nLaje;\nPiso em mármore e revestimentos.\n\nÁrea Externa\n\nEstacionamento frontal com capacidade para 03 veículos.\n\nImóvel com excelente distribuição dos ambientes, ótima estrutura e acabamento diferenciado, proporcionando conforto e praticidade para clientes e colaboradores. Localização estratégica, ideal para quem busca visibilidade e funcionalidade para o seu negócio.. ref. 01421 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "2 banheiro(s)",
+          "trecho_citado": "02 banheiros",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
+        }
+      ]
+    },
+    {
+      "id": "V45221",
+      "titulo": "Excelente sobrado em condomínio para morar ou investir",
+      "tipo": "Casa em Condomínio",
+      "transacao": "Venda",
+      "bairro": "Portal das Flores",
+      "cidade": "Sertãozinho",
+      "preco": 560000.0,
+      "area": 117.0,
+      "quartos_cad": 3,
+      "suites_cad": 3,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3777/sertaozinho_casas_condominio_portaldasflores_10-04-2026_17-37-57_1.webp",
+      "descricao": "Sobrado:\nPiso térreo: garagem 2 carros coberta, Sala com ar condicionado, banheiro social, 1 suíte, cozinha com planejados e exaustor, área gourmet com planejados e ar condicionado, lavanderia.\nPiso superior: 1 suíte com planejado e ar condicionado, 1 suíte com planejado.\nÁrea comum de lazer com piscina (infantil e adulto), quiosques com churrasqueiras, forno de pizza, salão de festas, academia e salão de jogos.\nSegurança 24 hs, com câmeras de monitoramento e cerca elétrica.\nIPTU 2026 totalmente pago.\nREF: 31. ref. 45221 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Suítes",
+          "categoria": "Suítes",
+          "severidade": "🟡 Média",
+          "cadastro": "3 suíte(s)",
+          "descricao": "1 suíte(s)",
+          "trecho_citado": "1 suíte",
+          "motivo": "Contradição no número de suítes: cadastro informa 3, mas a descrição detalha 1.",
+          "impacto": "Gera dúvida no cliente e frustração em visitas presenciais.",
+          "acao": "No Kurole: Alinhar o número de suítes entre cadastro (3) e texto (1)."
+        }
+      ]
+    },
+    {
+      "id": "V23321",
+      "titulo": "A casa do seu sonho está pronta usufruir com seus familiares",
+      "tipo": "Casa em Condomínio",
+      "transacao": "Venda",
+      "bairro": "Parque das Aroeiras",
+      "cidade": "Sertãozinho",
+      "preco": 2900000.0,
+      "area": 281.0,
+      "quartos_cad": 3,
+      "suites_cad": 3,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2026/3803/sertaozinho_casas_condominio_parquedasaroeiras_25-05-2026_16-34-29_7.webp",
+      "descricao": "Sofisticação, tecnologia e conforto em um sobrado recém-construído de alto padrão!\n\nNo pavimento superior, o imóvel conta com uma elegante suíte master com closet e sapateira, além de 2 suítes completas com armários planejados. O acesso aos dormitórios possui corredor com guarda corpo em vidro e uma belíssima escada interna iluminada, também com acabamento em vidro. O charme fica por conta dos imponentes lustres, sendo um com pé-direito de 3 metros e outro de 2 metros na escada, trazendo requinte e modernidade aos ambientes.\n\nNo pavimento inferior, dispõe de lavabo, escritório reversível para dormitório, ampla sala integrada em 2 ambientes e uma moderna cozinha conjugada com espaço gourmet. O ambiente oferece ilha central, cooktop, lava louças, micro-ondas, forno elétrico, churrasqueira e armários planejados, proporcionando praticidade e sofisticação. Lavanderia completa com armários.\n\nA área de lazer é um verdadeiro destaque: piscina aquecida com hidromassagem, iluminação e cascata, ideal para momentos especiais com a família e amigos.\n\nO imóvel ainda oferece diferenciais exclusivos:\nSistema de geração de energia solar com capacidade de até 1000 kWh/mês\nPias e bancadas em Dekton\nTelhado estrutural\nPressurizadores de água quente e fria em todas as torneiras\nReservatório com 3.500 litros de água\n08 aparelhos de ar-condicionado\nArmários planejados em todos os ambientes\n\nUm sobrado moderno, completo e pensado nos mínimos detalhes para oferecer conforto, elegância e alta eficiência.. ref. 23321 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Suítes",
+          "categoria": "Suítes",
+          "severidade": "🟡 Média",
+          "cadastro": "3 suíte(s)",
+          "descricao": "2 suíte(s)",
+          "trecho_citado": "2 suítes",
+          "motivo": "Contradição no número de suítes: cadastro informa 3, mas a descrição detalha 2.",
+          "impacto": "Gera dúvida no cliente e frustração em visitas presenciais.",
+          "acao": "No Kurole: Alinhar o número de suítes entre cadastro (3) e texto (2)."
+        }
+      ]
+    },
+    {
+      "id": "V82301",
+      "titulo": "Comerciais Salão em Sertãozinho",
+      "tipo": "Sala Comercial",
+      "transacao": "Venda",
+      "bairro": "Conjunto Habitacional Maurílio Biagi",
+      "cidade": "Sertãozinho",
+      "preco": 400000.0,
+      "area": 99.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2023/3135/sertaozinho-comerciais-salao-conjunto-habitacional-maurilio-biagi-13-03-2023_17-11-29-0.webp",
+      "descricao": "Área Interna\n01 Salão Comercial com 02 Ventiladores, 02 Salas com Ventiladores, 02 Lavabos, Laje, Piso Porcelanato e Revestimento.\n\nÁrea Externa\nEstacionamento Frontal para 01 Automóvel. ref. 82301 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "2 banheiro(s)",
+          "trecho_citado": "02 lavabos",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
+        }
+      ]
+    },
+    {
+      "id": "V0659",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Jardim Nova Sertãozinho",
+      "cidade": "Sertãozinho",
+      "preco": 2790000.0,
+      "area": 625.0,
+      "quartos_cad": 4,
+      "suites_cad": 4,
+      "vagas_cad": 4,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2023/2879/sertaozinho-casas-padrao-jardim-nova-sertaozinho-07-07-2023_17-06-53-11.webp",
+      "descricao": "Maravilhoso sobrado com localização privilegiada!\n\nNo primeiro andar, você encontrará duas suítes confortáveis, além de uma suíte máster incrível, equipada com uma banheira de hidromassagem relaxante. Há também uma sala confortável nesse andar.  \n \n\nNo segundo andar, há uma suíte adicional e uma sala de estar com dois ambientes, perfeita para momentos de descontração e convívio social.\n\nNo térreo, você poderá desfrutar de um salão de festas completo, equipado com chopeira, churrasqueira, balcão refrigerado e banheiros. Também há um salão de jogos com banheiros, uma boate completa, um bar, uma claraboia que permite a entrada de luz natural, um lavabo, uma quadra de futebol society e uma piscina para momentos de diversão e relaxamento.. ref. 0659 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Suítes",
+          "categoria": "Suítes",
+          "severidade": "🟡 Média",
+          "cadastro": "4 suíte(s)",
+          "descricao": "2 suíte(s)",
+          "trecho_citado": "duas suítes",
+          "motivo": "Contradição no número de suítes: cadastro informa 4, mas a descrição detalha 2.",
+          "impacto": "Gera dúvida no cliente e frustração em visitas presenciais.",
+          "acao": "No Kurole: Alinhar o número de suítes entre cadastro (4) e texto (2)."
+        }
+      ]
+    },
+    {
+      "id": "V24401",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Jardim Recreio dos Bandeirantes",
+      "cidade": "Sertãozinho",
+      "preco": 650000.0,
+      "area": 161.0,
+      "quartos_cad": 3,
+      "suites_cad": 1,
+      "vagas_cad": 4,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2023/3173/sertaozinho_casas_padrao_jardimrecreiodosbandeirantes_19-04-2023_15-59-19_1.jpg",
+      "descricao": "Área interna: Sala de tv com ar-condicionado, sala de visita com ar-condicionado, sala de jantar com ar-condicionado, cozinha com planejados, 3 quartos (sendo 1 suíte com escritório) todos com planejados e ar-condicionado, 1 banheiro social.\nÁrea externa: cozinha gourmet com churrasqueira (ar-condicionado), armários, banheiro, lavanderia fechada, despensa com ar-condicionado, quintal.\n2 garagens cobertas e 2 garagens descobertas.. ref. 24401 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Vagas de Garagem",
+          "categoria": "Vagas",
+          "severidade": "🟡 Média",
+          "cadastro": "4 vaga(s)",
+          "descricao": "2 vaga(s)",
+          "trecho_citado": "2 garagens",
+          "motivo": "Divergência de garagens: Cadastro informa 4 vaga(s), mas a descrição cita 2.",
+          "impacto": "Pode gerar reclamação de clientes que exigem capacidade exata de estacionamento.",
+          "acao": "No Kurole: Confirmar capacidade total coberta/descoberta e uniformizar em 2 vagas."
+        }
+      ]
+    },
+    {
+      "id": "V00311",
+      "titulo": "Ótima localização.",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Jardim Alexandre Balbo",
+      "cidade": "Sertãozinho",
+      "preco": 620000.0,
+      "area": 206.0,
+      "quartos_cad": 3,
+      "suites_cad": 1,
+      "vagas_cad": 3,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2024/3459/sertaozinho_casas_padrao_jardimalexandrebalbo_27-06-2024_15-48-58_2.webp",
+      "descricao": "03 dormitórios sendo 1 suíte com armários e ventiladores, sala 2 ambientes, banheiro social, cozinha planejada, área de churrasco, despensa, banheiro externo, área  de serviço, quintal e garagem para 4 carros.. ref. 00311 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Vagas de Garagem",
+          "categoria": "Vagas",
+          "severidade": "🟡 Média",
+          "cadastro": "3 vaga(s)",
+          "descricao": "4 vaga(s)",
+          "trecho_citado": "garagem para 4 carros",
+          "motivo": "Divergência de garagens: Cadastro informa 3 vaga(s), mas a descrição cita 4.",
+          "impacto": "Pode gerar reclamação de clientes que exigem capacidade exata de estacionamento.",
+          "acao": "No Kurole: Confirmar capacidade total coberta/descoberta e uniformizar em 4 vagas."
+        }
+      ]
+    },
+    {
+      "id": "V96911",
+      "titulo": "Ótima localização para residencial ou comercial.",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 610000.0,
+      "area": 187.0,
+      "quartos_cad": 3,
+      "suites_cad": 0,
+      "vagas_cad": 3,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2025/3682/sertaozinho_casas_padrao_centro_11-09-2025_11-09-04_1.webp",
+      "descricao": "Excelente imóvel disponível para venda!\nCom ambientes bem distribuídos e ótima infraestrutura, esta casa oferece conforto e praticidade para toda a família.\n\nDistribuição interna:\n\nSala ampla e bem iluminada\n\n03 dormitórios (sendo 01 com armário)\n\nBanheiro social\n\nSacadas aconchegantes\n\nAcabamentos em piso de taco, piso frio e revestimentos de qualidade\n\nÁrea térrea:\n\nSala de estar\n\nCozinha planejada\n\nBanheiro social\n\nÁrea de churrasco\n\nPiscina\n\nSauna\n\nÁrea de serviço\n\nDespensa\n\nPortão eletrônico\n\nGaragem para 01 veículo coberto e 02 descobertos\n\nOBS: REF: 29. ref. 96911 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Vagas de Garagem",
+          "categoria": "Vagas",
+          "severidade": "🟡 Média",
+          "cadastro": "3 vaga(s)",
+          "descricao": "1 vaga(s)",
+          "trecho_citado": "garagem para 01 veículo",
+          "motivo": "Divergência de garagens: Cadastro informa 3 vaga(s), mas a descrição cita 1.",
+          "impacto": "Pode gerar reclamação de clientes que exigem capacidade exata de estacionamento.",
+          "acao": "No Kurole: Confirmar capacidade total coberta/descoberta e uniformizar em 1 vagas."
+        }
+      ]
+    },
+    {
+      "id": "V7829",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Jardim 5 de Dezembro",
+      "cidade": "Sertãozinho",
+      "preco": 2490000.0,
+      "area": 499.0,
+      "quartos_cad": 1,
+      "suites_cad": 4,
+      "vagas_cad": 4,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2021/2788/sertaozinho-casas-padrao-centro-23-11-2021_12-01-31-8.jpg",
+      "descricao": "Excelente oportunidade para morar em uma localização privilegiada no Jardim 5  de Dezembro, em uma casa linda e confortável com todos os recursos necessários. A casa dispõe de três quartos, sendo uma suíte com closet e banheira de hidromassagem, uma suíte com closet e um quarto com armário embutido. Há ainda uma sala de jantar, uma sala de estar com TV e uma sala de jogos, além de um lavabo e uma cozinha equipada com armários embutidos.\n\nNo térreo, há uma suíte com armário embutido, um quarto de serviço com banheiro, um escritório, um banheiro social, uma sala de academia, uma área de churrasco, um vestiário, uma sauna, uma ducha, uma piscina, um banheiro externo e uma lavanderia com armários. A casa conta com três decks garagens, piso frio e granito, quartos com pavimento de ipê, ar-condicionado, ventiladores, alarme, portão eletrônico, interfone, aquecedor solar e cerca elétrica. Não perca esta oportunidade única!\nOBS: VISITA SOMENTE AGENDADA E ACOMPANHADA.. ref. 7829 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Suítes",
+          "categoria": "Suítes",
+          "severidade": "🟡 Média",
+          "cadastro": "4 suíte(s)",
+          "descricao": "1 suíte(s)",
+          "trecho_citado": "sendo uma suíte",
+          "motivo": "Contradição no número de suítes: cadastro informa 4, mas a descrição detalha 1.",
+          "impacto": "Gera dúvida no cliente e frustração em visitas presenciais.",
+          "acao": "No Kurole: Alinhar o número de suítes entre cadastro (4) e texto (1)."
+        }
+      ]
+    },
+    {
+      "id": "V9809",
+      "titulo": "Comerciais Salão em Sertãozinho",
+      "tipo": "Sala Comercial",
+      "transacao": "Venda",
+      "bairro": "Jardim Santo Antônio",
+      "cidade": "Sertãozinho",
+      "preco": 260000.0,
+      "area": 149.0,
+      "quartos_cad": 1,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2021/2722/sertaozinho-comerciais-salao-jardim-santo-antonio-15-09-2021_15-59-45-0.jpg",
+      "descricao": "COMÉRCIO MAIS CASA.\nAnalisa permuta de menor valor como parte de pagamento.\nSalão comercial com 2 banheiros, deposito e cozinha.\nCasa: 1 dormitório, banheiro, sala, cozinha e área de serviço.. ref. 9809 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "2 banheiro(s)",
+          "trecho_citado": "2 banheiros",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 2).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 2."
+        }
+      ]
+    },
+    {
+      "id": "V74201",
+      "titulo": "Comerciais Ponto Comercial em Sertãozinho",
+      "tipo": "Ponto Comercial / Salão",
+      "transacao": "Venda",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 1600000.0,
+      "area": 229.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 2,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2023/3108/sertaozinho_comerciais_pontocomercial_centro_13-02-2023_17-37-07_3.jpg",
+      "descricao": "Recepção, 4 salas de atendimento, 4 banheiros, 2 salas de reunião, biblioteca, 4 jardins de inverno, área de serviço, copa, depósito, quintal e 2 vagas de estacionamento.. ref. 74201 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "4 banheiro(s)",
+          "trecho_citado": "4 banheiros",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 4).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 4."
+        }
+      ]
+    },
+    {
+      "id": "V1787",
+      "titulo": "Comerciais Ponto Comercial em Sertãozinho",
+      "tipo": "Ponto Comercial / Salão",
+      "transacao": "Venda",
+      "bairro": "Centro",
+      "cidade": "Sertãozinho",
+      "preco": 1100000.0,
+      "area": 280.0,
+      "quartos_cad": 0,
+      "suites_cad": 0,
+      "vagas_cad": 0,
+      "foto_capa": "https://axvliw1bcpyx.objectstorage.sa-vinhedo-1.oci.customer-oci.com/n/axvliw1bcpyx/b/ksi/o/682/foto_/2020/2316/sertaozinho-comerciais-ponto-comercial-centro-07-02-2020_10-43-27-1.jpg",
+      "descricao": "Av. Antônio Paschoal - 4 salas comerciais( 1 reversivel p/ residência), 4 banheiros, despensas, cozinhas,  laje e piso frio. Terreno  300,00 m². Construção 280,44 m².\n. ref. 1787 atualizado em 22/10.",
+      "total_divergencias": 1,
+      "tem_critica": false,
+      "divergencias": [
+        {
+          "campo": "Banheiros",
+          "categoria": "Banheiros",
+          "severidade": "🟡 Média",
+          "cadastro": "0 banheiros",
+          "descricao": "4 banheiro(s)",
+          "trecho_citado": "4 banheiros",
+          "motivo": "Banheiros não informados no cadastro (Cad: 0 vs Desc: 4).",
+          "impacto": "Filtros de banheiros no ZAP/VivaReal ignoram este anúncio.",
+          "acao": "No Kurole: Preencher o campo 'Banheiros' com 4."
+        }
+      ]
+    }
+  ]
+}
