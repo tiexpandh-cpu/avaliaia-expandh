@@ -23,8 +23,8 @@ import portais
 import tools
 from llm import ClienteLLM, documento_pdf
 
-MODELO_EXTRACAO = os.environ.get("MODELO_EXTRACAO", "gemini-3.1-flash-lite")
-MODELO_TEXTO = os.environ.get("MODELO_TEXTO", "gemini-3.1-flash-lite")
+MODELO_EXTRACAO = os.environ.get("MODELO_EXTRACAO", "gemini-3.5-flash-lite")
+MODELO_TEXTO = os.environ.get("MODELO_TEXTO", "gemini-3.5-flash-lite")
 
 # Premissas ajustáveis via .env
 FATOR_OFERTA = float(os.environ.get("FATOR_OFERTA", "0.90"))  # anúncio -> preço de fechamento

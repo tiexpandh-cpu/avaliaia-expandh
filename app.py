@@ -281,10 +281,8 @@ with st.sidebar:
             except Exception:
                 pass
 
-        if api_key and api_key.startswith("AIzaSy"):
+        if api_key and len(api_key) >= 20:
             st.success("🟢 Chave Gemini Conectada (AI Studio)")
-        elif api_key:
-            st.error("⚠️ Chave Inválida: Deve iniciar com 'AIzaSy' (Google AI Studio)")
         else:
             st.error("🔴 GEMINI_API_KEY não encontrada (.env ou Secrets)")
 
@@ -310,25 +308,25 @@ def render_avaliacao_matricula():
         except Exception:
             pass
 
-    if not api_key_atual or not api_key_atual.startswith("AIzaSy"):
+    if not api_key_atual or len(api_key_atual) < 20:
         st.warning(
             "🔑 **Chave do Google AI Studio Requerida para OCR Visual de Matrículas:**\n\n"
             "A leitura e extração de dados da matrícula em PDF utiliza a IA do Google Gemini. "
-            "A chave atualmente configurada no sistema é inválida (chaves oficiais do Google AI Studio começam obrigatoriamente com `AIzaSy`)."
+            "Por favor, configure sua chave de API gerada no Google AI Studio abaixo:"
         )
         col_k1, col_k2 = st.columns([3, 1])
         with col_k1:
             nova_chave = st.text_input(
-                "Cole aqui sua chave do Google AI Studio (começa com AIzaSy):",
+                "Cole aqui sua chave do Google AI Studio:",
                 type="password",
-                placeholder="AIzaSy...",
+                placeholder="Insira sua chave do Google AI Studio...",
                 key="nova_gemini_key_matricula"
             ).strip()
         with col_k2:
             st.write("")
             st.write("")
             if st.button("💾 Salvar Chave", type="primary", use_container_width=True, key="btn_salvar_key_mat"):
-                if nova_chave.startswith("AIzaSy"):
+                if len(nova_chave) >= 20:
                     os.environ["GEMINI_API_KEY"] = nova_chave
                     caminho_env = Path(".env")
                     linhas = []
@@ -344,7 +342,7 @@ def render_avaliacao_matricula():
                     st.success("Chave salva com sucesso!")
                     st.rerun()
                 else:
-                    st.error("Chave inválida. Chaves do Gemini AI Studio iniciam com 'AIzaSy'.")
+                    st.error("Chave inválida. Verifique o valor copiado do Google AI Studio.")
         st.caption("👉 [Obtenha uma chave gratuita no Google AI Studio (10 segundos)](https://aistudio.google.com/apikey)")
         st.markdown("---")
 
