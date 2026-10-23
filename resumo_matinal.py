@@ -181,9 +181,12 @@ def gerar_briefing_matinal(forcar_download: bool = False) -> dict:
     q_oportunidade = sum(1 for x in aud_lista if "Oportunidade" in str(x.get("Status", "")))
 
     # 5. Top 3 Oportunidades do Dia (Menor desvio / maior desconto em relação à NBR)
+    # Filtro anti-armadilha: exclui imóveis com condicionante de preço (ágio / parcelas a vencer)
     oportunidades_candidatas = [
         x for x in aud_lista
-        if "Oportunidade" in str(x.get("Status", "")) or _safe_float(x.get("Desvio_Num")) < -5.0
+        if ("Oportunidade" in str(x.get("Status", "")) or _safe_float(x.get("Desvio_Num")) < -5.0)
+        and not x.get("Condicionante Preço", False)
+        and not any(k in str(x.get("Status", "")) for k in ["Ágio", "Parcelas", "Condicionado"])
     ]
     # Ordenar pelos maiores descontos
     oportunidades_candidatas.sort(key=lambda x: _safe_float(x.get("Desvio_Num")))

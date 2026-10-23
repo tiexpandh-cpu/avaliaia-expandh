@@ -157,6 +157,11 @@ def executar_auditoria_completa(progress_callback=None):
             "Justificativa Escala": res.get("justificativa_escala", "") if res.get("sucesso") else "",
             "Condomínio Fechado": res.get("is_condominio_fechado", False) if res.get("sucesso") else False,
             "Justificativa Condomínio": res.get("justificativa_condominio", "") if res.get("sucesso") else "",
+            "Condicionante Preço": res.get("is_condicionado", False) if im.get("tipo_zap") and res.get("sucesso") else False,
+            "Tipo Condição": res.get("tipo_condicao", "Quitado") if im.get("tipo_zap") and res.get("sucesso") else "Quitado",
+            "Saldo Devedor Estimado (R$)": res.get("saldo_devedor_estimado", 0.0) if im.get("tipo_zap") and res.get("sucesso") else 0.0,
+            "Preço Efetivo Total (R$)": res.get("preco_efetivo_total", preco_anunciado) if im.get("tipo_zap") and res.get("sucesso") else preco_anunciado,
+            "Observação Condicionante": res.get("observacao_condicionante", "") if im.get("tipo_zap") and res.get("sucesso") else "",
             "Data Auditoria": datetime.now().strftime("%d/%m/%Y"),
         }
         resultados.append(item_resultado)
@@ -190,12 +195,13 @@ def executar_auditoria_completa(progress_callback=None):
 
     def _calc_stats(lista):
         if not lista:
-            return {"muito_acima": 0, "acima": 0, "justo": 0, "oportunidade": 0, "total": 0}
+            return {"muito_acima": 0, "acima": 0, "justo": 0, "oportunidade": 0, "condicionado": 0, "total": 0}
         return {
             "muito_acima": sum(1 for r in lista if "Muito Acima" in r["Status"]),
             "acima": sum(1 for r in lista if "Acima do Mercado" in r["Status"]),
             "justo": sum(1 for r in lista if "Preço Justo" in r["Status"]),
             "oportunidade": sum(1 for r in lista if "Oportunidade" in r["Status"]),
+            "condicionado": sum(1 for r in lista if r.get("Condicionante Preço") or "Ágio" in r["Status"] or "Parcelas" in r["Status"]),
             "total": len(lista),
         }
 

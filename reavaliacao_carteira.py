@@ -3,8 +3,11 @@ Módulo de Reavaliação e Auditoria de Carteira de Imóveis.
 Cruza anúncios ativos do feed com comparáveis de mercado em tempo real.
 Possui cache de mercado em memória para permitir avaliações ultrarrápidas em lote.
 """
+import json
+import re
 import statistics
 from datetime import datetime
+from pathlib import Path
 from typing import Dict, List, Optional
 
 import pipeline
@@ -12,8 +15,113 @@ import portais
 import tools
 from llm import ClienteLLM
 
+PASTA_RAIZ = Path(__file__).resolve().parent
+CAMINHO_CONDICIONANTES = PASTA_RAIZ / "dados_condicionantes.json"
+
 # Cache de anúncios do ZAP por chave: (cidade, uf, tipo_zap, negocio)
 _CACHE_MERCADO: Dict[str, List[dict]] = {}
+
+
+def carregar_dados_condicionantes() -> dict:
+    """Carrega dados e anotações de condicionantes (ágios, parcelamentos, saldo devedor) do CRM."""
+    if CAMINHO_CONDICIONANTES.exists():
+        try:
+            return json.loads(CAMINHO_CONDICIONANTES.read_text(encoding="utf-8"))
+        except Exception:
+            pass
+    return {}
+
+
+def salvar_dado_condicionante(codigo: str, dados: dict):
+    """Salva ou atualiza a anotação de condicionante de um imóvel."""
+    catalogo = carregar_dados_condicionantes()
+    catalogo[str(codigo)] = dados
+    try:
+        CAMINHO_CONDICIONANTES.write_text(json.dumps(catalogo, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception:
+        pass
+
+
+PAT_CONDICIONANTE = re.compile(
+    r'(?:mais\s+parcelas?\s+(?:à|a)\s+vencer|\+\s*\d*\s*parcelas?|saldo\s+devedor|assum(?:e|ir)\s+(?:o\s+)?saldo|assum(?:e|ir)\s+(?:as\s+)?parcelas?|repasse\s+de\s+(?:lote|im[oó]vel|financiamento)|[áa]gio|entrada\s+de\s+r\$|faltam\s+\d+\s+parcelas?|restam\s+\d+\s+parcelas?|\d+\s*x\s+de\s+r\$|\d+\s*parcelas?\s+de|lote\s+financiado|im[oó]vel\s+financiado)',
+    re.IGNORECASE,
+)
+PAT_PARCELAS_VALOR = re.compile(r'(\d+)\s*(?:parcelas?|x)\s+(?:de\s+)?(?:r\$\s*)?([\d\.,]+)', re.IGNORECASE)
+PAT_SALDO_DEVEDOR = re.compile(r'saldo\s+devedor\s+(?:de\s+)?(?:r\$\s*)?([\d\.,]+)', re.IGNORECASE)
+
+
+def identificar_condicionante_preco(item_feed: dict) -> dict:
+    """
+    Identifica se a oferta possui condicionante financeira (ágio / repasse / parcelas a vencer).
+    Cruza com base de conhecimento interna do CRM e analisa o texto de descrição e título via NLP/Regex.
+    Retorna metadados de condicionante, saldo devedor e preço efetivo total.
+    """
+    cid = str(item_feed.get("id") or item_feed.get("Código") or "")
+    texto_busca = f"{item_feed.get('titulo', '')} {item_feed.get('descricao', '')} {item_feed.get('observacoes', '')}"
+
+    catalogo = carregar_dados_condicionantes()
+    dados_cat = catalogo.get(cid) or catalogo.get(cid.replace("V", ""))
+
+    match_regex = PAT_CONDICIONANTE.search(texto_busca)
+    is_condicionado = bool(match_regex or dados_cat)
+
+    if not is_condicionado:
+        preco_anunc = float(item_feed.get("preco") or item_feed.get("Preço Anunciado (R$)") or 0.0)
+        return {
+            "is_condicionado": False,
+            "tipo_condicao": "Quitado / Preço Integral",
+            "detalhes": "",
+            "num_parcelas": 0,
+            "valor_parcela": 0.0,
+            "saldo_devedor_estimado": 0.0,
+            "preco_efetivo_total": preco_anunc,
+            "observacao_interna": "",
+        }
+
+    num_parcelas = 0
+    valor_parcela = 0.0
+    saldo_devedor = 0.0
+    obs = ""
+    detalhes = match_regex.group(0) if match_regex else "Condicionante cadastrado no CRM"
+
+    if dados_cat:
+        num_parcelas = int(dados_cat.get("num_parcelas") or 0)
+        valor_parcela = float(dados_cat.get("valor_parcela") or 0.0)
+        saldo_devedor = float(dados_cat.get("saldo_devedor") or (num_parcelas * valor_parcela))
+        obs = dados_cat.get("observacoes", "")
+    else:
+        m_parc = PAT_PARCELAS_VALOR.search(texto_busca)
+        m_saldo = PAT_SALDO_DEVEDOR.search(texto_busca)
+        if m_parc:
+            try:
+                num_parcelas = int(m_parc.group(1))
+                v_str = m_parc.group(2).rstrip('.,;:').replace('.', '').replace(',', '.')
+                valor_parcela = float(v_str)
+                saldo_devedor = round(num_parcelas * valor_parcela, 2)
+                obs = f"{num_parcelas} parcelas de R$ {valor_parcela:,.2f}"
+            except Exception:
+                pass
+        elif m_saldo:
+            try:
+                s_str = m_saldo.group(1).rstrip('.,;:').replace('.', '').replace(',', '.')
+                saldo_devedor = float(s_str)
+                obs = f"Saldo devedor de R$ {saldo_devedor:,.2f}"
+            except Exception:
+                pass
+
+    preco_anunc = float(item_feed.get("preco") or item_feed.get("Preço Anunciado (R$)") or 0.0)
+    preco_efetivo = preco_anunc + saldo_devedor
+
+    return {
+        "is_condicionado": True,
+        "tipo_condicao": "Ágio / Parcelas a Vencer",
+        "detalhes": detalhes,
+        "num_parcelas": num_parcelas,
+        "valor_parcela": valor_parcela,
+        "saldo_devedor_estimado": saldo_devedor,
+        "preco_efetivo_total": preco_efetivo,
+        "observacao_interna": obs,
+    }
 
 
 def obter_anuncios_mercado_com_cache(cidade: str, uf: str, tipo_zap: str, negocio: str) -> List[dict]:
@@ -203,10 +311,16 @@ def identificar_fator_corredor(item_feed: dict) -> tuple[float, str]:
     return 1.00, ""
 
 
-def reavaliar_imovel_feed(item_feed: dict, fator_oferta: float = 0.90, fator_localizacao: float = None) -> dict:
+def reavaliar_imovel_feed(
+    item_feed: dict,
+    fator_oferta: float = 0.90,
+    fator_localizacao: float = None,
+    saldo_devedor_manual: Optional[float] = None,
+) -> dict:
     """
     Executa a auditoria de preço de um imóvel do feed contra a concorrência ao vivo.
-    Suporta fator de localização NBR 14653 para corredores comerciais e vias nobres.
+    Suporta fator de localização NBR 14653 para corredores comerciais e vias nobres,
+    e detecção automática de condicionantes financeiras (ágio / repasse / parcelas a vencer).
     """
     cidade = item_feed.get("cidade") or "Sertãozinho"
     uf = item_feed.get("uf") or "SP"
@@ -214,6 +328,18 @@ def reavaliar_imovel_feed(item_feed: dict, fator_oferta: float = 0.90, fator_loc
     negocio = item_feed.get("negocio_zap", "SALE")
     preco_anunciado = float(item_feed.get("preco") or 0.0)
     area = float(item_feed.get("area_principal") or item_feed.get("area_util") or item_feed.get("area_total") or 0.0)
+
+    # Verificação de condicionante financeira (ágio / repasse de loteamento / parcelas)
+    cond_info = identificar_condicionante_preco(item_feed)
+    if saldo_devedor_manual is not None and saldo_devedor_manual >= 0:
+        cond_info["saldo_devedor_estimado"] = float(saldo_devedor_manual)
+        cond_info["preco_efetivo_total"] = preco_anunciado + float(saldo_devedor_manual)
+        if saldo_devedor_manual > 0:
+            cond_info["is_condicionado"] = True
+
+    is_condicionado = cond_info["is_condicionado"]
+    saldo_devedor = cond_info["saldo_devedor_estimado"]
+    preco_base_comparacao = preco_anunciado + saldo_devedor if is_condicionado and saldo_devedor > 0 else preco_anunciado
 
     if not tipo_zap:
         return {
@@ -385,30 +511,68 @@ def reavaliar_imovel_feed(item_feed: dict, fator_oferta: float = 0.90, fator_loc
     faixa_min = round(valor_fechamento_estimado * 0.90, -3) if valor_fechamento_estimado > 10000 else round(valor_fechamento_estimado * 0.90, -1)
     faixa_max = round(valor_fechamento_estimado * 1.10, -3) if valor_fechamento_estimado > 10000 else round(valor_fechamento_estimado * 1.10, -1)
 
-    # 4. Diagnóstico de Discrepância / Gap
+    # 4. Diagnóstico de Discrepância / Gap (considerando custo total de aquisição para ofertas condicionadas)
     if valor_fechamento_estimado > 0:
-        desvio_pct = round(((preco_anunciado / valor_fechamento_estimado) - 1.0) * 100.0, 1)
-        diferenca_rs = round(preco_anunciado - valor_fechamento_estimado, 2)
+        desvio_pct = round(((preco_base_comparacao / valor_fechamento_estimado) - 1.0) * 100.0, 1)
+        diferenca_rs = round(preco_base_comparacao - valor_fechamento_estimado, 2)
     else:
         desvio_pct = 0.0
         diferenca_rs = 0.0
 
-    if desvio_pct > 15.0:
+    if is_condicionado and saldo_devedor == 0:
+        status = "⚠️ Ágio / Parcelas a Vencer"
+        diagnostico = (
+            f"Preço anunciado de R$ {preco_anunciado:,.0f} refere-se apenas ao ÁGIO / ENTRADA ('{cond_info['detalhes']}'). "
+            f"O imóvel possui parcelas restantes a vencer cujo valor total ainda não foi apurado. "
+            f"Não pode ser classificado como oportunidade sem a soma do saldo devedor."
+        )
+        acao_sugerida = "Consultar o proprietário ou loteadora para apurar a quantidade e o valor das parcelas restantes antes de ofertar."
+    elif desvio_pct > 15.0:
         status = "🔴 Muito Acima"
-        diagnostico = "Preço significativamente acima da concorrência direta. Alto risco de perda de liquidez e desinteresse de compradores."
-        acao_sugerida = "Recomenda-se reunião de reprecificação com o proprietário para alinhar com o teto de mercado."
+        if is_condicionado:
+            diagnostico = (
+                f"Custo total de aquisição com parcelas (R$ {preco_base_comparacao:,.2f}) está {desvio_pct:+.1f}% ACIMA do valor de mercado NBR 14653 (R$ {valor_fechamento_estimado:,.0f}). "
+                f"Entrada anunciada: R$ {preco_anunciado:,.2f} + Saldo devedor a assumir: R$ {saldo_devedor:,.2f} ({cond_info.get('observacao_interna') or 'parcelas a vencer'}). "
+                f"Atenção: Imóveis quitados equivalentes na mesma região saem sensivelmente mais baratos do que assumir este parcelamento!"
+            )
+            acao_sugerida = "Orientar o proprietário a reduzir a pedida do ágio/entrada, pois o comprador assumirá dívida expressiva."
+        else:
+            diagnostico = "Preço significativamente acima da concorrência direta. Alto risco de perda de liquidez e desinteresse de compradores."
+            acao_sugerida = "Recomenda-se reunião de reprecificação com o proprietário para alinhar com o teto de mercado."
     elif desvio_pct > 5.0:
         status = "🟡 Acima do Mercado"
-        diagnostico = "Preço com margem para negociação, mas ligeiramente acima da média praticada no bairro."
-        acao_sugerida = "Pode ser mantido se o imóvel tiver acabamentos superiores, mas pode demorar mais para receber visitas."
+        if is_condicionado:
+            diagnostico = (
+                f"Custo total de aquisição com parcelas (R$ {preco_base_comparacao:,.2f}) está {desvio_pct:+.1f}% ligeiramente acima do mercado (R$ {valor_fechamento_estimado:,.0f}). "
+                f"Entrada: R$ {preco_anunciado:,.2f} | Saldo devedor a assumir: R$ {saldo_devedor:,.2f}."
+            )
+            acao_sugerida = "Negociar desconto na entrada para compensar o saldo devedor que o comprador assumirá."
+        else:
+            diagnostico = "Preço com margem para negociação, mas ligeiramente acima da média praticada no bairro."
+            acao_sugerida = "Pode ser mantido se o imóvel tiver acabamentos superiores, mas pode demorar mais para receber visitas."
     elif desvio_pct >= -7.0:
         status = "🟢 Preço Justo"
-        diagnostico = "Preço perfeitamente alinhado com o valor de fechamento estimado na região."
-        acao_sugerida = "Manter o valor. Foco total em marketing e destaque nos portais para acelerar o fechamento."
+        if is_condicionado:
+            diagnostico = (
+                f"Custo total com parcelas (R$ {preco_base_comparacao:,.2f}) alinhado com o mercado NBR 14653 (R$ {valor_fechamento_estimado:,.0f}). "
+                f"Entrada de R$ {preco_anunciado:,.2f} + R$ {saldo_devedor:,.2f} de saldo devedor."
+            )
+            acao_sugerida = "Divulgar a facilidade de repasse das parcelas como atrativo para compradores sem crédito bancário aprovado."
+        else:
+            diagnostico = "Preço perfeitamente alinhado com o valor de fechamento estimado na região."
+            acao_sugerida = "Manter o valor. Foco total em marketing e destaque nos portais para acelerar o fechamento."
     else:
-        status = "🔵 Oportunidade"
-        diagnostico = "Preço abaixo da média de mercado. Alta atratividade para compradores e investidores."
-        acao_sugerida = "Excelente apelo de venda rápida. Proprietário tem margem para subir o valor se desejar."
+        if is_condicionado:
+            status = "🔵 Oportunidade (Custo Real)"
+            diagnostico = (
+                f"Mesmo somando o saldo devedor de R$ {saldo_devedor:,.2f}, o custo total de R$ {preco_base_comparacao:,.2f} "
+                f"permanece {desvio_pct:+.1f}% abaixo do valor de mercado (R$ {valor_fechamento_estimado:,.0f})."
+            )
+            acao_sugerida = "Excelente oportunidade de repasse com desconto real comprovado. Ofertar para investidores com liquidez."
+        else:
+            status = "🔵 Oportunidade"
+            diagnostico = "Preço abaixo da média de mercado. Alta atratividade para compradores e investidores."
+            acao_sugerida = "Excelente apelo de venda rápida. Proprietário tem margem para subir o valor se desejar."
 
     if fator_loc > 1.0:
         diagnostico = f"Preço perfeitamente justificado pela localização no Polo Central da Praça 21 de Abril. {justificativa_loc}"
@@ -431,6 +595,15 @@ def reavaliar_imovel_feed(item_feed: dict, fator_oferta: float = 0.90, fator_loc
         "area_m2": area,
         "preco_anunciado": preco_anunciado,
         "preco_m2_anunciado": round(preco_anunciado / area, 2) if area else 0,
+        "is_condicionado": is_condicionado,
+        "tipo_condicao": cond_info.get("tipo_condicao", "Quitado"),
+        "detalhes_condicao": cond_info.get("detalhes", ""),
+        "saldo_devedor_estimado": saldo_devedor,
+        "num_parcelas": cond_info.get("num_parcelas", 0),
+        "valor_parcela": cond_info.get("valor_parcela", 0.0),
+        "preco_efetivo_total": preco_base_comparacao,
+        "preco_m2_efetivo": round(preco_base_comparacao / area, 2) if area else 0,
+        "observacao_condicionante": cond_info.get("observacao_interna", ""),
         "valor_fechamento_estimado": valor_fechamento_estimado,
         "valor_oferta_estimado": round(valor_oferta_estimado, -3),
         "faixa_min": faixa_min,

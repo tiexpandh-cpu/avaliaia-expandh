@@ -596,6 +596,7 @@ def render_painel_operacao(imoveis_lista: list, operacao: str, api_key_val: str 
 
             col_f_status, col_btn_csv = st.columns([2, 1])
             with col_f_status:
+                q_condicionado = sum(1 for r in auditados_op if r.get("Condicionante Preço") or "Ágio" in r.get("Status", "") or "Parcelas" in r.get("Status", ""))
                 opcoes_status = [
                     f"Todos os Imóveis de {operacao} ({len(auditados_op)})",
                     f"🔴 Apenas Muito Acima ({q_super})",
@@ -603,6 +604,8 @@ def render_painel_operacao(imoveis_lista: list, operacao: str, api_key_val: str 
                     f"🟢 Apenas no Preço Justo ({q_justo})",
                     f"🔵 Apenas Oportunidades ({q_oport})",
                 ]
+                if q_condicionado > 0:
+                    opcoes_status.append(f"⚠️ Ágio / Condicionados ({q_condicionado})")
                 if q_aguardando > 0:
                     opcoes_status.append(f"⚪ Aguardando Auditoria ({q_aguardando})")
                 opcoes_status.append(f"⚪ Sem Comparáveis Suficientes ({len(auditados_op) - total_res - q_aguardando})")
@@ -618,6 +621,8 @@ def render_painel_operacao(imoveis_lista: list, operacao: str, api_key_val: str 
                 tabela_f = [r for r in tabela_f if "Preço Justo" in r.get("Status", "")]
             elif "Oportunidades" in escolha_st:
                 tabela_f = [r for r in tabela_f if "Oportunidade" in r.get("Status", "")]
+            elif "Ágio" in escolha_st or "Condicionados" in escolha_st:
+                tabela_f = [r for r in tabela_f if r.get("Condicionante Preço") or "Ágio" in r.get("Status", "") or "Parcelas" in r.get("Status", "")]
             elif "Aguardando Auditoria" in escolha_st:
                 tabela_f = [r for r in tabela_f if "Aguardando Auditoria" in r.get("Status", "")]
             elif "Sem Comparáveis" in escolha_st:
@@ -633,7 +638,10 @@ def render_painel_operacao(imoveis_lista: list, operacao: str, api_key_val: str 
                 lambda v: f"R$ {v:+,.0f}".replace(",", ".") if pd.notnull(v) and v is not None else "-"
             )
 
-            cols_tab = ["Código", "Tipo", "Bairro", "Área (m²)", rotulo_preco, "Valor Mercado", "Desvio (%)", "Status", "Ação Comercial Recomendada"]
+            cols_tab = ["Código", "Tipo", "Bairro", "Área (m²)", rotulo_preco, "Valor Mercado", "Desvio (%)", "Status"]
+            if "Tipo Condição" in df_fmt.columns:
+                cols_tab.append("Tipo Condição")
+            cols_tab.append("Ação Comercial Recomendada")
             st.dataframe(df_fmt[cols_tab], use_container_width=True, hide_index=True)
 
             with col_btn_csv:
@@ -717,6 +725,51 @@ def render_painel_operacao(imoveis_lista: list, operacao: str, api_key_val: str 
                 elif imovel_sel.get("condominio") or imovel_sel.get("iptu"):
                     st.write(f"🏷️ Condomínio: R$ {imovel_sel.get('condominio', 0):,.2f} | IPTU: R$ {imovel_sel.get('iptu', 0):,.2f}")
 
+            # Detecção de Condicionante Financeira (Ágio / Parcelas a Vencer)
+            cond_auto = reavaliacao_carteira.identificar_condicionante_preco(imovel_sel)
+            if cond_auto["is_condicionado"]:
+                st.warning(
+                    f"⚠️ **Alerta de Condicionante Financeira (Ágio / Parcelas a Vencer Detectadas)**\n\n"
+                    f"• **Gatilho no Anúncio:** *\"{cond_auto['detalhes']}\"*\n"
+                    f"• **Preço Anunciado:** **R$ {imovel_sel.get('preco', 0):,.2f}** *(refere-se apenas à entrada / repasse)*\n"
+                    f"{f'• **Observação do CRM:** {cond_auto[\"observacao_interna\"]}' if cond_auto.get('observacao_interna') else ''}\n\n"
+                    f"💡 *Para evitar distorções, o sistema calcula o **Custo Efetivo Total de Aquisição** (Entrada + Saldo Devedor a Vencer) para balizar o valor justo real da NBR 14653.*"
+                )
+
+            with st.expander("💳 Apuração de Saldo Devedor & Parcelas (Anti-Armadilha de Ágio)", expanded=cond_auto["is_condicionado"]):
+                cp1, cp2, cp3 = st.columns(3)
+                with cp1:
+                    n_parc_input = st.number_input(
+                        "Parcelas Restantes a Vencer:",
+                        min_value=0,
+                        max_value=420,
+                        value=int(cond_auto.get("num_parcelas") or 0),
+                        step=1,
+                        key=f"n_parc_{imovel_sel['id']}_{key_suf}",
+                        help="Número de parcelas que o comprador assumirá junto à loteadora ou instituição financeira."
+                    )
+                with cp2:
+                    val_parc_input = st.number_input(
+                        "Valor da Parcela Atual (R$):",
+                        min_value=0.0,
+                        max_value=100000.0,
+                        value=float(cond_auto.get("valor_parcela") or 0.0),
+                        step=50.0,
+                        key=f"val_parc_{imovel_sel['id']}_{key_suf}",
+                        help="Valor nominal de cada parcela mensal."
+                    )
+                with cp3:
+                    saldo_dev_padrao = (n_parc_input * val_parc_input) if (n_parc_input > 0 and val_parc_input > 0) else float(cond_auto.get("saldo_devedor_estimado") or 0.0)
+                    saldo_dev_input = st.number_input(
+                        "Saldo Devedor Total a Assumir (R$):",
+                        min_value=0.0,
+                        max_value=10000000.0,
+                        value=float(saldo_dev_padrao),
+                        step=1000.0,
+                        key=f"saldo_dev_{imovel_sel['id']}_{key_suf}",
+                        help="Dívida total a ser somada à entrada anunciada para apurar o custo total real de aquisição."
+                    )
+
             # Detecção e Ajuste de Corredor Nobre / Comercial (NBR 14653)
             fator_loc_auto, justif_auto = reavaliacao_carteira.identificar_fator_corredor(imovel_sel)
             if fator_loc_auto > 1.0:
@@ -737,7 +790,13 @@ def render_painel_operacao(imoveis_lista: list, operacao: str, api_key_val: str 
 
             if btn_rev_ind:
                 with st.spinner(f"Consultando concorrência ao vivo no ZAP para {imovel_sel.get('tipo')} no {imovel_sel.get('bairro')}..."):
-                    res_aud = reavaliacao_carteira.reavaliar_imovel_feed(imovel_sel, fator_oferta=pipeline.FATOR_OFERTA, fator_localizacao=fator_loc_input)
+                    saldo_manual = saldo_dev_input if (cond_auto["is_condicionado"] or saldo_dev_input > 0) else None
+                    res_aud = reavaliacao_carteira.reavaliar_imovel_feed(
+                        imovel_sel,
+                        fator_oferta=pipeline.FATOR_OFERTA,
+                        fator_localizacao=fator_loc_input,
+                        saldo_devedor_manual=saldo_manual,
+                    )
 
                 if not res_aud.get("sucesso"):
                     st.warning(f"⚠️ Não foi possível reavaliar: {res_aud.get('motivo')}")
@@ -745,32 +804,67 @@ def render_painel_operacao(imoveis_lista: list, operacao: str, api_key_val: str 
                     st.success("✅ Auditoria de mercado concluída com sucesso!")
                     st.markdown("---")
 
-                    rk1, rk2, rk3, rk4 = st.columns(4)
-                    with rk1:
-                        st.metric(
-                            f"{rotulo_preco} Anunciado",
-                            f"R$ {res_aud['preco_anunciado']:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
-                        )
-                    with rk2:
-                        st.metric(
-                            "Valor Justo de Mercado",
-                            f"R$ {res_aud['valor_fechamento_estimado']:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
-                            f"Faixa: R$ {res_aud['faixa_min']:,.0f} - R$ {res_aud['faixa_max']:,.0f}",
-                        )
-                    with rk3:
-                        dp = res_aud["desvio_pct"]
-                        st.metric(
-                            "Desvio vs. Mercado",
-                            f"{dp:+.1f}%",
-                            res_aud["status"],
-                            delta_color="inverse" if dp > 0 else "normal",
-                        )
-                    with rk4:
-                        st.metric(
-                            "Mediana da Concorrência",
-                            f"R$ {res_aud['mediana_m2_concorrencia']:,.2f}/m²",
-                            f"{res_aud['n_amostras']} imóveis analisados",
-                        )
+                    if res_aud.get("is_condicionado"):
+                        st.markdown("##### 💳 Composição do Custo Real de Aquisição (Ágio + Parcelas)")
+                        rk0, rk1, rk2, rk3 = st.columns(4)
+                        with rk0:
+                            st.metric(
+                                "Entrada / Ágio Anunciado",
+                                f"R$ {res_aud['preco_anunciado']:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                            )
+                        with rk1:
+                            st.metric(
+                                "Saldo Devedor a Vencer",
+                                f"R$ {res_aud['saldo_devedor_estimado']:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                            )
+                        with rk2:
+                            st.metric(
+                                "Custo Efetivo Total",
+                                f"R$ {res_aud['preco_efetivo_total']:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                            )
+                        with rk3:
+                            dp = res_aud["desvio_pct"]
+                            st.metric(
+                                "Valor Mercado NBR",
+                                f"R$ {res_aud['valor_fechamento_estimado']:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                                f"{dp:+.1f}% ({res_aud['status']})",
+                                delta_color="inverse" if dp > 0 else "normal",
+                            )
+
+                        if "vista da lago" in (imovel_sel.get("bairro") or "").lower():
+                            st.info(
+                                "🏘️ **Análise Comparativa com Lotes Vizinhos Quitados no Vista da Lago:**\n\n"
+                                "• **Lotes Quitados na Mesma Região (ex: V78521 e V48521 - 240 m²):** Anunciados por **R$ 119.000,00** (R$ 495,83/m²) 100% quitados e escriturados.\n"
+                                f"• **Este Lote ({imovel_sel['id']} - 254 m²):** Custa **R$ {res_aud['preco_efetivo_total']:,.2f}** ao final das parcelas (R$ {res_aud['preco_efetivo_total']/imovel_sel['area_principal']:,.2f}/m²).\n"
+                                f"• **Veredito de Mercado:** Comprar o lote quitado vizinho economiza **R$ {res_aud['preco_efetivo_total'] - 119000:,.2f}** para o adquirente!"
+                            )
+                    else:
+                        rk1, rk2, rk3, rk4 = st.columns(4)
+                        with rk1:
+                            st.metric(
+                                f"{rotulo_preco} Anunciado",
+                                f"R$ {res_aud['preco_anunciado']:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                            )
+                        with rk2:
+                            st.metric(
+                                "Valor Justo de Mercado",
+                                f"R$ {res_aud['valor_fechamento_estimado']:,.2f}".replace(",", "X").replace(".", ",").replace("X", "."),
+                                f"Faixa: R$ {res_aud['faixa_min']:,.0f} - R$ {res_aud['faixa_max']:,.0f}",
+                            )
+                        with rk3:
+                            dp = res_aud["desvio_pct"]
+                            st.metric(
+                                "Desvio vs. Mercado",
+                                f"{dp:+.1f}%",
+                                res_aud["status"],
+                                delta_color="inverse" if dp > 0 else "normal",
+                            )
+                        with rk4:
+                            st.metric(
+                                "Mediana da Concorrência",
+                                f"R$ {res_aud['mediana_m2_concorrencia']:,.2f}/m²",
+                                f"{res_aud['n_amostras']} imóveis analisados",
+                            )
 
                     st.info(f"**Diagnóstico:** {res_aud['diagnostico']}\n\n**Ação Comercial Recomendada:** {res_aud['acao_sugerida']}")
 
