@@ -96,7 +96,11 @@ if data_pub_raw:
         data_pub_formatada = data_pub_raw
 
 
-# ==================== BARRA LATERAL (CONFIGURAÇÕES) ====================
+# Contagem prévia de divergências para o badge do menu
+dados_div_resumo = auditoria_divergencias.auditar_todas_divergencias(feed_imoveis=imoveis_lista, forcar_recalculo=False)
+total_alertas_div = dados_div_resumo.get("imoveis_com_divergencia", 0)
+
+# ==================== BARRA LATERAL (NAVEGAÇÃO & CONFIGURAÇÕES) ====================
 with st.sidebar:
     if Path("assets/logo_expandh.png").exists():
         st.image("assets/logo_expandh.png", width=160)
@@ -115,71 +119,85 @@ with st.sidebar:
             st.rerun()
             
     st.markdown("---")
-    
-    # Status e Sincronização do Feed Kurole
-    st.subheader("📡 Sincronização Kurole (KSI)")
-    st.markdown(f"**Carga no XML:** `{data_pub_formatada}`")
-    st.caption(f"**Total Ativo no Feed:** {len(imoveis_lista)} imóveis ({len(imoveis_venda)} Venda | {len(imoveis_locacao)} Locação)")
-    
-    if st.button("🔄 Sincronizar Feed XML Agora", use_container_width=True, help="Recarrega o arquivo XML mais recente publicado no servidor Kurole"):
-        st.cache_data.clear()
-        st.rerun()
 
-    st.markdown("---")
-
-    st.subheader("⚙️ Configurações da Avaliação")
+    # ==================== MENU LATERAL DE NAVEGAÇÃO ====================
+    st.markdown(
+        "<div style='font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; color: #94a3b8; text-transform: uppercase; margin-bottom: 8px;'>🧭 Navegação Principal</div>",
+        unsafe_allow_html=True,
+    )
     
-    # Modelo LLM
-    modelo_selecionado = st.selectbox(
-        "Modelo de IA (Google AI Studio)",
-        options=["gemini-3.1-flash-lite", "gemini-3.5-flash-lite"],
+    opcoes_menu = [
+        "☀️ Briefing Matinal & Oportunidades",
+        f"🏷️ Carteira de VENDAS ({len(imoveis_venda)} imóveis)",
+        f"🔑 Carteira de LOCAÇÃO ({len(imoveis_locacao)} imóveis)",
+        f"🔍 Conformidade Cadastral ({total_alertas_div} alertas)",
+        f"🗺️ Mapa da Carteira ({len(imoveis_lista)} imóveis)",
+        "📄 Avaliação via Matrícula",
+        "📂 Histórico de Laudos Gerados",
+    ]
+    
+    aba_selecionada = st.radio(
+        "Navegação:",
+        options=opcoes_menu,
         index=0,
-        help="O Flash-Lite possui 500 requisições diárias gratuitas e lê PDFs nativamente com OCR.",
+        label_visibility="collapsed",
+        key="menu_lateral_expandh",
     )
-    os.environ["MODELO_EXTRACAO"] = modelo_selecionado
-    os.environ["MODELO_TEXTO"] = modelo_selecionado
-
-    # Fator de oferta
-    fator_oferta_input = st.slider(
-        "Fator de Redução de Oferta",
-        min_value=0.80,
-        max_value=1.00,
-        value=0.90,
-        step=0.01,
-        help="Percentual de conversão do preço de anúncio para fechamento efetivo (0.90 = 10% de margem de barganha).",
-    )
-    pipeline.FATOR_OFERTA = fator_oferta_input
-
-    # Rentabilidade Aluguel
-    rentabilidade_input = st.number_input(
-        "Premissa Cap Rate Aluguel (% a.a.)",
-        min_value=3.0,
-        max_value=15.0,
-        value=5.5,
-        step=0.1,
-        help="Utilizado quando não houver amostras suficientes de locação na região.",
-    )
-    pipeline.RENTABILIDADE_ALUGUEL_AA = rentabilidade_input
 
     st.markdown("---")
     
-    # Status da API
-    api_key = os.environ.get("GEMINI_API_KEY", "")
-    if not api_key:
-        try:
-            api_key = st.secrets.get("GEMINI_API_KEY", "")
-        except Exception:
-            pass
+    # Status e Sincronização do Feed Kurole em Expander Compacto
+    with st.expander("📡 Sincronização Kurole (KSI)", expanded=False):
+        st.markdown(f"**Carga no XML:** `{data_pub_formatada}`")
+        st.caption(f"**Total Ativo no Feed:** {len(imoveis_lista)} imóveis ({len(imoveis_venda)} Venda | {len(imoveis_locacao)} Locação)")
+        if st.button("🔄 Sincronizar Feed XML Agora", use_container_width=True, help="Recarrega o arquivo XML mais recente publicado no servidor Kurole"):
+            st.cache_data.clear()
+            st.rerun()
 
-    if api_key:
-        st.success("🟢 Chave do Google AI Studio Conectada")
-    else:
-        st.error("🔴 GEMINI_API_KEY não encontrada (.env ou Secrets)")
+    # Configurações Técnicas da Avaliação em Expander Compacto
+    with st.expander("⚙️ Configurações da Avaliação", expanded=False):
+        modelo_selecionado = st.selectbox(
+            "Modelo de IA (Google AI Studio)",
+            options=["gemini-3.1-flash-lite", "gemini-3.5-flash-lite"],
+            index=0,
+            help="O Flash-Lite possui 500 requisições diárias gratuitas e lê PDFs nativamente com OCR.",
+        )
+        os.environ["MODELO_EXTRACAO"] = modelo_selecionado
+        os.environ["MODELO_TEXTO"] = modelo_selecionado
+
+        fator_oferta_input = st.slider(
+            "Fator de Redução de Oferta",
+            min_value=0.80,
+            max_value=1.00,
+            value=0.90,
+            step=0.01,
+            help="Percentual de conversão do preço de anúncio para fechamento efetivo (0.90 = 10% de margem de barganha).",
+        )
+        pipeline.FATOR_OFERTA = fator_oferta_input
+
+        rentabilidade_input = st.number_input(
+            "Premissa Cap Rate Aluguel (% a.a.)",
+            min_value=3.0,
+            max_value=15.0,
+            value=5.5,
+            step=0.1,
+            help="Utilizado quando não houver amostras suficientes de locação na região.",
+        )
+        pipeline.RENTABILIDADE_ALUGUEL_AA = rentabilidade_input
+
+        api_key = os.environ.get("GEMINI_API_KEY", "")
+        if not api_key:
+            try:
+                api_key = st.secrets.get("GEMINI_API_KEY", "")
+            except Exception:
+                pass
+
+        if api_key:
+            st.success("🟢 Chave do Google AI Studio Conectada")
+        else:
+            st.error("🔴 GEMINI_API_KEY não encontrada (.env ou Secrets)")
 
     st.caption("Versão 2.0 • Coleta ao vivo ZAP Imóveis")
-
-
-
 
 
 # ==================== CABEÇALHO EXECUTIVO EXPANDH BI ====================
@@ -191,28 +209,8 @@ tema_bi.render_header_executivo(
 )
 tema_bi.render_modal_metodologia()
 
-# Contagem prévia de divergências para o rótulo da aba
-dados_div_resumo = auditoria_divergencias.auditar_todas_divergencias(feed_imoveis=imoveis_lista, forcar_recalculo=False)
-total_alertas_div = dados_div_resumo.get("imoveis_com_divergencia", 0)
 
-tab_briefing, tab_vendas, tab_locacao, tab_divergencias, tab_mapa, tab_nova, tab_historico = st.tabs([
-    "☀️ Briefing Matinal & Oportunidades",
-    f"🏷️ Carteira de VENDAS ({len(imoveis_venda)} imóveis)",
-    f"🔑 Carteira de LOCAÇÃO ({len(imoveis_locacao)} imóveis)",
-    f"🔍 Conformidade Cadastral ({total_alertas_div} alertas)",
-    f"🗺️ Mapa da Carteira ({len(imoveis_lista)} imóveis)",
-    "📄 Avaliação via Matrícula",
-    "📂 Histórico de Laudos Gerados",
-])
-
-
-# ==================== ABA 0: BRIEFING MATINAL & OPORTUNIDADES ====================
-with tab_briefing:
-    resumo_matinal.render_painel_briefing()
-
-
-# ==================== ABA 1: NOVA AVALIAÇÃO ====================
-with tab_nova:
+def render_avaliacao_matricula():
     col_upload, col_opcoes = st.columns([2, 1])
 
     with col_upload:
@@ -1027,32 +1025,7 @@ def render_painel_operacao(imoveis_lista: list, operacao: str, api_key_val: str 
                                 )
 
 
-# ==================== ABA 2: CARTEIRA DE VENDAS ====================
-with tab_vendas:
-    st.subheader("🏷️ Carteira de VENDAS • Auditoria & Reprecificação")
-    st.caption("Precificação de venda, comparação com fechamentos NBR e diagnóstico de liquidez.")
-    render_painel_operacao(imoveis_lista, "Venda", api_key)
-
-
-# ==================== ABA 3: CARTEIRA DE LOCAÇÃO ====================
-with tab_locacao:
-    st.subheader("🔑 Carteira de LOCAÇÃO • Auditoria & Rentabilidade")
-    st.caption("Precificação de aluguel mensal, custo total de ocupação (pacote) e comparáveis ao vivo.")
-    render_painel_operacao(imoveis_lista, "Locação", api_key)
-
-
-# ==================== ABA 4: CONFORMIDADE CADASTRAL & DIVERGÊNCIAS ====================
-with tab_divergencias:
-    auditoria_divergencias.render_painel_divergencias(imoveis_lista=imoveis_lista)
-
-
-# ==================== ABA 5: MAPA GEOGRÁFICO DA CARTEIRA ====================
-with tab_mapa:
-    mapa_carteira.render_painel_mapa(imoveis_lista, obter_dados_auditoria_atualizados())
-
-
-# ==================== ABA 6: HISTÓRICO DE LAUDOS ====================
-with tab_historico:
+def render_historico_laudos():
     st.subheader("Laudos Gerados Anteriormente")
     arquivos_laudos = sorted(glob.glob("laudos/*.pdf"), reverse=True)
 
@@ -1073,3 +1046,30 @@ with tab_historico:
                     )
     else:
         st.info("Nenhum laudo gerado ainda na pasta `laudos/`.")
+
+
+# ==================== DISPATCHER DA NAVEGAÇÃO LATERAL ====================
+if "Briefing Matinal" in aba_selecionada:
+    resumo_matinal.render_painel_briefing()
+
+elif "Carteira de VENDAS" in aba_selecionada:
+    st.subheader("🏷️ Carteira de VENDAS • Auditoria & Reprecificação")
+    st.caption("Precificação de venda, comparação com fechamentos NBR e diagnóstico de liquidez.")
+    render_painel_operacao(imoveis_lista, "Venda", api_key)
+
+elif "Carteira de LOCAÇÃO" in aba_selecionada:
+    st.subheader("🔑 Carteira de LOCAÇÃO • Auditoria & Rentabilidade")
+    st.caption("Precificação de aluguel mensal, custo total de ocupação (pacote) e comparáveis ao vivo.")
+    render_painel_operacao(imoveis_lista, "Locação", api_key)
+
+elif "Conformidade Cadastral" in aba_selecionada:
+    auditoria_divergencias.render_painel_divergencias(imoveis_lista=imoveis_lista)
+
+elif "Mapa da Carteira" in aba_selecionada:
+    mapa_carteira.render_painel_mapa(imoveis_lista, obter_dados_auditoria_atualizados())
+
+elif "Avaliação via Matrícula" in aba_selecionada:
+    render_avaliacao_matricula()
+
+elif "Histórico de Laudos" in aba_selecionada:
+    render_historico_laudos()

@@ -224,6 +224,64 @@ def obter_css_tema() -> str:
         color: #94a3b8 !important;
     }
 
+    /* Menu Lateral de Navegação (Executive Sidebar Navigation Pill Menu) */
+    [data-testid="stSidebar"] div[data-testid="stRadio"] > div {
+        gap: 6px !important;
+    }
+    [data-testid="stSidebar"] label[data-baseweb="radio"] {
+        background: rgba(30, 41, 59, 0.45) !important;
+        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+        border-radius: 0.8rem !important;
+        padding: 9px 14px !important;
+        margin: 2px 0 !important;
+        width: 100% !important;
+        cursor: pointer !important;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15) !important;
+    }
+    /* Esconder o círculo nativo do radio */
+    [data-testid="stSidebar"] label[data-baseweb="radio"] > div:first-child {
+        display: none !important;
+    }
+    [data-testid="stSidebar"] label[data-baseweb="radio"] div[data-testid="stMarkdownContainer"] p,
+    [data-testid="stSidebar"] label[data-baseweb="radio"] span {
+        font-size: 0.85rem !important;
+        font-weight: 600 !important;
+        color: #cbd5e1 !important;
+        letter-spacing: -0.01em !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+    [data-testid="stSidebar"] label[data-baseweb="radio"]:hover {
+        background: rgba(56, 189, 248, 0.14) !important;
+        border-color: rgba(14, 165, 233, 0.4) !important;
+        transform: translateX(4px) !important;
+    }
+    [data-testid="stSidebar"] label[data-baseweb="radio"]:hover p {
+        color: #ffffff !important;
+    }
+    /* Item Selecionado / Ativo */
+    [data-testid="stSidebar"] label[data-baseweb="radio"]:has(input:checked),
+    [data-testid="stSidebar"] label[data-baseweb="radio"][aria-checked="true"] {
+        background: linear-gradient(90deg, rgba(14, 165, 233, 0.28) 0%, rgba(14, 165, 233, 0.08) 100%) !important;
+        border: 1px solid rgba(14, 165, 233, 0.55) !important;
+        border-left: 4px solid #0ea5e9 !important;
+        box-shadow: 0 4px 18px -2px rgba(14, 165, 233, 0.35) !important;
+    }
+    [data-testid="stSidebar"] label[data-baseweb="radio"]:has(input:checked) p,
+    [data-testid="stSidebar"] label[data-baseweb="radio"][aria-checked="true"] p {
+        color: #38bdf8 !important;
+        font-weight: 700 !important;
+    }
+
+    [data-testid="stSidebar"] [data-testid="stExpander"] {
+        background: rgba(15, 23, 42, 0.6) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 0.75rem !important;
+        margin-top: 10px !important;
+    }
+
     /* Inputs, Selectboxes e Dropdowns */
     [data-baseweb="input"], [data-baseweb="base-input"] {
         background-color: var(--input-bg) !important;
