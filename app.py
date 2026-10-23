@@ -41,8 +41,8 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-# Injeção do Sistema de Design Expandh BI (Dark Obsidian, Expandh Navy ou Light Corporate)
-st.markdown(tema_bi.obter_css_tema(st.session_state.get("app_theme", "dark")), unsafe_allow_html=True)
+# Injeção do Sistema de Design Expandh BI (Tema Único Executivo Obsidian Dark)
+st.markdown(tema_bi.obter_css_tema(), unsafe_allow_html=True)
 
 
 # ==================== CONTROLE DE ACESSO (AUTENTICAÇÃO POR SENHA) ====================
@@ -103,10 +103,6 @@ with st.sidebar:
     st.title("AvaliaIA Pro")
     st.caption("Engenharia de Avaliações com IA • NBR 14653")
     
-    # Seletor de Tema Visual (BI Style)
-    tema_bi.render_seletor_tema_sidebar()
-    st.markdown("---")
-
     # Status de login e botão de Sair
     col_status, col_btn = st.columns([1.8, 1.2])
     with col_status:

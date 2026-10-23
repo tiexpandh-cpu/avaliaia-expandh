@@ -161,13 +161,13 @@ def render_painel_mapa(imoveis_lista: list, dados_aud: dict):
     col_leg, col_tog = st.columns([3.3, 1.2])
     with col_leg:
         st.markdown("""
-        <div style="background: linear-gradient(90deg, #f8fafc 0%, #f1f5f9 100%); padding: 8px 14px; border-radius: 8px; border: 1px solid #cbd5e1; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; font-size: 0.84rem;">
-            <span style="font-weight: 700; color: #1e293b;">🎯 Legenda das Bolinhas:</span>
-            <span><span style="color: #22C55E; font-size: 1.1rem;">●</span> <b>Verde:</b> Justo (±5%)</span>
-            <span><span style="color: #EF4444; font-size: 1.1rem;">●</span> <b>Vermelho:</b> Muito Acima (> 15%)</span>
-            <span><span style="color: #EAB308; font-size: 1.1rem;">●</span> <b>Amarelo:</b> Levemente (+5% a 15%)</span>
-            <span><span style="color: #3B82F6; font-size: 1.1rem;">●</span> <b>Azul:</b> Oportunidades (< -7%)</span>
-            <span><span style="color: #F59E0B; font-size: 1.1rem;">⭘</span> <b>Anel:</b> Centro Nobre (Praça 21)</span>
+        <div class="glass-card" style="padding: 10px 16px; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; gap: 16px; align-items: center; flex-wrap: wrap; font-size: 0.84rem; color: #f8fafc;">
+            <span style="font-weight: 800; color: #38bdf8; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.05em;">🎯 Legenda das Bolinhas:</span>
+            <span><span style="color: #22C55E; font-size: 1.15rem;">●</span> <b>Verde:</b> Justo (±5%)</span>
+            <span><span style="color: #EF4444; font-size: 1.15rem;">●</span> <b>Vermelho:</b> Muito Acima (> 15%)</span>
+            <span><span style="color: #EAB308; font-size: 1.15rem;">●</span> <b>Amarelo:</b> Levemente (+5% a 15%)</span>
+            <span><span style="color: #3B82F6; font-size: 1.15rem;">●</span> <b>Azul:</b> Oportunidades (< -7%)</span>
+            <span><span style="color: #F59E0B; font-size: 1.15rem;">⭘</span> <b>Anel:</b> Centro Nobre (Praça 21)</span>
         </div>
         """, unsafe_allow_html=True)
     with col_tog:
@@ -226,7 +226,7 @@ def render_painel_mapa(imoveis_lista: list, dados_aud: dict):
             data=df_f,
             get_position="[lon, lat]",
             get_text="id",
-            get_color=[15, 23, 42, 235],
+            get_color=[248, 250, 252, 240],
             get_size=11,
             get_pixel_offset=[0, -14],
             font_family="'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
@@ -268,7 +268,7 @@ def render_painel_mapa(imoveis_lista: list, dados_aud: dict):
         layers=camadas,
         initial_view_state=view_state,
         tooltip=tooltip,
-        map_style="light",
+        map_style="dark",
     )
 
     st.pydeck_chart(deck, use_container_width=True)

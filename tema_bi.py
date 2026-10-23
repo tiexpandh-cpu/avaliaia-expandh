@@ -1,110 +1,86 @@
 """
-Módulo de Sistema de Design & Temas Expandh BI.
+Módulo de Sistema de Design Expandh BI (Tema Único Executivo Obsidian Dark).
 Portado diretamente da Suite Executiva de BI da Expandh Imóveis:
-- Paleta Obsidian Dark (#0b1120), Expandh Navy (#060d1a) e Light Corporate (#f1f5f9)
-- Glassmorphism com backdrop-filter blur, bordas sutis e glow ciano (#0ea5e9, #38bdf8)
-- Tipografia Inter (Google Fonts)
-- Componentes e métricas executivas, abas arredondadas e tela de login protegida
+- Paleta Obsidian Dark (#0b1120) com acentos Ciano Reluzente (#0ea5e9, #38bdf8)
+- Glassmorphism com backdrop-filter blur, bordas sutis e glow suave
+- Tipografia oficial Inter (Google Fonts)
+- Navegação em abas no formato Pill Buttons com realce ciano
+- Modal Gatekeeper de segurança com criptografia 2026
 """
 import base64
-import os
 from pathlib import Path
 import streamlit as st
 
 
-def obter_css_tema(tema: str = "dark") -> str:
-    """Retorna o bloco completo de CSS injetado no Streamlit para o tema selecionado."""
-    if tema == "light":
-        bg_main = "#f1f5f9"
-        card_bg = "#ffffff"
-        card_border = "#e2e8f0"
-        text_main = "#0f172a"
-        text_muted = "#64748b"
-        sidebar_bg = "#ffffff"
-        input_bg = "#ffffff"
-        tab_bg = "#e2e8f0"
-        tab_text = "#475569"
-        glow_shadow = "rgba(2, 132, 199, 0.25)"
-    elif tema == "navy":
-        bg_main = "#060d1a"
-        card_bg = "rgba(10, 25, 47, 0.88)"
-        card_border = "rgba(56, 189, 248, 0.18)"
-        text_main = "#f8fafc"
-        text_muted = "#7dd3fc"
-        sidebar_bg = "#040913"
-        input_bg = "rgba(15, 31, 56, 0.9)"
-        tab_bg = "#0f1f38"
-        tab_text = "#7dd3fc"
-        glow_shadow = "rgba(14, 165, 233, 0.45)"
-    else:  # dark (obsidian padrão do BI)
-        bg_main = "#0b1120"
-        card_bg = "rgba(30, 41, 59, 0.75)"
-        card_border = "rgba(255, 255, 255, 0.08)"
-        text_main = "#f8fafc"
-        text_muted = "#94a3b8"
-        sidebar_bg = "#080f1d"
-        input_bg = "rgba(15, 23, 42, 0.85)"
-        tab_bg = "rgba(30, 41, 59, 0.75)"
-        tab_text = "#94a3b8"
-        glow_shadow = "rgba(14, 165, 233, 0.4)"
-
-    css = f"""
+def obter_css_tema() -> str:
+    """Retorna o bloco completo de CSS com o tema executivo definitivo da Expandh."""
+    return """
     <style>
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-    :root {{
-        --bg-main: {bg_main};
-        --card-bg: {card_bg};
-        --card-border: {card_border};
-        --text-main: {text_main};
-        --text-muted: {text_muted};
-        --sidebar-bg: {sidebar_bg};
-        --input-bg: {input_bg};
+    :root {
+        --bg-main: #0b1120;
+        --card-bg: rgba(30, 41, 59, 0.75);
+        --card-border: rgba(255, 255, 255, 0.08);
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --sidebar-bg: #060d1a;
+        --input-bg: rgba(15, 23, 42, 0.9);
         --cyan-primary: #0ea5e9;
         --cyan-light: #38bdf8;
-        --cyan-glow: {glow_shadow};
-    }}
+        --cyan-glow: rgba(14, 165, 233, 0.4);
+    }
 
-    /* Global Typography & Background */
-    html, body, [class*="css"], .stApp {{
+    /* Tipografia e Fundo Geral */
+    html, body, [class*="css"], .stApp {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
         background-color: var(--bg-main) !important;
         color: var(--text-main) !important;
-    }}
+    }
 
-    .stApp {{
+    .stApp {
         background-color: var(--bg-main) !important;
-    }}
+    }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar {{
+    /* Títulos e Textos Principais */
+    h1, h2, h3, h4, h5, h6 {
+        color: #f8fafc !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.02em !important;
+    }
+    p, span, label {
+        color: #e2e8f0;
+    }
+
+    /* Scrollbar Personalizada */
+    ::-webkit-scrollbar {
         width: 6px;
         height: 6px;
-    }}
-    ::-webkit-scrollbar-track {{
+    }
+    ::-webkit-scrollbar-track {
         background: var(--bg-main);
-    }}
-    ::-webkit-scrollbar-thumb {{
+    }
+    ::-webkit-scrollbar-thumb {
         background: #334155;
         border-radius: 4px;
-    }}
-    ::-webkit-scrollbar-thumb:hover {{
+    }
+    ::-webkit-scrollbar-thumb:hover {
         background: var(--cyan-primary);
-    }}
+    }
 
     /* Glassmorphism Cards */
-    .glass-card {{
+    .glass-card {
         background: var(--card-bg) !important;
         backdrop-filter: blur(14px) !important;
         -webkit-backdrop-filter: blur(14px) !important;
         border: 1px solid var(--card-border) !important;
         border-radius: 1rem !important;
-        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3), 0 8px 10px -6px rgba(0, 0, 0, 0.3) !important;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.35), 0 8px 10px -6px rgba(0, 0, 0, 0.3) !important;
         color: var(--text-main) !important;
-    }}
+    }
 
-    /* Executive Top Header */
-    .header-card {{
+    /* Topo Executivo (Header Card) */
+    .header-card {
         background: var(--card-bg) !important;
         backdrop-filter: blur(14px) !important;
         -webkit-backdrop-filter: blur(14px) !important;
@@ -113,169 +89,193 @@ def obter_css_tema(tema: str = "dark") -> str:
         border-radius: 1rem !important;
         padding: 20px 24px !important;
         margin-bottom: 20px !important;
-        box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.4) !important;
-    }}
+        box-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.45) !important;
+    }
 
-    /* Streamlit Metric Cards */
-    [data-testid="stMetric"] {{
+    /* Metric Cards do Streamlit */
+    [data-testid="stMetric"] {
         background: var(--card-bg) !important;
         backdrop-filter: blur(12px) !important;
         -webkit-backdrop-filter: blur(12px) !important;
         border: 1px solid var(--card-border) !important;
         border-radius: 1rem !important;
-        padding: 14px 16px !important;
+        padding: 14px 18px !important;
         box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.25) !important;
         transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease !important;
-    }}
-    [data-testid="stMetric"]:hover {{
+    }
+    [data-testid="stMetric"]:hover {
         transform: translateY(-2px) !important;
-        border-color: rgba(14, 165, 233, 0.4) !important;
+        border-color: rgba(14, 165, 233, 0.45) !important;
         box-shadow: 0 12px 25px -5px var(--cyan-glow) !important;
-    }}
-    [data-testid="stMetricLabel"] p, [data-testid="stMetricLabel"] {{
+    }
+    [data-testid="stMetricLabel"] p, [data-testid="stMetricLabel"] {
         font-size: 0.72rem !important;
         font-weight: 700 !important;
         text-transform: uppercase !important;
-        letter-spacing: 0.04em !important;
+        letter-spacing: 0.05em !important;
         color: var(--text-muted) !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-    }}
-    [data-testid="stMetricValue"] {{
+    }
+    [data-testid="stMetricValue"] {
         font-size: 1.35rem !important;
         font-weight: 800 !important;
-        color: var(--text-main) !important;
+        color: #ffffff !important;
         letter-spacing: -0.02em !important;
         white-space: nowrap !important;
         overflow: hidden !important;
         text-overflow: ellipsis !important;
-    }}
-    [data-testid="stMetricDelta"] {{
+    }
+    [data-testid="stMetricDelta"] {
         font-weight: 600 !important;
         font-size: 0.8rem !important;
-    }}
+    }
 
-    /* Streamlit Tabs Navigation (Pill Style) */
-    .stTabs [data-baseweb="tab-list"] {{
+    /* Navegação em Abas (Pill Buttons) */
+    .stTabs [data-baseweb="tab-list"] {
         gap: 8px !important;
         background-color: transparent !important;
         border-bottom: 1px solid var(--card-border) !important;
         padding-bottom: 12px !important;
         margin-bottom: 20px !important;
-    }}
-    .stTabs [data-baseweb="tab"] {{
-        background-color: {tab_bg} !important;
+    }
+    .stTabs [data-baseweb="tab"] {
+        background-color: rgba(30, 41, 59, 0.75) !important;
         border: 1px solid var(--card-border) !important;
         border-radius: 0.85rem !important;
         padding: 10px 20px !important;
-        color: {tab_text} !important;
+        color: #cbd5e1 !important;
         font-weight: 600 !important;
         font-size: 0.88rem !important;
         transition: all 0.2s ease !important;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.1) !important;
-    }}
-    .stTabs [data-baseweb="tab"]:hover {{
+        box-shadow: 0 2px 5px rgba(0,0,0,0.15) !important;
+    }
+    .stTabs [data-baseweb="tab"]:hover {
         background-color: rgba(56, 189, 248, 0.15) !important;
-        color: #38bdf8 !important;
+        color: #ffffff !important;
         border-color: rgba(14, 165, 233, 0.4) !important;
-    }}
-    .stTabs [aria-selected="true"] {{
+    }
+    .stTabs [aria-selected="true"] {
         background: #0ea5e9 !important;
         color: #ffffff !important;
         font-weight: 700 !important;
         border: 1px solid #38bdf8 !important;
         box-shadow: 0 0 20px -2px rgba(14, 165, 233, 0.5) !important;
-    }}
-    .stTabs [data-baseweb="tab-highlight"] {{
+    }
+    .stTabs [data-baseweb="tab-highlight"] {
         display: none !important;
-    }}
+    }
 
-    /* Buttons (Gradiente Ciano / Azul Expandh) */
+    /* Botões Primários (Degradê Ciano / Azul Expandh) */
     .stButton > button[kind="primary"], 
     .stButton > button[data-testid="stBaseButton-primary"],
     .stLinkButton > a[kind="primary"],
-    .stDownloadButton > button[kind="primary"] {{
+    .stDownloadButton > button[kind="primary"] {
         background: linear-gradient(90deg, #06b6d4 0%, #2563eb 100%) !important;
         color: #ffffff !important;
         font-weight: 700 !important;
         border: none !important;
         border-radius: 0.75rem !important;
         padding: 0.65rem 1.4rem !important;
-        box-shadow: 0 4px 15px rgba(6, 182, 212, 0.3) !important;
+        box-shadow: 0 4px 15px rgba(6, 182, 212, 0.35) !important;
         transition: all 0.2s ease !important;
         text-shadow: 0 1px 2px rgba(0,0,0,0.2) !important;
-    }}
+    }
     .stButton > button[kind="primary"]:hover,
     .stLinkButton > a[kind="primary"]:hover,
-    .stDownloadButton > button[kind="primary"]:hover {{
+    .stDownloadButton > button[kind="primary"]:hover {
         transform: translateY(-2px) !important;
         box-shadow: 0 8px 25px rgba(6, 182, 212, 0.5) !important;
         filter: brightness(1.1) !important;
-    }}
+    }
 
-    /* Secondary Buttons */
+    /* Botões Secundários */
     .stButton > button[kind="secondary"], 
     .stButton > button[data-testid="stBaseButton-secondary"],
-    .stDownloadButton > button[kind="secondary"] {{
+    .stDownloadButton > button[kind="secondary"] {
         background: var(--card-bg) !important;
         border: 1px solid var(--card-border) !important;
         color: var(--text-main) !important;
         font-weight: 600 !important;
         border-radius: 0.75rem !important;
         transition: all 0.2s ease !important;
-    }}
+    }
     .stButton > button[kind="secondary"]:hover,
-    .stDownloadButton > button[kind="secondary"]:hover {{
+    .stDownloadButton > button[kind="secondary"]:hover {
         background: rgba(56, 189, 248, 0.12) !important;
         border-color: rgba(14, 165, 233, 0.4) !important;
         color: #38bdf8 !important;
-    }}
+    }
 
-    /* Sidebar Styling */
-    [data-testid="stSidebar"] {{
+    /* Barra Lateral (Sidebar) */
+    [data-testid="stSidebar"] {
         background-color: var(--sidebar-bg) !important;
         border-right: 1px solid var(--card-border) !important;
-    }}
-    [data-testid="stSidebar"] [data-testid="stMetric"] {{
-        background: rgba(15, 23, 42, 0.6) !important;
+    }
+    [data-testid="stSidebar"] [data-testid="stMetric"] {
+        background: rgba(15, 23, 42, 0.7) !important;
         border-radius: 0.75rem !important;
-    }}
+    }
+    [data-testid="stSidebar"] h1, [data-testid="stSidebar"] h2, [data-testid="stSidebar"] h3 {
+        color: #f8fafc !important;
+    }
+    [data-testid="stSidebar"] .stCaption {
+        color: #94a3b8 !important;
+    }
 
-    /* Inputs, Selects & Sliders */
-    [data-baseweb="input"], [data-baseweb="base-input"] {{
+    /* Inputs, Selectboxes e Dropdowns */
+    [data-baseweb="input"], [data-baseweb="base-input"] {
         background-color: var(--input-bg) !important;
         border: 1px solid var(--card-border) !important;
         border-radius: 0.75rem !important;
-        color: var(--text-main) !important;
-    }}
-    [data-baseweb="select"] > div {{
+        color: #ffffff !important;
+    }
+    [data-baseweb="select"] > div {
         background-color: var(--input-bg) !important;
         border: 1px solid var(--card-border) !important;
         border-radius: 0.75rem !important;
-        color: var(--text-main) !important;
-    }}
-    .stTextInput input, .stNumberInput input {{
-        color: var(--text-main) !important;
-    }}
+        color: #ffffff !important;
+    }
+    /* Menu suspenso de opções dos Selectboxes */
+    [data-baseweb="popover"], [data-baseweb="menu"], ul[role="listbox"] {
+        background-color: #0f172a !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        border-radius: 0.75rem !important;
+    }
+    li[role="option"] {
+        color: #f8fafc !important;
+    }
+    li[role="option"]:hover, li[aria-selected="true"] {
+        background-color: rgba(14, 165, 233, 0.25) !important;
+        color: #38bdf8 !important;
+    }
+    .stTextInput input, .stNumberInput input {
+        color: #ffffff !important;
+    }
+
+    /* Sliders e Toggles */
+    [data-testid="stSlider"] {
+        color: #38bdf8 !important;
+    }
 
     /* Expanders */
-    [data-testid="stExpander"] {{
+    [data-testid="stExpander"] {
         background: var(--card-bg) !important;
         border: 1px solid var(--card-border) !important;
         border-radius: 0.85rem !important;
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15) !important;
-    }}
+    }
 
-    /* Dataframe Tables */
-    [data-testid="stDataFrame"] {{
+    /* Tabelas e Dataframes */
+    [data-testid="stDataFrame"] {
         border: 1px solid var(--card-border) !important;
         border-radius: 0.75rem !important;
         overflow: hidden !important;
-    }}
+    }
 
-    /* Badges & Status Pills */
-    .badge-pill {{
+    /* Badges e Pílulas de Status */
+    .badge-pill {
         display: inline-flex;
         align-items: center;
         gap: 6px;
@@ -285,29 +285,29 @@ def obter_css_tema(tema: str = "dark") -> str:
         letter-spacing: 0.05em;
         padding: 4px 12px;
         border-radius: 9999px;
-    }}
-    .badge-cyan {{
+    }
+    .badge-cyan {
         background: rgba(14, 165, 233, 0.15);
         color: #38bdf8;
         border: 1px solid rgba(14, 165, 233, 0.35);
-    }}
-    .badge-emerald {{
+    }
+    .badge-emerald {
         background: rgba(16, 185, 129, 0.15);
         color: #34d399;
         border: 1px solid rgba(16, 185, 129, 0.35);
-    }}
-    .badge-rose {{
+    }
+    .badge-rose {
         background: rgba(244, 63, 94, 0.15);
         color: #fb7185;
         border: 1px solid rgba(244, 63, 94, 0.35);
-    }}
-    .badge-amber {{
+    }
+    .badge-amber {
         background: rgba(245, 158, 11, 0.15);
         color: #fbbf24;
         border: 1px solid rgba(245, 158, 11, 0.35);
-    }}
+    }
 
-    .math-formula {{
+    .math-formula {
         background: rgba(15, 23, 42, 0.85);
         border-left: 3px solid #0ea5e9;
         padding: 10px 14px;
@@ -316,10 +316,9 @@ def obter_css_tema(tema: str = "dark") -> str:
         font-size: 0.82rem;
         color: #38bdf8;
         margin: 6px 0;
-    }}
+    }
     </style>
     """
-    return css
 
 
 def obter_logo_base64() -> str:
@@ -420,15 +419,15 @@ def render_header_executivo(total_ativos: int, total_venda: int, total_locacao: 
                 <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px;">
                     <span class="badge-pill badge-cyan">Expandh BI Suite • AvaliaIA</span>
                     <span class="badge-pill badge-emerald">🟢 Kurole Live Sync ({total_ativos} ativos)</span>
-                    <span style="font-size: 0.78rem; color: var(--text-muted);">Publicado no XML: {data_pub}</span>
+                    <span style="font-size: 0.78rem; color: #94a3b8;">Publicado no XML: {data_pub}</span>
                 </div>
                 <div style="display: flex; align-items: center;">
                     {logo_tag}
                     <div>
-                        <h1 style="font-size: 1.85rem; font-weight: 800; margin: 0; color: var(--text-main); letter-spacing: -0.02em;">
+                        <h1 style="font-size: 1.85rem; font-weight: 800; margin: 0; color: #ffffff; letter-spacing: -0.02em;">
                             Sistema de Avaliação & Inteligência Imobiliária
                         </h1>
-                        <p style="font-size: 0.88rem; color: var(--text-muted); margin: 3px 0 0 0;">
+                        <p style="font-size: 0.88rem; color: #94a3b8; margin: 3px 0 0 0;">
                             Auditoria NBR 14653-2, Amostragem em Tempo Real ZAP Imóveis e Laudos Periciais com IA • Sertãozinho/SP
                         </p>
                     </div>
@@ -437,25 +436,6 @@ def render_header_executivo(total_ativos: int, total_venda: int, total_locacao: 
         </div>
     </div>
     """, unsafe_allow_html=True)
-
-
-def render_seletor_tema_sidebar():
-    """Renderiza seletor de tema executivo (Escuro 🌙, Claro ☀️, Navy 🏛️) na barra lateral."""
-    st.markdown("<small style='font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em;'>🎨 Tema Visual Expandh</small>", unsafe_allow_html=True)
-    tema_atual = st.session_state.get("app_theme", "dark")
-    idx_padrao = 0 if tema_atual == "dark" else (1 if tema_atual == "light" else 2)
-    novo_label = st.radio(
-        "Selecione o Tema:",
-        options=["🌙 Escuro", "☀️ Claro", "🏛️ Navy"],
-        index=idx_padrao,
-        horizontal=True,
-        label_visibility="collapsed",
-        key="radio_theme_picker",
-    )
-    novo_tema = "dark" if "Escuro" in novo_label else ("light" if "Claro" in novo_label else "navy")
-    if novo_tema != tema_atual:
-        st.session_state["app_theme"] = novo_tema
-        st.rerun()
 
 
 def render_modal_metodologia():
