@@ -180,7 +180,7 @@ def gerar_briefing_matinal(forcar_download: bool = False) -> dict:
     q_acima = sum(1 for x in aud_lista if "Acima do Mercado" in str(x.get("Status", "")) or "Levemente Acima" in str(x.get("Status", "")))
     q_oportunidade = sum(1 for x in aud_lista if "Oportunidade" in str(x.get("Status", "")))
 
-    # 5. Top 3 Oportunidades do Dia (Menor desvio / maior desconto em relação à NBR)
+    # 5. Top Oportunidades do Dia (Menor desvio / maior desconto em relação à NBR)
     # Filtro anti-armadilha: exclui imóveis com condicionante de preço (ágio / parcelas a vencer)
     oportunidades_candidatas = [
         x for x in aud_lista
@@ -188,29 +188,28 @@ def gerar_briefing_matinal(forcar_download: bool = False) -> dict:
         and not x.get("Condicionante Preço", False)
         and not any(k in str(x.get("Status", "")) for k in ["Ágio", "Parcelas", "Condicionado"])
     ]
-    # Ordenar pelos maiores descontos
     oportunidades_candidatas.sort(key=lambda x: _safe_float(x.get("Desvio_Num")))
-    top_oportunidades = []
-    for item in oportunidades_candidatas[:3]:
+
+    def _formatar_item_oportunidade(item):
         cid = str(item.get("Código", ""))
         preco_anunc = _safe_float(item.get("Preço Anunciado (R$)"))
         preco_merc = _safe_float(item.get("Valor Mercado Estimado (R$)"))
         desvio = _safe_float(item.get("Desvio_Num"))
+        trans = item.get("Transação", "Venda" if cid.startswith("V") else "Locação")
 
-        # Gerar WhatsApp pré-formatado para comprador/investidor
         msg_wa = argumentario.gerar_argumentario_whatsapp(
             dados_imovel=item,
             tipo_publico="comprador",
-            nome_cliente="Investidor/Comprador",
+            nome_cliente="Investidor/Comprador" if trans == "Venda" else "Prezado(a) Locatário(a)",
             nome_corretor="Equipe Expandh"
         )
         link_wa = argumentario.criar_link_direto_whatsapp(mensagem=msg_wa)
 
-        top_oportunidades.append({
+        return {
             "codigo": cid,
             "titulo": item.get("Título", "Imóvel"),
             "tipo": item.get("Tipo", "Imóvel"),
-            "transacao": item.get("Transação", "Venda"),
+            "transacao": trans,
             "bairro": item.get("Bairro", "Sertãozinho"),
             "preco_anunciado": preco_anunc,
             "preco_anunciado_fmt": f"{preco_anunc:,.0f}".replace(",", "."),
@@ -221,23 +220,29 @@ def gerar_briefing_matinal(forcar_download: bool = False) -> dict:
             "diagnostico": item.get("Diagnóstico", "Preço altamente competitivo."),
             "mensagem_wa": msg_wa,
             "link_wa": link_wa,
-        })
+        }
 
-    # 6. Top 3 Alertas de Reprecificação (Maior sobrepreço em relação à NBR)
+    op_venda_cands = [x for x in oportunidades_candidatas if x.get("Transação") == "Venda" or str(x.get("Código", "")).startswith("V")]
+    op_loc_cands = [x for x in oportunidades_candidatas if x.get("Transação") == "Locação" or str(x.get("Código", "")).startswith("L")]
+
+    top_oportunidades = [_formatar_item_oportunidade(x) for x in oportunidades_candidatas[:3]]
+    top_oportunidades_venda = [_formatar_item_oportunidade(x) for x in op_venda_cands[:3]]
+    top_oportunidades_locacao = [_formatar_item_oportunidade(x) for x in op_loc_cands[:3]]
+
+    # 6. Alertas de Reprecificação (Maior sobrepreço em relação à NBR)
     sobrepreco_candidatas = [
         x for x in aud_lista
         if "Muito Acima" in str(x.get("Status", "")) or _safe_float(x.get("Desvio_Num")) > 15.0
     ]
-    # Ordenar pelos maiores desvios positivos
     sobrepreco_candidatas.sort(key=lambda x: _safe_float(x.get("Desvio_Num")), reverse=True)
-    top_reprecificacao = []
-    for item in sobrepreco_candidatas[:3]:
+
+    def _formatar_item_reprecificacao(item):
         cid = str(item.get("Código", ""))
         preco_anunc = _safe_float(item.get("Preço Anunciado (R$)"))
         preco_merc = _safe_float(item.get("Valor Mercado Estimado (R$)"))
         desvio = _safe_float(item.get("Desvio_Num"))
+        trans = item.get("Transação", "Venda" if cid.startswith("V") else "Locação")
 
-        # Gerar WhatsApp pré-formatado para proprietário
         msg_wa = argumentario.gerar_argumentario_whatsapp(
             dados_imovel=item,
             tipo_publico="proprietario",
@@ -246,11 +251,11 @@ def gerar_briefing_matinal(forcar_download: bool = False) -> dict:
         )
         link_wa = argumentario.criar_link_direto_whatsapp(mensagem=msg_wa)
 
-        top_reprecificacao.append({
+        return {
             "codigo": cid,
             "titulo": item.get("Título", "Imóvel"),
             "tipo": item.get("Tipo", "Imóvel"),
-            "transacao": item.get("Transação", "Venda"),
+            "transacao": trans,
             "bairro": item.get("Bairro", "Sertãozinho"),
             "preco_anunciado": preco_anunc,
             "preco_anunciado_fmt": f"{preco_anunc:,.0f}".replace(",", "."),
@@ -261,7 +266,14 @@ def gerar_briefing_matinal(forcar_download: bool = False) -> dict:
             "diagnostico": item.get("Diagnóstico", "Sobrepreço crítico com perda de liquidez."),
             "mensagem_wa": msg_wa,
             "link_wa": link_wa,
-        })
+        }
+
+    rep_venda_cands = [x for x in sobrepreco_candidatas if x.get("Transação") == "Venda" or str(x.get("Código", "")).startswith("V")]
+    rep_loc_cands = [x for x in sobrepreco_candidatas if x.get("Transação") == "Locação" or str(x.get("Código", "")).startswith("L")]
+
+    top_reprecificacao = [_formatar_item_reprecificacao(x) for x in sobrepreco_candidatas[:3]]
+    top_reprecificacao_venda = [_formatar_item_reprecificacao(x) for x in rep_venda_cands[:3]]
+    top_reprecificacao_locacao = [_formatar_item_reprecificacao(x) for x in rep_loc_cands[:3]]
 
     briefing = {
         "sucesso": True,
@@ -277,12 +289,26 @@ def gerar_briefing_matinal(forcar_download: bool = False) -> dict:
             "levemente_acima": q_acima,
             "oportunidades": q_oportunidade,
         },
+        "estatisticas_vendas": {
+            "total": total_vendas,
+            "oportunidades": len(op_venda_cands),
+            "muito_acima": len(rep_venda_cands),
+        },
+        "estatisticas_locacao": {
+            "total": total_locacao,
+            "oportunidades": len(op_loc_cands),
+            "muito_acima": len(rep_loc_cands),
+        },
         "novos_imoveis": novos,
         "total_novos": len(novos),
         "mudancas_preco": mudancas_preco,
         "total_mudancas_preco": len(mudancas_preco),
         "top_oportunidades": top_oportunidades,
+        "top_oportunidades_venda": top_oportunidades_venda,
+        "top_oportunidades_locacao": top_oportunidades_locacao,
         "top_reprecificacao": top_reprecificacao,
+        "top_reprecificacao_venda": top_reprecificacao_venda,
+        "top_reprecificacao_locacao": top_reprecificacao_locacao,
         "data_kurole_pub": cabecalho.get("data_publicacao", ""),
     }
 
@@ -307,14 +333,21 @@ def obter_ou_carregar_ultimo_briefing(forcar_atualizacao: bool = False) -> dict:
                 return dados
         except Exception:
             pass
-def render_painel_briefing():
-    """Renderiza a aba interativa de Briefing Matinal & Oportunidades no Streamlit."""
+def render_painel_briefing(departamento: str = "Total"):
+    """Renderiza a aba interativa de Briefing Matinal & Oportunidades no Streamlit, adaptada por departamento."""
     import streamlit as st
 
     c_tit, c_btn = st.columns([3.5, 1.2])
     with c_tit:
-        st.subheader("☀️ Briefing Matinal Expandh • Inteligência da Carteira")
-        st.caption("Visão estratégica do dia para a diretoria e equipe de corretores.")
+        if departamento == "Vendas":
+            st.subheader("☀️ Briefing Matinal • Departamento de VENDAS")
+            st.caption("Oportunidades com deságio NBR e radar de reprecificação urgente para compradores e proprietários de venda.")
+        elif departamento == "Locação":
+            st.subheader("☀️ Briefing Matinal • Departamento de LOCAÇÃO")
+            st.caption("Oportunidades de locação com cap rate atrativo e radar de aluguéis acima da média de mercado.")
+        else:
+            st.subheader("☀️ Briefing Matinal Expandh • Inteligência da Carteira")
+            st.caption("Visão estratégica do dia para a diretoria e equipe de corretores.")
     with c_btn:
         st.markdown("<div style='height: 12px;'></div>", unsafe_allow_html=True)
         if st.button("🔄 Atualizar Briefing Agora", type="secondary", use_container_width=True, help="Recalcula as oportunidades e sincroniza com o feed mais recente"):
@@ -330,6 +363,13 @@ def render_painel_briefing():
         return
 
     # Banner informativo com data e hora (Estilo Expandh BI)
+    if departamento == "Vendas":
+        badge_feed = f"🏷️ Feed Kurole: {briefing.get('total_vendas')} imóveis à venda"
+    elif departamento == "Locação":
+        badge_feed = f"🔑 Feed Kurole: {briefing.get('total_locacao')} imóveis para locação"
+    else:
+        badge_feed = f"📡 Feed Kurole: {briefing.get('total_ativos')} imóveis ativos ({briefing.get('total_vendas')} Venda | {briefing.get('total_locacao')} Locação)"
+
     st.markdown(f"""
     <div class="glass-card" style="background: linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(37, 99, 235, 0.15) 100%); border: 1px solid rgba(56, 189, 248, 0.35); border-left: 5px solid #0ea5e9; padding: 18px 22px; margin-bottom: 24px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.35);">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
@@ -338,7 +378,7 @@ def render_painel_briefing():
                 <span style="font-size: 0.85rem; color: #94a3b8; margin-left: 10px;">(Gerado às {briefing.get('hora_geracao')})</span>
             </div>
             <div style="font-size: 0.8rem; font-weight: 700; color: #38bdf8; background: rgba(14, 165, 233, 0.15); border: 1px solid rgba(56, 189, 248, 0.3); padding: 5px 12px; border-radius: 9999px;">
-                📡 Feed Kurole: {briefing.get('total_ativos')} imóveis ativos ({briefing.get('total_vendas')} Venda | {briefing.get('total_locacao')} Locação)
+                {badge_feed}
             </div>
         </div>
     </div>
@@ -347,24 +387,45 @@ def render_painel_briefing():
     # Métricas Rápidas
     k1, k2, k3, k4, k5 = st.columns(5)
     diag = briefing.get("estatisticas_diagnostico", {})
+
+    if departamento == "Vendas":
+        total_radar = briefing.get("total_vendas", 0)
+        q_oport = briefing.get("estatisticas_vendas", {}).get("oportunidades", 0)
+        q_acima = briefing.get("estatisticas_vendas", {}).get("muito_acima", 0)
+    elif departamento == "Locação":
+        total_radar = briefing.get("total_locacao", 0)
+        q_oport = briefing.get("estatisticas_locacao", {}).get("oportunidades", 0)
+        q_acima = briefing.get("estatisticas_locacao", {}).get("muito_acima", 0)
+    else:
+        total_radar = briefing.get("total_ativos", 0)
+        q_oport = diag.get("oportunidades", 0)
+        q_acima = diag.get("muito_acima", 0)
+
     with k1:
-        st.metric("🏢 Total no Radar", f"{briefing.get('total_ativos')} imóveis")
+        st.metric("🏢 Total no Radar", f"{total_radar} imóveis")
     with k2:
         st.metric("🆕 Novos Hoje", f"{briefing.get('total_novos')} novos")
     with k3:
         st.metric("🏷️ Mudanças de Preço", f"{briefing.get('total_mudancas_preco')} alterados")
     with k4:
-        st.metric("🔵 Oportunidades (< -7%)", f"{diag.get('oportunidades', 0)} imóveis")
+        st.metric("🔵 Oportunidades (< -7%)", f"{q_oport} imóveis")
     with k5:
-        st.metric("🔴 Muito Acima (> 15%)", f"{diag.get('muito_acima', 0)} imóveis")
+        st.metric("🔴 Muito Acima (> 15%)", f"{q_acima} imóveis")
 
     st.markdown("---")
 
     # SEÇÃO 1: TOP 3 OPORTUNIDADES
-    st.markdown("### 🚀 Top 3 Oportunidades do Dia • Para Compradores e Investidores")
-    st.caption("Imóveis com maior desconto em relação ao valor justo de fechamento calculado pela NBR 14653.")
+    if departamento == "Vendas":
+        st.markdown("### 🚀 Top 3 Oportunidades de VENDA • Para Compradores e Investidores")
+        top_op = briefing.get("top_oportunidades_venda") or [x for x in briefing.get("top_oportunidades", []) if x.get("transacao") == "Venda"]
+    elif departamento == "Locação":
+        st.markdown("### 🚀 Top 3 Oportunidades de LOCAÇÃO • Para Novos Locatários")
+        top_op = briefing.get("top_oportunidades_locacao") or [x for x in briefing.get("top_oportunidades", []) if x.get("transacao") == "Locação"]
+    else:
+        st.markdown("### 🚀 Top 3 Oportunidades do Dia • Para Compradores e Investidores")
+        top_op = briefing.get("top_oportunidades", [])
 
-    top_op = briefing.get("top_oportunidades", [])
+    st.caption("Imóveis com maior desconto em relação ao valor justo de fechamento calculado pela NBR 14653.")
     if top_op:
         cols_op = st.columns(len(top_op))
         for idx, op in enumerate(top_op):
@@ -401,10 +462,17 @@ def render_painel_briefing():
     st.markdown("<br>", unsafe_allow_html=True)
 
     # SEÇÃO 2: TOP 3 REPRECIFICAÇÃO
-    st.markdown("### ⚠️ Radar de Reprecificação Urgente • Para Contatar Proprietários")
-    st.caption("Imóveis com maior sobrepreço (>15%), com risco de perda de liquidez e desinteresse nos portais.")
+    if departamento == "Vendas":
+        st.markdown("### ⚠️ Radar de Reprecificação de VENDA • Para Contatar Proprietários")
+        top_rep = briefing.get("top_reprecificacao_venda") or [x for x in briefing.get("top_reprecificacao", []) if x.get("transacao") == "Venda"]
+    elif departamento == "Locação":
+        st.markdown("### ⚠️ Radar de Aluguéis Acima do Mercado • Para Negociação de Locação")
+        top_rep = briefing.get("top_reprecificacao_locacao") or [x for x in briefing.get("top_reprecificacao", []) if x.get("transacao") == "Locação"]
+    else:
+        st.markdown("### ⚠️ Radar de Reprecificação Urgente • Para Contatar Proprietários")
+        top_rep = briefing.get("top_reprecificacao", [])
 
-    top_rep = briefing.get("top_reprecificacao", [])
+    st.caption("Imóveis com maior sobrepreço (>15%), com risco de perda de liquidez e desinteresse nos portais.")
     if top_rep:
         cols_rep = st.columns(len(top_rep))
         for idx, rep in enumerate(top_rep):
@@ -445,6 +513,15 @@ def render_painel_briefing():
     c_nov, c_mud = st.columns(2)
 
     novos_imoveis = briefing.get("novos_imoveis", [])
+    mudancas_preco = briefing.get("mudancas_preco", [])
+
+    if departamento == "Vendas":
+        novos_imoveis = [x for x in novos_imoveis if x.get("transacao") == "Venda" or str(x.get("id", "")).startswith("V")]
+        mudancas_preco = [x for x in mudancas_preco if x.get("transacao") == "Venda" or str(x.get("id", "")).startswith("V")]
+    elif departamento == "Locação":
+        novos_imoveis = [x for x in novos_imoveis if x.get("transacao") == "Locação" or str(x.get("id", "")).startswith("L")]
+        mudancas_preco = [x for x in mudancas_preco if x.get("transacao") == "Locação" or str(x.get("id", "")).startswith("L")]
+
     with c_nov:
         st.markdown(f"**🆕 Novos Imóveis Cadastrados ({len(novos_imoveis)}):**")
         if novos_imoveis:
@@ -453,7 +530,6 @@ def render_painel_briefing():
         else:
             st.success("✅ Nenhum novo cadastro de imóvel nas últimas 24 horas.")
 
-    mudancas_preco = briefing.get("mudancas_preco", [])
     with c_mud:
         st.markdown(f"**🏷️ Alterações Recentes de Preço ({len(mudancas_preco)}):**")
         if mudancas_preco:

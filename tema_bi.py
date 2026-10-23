@@ -9,6 +9,7 @@ Portado diretamente da Suite Executiva de BI da Expandh Imóveis:
 """
 import base64
 from pathlib import Path
+from typing import Union, Dict
 import streamlit as st
 
 
@@ -396,40 +397,58 @@ def obter_logo_base64() -> str:
     return ""
 
 
-def render_gatekeeper_login(senha_esperada: str) -> bool:
+def render_gatekeeper_login(senhas: Union[dict, str] = "expandh2026") -> bool:
     """
-    Renderiza o Modal Gatekeeper idêntico ao do projeto BI:
-    - Fundo escuro com backdrop blur
-    - Card central em glassmorphism com ícone de cadeado ciano reluzente
-    - Subtítulo em ciano caixa alta
-    - Botão degradê ciano/azul com sombra profunda
-    - Rodapé criptografado 2026
+    Renderiza o Modal Gatekeeper executivo com segmentação de departamentos:
+    - 🌐 Diretoria (Visão Total)
+    - 🏷️ Departamento de Vendas
+    - 🔑 Departamento de Locação
     """
     if st.session_state.get("authenticated", False):
         return True
+
+    if isinstance(senhas, dict):
+        senha_master = senhas.get("master", "expandh2026")
+        senha_vendas = senhas.get("vendas", "vendas2026")
+        senha_locacao = senhas.get("locacao", "locacao2026")
+    else:
+        senha_master = str(senhas)
+        senha_vendas = "vendas2026"
+        senha_locacao = "locacao2026"
 
     # Centralização com colunas
     _, col_centro, _ = st.columns([1, 1.8, 1])
 
     with col_centro:
-        st.markdown("<div style='height: 40px;'></div>", unsafe_allow_html=True)
+        st.markdown("<div style='height: 30px;'></div>", unsafe_allow_html=True)
         
         logo_b64 = obter_logo_base64()
         img_html = f'<img src="data:image/png;base64,{logo_b64}" width="160" style="margin: 0 auto 12px auto; display: block;" />' if logo_b64 else ''
 
         st.markdown(f"""
-        <div class="glass-card" style="padding: 36px 30px; text-align: center; border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6), 0 0 25px rgba(14, 165, 233, 0.15);">
-            <div style="display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 18px; background: rgba(14, 165, 233, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); color: #38bdf8; margin-bottom: 16px; box-shadow: 0 0 20px rgba(14, 165, 233, 0.25);">
-                <svg width="32" height="32" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+        <div class="glass-card" style="padding: 32px 28px; text-align: center; border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.6), 0 0 25px rgba(14, 165, 233, 0.15);">
+            <div style="display: inline-flex; align-items: center; justify-content: center; width: 60px; height: 60px; border-radius: 18px; background: rgba(14, 165, 233, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); color: #38bdf8; margin-bottom: 14px; box-shadow: 0 0 20px rgba(14, 165, 233, 0.25);">
+                <svg width="30" height="30" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
             </div>
             {img_html}
-            <h2 style="font-size: 1.75rem; font-weight: 800; color: #ffffff; margin: 0 0 4px 0; letter-spacing: -0.02em;">Expandh Imóveis</h2>
-            <div style="color: #38bdf8; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 10px;">Portal de Inteligência Imobiliária & NBR 14653</div>
-            <p style="color: #94a3b8; font-size: 0.82rem; margin: 0 0 20px 0; line-height: 1.4;">Acesso restrito à Diretoria e Equipe Técnica da Expandh</p>
+            <h2 style="font-size: 1.7rem; font-weight: 800; color: #ffffff; margin: 0 0 4px 0; letter-spacing: -0.02em;">Expandh Imóveis</h2>
+            <div style="color: #38bdf8; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 8px;">Portal de Inteligência Imobiliária & NBR 14653</div>
+            <p style="color: #94a3b8; font-size: 0.82rem; margin: 0 0 16px 0; line-height: 1.4;">Acesso segmentado por departamento e diretoria</p>
         </div>
         """, unsafe_allow_html=True)
 
         with st.form("form_gatekeeper_login"):
+            dep_selecionado = st.selectbox(
+                "Departamento / Perfil de Acesso:",
+                options=[
+                    "🌐 Diretoria (Visão Total)",
+                    "🏷️ Departamento de Vendas",
+                    "🔑 Departamento de Locação",
+                ],
+                index=0,
+                help="Cada departamento visualiza as carteiras e métricas pertinentes à sua função.",
+            )
+
             senha_digitada = st.text_input(
                 "Senha de Acesso:",
                 type="password",
@@ -444,39 +463,78 @@ def render_gatekeeper_login(senha_esperada: str) -> bool:
             btn_entrar = st.form_submit_button("Acessar Painel Executivo 🚀", use_container_width=True, type="primary")
 
             if btn_entrar:
-                if senha_digitada == senha_esperada:
+                autenticado = False
+                perfil = "Diretoria"
+                visao = "Total"
+
+                if "Diretoria" in dep_selecionado:
+                    if senha_digitada == senha_master:
+                        autenticado = True
+                        perfil = "Diretoria"
+                        visao = "Total"
+                    else:
+                        st.error("❌ Senha incorreta para o perfil de Diretoria.")
+                elif "Vendas" in dep_selecionado:
+                    if senha_digitada in [senha_vendas, senha_master]:
+                        autenticado = True
+                        perfil = "Vendas"
+                        visao = "Vendas"
+                    else:
+                        st.error("❌ Senha incorreta para o Departamento de Vendas.")
+                elif "Locação" in dep_selecionado:
+                    if senha_digitada in [senha_locacao, senha_master]:
+                        autenticado = True
+                        perfil = "Locação"
+                        visao = "Locação"
+                    else:
+                        st.error("❌ Senha incorreta para o Departamento de Locação.")
+
+                if autenticado:
                     st.session_state["authenticated"] = True
+                    st.session_state["perfil_usuario"] = perfil
+                    st.session_state["departamento_ativo"] = visao
                     st.rerun()
-                else:
-                    st.error("❌ Senha incorreta. Verifique com a administração da Expandh.")
 
         st.markdown("""
         <div style="text-align: center; color: #64748b; font-size: 0.72rem; margin-top: 15px;">
-            Expandh Imóveis &bull; Ambiente Criptografado &bull; 2026
+            Expandh Imóveis &bull; Ambiente Seguro & Criptografado &bull; 2026
         </div>
         """, unsafe_allow_html=True)
 
     return False
 
 
-def render_header_executivo(total_ativos: int, total_venda: int, total_locacao: int, data_pub: str):
+def render_header_executivo(total_ativos: int, total_venda: int, total_locacao: int, data_pub: str, departamento_ativo: str = "Total"):
     """
     Renderiza o Topo Executivo idêntico ao do projeto BI:
     - Borda lateral ciano forte (border-l-4 border-cyan-500)
-    - Tag 'EXPANDH BI SUITE • AVALIAIA'
+    - Tag de departamento dinâmica
     - Título 'Sistema de Inteligência Imobiliária & NBR 14653'
     - Badges dinâmicos de status Kurole e CRECI
     """
     logo_b64 = obter_logo_base64()
     logo_tag = f'<img src="data:image/png;base64,{logo_b64}" height="42" style="vertical-align: middle; margin-right: 14px;" />' if logo_b64 else ''
 
+    if departamento_ativo == "Vendas":
+        tag_dep = '<span class="badge-pill badge-cyan">Módulo de Vendas • AvaliaIA</span>'
+        badge_status = f'<span class="badge-pill badge-emerald">🏷️ Carteira de Vendas ({total_venda} ativos)</span>'
+        subtitulo = "Auditoria NBR 14653-2, Precificação Competitiva e Laudos de Venda • Sertãozinho/SP"
+    elif departamento_ativo == "Locação":
+        tag_dep = '<span class="badge-pill badge-cyan">Módulo de Locação • AvaliaIA</span>'
+        badge_status = f'<span class="badge-pill badge-emerald">🔑 Carteira de Locação ({total_locacao} ativos)</span>'
+        subtitulo = "Auditoria de Aluguel, Cap Rate de Mercado e Rentabilidade • Sertãozinho/SP"
+    else:
+        tag_dep = '<span class="badge-pill badge-cyan">Expandh BI Suite • Visão Total</span>'
+        badge_status = f'<span class="badge-pill badge-emerald">🟢 Kurole Live Sync ({total_ativos} ativos: {total_venda} Venda | {total_locacao} Locação)</span>'
+        subtitulo = "Auditoria NBR 14653-2, Amostragem em Tempo Real ZAP Imóveis e Laudos Periciais com IA • Sertãozinho/SP"
+
     st.markdown(f"""
     <div class="header-card">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
             <div>
                 <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px;">
-                    <span class="badge-pill badge-cyan">Expandh BI Suite • AvaliaIA</span>
-                    <span class="badge-pill badge-emerald">🟢 Kurole Live Sync ({total_ativos} ativos)</span>
+                    {tag_dep}
+                    {badge_status}
                     <span style="font-size: 0.78rem; color: #94a3b8;">Publicado no XML: {data_pub}</span>
                 </div>
                 <div style="display: flex; align-items: center;">
@@ -486,7 +544,7 @@ def render_header_executivo(total_ativos: int, total_venda: int, total_locacao: 
                             Sistema de Avaliação & Inteligência Imobiliária
                         </h1>
                         <p style="font-size: 0.88rem; color: #94a3b8; margin: 3px 0 0 0;">
-                            Auditoria NBR 14653-2, Amostragem em Tempo Real ZAP Imóveis e Laudos Periciais com IA • Sertãozinho/SP
+                            {subtitulo}
                         </p>
                     </div>
                 </div>

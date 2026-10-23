@@ -47,22 +47,32 @@ st.set_page_config(
 st.markdown(tema_bi.obter_css_tema(), unsafe_allow_html=True)
 
 
-# ==================== CONTROLE DE ACESSO (AUTENTICAÇÃO POR SENHA) ====================
+# ==================== CONTROLE DE ACESSO (AUTENTICAÇÃO POR SENHA & DEPARTAMENTO) ====================
 def check_password() -> bool:
-    """Verifica se o usuário está autenticado ou exibe o Gatekeeper executivo."""
+    """Verifica se o usuário está autenticado ou exibe o Gatekeeper executivo segmentado."""
     if st.session_state.get("authenticated", False):
+        if "perfil_usuario" not in st.session_state:
+            st.session_state["perfil_usuario"] = "Diretoria"
+        if "departamento_ativo" not in st.session_state:
+            st.session_state["departamento_ativo"] = "Total"
         return True
 
-    # Obter senha esperada (Streamlit Cloud Secrets > .env > padrão "expandh2026")
-    senha_esperada = "expandh2026"
-    try:
-        if "APP_PASSWORD" in st.secrets:
-            senha_esperada = str(st.secrets["APP_PASSWORD"])
-    except Exception:
-        pass
-    senha_esperada = os.getenv("APP_PASSWORD", senha_esperada)
+    def _obter_senha(chave_secret, chave_env, default):
+        s = default
+        try:
+            if chave_secret in st.secrets:
+                s = str(st.secrets[chave_secret])
+        except Exception:
+            pass
+        return os.getenv(chave_env, s)
 
-    return tema_bi.render_gatekeeper_login(senha_esperada)
+    senhas_dict = {
+        "master": _obter_senha("APP_PASSWORD", "APP_PASSWORD", "expandh2026"),
+        "vendas": _obter_senha("APP_PASSWORD_VENDAS", "APP_PASSWORD_VENDAS", "vendas2026"),
+        "locacao": _obter_senha("APP_PASSWORD_LOCACAO", "APP_PASSWORD_LOCACAO", "locacao2026"),
+    }
+
+    return tema_bi.render_gatekeeper_login(senhas_dict)
 
 if not check_password():
     st.stop()
@@ -98,7 +108,10 @@ if data_pub_raw:
 
 # Contagem prévia de divergências para o badge do menu
 dados_div_resumo = auditoria_divergencias.auditar_todas_divergencias(feed_imoveis=imoveis_lista, forcar_recalculo=False)
-total_alertas_div = dados_div_resumo.get("imoveis_com_divergencia", 0)
+detalhes_div = dados_div_resumo.get("detalhes", []) if dados_div_resumo else []
+total_alertas_div = dados_div_resumo.get("imoveis_com_divergencia", 0) if dados_div_resumo else 0
+total_alertas_venda = len(set(d.get("Código") for d in detalhes_div if d.get("Transação") == "Venda" or str(d.get("Código", "")).startswith("V")))
+total_alertas_loc = len(set(d.get("Código") for d in detalhes_div if d.get("Transação") == "Locação" or str(d.get("Código", "")).startswith("L")))
 
 # ==================== BARRA LATERAL (NAVEGAÇÃO & CONFIGURAÇÕES) ====================
 with st.sidebar:
@@ -109,37 +122,113 @@ with st.sidebar:
     st.title("AvaliaIA Pro")
     st.caption("Engenharia de Avaliações com IA • NBR 14653")
     
+    perfil_usr = st.session_state.get("perfil_usuario", "Diretoria")
+    dep_ativo = st.session_state.get("departamento_ativo", "Total")
+
     # Status de login e botão de Sair
     col_status, col_btn = st.columns([1.8, 1.2])
     with col_status:
-        st.markdown("<small style='color: #10b981; font-weight: 700;'>🟢 CONECTADO</small><br><small style='color: var(--text-muted);'>Equipe Expandh</small>", unsafe_allow_html=True)
+        badge_perfil = "🌐 Diretoria" if perfil_usr == "Diretoria" else ("🏷️ Equipe Vendas" if perfil_usr == "Vendas" else "🔑 Equipe Locação")
+        st.markdown(f"<small style='color: #10b981; font-weight: 700;'>🟢 CONECTADO</small><br><small style='color: var(--text-muted);'>{badge_perfil}</small>", unsafe_allow_html=True)
     with col_btn:
         if st.button("🚪 Sair", key="btn_logout", help="Encerrar sessão no painel"):
             st.session_state["authenticated"] = False
+            st.session_state.pop("perfil_usuario", None)
+            st.session_state.pop("departamento_ativo", None)
             st.rerun()
-            
+
+    # Se for perfil Diretoria, exibe o seletor rápido para alternar visões
+    if perfil_usr == "Diretoria":
+        st.markdown(
+            "<div style='font-size: 0.70rem; font-weight: 800; letter-spacing: 0.08em; color: #38bdf8; text-transform: uppercase; margin: 10px 0 4px 0;'>🏢 Visão Departamental</div>",
+            unsafe_allow_html=True,
+        )
+        opcoes_visao = ["🌐 Total", "🏷️ Vendas", "🔑 Locação"]
+        idx_visao = 0
+        if dep_ativo == "Vendas":
+            idx_visao = 1
+        elif dep_ativo == "Locação":
+            idx_visao = 2
+
+        dep_escolhido = st.radio(
+            "Visão Departamental:",
+            options=opcoes_visao,
+            index=idx_visao,
+            label_visibility="collapsed",
+            key="radio_seletor_visao",
+            horizontal=True,
+        )
+        novo_dep = "Total"
+        if "Vendas" in dep_escolhido:
+            novo_dep = "Vendas"
+        elif "Locação" in dep_escolhido:
+            novo_dep = "Locação"
+
+        if novo_dep != dep_ativo:
+            st.session_state["departamento_ativo"] = novo_dep
+            st.rerun()
+    elif perfil_usr == "Vendas":
+        st.markdown(
+            "<div style='background: rgba(56, 189, 248, 0.12); border: 1px solid rgba(56, 189, 248, 0.35); padding: 6px 10px; border-radius: 8px; font-size: 0.72rem; font-weight: 800; color: #38bdf8; text-align: center; margin: 8px 0 4px 0;'>🏷️ DEPARTAMENTO DE VENDAS</div>",
+            unsafe_allow_html=True,
+        )
+        st.session_state["departamento_ativo"] = "Vendas"
+    elif perfil_usr == "Locação":
+        st.markdown(
+            "<div style='background: rgba(16, 185, 129, 0.12); border: 1px solid rgba(16, 185, 129, 0.35); padding: 6px 10px; border-radius: 8px; font-size: 0.72rem; font-weight: 800; color: #10b981; text-align: center; margin: 8px 0 4px 0;'>🔑 DEPARTAMENTO DE LOCAÇÃO</div>",
+            unsafe_allow_html=True,
+        )
+        st.session_state["departamento_ativo"] = "Locação"
+
     st.markdown("---")
 
-    # ==================== MENU LATERAL DE NAVEGAÇÃO ====================
+    # ==================== MENU LATERAL DE NAVEGAÇÃO SEGMENTADO ====================
     st.markdown(
         "<div style='font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; color: #94a3b8; text-transform: uppercase; margin-bottom: 8px;'>🧭 Navegação Principal</div>",
         unsafe_allow_html=True,
     )
     
-    opcoes_menu = [
-        "☀️ Briefing Matinal & Oportunidades",
-        f"🏷️ Carteira de VENDAS ({len(imoveis_venda)} imóveis)",
-        f"🔑 Carteira de LOCAÇÃO ({len(imoveis_locacao)} imóveis)",
-        f"🔍 Conformidade Cadastral ({total_alertas_div} alertas)",
-        f"🗺️ Mapa da Carteira ({len(imoveis_lista)} imóveis)",
-        "📄 Avaliação via Matrícula",
-        "📂 Histórico de Laudos Gerados",
-    ]
-    
+    departamento_ativo = st.session_state.get("departamento_ativo", "Total")
+
+    if departamento_ativo == "Vendas":
+        opcoes_menu = [
+            "☀️ Briefing Matinal & Oportunidades",
+            f"🏷️ Carteira de VENDAS ({len(imoveis_venda)} imóveis)",
+            f"🔍 Conformidade Cadastral ({total_alertas_venda} alertas)",
+            f"🗺️ Mapa da Carteira ({len(imoveis_venda)} imóveis)",
+            "📄 Avaliação via Matrícula",
+            "📂 Histórico de Laudos Gerados",
+        ]
+    elif departamento_ativo == "Locação":
+        opcoes_menu = [
+            "☀️ Briefing Matinal & Oportunidades",
+            f"🔑 Carteira de LOCAÇÃO ({len(imoveis_locacao)} imóveis)",
+            f"🔍 Conformidade Cadastral ({total_alertas_loc} alertas)",
+            f"🗺️ Mapa da Carteira ({len(imoveis_locacao)} imóveis)",
+            "📄 Avaliação via Matrícula",
+            "📂 Histórico de Laudos Gerados",
+        ]
+    else:  # Total
+        opcoes_menu = [
+            "☀️ Briefing Matinal & Oportunidades",
+            f"🏷️ Carteira de VENDAS ({len(imoveis_venda)} imóveis)",
+            f"🔑 Carteira de LOCAÇÃO ({len(imoveis_locacao)} imóveis)",
+            f"🔍 Conformidade Cadastral ({total_alertas_div} alertas)",
+            f"🗺️ Mapa da Carteira ({len(imoveis_lista)} imóveis)",
+            "📄 Avaliação via Matrícula",
+            "📂 Histórico de Laudos Gerados",
+        ]
+
+    # Previne quebra de índice se a aba selecionada anteriormente sumir no perfil
+    menu_salvo = st.session_state.get("menu_lateral_expandh")
+    idx_menu = 0
+    if menu_salvo and menu_salvo in opcoes_menu:
+        idx_menu = opcoes_menu.index(menu_salvo)
+
     aba_selecionada = st.radio(
         "Navegação:",
         options=opcoes_menu,
-        index=0,
+        index=idx_menu,
         label_visibility="collapsed",
         key="menu_lateral_expandh",
     )
@@ -206,6 +295,7 @@ tema_bi.render_header_executivo(
     total_venda=len(imoveis_venda),
     total_locacao=len(imoveis_locacao),
     data_pub=data_pub_formatada,
+    departamento_ativo=departamento_ativo,
 )
 tema_bi.render_modal_metodologia()
 
@@ -1050,7 +1140,7 @@ def render_historico_laudos():
 
 # ==================== DISPATCHER DA NAVEGAÇÃO LATERAL ====================
 if "Briefing Matinal" in aba_selecionada:
-    resumo_matinal.render_painel_briefing()
+    resumo_matinal.render_painel_briefing(departamento=departamento_ativo)
 
 elif "Carteira de VENDAS" in aba_selecionada:
     st.subheader("🏷️ Carteira de VENDAS • Auditoria & Reprecificação")
@@ -1063,10 +1153,10 @@ elif "Carteira de LOCAÇÃO" in aba_selecionada:
     render_painel_operacao(imoveis_lista, "Locação", api_key)
 
 elif "Conformidade Cadastral" in aba_selecionada:
-    auditoria_divergencias.render_painel_divergencias(imoveis_lista=imoveis_lista)
+    auditoria_divergencias.render_painel_divergencias(imoveis_lista=imoveis_lista, departamento=departamento_ativo)
 
 elif "Mapa da Carteira" in aba_selecionada:
-    mapa_carteira.render_painel_mapa(imoveis_lista, obter_dados_auditoria_atualizados())
+    mapa_carteira.render_painel_mapa(imoveis_lista, obter_dados_auditoria_atualizados(), departamento=departamento_ativo)
 
 elif "Avaliação via Matrícula" in aba_selecionada:
     render_avaliacao_matricula()

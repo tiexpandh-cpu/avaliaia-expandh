@@ -479,17 +479,24 @@ def auditar_todas_divergencias(feed_imoveis: List[dict] = None, forcar_recalculo
     return resultado
 
 
-def render_painel_divergencias(imoveis_lista: List[dict] = None):
+def render_painel_divergencias(imoveis_lista: List[dict] = None, departamento: str = "Total"):
     """
     Renderiza o painel completo de auditoria de conformidade cadastral e confronto
-    entre campos estruturados e texto livre da descrição no Streamlit.
+    entre campos estruturados e texto livre da descrição no Streamlit, adaptado por departamento.
     """
-    st.markdown("### 🔍 Conformidade Cadastral & Detecção de Divergências")
-    st.caption(
-        "Confrontação inteligente entre os campos estruturados do CRM (Kurole / VRSync) "
-        "e o texto livre da descrição pública (ZAP, VivaReal, OLX). Identifica omissões e contradições "
-        "que derrubam imóveis dos filtros de busca e distorcem a avaliação de mercado."
-    )
+    if departamento == "Vendas":
+        st.markdown("### 🔍 Conformidade Cadastral • Carteira de VENDAS")
+        st.caption("Confronto entre campos de CRM e descrição pública para imóveis anunciados para VENDA.")
+    elif departamento == "Locação":
+        st.markdown("### 🔍 Conformidade Cadastral • Carteira de LOCAÇÃO")
+        st.caption("Confronto entre campos de CRM e descrição pública para imóveis anunciados para LOCAÇÃO.")
+    else:
+        st.markdown("### 🔍 Conformidade Cadastral & Detecção de Divergências")
+        st.caption(
+            "Confrontação inteligente entre os campos estruturados do CRM (Kurole / VRSync) "
+            "e o texto livre da descrição pública (ZAP, VivaReal, OLX). Identifica omissões e contradições "
+            "que derrubam imóveis dos filtros de busca e distorcem a avaliação de mercado."
+        )
 
     col_btn_recalc, col_vazia = st.columns([1.5, 3.5])
     with col_btn_recalc:
@@ -504,18 +511,47 @@ def render_painel_divergencias(imoveis_lista: List[dict] = None):
         st.error("Não foi possível carregar os dados de auditoria de divergências.")
         return
 
+    # Filtro de imóveis por departamento
+    imoveis_divs_todos = dados.get("imoveis_divergentes", [])
+    if departamento == "Vendas":
+        imoveis_divs = [im for im in imoveis_divs_todos if im.get("transacao") == "Venda" or str(im.get("id", "")).startswith("V")]
+        imoveis_dep = [im for im in (imoveis_lista or []) if im.get("transacao") == "Venda"]
+        total_auditado = len(imoveis_dep) if imoveis_dep else 153
+        total_com_div = len(imoveis_divs)
+        total_sem_div = max(total_auditado - total_com_div, 0)
+        pct_afetada = (total_com_div / total_auditado * 100.0) if total_auditado else 0.0
+        n_crit = sum(1 for im in imoveis_divs for d in im.get("divergencias", []) if d.get("gravidade") == "alta")
+        n_med = sum(1 for im in imoveis_divs for d in im.get("divergencias", []) if d.get("gravidade") == "media")
+    elif departamento == "Locação":
+        imoveis_divs = [im for im in imoveis_divs_todos if im.get("transacao") == "Locação" or str(im.get("id", "")).startswith("L")]
+        imoveis_dep = [im for im in (imoveis_lista or []) if im.get("transacao") == "Locação"]
+        total_auditado = len(imoveis_dep) if imoveis_dep else 98
+        total_com_div = len(imoveis_divs)
+        total_sem_div = max(total_auditado - total_com_div, 0)
+        pct_afetada = (total_com_div / total_auditado * 100.0) if total_auditado else 0.0
+        n_crit = sum(1 for im in imoveis_divs for d in im.get("divergencias", []) if d.get("gravidade") == "alta")
+        n_med = sum(1 for im in imoveis_divs for d in im.get("divergencias", []) if d.get("gravidade") == "media")
+    else:
+        imoveis_divs = imoveis_divs_todos
+        total_auditado = dados['total_imoveis']
+        total_sem_div = dados['imoveis_sem_divergencia']
+        total_com_div = dados['imoveis_com_divergencia']
+        pct_afetada = dados['pct_carteira_afetada']
+        n_crit = dados['criticas']
+        n_med = dados['medias']
+
     # KPIs / Métricas Executivas
     m1, m2, m3, m4, m5 = st.columns(5)
     with m1:
-        st.metric("Total Auditado", f"{dados['total_imoveis']} imóveis")
+        st.metric("Total Auditado", f"{total_auditado} imóveis")
     with m2:
-        st.metric("100% Coerentes", f"{dados['imoveis_sem_divergencia']}", f"{100.0 - dados['pct_carteira_afetada']:.1f}% da carteira")
+        st.metric("100% Coerentes", f"{total_sem_div}", f"{100.0 - pct_afetada:.1f}% da carteira")
     with m3:
-        st.metric("Com Divergência", f"{dados['imoveis_com_divergencia']}", f"{dados['pct_carteira_afetada']:.1f}% da carteira", delta_color="inverse")
+        st.metric("Com Divergência", f"{total_com_div}", f"{pct_afetada:.1f}% da carteira", delta_color="inverse")
     with m4:
-        st.metric("🔴 Alertas Críticos", f"{dados['criticas']}", "Quebram filtros ZAP", delta_color="inverse")
+        st.metric("🔴 Alertas Críticos", f"{n_crit}", "Quebram filtros ZAP", delta_color="inverse")
     with m5:
-        st.metric("🟡 Alertas Médios", f"{dados['medias']}", "Omissões de cadastro")
+        st.metric("🟡 Alertas Médios", f"{n_med}", "Omissões de cadastro")
 
     st.markdown("---")
 
@@ -524,9 +560,8 @@ def render_painel_divergencias(imoveis_lista: List[dict] = None):
         "🔎 Confrontador Visual Lado a Lado (Card a Card)",
     ])
 
-    imoveis_divs = dados.get("imoveis_divergentes", [])
     if not imoveis_divs:
-        st.success("🎉 Parabéns! Nenhum imóvel da carteira apresentou divergências cadastrais ativas.")
+        st.success("🎉 Parabéns! Nenhum imóvel desta carteira apresentou divergências cadastrais ativas.")
         return
 
     # ==================== SUB-ABA 1: TABELA GERAL ====================
@@ -538,7 +573,14 @@ def render_painel_divergencias(imoveis_lista: List[dict] = None):
         with f_c2:
             sel_sev = st.selectbox("Gravidade:", ["Todas", "🔴 Apenas Críticas", "🟡 Apenas Médias"], index=0, key="sel_sev_div")
         with f_c3:
-            sel_op = st.selectbox("Operação:", ["Todas", "Venda", "Locação"], index=0, key="sel_op_div")
+            if departamento == "Vendas":
+                sel_op = "Venda"
+                st.selectbox("Operação:", ["Venda"], index=0, key="sel_op_div", disabled=True)
+            elif departamento == "Locação":
+                sel_op = "Locação"
+                st.selectbox("Operação:", ["Locação"], index=0, key="sel_op_div", disabled=True)
+            else:
+                sel_op = st.selectbox("Operação:", ["Todas", "Venda", "Locação"], index=0, key="sel_op_div")
         with f_c4:
             busca_txt = st.text_input("Buscar por Código ou Bairro:", placeholder="Ex: V7898, Centro, Lote...", key="busca_div_txt").strip().lower()
 

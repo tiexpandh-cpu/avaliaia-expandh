@@ -86,10 +86,17 @@ def preparar_dados_mapa(imoveis_lista: list, dados_aud: dict) -> pd.DataFrame:
     return pd.DataFrame(registros)
 
 
-def render_painel_mapa(imoveis_lista: list, dados_aud: dict):
-    """Renderiza a aba de inteligência geográfica com filtros e visualização Pydeck."""
-    st.subheader("🗺️ Mapeamento Espacial da Carteira • Sertãozinho e Região")
-    st.caption("Distribuição geográfica dos 240 imóveis ativos e diagnóstico de preços NBR 14653.")
+def render_painel_mapa(imoveis_lista: list, dados_aud: dict, departamento: str = "Total"):
+    """Renderiza a aba de inteligência geográfica com filtros e visualização Pydeck, adaptada por departamento."""
+    if departamento == "Vendas":
+        st.subheader("🗺️ Mapeamento Espacial • Carteira de VENDAS")
+        st.caption("Distribuição geográfica dos imóveis de venda em Sertãozinho e diagnóstico NBR 14653.")
+    elif departamento == "Locação":
+        st.subheader("🗺️ Mapeamento Espacial • Carteira de LOCAÇÃO")
+        st.caption("Distribuição geográfica dos imóveis de locação em Sertãozinho e rentabilidade estimada.")
+    else:
+        st.subheader("🗺️ Mapeamento Espacial da Carteira • Sertãozinho e Região")
+        st.caption("Distribuição geográfica dos 251 imóveis ativos e diagnóstico de preços NBR 14653.")
 
     df_mapa = preparar_dados_mapa(imoveis_lista, dados_aud)
 
@@ -100,7 +107,14 @@ def render_painel_mapa(imoveis_lista: list, dados_aud: dict):
     # Barra de Filtros
     f1, f2, f3, f4 = st.columns(4)
     with f1:
-        op_sel = st.selectbox("Operação:", ["Todas as Operações", "Venda", "Locação"], index=0, key="map_op")
+        if departamento == "Vendas":
+            op_sel = "Venda"
+            st.selectbox("Operação:", ["Venda"], index=0, key="map_op", disabled=True)
+        elif departamento == "Locação":
+            op_sel = "Locação"
+            st.selectbox("Operação:", ["Locação"], index=0, key="map_op", disabled=True)
+        else:
+            op_sel = st.selectbox("Operação:", ["Todas as Operações", "Venda", "Locação"], index=0, key="map_op")
     with f2:
         status_opts = [
             "Todos os Diagnósticos",
