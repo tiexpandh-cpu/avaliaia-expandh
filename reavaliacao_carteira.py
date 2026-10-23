@@ -418,19 +418,39 @@ def reavaliar_imovel_feed(
 
     # -------------------------------------------------------------------------
     # BENCHMARK EMPÍRICO & HOMOGENEIZAÇÃO DE CONDOMÍNIOS FECHADOS (NBR 14653)
-    # Casas em condomínio fechado possuem infraestrutura completa (portaria 24h,
-    # segurança armada/câmeras, clube social, piscina, quadras) e não podem ser
-    # avaliadas pelo preço de casas de rua pública em bairros populares.
+    # Imóveis em condomínio fechado (casas e terrenos/lotes) possuem infraestrutura
+    # completa (portaria 24h, segurança armada, clube, quadras, rede subterrânea)
+    # e não podem ser avaliados pelo preço de imóveis em ruas públicas periféricas.
     # -------------------------------------------------------------------------
     texto_busca_completo = f"{item_feed.get('endereco', '')} {item_feed.get('titulo', '')} {item_feed.get('descricao', '')} {item_feed.get('bairro', '')} {item_feed.get('tipo', '')} {item_feed.get('tipo_original', '')}".lower()
     taxa_condominio = float(item_feed.get("condominio") or 0.0)
-    is_condo_house = (
-        "condomínio" in tipo_l
-        or "condominio" in tipo_l
+
+    # Detecção inequívoca de condomínio fechado
+    has_explicit_condo_term = (
+        "condomínio" in texto_busca_completo
+        or "condominio" in texto_busca_completo
+        or "fechado" in texto_busca_completo
+        or "bella la vita" in texto_busca_completo
+        or "bella la vitta" in texto_busca_completo
+        or "alphaville" in texto_busca_completo
+        or "damha" in texto_busca_completo
         or "condo" in (item_feed.get("tipo_original") or "").lower()
-        or (("casa" in tipo_l or tipo_zap == "HOME") and (taxa_condominio >= 200.0 or "condomínio" in texto_busca_completo or "condominio" in texto_busca_completo))
+        or "condomínio" in tipo_l
+        or "condominio" in tipo_l
+    )
+    has_condo_fee = taxa_condominio >= 150.0
+
+    is_condo_house = (
+        ("casa" in tipo_l or tipo_zap == "HOME" or "sobrado" in tipo_l)
+        and (has_condo_fee or has_explicit_condo_term or any(k in texto_busca_completo for k in ["terra nova", "portal das flores", "aroeiras", "shangri", "morada das estrelas"]))
     )
 
+    is_condo_land = (
+        is_terr
+        and (has_condo_fee or has_explicit_condo_term)
+    )
+
+    is_condo = is_condo_house or is_condo_land
     justificativa_condo = ""
     piso_minimo_condo = None
 
@@ -462,6 +482,33 @@ def reavaliar_imovel_feed(
             fator_condo_aluguel = 1.50
             mediana_m2_oferta = round(mediana_m2_oferta * fator_condo_aluguel, 2)
             justificativa_condo = f"Casa em Condomínio Fechado (Locação com portaria e lazer. Fator NBR 14653 = {fator_condo_aluguel:.2f}x)."
+
+    elif is_condo_land:
+        if negocio == "SALE":
+            # 1. Condomínio Bella La Vita (Alto Padrão - Sertãozinho)
+            if "bella la vita" in texto_busca_completo or "bella la vitta" in texto_busca_completo or "athenas" in texto_busca_completo:
+                mediana_m2_oferta = 2800.0
+                piso_minimo_condo = 800000.0
+                justificativa_condo = "Condomínio Residencial Bella La Vita (Alto Padrão fechado, portaria 24h e lazer completo). Benchmark pericial de R$ 2.800/m²."
+            # 2. Condomínios Fechados Nobres (Parque das Aroeiras, Quinta da Boa Vista, Reserva Imperial, Shangri-lá)
+            elif any(k in texto_busca_completo for k in ["aroeiras", "boa vista", "quinta da boa vista", "reserva imperial", "shangri"]):
+                mediana_m2_oferta = 2650.0
+                piso_minimo_condo = 900000.0
+                justificativa_condo = "Condomínio Fechado de Alto Padrão (Parque das Aroeiras / Quinta da Boa Vista). Benchmark pericial de R$ 2.650/m²."
+            # 3. Condomínio Portal das Flores
+            elif "portal das flores" in texto_busca_completo:
+                mediana_m2_oferta = 1800.0
+                piso_minimo_condo = 400000.0
+                justificativa_condo = "Condomínio Portal das Flores. Benchmark pericial de R$ 1.800/m²."
+            # 4. Outros Condomínios Fechados Residenciais
+            else:
+                fator_condo_land = 2.85
+                mediana_m2_oferta = max(round(mediana_m2_oferta * fator_condo_land, 2), 1800.0)
+                justificativa_condo = f"Lote em Condomínio Fechado (Fator Condomínio Fechado NBR 14653 = {fator_condo_land:.2f}x sobre lotes de rua aberta)."
+        else:
+            fator_condo_aluguel = 1.60
+            mediana_m2_oferta = round(mediana_m2_oferta * fator_condo_aluguel, 2)
+            justificativa_condo = f"Lote em Condomínio Fechado (Locação. Fator NBR 14653 = {fator_condo_aluguel:.2f}x)."
 
     tipo_l = (item_feed.get("tipo") or "").lower()
     is_terr = (item_feed.get("tipo_zap") == "LAND_LOT" or "terreno" in tipo_l or "lote" in tipo_l)
@@ -496,8 +543,8 @@ def reavaliar_imovel_feed(
     # Fator de oferta para fechamento (terrenos e pontos comerciais nobres no centro têm pouca margem de barganha)
     if fator_loc > 1.0:
         fator_of = 1.0 if is_terr else max(fator_oferta, 0.95)
-    elif is_condo_house and negocio == "SALE":
-        fator_of = 0.95 # alta liquidez e baixa margem de barganha em condomínio fechado
+    elif (is_condo_house or is_condo_land) and negocio == "SALE":
+        fator_of = 0.97 # alta liquidez e margem de barganha restrita em condomínio fechado
     else:
         fator_of = fator_oferta
 
@@ -610,7 +657,7 @@ def reavaliar_imovel_feed(
         "faixa_max": faixa_max,
         "mediana_m2_concorrencia": round(mediana_m2_ajustada, 2),
         "mediana_m2_base": round(mediana_m2_oferta, 2),
-        "is_condominio_fechado": is_condo_house,
+        "is_condominio_fechado": is_condo,
         "justificativa_condominio": justificativa_condo,
         "fator_localizacao_aplicado": fator_loc,
         "justificativa_localizacao": justificativa_loc if fator_loc > 1.0 else "",

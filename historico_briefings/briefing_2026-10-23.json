@@ -1,56 +1,21 @@
 {
   "sucesso": true,
   "data_briefing": "23/10/2026",
-  "hora_geracao": "08:35",
-  "timestamp": "2026-10-23T08:35:12.309443",
+  "hora_geracao": "10:00",
+  "timestamp": "2026-10-23T10:00:58.699154",
   "total_ativos": 251,
   "total_vendas": 153,
   "total_locacao": 98,
   "estatisticas_diagnostico": {
-    "preco_justo": 34,
+    "preco_justo": 45,
     "muito_acima": 111,
-    "levemente_acima": 28,
-    "oportunidades": 66
+    "levemente_acima": 25,
+    "oportunidades": 64
   },
-  "novos_imoveis": [
-    {
-      "id": "L96521",
-      "titulo": "Casas Padrão em Sertãozinho",
-      "tipo": "Casa",
-      "transacao": "Locação",
-      "bairro": "Jardim Jamaica",
-      "preco": 1700.0,
-      "preco_formatado": "1.700"
-    },
-    {
-      "id": "L69521",
-      "titulo": "Casas Padrão em Sertãozinho",
-      "tipo": "Casa",
-      "transacao": "Locação",
-      "bairro": "Jardim Campo Belo",
-      "preco": 1400.0,
-      "preco_formatado": "1.400"
-    }
-  ],
-  "total_novos": 2,
-  "mudancas_preco": [
-    {
-      "id": "L42521",
-      "titulo": "Casas Padrão em Sertãozinho",
-      "tipo": "Casa",
-      "transacao": "Locação",
-      "bairro": "Jardim Paraíso",
-      "preco_antigo": 1700.0,
-      "preco_novo": 1500.0,
-      "preco_antigo_fmt": "1.700",
-      "preco_novo_fmt": "1.500",
-      "diferenca": -200.0,
-      "diferenca_fmt": "200",
-      "variacao_pct": -11.8,
-      "tipo_mudanca": "reducao"
-    }
-  ],
-  "total_mudancas_preco": 1,
+  "novos_imoveis": [],
+  "total_novos": 0,
+  "mudancas_preco": [],
+  "total_mudancas_preco": 0,
   "top_oportunidades": [
     {
       "codigo": "L30521",
@@ -60,13 +25,29 @@
       "bairro": "Chácaras Recreio Planalto",
       "preco_anunciado": 1800.0,
       "preco_anunciado_fmt": "1.800",
-      "valor_mercado": 25000.0,
-      "valor_mercado_fmt": "25.000",
-      "desvio_pct": -92.8,
-      "desvio_fmt": "-92.8%",
+      "valor_mercado": 34000.0,
+      "valor_mercado_fmt": "34.000",
+      "desvio_pct": -94.7,
+      "desvio_fmt": "-94.7%",
       "diagnostico": "Preço abaixo da média de mercado. Alta atratividade para compradores e investidores.",
       "mensagem_wa": "Olá, Investidor/Comprador! Tudo bem?\n\nLembrei do seu perfil de busca e selecionei uma oportunidade que acabou de ser avaliada pela nossa equipe: um excelente *Casa no Chácaras Recreio Planalto (Cód. L30521)*.\n\n✨ *Destaques:*\n• Localização privilegiada no Chácaras Recreio Planalto\n• Valor anunciado: *R$ 1,800*\n• Precificação 100% auditada com o mercado de Sertãozinho\n\nAcredito que encaixa muito bem no que você procura. Posso te enviar as fotos completas ou agendarmos uma visita rápida esta semana?\n\nAbraço,\n*Equipe Expandh • Expandh Imobiliária*",
       "link_wa": "https://api.whatsapp.com/send?text=Ol%C3%A1%2C%20Investidor/Comprador%21%20Tudo%20bem%3F%0A%0ALembrei%20do%20seu%20perfil%20de%20busca%20e%20selecionei%20uma%20oportunidade%20que%20acabou%20de%20ser%20avaliada%20pela%20nossa%20equipe%3A%20um%20excelente%20%2ACasa%20no%20Ch%C3%A1caras%20Recreio%20Planalto%20%28C%C3%B3d.%20L30521%29%2A.%0A%0A%E2%9C%A8%20%2ADestaques%3A%2A%0A%E2%80%A2%20Localiza%C3%A7%C3%A3o%20privilegiada%20no%20Ch%C3%A1caras%20Recreio%20Planalto%0A%E2%80%A2%20Valor%20anunciado%3A%20%2AR%24%201%2C800%2A%0A%E2%80%A2%20Precifica%C3%A7%C3%A3o%20100%25%20auditada%20com%20o%20mercado%20de%20Sert%C3%A3ozinho%0A%0AAcredito%20que%20encaixa%20muito%20bem%20no%20que%20voc%C3%AA%20procura.%20Posso%20te%20enviar%20as%20fotos%20completas%20ou%20agendarmos%20uma%20visita%20r%C3%A1pida%20esta%20semana%3F%0A%0AAbra%C3%A7o%2C%0A%2AEquipe%20Expandh%20%E2%80%A2%20Expandh%20Imobili%C3%A1ria%2A"
+    },
+    {
+      "codigo": "V81401",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Venda",
+      "bairro": "Shangri-Lá",
+      "preco_anunciado": 190000.0,
+      "preco_anunciado_fmt": "190.000",
+      "valor_mercado": 1800000.0,
+      "valor_mercado_fmt": "1.800.000",
+      "desvio_pct": -89.4,
+      "desvio_fmt": "-89.4%",
+      "diagnostico": "Condomínio Fechado de Alto Padrão (Parque das Aroeiras / Shangri-lá). Benchmark de R$ 9.500/m². Preço abaixo da média de mercado. Alta atratividade para compradores e investidores.",
+      "mensagem_wa": "Olá, Investidor/Comprador! Tudo bem?\n\nLembrei do seu perfil de busca e selecionei uma oportunidade que acabou de ser avaliada pela nossa equipe: um excelente *Casa no Shangri-Lá (Cód. V81401)*.\n\n✨ *Destaques:*\n• Localização privilegiada no Shangri-Lá\n• Valor anunciado: *R$ 190,000*\n• Precificação 100% auditada com o mercado de Sertãozinho\n\nAcredito que encaixa muito bem no que você procura. Posso te enviar as fotos completas ou agendarmos uma visita rápida esta semana?\n\nAbraço,\n*Equipe Expandh • Expandh Imobiliária*",
+      "link_wa": "https://api.whatsapp.com/send?text=Ol%C3%A1%2C%20Investidor/Comprador%21%20Tudo%20bem%3F%0A%0ALembrei%20do%20seu%20perfil%20de%20busca%20e%20selecionei%20uma%20oportunidade%20que%20acabou%20de%20ser%20avaliada%20pela%20nossa%20equipe%3A%20um%20excelente%20%2ACasa%20no%20Shangri-L%C3%A1%20%28C%C3%B3d.%20V81401%29%2A.%0A%0A%E2%9C%A8%20%2ADestaques%3A%2A%0A%E2%80%A2%20Localiza%C3%A7%C3%A3o%20privilegiada%20no%20Shangri-L%C3%A1%0A%E2%80%A2%20Valor%20anunciado%3A%20%2AR%24%20190%2C000%2A%0A%E2%80%A2%20Precifica%C3%A7%C3%A3o%20100%25%20auditada%20com%20o%20mercado%20de%20Sert%C3%A3ozinho%0A%0AAcredito%20que%20encaixa%20muito%20bem%20no%20que%20voc%C3%AA%20procura.%20Posso%20te%20enviar%20as%20fotos%20completas%20ou%20agendarmos%20uma%20visita%20r%C3%A1pida%20esta%20semana%3F%0A%0AAbra%C3%A7o%2C%0A%2AEquipe%20Expandh%20%E2%80%A2%20Expandh%20Imobili%C3%A1ria%2A"
     },
     {
       "codigo": "L5705",
@@ -83,22 +64,6 @@
       "diagnostico": "Preço abaixo da média de mercado. Alta atratividade para compradores e investidores.",
       "mensagem_wa": "Olá, Investidor/Comprador! Tudo bem?\n\nLembrei do seu perfil de busca e selecionei uma oportunidade que acabou de ser avaliada pela nossa equipe: um excelente *Sala Comercial no CENTRO (Cód. L5705)*.\n\n✨ *Destaques:*\n• Localização privilegiada no CENTRO\n• Valor anunciado: *R$ 1,900*\n• Precificação 100% auditada com o mercado de Sertãozinho\n\nAcredito que encaixa muito bem no que você procura. Posso te enviar as fotos completas ou agendarmos uma visita rápida esta semana?\n\nAbraço,\n*Equipe Expandh • Expandh Imobiliária*",
       "link_wa": "https://api.whatsapp.com/send?text=Ol%C3%A1%2C%20Investidor/Comprador%21%20Tudo%20bem%3F%0A%0ALembrei%20do%20seu%20perfil%20de%20busca%20e%20selecionei%20uma%20oportunidade%20que%20acabou%20de%20ser%20avaliada%20pela%20nossa%20equipe%3A%20um%20excelente%20%2ASala%20Comercial%20no%20CENTRO%20%28C%C3%B3d.%20L5705%29%2A.%0A%0A%E2%9C%A8%20%2ADestaques%3A%2A%0A%E2%80%A2%20Localiza%C3%A7%C3%A3o%20privilegiada%20no%20CENTRO%0A%E2%80%A2%20Valor%20anunciado%3A%20%2AR%24%201%2C900%2A%0A%E2%80%A2%20Precifica%C3%A7%C3%A3o%20100%25%20auditada%20com%20o%20mercado%20de%20Sert%C3%A3ozinho%0A%0AAcredito%20que%20encaixa%20muito%20bem%20no%20que%20voc%C3%AA%20procura.%20Posso%20te%20enviar%20as%20fotos%20completas%20ou%20agendarmos%20uma%20visita%20r%C3%A1pida%20esta%20semana%3F%0A%0AAbra%C3%A7o%2C%0A%2AEquipe%20Expandh%20%E2%80%A2%20Expandh%20Imobili%C3%A1ria%2A"
-    },
-    {
-      "codigo": "L31211",
-      "titulo": "Comerciais Sala em Sertãozinho",
-      "tipo": "Sala Comercial",
-      "transacao": "Locação",
-      "bairro": "Chácaras Recreio Planal",
-      "preco_anunciado": 160.0,
-      "preco_anunciado_fmt": "160",
-      "valor_mercado": 830.0,
-      "valor_mercado_fmt": "830",
-      "desvio_pct": -80.7,
-      "desvio_fmt": "-80.7%",
-      "diagnostico": "Preço abaixo da média de mercado. Alta atratividade para compradores e investidores.",
-      "mensagem_wa": "Olá, Investidor/Comprador! Tudo bem?\n\nLembrei do seu perfil de busca e selecionei uma oportunidade que acabou de ser avaliada pela nossa equipe: um excelente *Sala Comercial no Chácaras Recreio Planal (Cód. L31211)*.\n\n✨ *Destaques:*\n• Localização privilegiada no Chácaras Recreio Planal\n• Valor anunciado: *R$ 160*\n• Precificação 100% auditada com o mercado de Sertãozinho\n\nAcredito que encaixa muito bem no que você procura. Posso te enviar as fotos completas ou agendarmos uma visita rápida esta semana?\n\nAbraço,\n*Equipe Expandh • Expandh Imobiliária*",
-      "link_wa": "https://api.whatsapp.com/send?text=Ol%C3%A1%2C%20Investidor/Comprador%21%20Tudo%20bem%3F%0A%0ALembrei%20do%20seu%20perfil%20de%20busca%20e%20selecionei%20uma%20oportunidade%20que%20acabou%20de%20ser%20avaliada%20pela%20nossa%20equipe%3A%20um%20excelente%20%2ASala%20Comercial%20no%20Ch%C3%A1caras%20Recreio%20Planal%20%28C%C3%B3d.%20L31211%29%2A.%0A%0A%E2%9C%A8%20%2ADestaques%3A%2A%0A%E2%80%A2%20Localiza%C3%A7%C3%A3o%20privilegiada%20no%20Ch%C3%A1caras%20Recreio%20Planal%0A%E2%80%A2%20Valor%20anunciado%3A%20%2AR%24%20160%2A%0A%E2%80%A2%20Precifica%C3%A7%C3%A3o%20100%25%20auditada%20com%20o%20mercado%20de%20Sert%C3%A3ozinho%0A%0AAcredito%20que%20encaixa%20muito%20bem%20no%20que%20voc%C3%AA%20procura.%20Posso%20te%20enviar%20as%20fotos%20completas%20ou%20agendarmos%20uma%20visita%20r%C3%A1pida%20esta%20semana%3F%0A%0AAbra%C3%A7o%2C%0A%2AEquipe%20Expandh%20%E2%80%A2%20Expandh%20Imobili%C3%A1ria%2A"
     }
   ],
   "top_reprecificacao": [
@@ -110,45 +75,45 @@
       "bairro": "Centro",
       "preco_anunciado": 4172000.0,
       "preco_anunciado_fmt": "4.172.000",
-      "valor_mercado": 844000.0,
-      "valor_mercado_fmt": "844.000",
-      "desvio_pct": 394.3,
-      "desvio_fmt": "+394.3%",
-      "diagnostico": "Preço significativamente acima da concorrência direta. Alto risco de perda de liquidez e desinteresse de compradores. Homogeneização de Escala NBR 14653: 0.60x (área de 2,087 m² vs lote padrão de 274 m²).",
-      "mensagem_wa": "Olá, Proprietário(a)! Aqui é o Equipe Expandh da *Expandh Imobiliária*.\n\nEstive fazendo hoje uma revisão técnica da nossa carteira ativa em Sertãozinho, especialmente sobre o seu *Terreno Comercial no Centro (Cód. V9449)*.\n\n📊 Cruzamos os dados dos portais com as normas periciais (NBR 14653) e notamos que a média de mercado para imóveis semelhantes na região está em torno de *R$ 844,000* (o valor anunciado atual está em R$ 4,172,000).\n\n💡 *Por que isso é importante?*\nQuando o anúncio fica acima da faixa de busca, o algoritmo dos portais reduz as visualizações e os compradores acabam priorizando outras opções do bairro.\n\nPodemos alinhar uma calibragem estratégica no valor para *aquecer as visitas e acelerar o fechamento*? Se preferir, posso te ligar ou te receber aqui na imobiliária para um café!\n\nUm abraço,\n*Equipe Expandh • Expandh Imobiliária*",
-      "link_wa": "https://api.whatsapp.com/send?text=Ol%C3%A1%2C%20Propriet%C3%A1rio%28a%29%21%20Aqui%20%C3%A9%20o%20Equipe%20Expandh%20da%20%2AExpandh%20Imobili%C3%A1ria%2A.%0A%0AEstive%20fazendo%20hoje%20uma%20revis%C3%A3o%20t%C3%A9cnica%20da%20nossa%20carteira%20ativa%20em%20Sert%C3%A3ozinho%2C%20especialmente%20sobre%20o%20seu%20%2ATerreno%20Comercial%20no%20Centro%20%28C%C3%B3d.%20V9449%29%2A.%0A%0A%F0%9F%93%8A%20Cruzamos%20os%20dados%20dos%20portais%20com%20as%20normas%20periciais%20%28NBR%2014653%29%20e%20notamos%20que%20a%20m%C3%A9dia%20de%20mercado%20para%20im%C3%B3veis%20semelhantes%20na%20regi%C3%A3o%20est%C3%A1%20em%20torno%20de%20%2AR%24%20844%2C000%2A%20%28o%20valor%20anunciado%20atual%20est%C3%A1%20em%20R%24%204%2C172%2C000%29.%0A%0A%F0%9F%92%A1%20%2APor%20que%20isso%20%C3%A9%20importante%3F%2A%0AQuando%20o%20an%C3%BAncio%20fica%20acima%20da%20faixa%20de%20busca%2C%20o%20algoritmo%20dos%20portais%20reduz%20as%20visualiza%C3%A7%C3%B5es%20e%20os%20compradores%20acabam%20priorizando%20outras%20op%C3%A7%C3%B5es%20do%20bairro.%0A%0APodemos%20alinhar%20uma%20calibragem%20estrat%C3%A9gica%20no%20valor%20para%20%2Aaquecer%20as%20visitas%20e%20acelerar%20o%20fechamento%2A%3F%20Se%20preferir%2C%20posso%20te%20ligar%20ou%20te%20receber%20aqui%20na%20imobili%C3%A1ria%20para%20um%20caf%C3%A9%21%0A%0AUm%20abra%C3%A7o%2C%0A%2AEquipe%20Expandh%20%E2%80%A2%20Expandh%20Imobili%C3%A1ria%2A"
+      "valor_mercado": 754000.0,
+      "valor_mercado_fmt": "754.000",
+      "desvio_pct": 453.3,
+      "desvio_fmt": "+453.3%",
+      "diagnostico": "Preço significativamente acima da concorrência direta. Alto risco de perda de liquidez e desinteresse de compradores. Homogeneização de Escala NBR 14653: 0.60x (área de 2,087 m² vs lote padrão de 266 m²).",
+      "mensagem_wa": "Olá, Proprietário(a)! Aqui é o Equipe Expandh da *Expandh Imobiliária*.\n\nEstive fazendo hoje uma revisão técnica da nossa carteira ativa em Sertãozinho, especialmente sobre o seu *Terreno Comercial no Centro (Cód. V9449)*.\n\n📊 Cruzamos os dados dos portais com as normas periciais (NBR 14653) e notamos que a média de mercado para imóveis semelhantes na região está em torno de *R$ 754,000* (o valor anunciado atual está em R$ 4,172,000).\n\n💡 *Por que isso é importante?*\nQuando o anúncio fica acima da faixa de busca, o algoritmo dos portais reduz as visualizações e os compradores acabam priorizando outras opções do bairro.\n\nPodemos alinhar uma calibragem estratégica no valor para *aquecer as visitas e acelerar o fechamento*? Se preferir, posso te ligar ou te receber aqui na imobiliária para um café!\n\nUm abraço,\n*Equipe Expandh • Expandh Imobiliária*",
+      "link_wa": "https://api.whatsapp.com/send?text=Ol%C3%A1%2C%20Propriet%C3%A1rio%28a%29%21%20Aqui%20%C3%A9%20o%20Equipe%20Expandh%20da%20%2AExpandh%20Imobili%C3%A1ria%2A.%0A%0AEstive%20fazendo%20hoje%20uma%20revis%C3%A3o%20t%C3%A9cnica%20da%20nossa%20carteira%20ativa%20em%20Sert%C3%A3ozinho%2C%20especialmente%20sobre%20o%20seu%20%2ATerreno%20Comercial%20no%20Centro%20%28C%C3%B3d.%20V9449%29%2A.%0A%0A%F0%9F%93%8A%20Cruzamos%20os%20dados%20dos%20portais%20com%20as%20normas%20periciais%20%28NBR%2014653%29%20e%20notamos%20que%20a%20m%C3%A9dia%20de%20mercado%20para%20im%C3%B3veis%20semelhantes%20na%20regi%C3%A3o%20est%C3%A1%20em%20torno%20de%20%2AR%24%20754%2C000%2A%20%28o%20valor%20anunciado%20atual%20est%C3%A1%20em%20R%24%204%2C172%2C000%29.%0A%0A%F0%9F%92%A1%20%2APor%20que%20isso%20%C3%A9%20importante%3F%2A%0AQuando%20o%20an%C3%BAncio%20fica%20acima%20da%20faixa%20de%20busca%2C%20o%20algoritmo%20dos%20portais%20reduz%20as%20visualiza%C3%A7%C3%B5es%20e%20os%20compradores%20acabam%20priorizando%20outras%20op%C3%A7%C3%B5es%20do%20bairro.%0A%0APodemos%20alinhar%20uma%20calibragem%20estrat%C3%A9gica%20no%20valor%20para%20%2Aaquecer%20as%20visitas%20e%20acelerar%20o%20fechamento%2A%3F%20Se%20preferir%2C%20posso%20te%20ligar%20ou%20te%20receber%20aqui%20na%20imobili%C3%A1ria%20para%20um%20caf%C3%A9%21%0A%0AUm%20abra%C3%A7o%2C%0A%2AEquipe%20Expandh%20%E2%80%A2%20Expandh%20Imobili%C3%A1ria%2A"
     },
     {
-      "codigo": "V2348",
-      "titulo": "Terrenos Condomínio em Sertãozinho",
-      "tipo": "Terreno Residencial",
-      "transacao": "Venda",
-      "bairro": "Jardim Athenas",
-      "preco_anunciado": 863300.0,
-      "preco_anunciado_fmt": "863.300",
-      "valor_mercado": 184000.0,
-      "valor_mercado_fmt": "184.000",
-      "desvio_pct": 369.2,
-      "desvio_fmt": "+369.2%",
-      "diagnostico": "Preço significativamente acima da concorrência direta. Alto risco de perda de liquidez e desinteresse de compradores.",
-      "mensagem_wa": "Olá, Proprietário(a)! Aqui é o Equipe Expandh da *Expandh Imobiliária*.\n\nEstive fazendo hoje uma revisão técnica da nossa carteira ativa em Sertãozinho, especialmente sobre o seu *Terreno Residencial no Jardim Athenas (Cód. V2348)*.\n\n📊 Cruzamos os dados dos portais com as normas periciais (NBR 14653) e notamos que a média de mercado para imóveis semelhantes na região está em torno de *R$ 184,000* (o valor anunciado atual está em R$ 863,300).\n\n💡 *Por que isso é importante?*\nQuando o anúncio fica acima da faixa de busca, o algoritmo dos portais reduz as visualizações e os compradores acabam priorizando outras opções do bairro.\n\nPodemos alinhar uma calibragem estratégica no valor para *aquecer as visitas e acelerar o fechamento*? Se preferir, posso te ligar ou te receber aqui na imobiliária para um café!\n\nUm abraço,\n*Equipe Expandh • Expandh Imobiliária*",
-      "link_wa": "https://api.whatsapp.com/send?text=Ol%C3%A1%2C%20Propriet%C3%A1rio%28a%29%21%20Aqui%20%C3%A9%20o%20Equipe%20Expandh%20da%20%2AExpandh%20Imobili%C3%A1ria%2A.%0A%0AEstive%20fazendo%20hoje%20uma%20revis%C3%A3o%20t%C3%A9cnica%20da%20nossa%20carteira%20ativa%20em%20Sert%C3%A3ozinho%2C%20especialmente%20sobre%20o%20seu%20%2ATerreno%20Residencial%20no%20Jardim%20Athenas%20%28C%C3%B3d.%20V2348%29%2A.%0A%0A%F0%9F%93%8A%20Cruzamos%20os%20dados%20dos%20portais%20com%20as%20normas%20periciais%20%28NBR%2014653%29%20e%20notamos%20que%20a%20m%C3%A9dia%20de%20mercado%20para%20im%C3%B3veis%20semelhantes%20na%20regi%C3%A3o%20est%C3%A1%20em%20torno%20de%20%2AR%24%20184%2C000%2A%20%28o%20valor%20anunciado%20atual%20est%C3%A1%20em%20R%24%20863%2C300%29.%0A%0A%F0%9F%92%A1%20%2APor%20que%20isso%20%C3%A9%20importante%3F%2A%0AQuando%20o%20an%C3%BAncio%20fica%20acima%20da%20faixa%20de%20busca%2C%20o%20algoritmo%20dos%20portais%20reduz%20as%20visualiza%C3%A7%C3%B5es%20e%20os%20compradores%20acabam%20priorizando%20outras%20op%C3%A7%C3%B5es%20do%20bairro.%0A%0APodemos%20alinhar%20uma%20calibragem%20estrat%C3%A9gica%20no%20valor%20para%20%2Aaquecer%20as%20visitas%20e%20acelerar%20o%20fechamento%2A%3F%20Se%20preferir%2C%20posso%20te%20ligar%20ou%20te%20receber%20aqui%20na%20imobili%C3%A1ria%20para%20um%20caf%C3%A9%21%0A%0AUm%20abra%C3%A7o%2C%0A%2AEquipe%20Expandh%20%E2%80%A2%20Expandh%20Imobili%C3%A1ria%2A"
-    },
-    {
-      "codigo": "V2279",
+      "codigo": "L64901",
       "titulo": "Comerciais Salão em Sertãozinho",
       "tipo": "Sala Comercial",
-      "transacao": "Venda",
-      "bairro": "Jardim das Palmeiras",
-      "preco_anunciado": 1258000.0,
-      "preco_anunciado_fmt": "1.258.000",
-      "valor_mercado": 269000.0,
-      "valor_mercado_fmt": "269.000",
-      "desvio_pct": 367.7,
-      "desvio_fmt": "+367.7%",
+      "transacao": "Locação",
+      "bairro": "Centro",
+      "preco_anunciado": 2300.0,
+      "preco_anunciado_fmt": "2.300",
+      "valor_mercado": 510.0,
+      "valor_mercado_fmt": "510",
+      "desvio_pct": 351.0,
+      "desvio_fmt": "+351.0%",
       "diagnostico": "Preço significativamente acima da concorrência direta. Alto risco de perda de liquidez e desinteresse de compradores.",
-      "mensagem_wa": "Olá, Proprietário(a)! Aqui é o Equipe Expandh da *Expandh Imobiliária*.\n\nEstive fazendo hoje uma revisão técnica da nossa carteira ativa em Sertãozinho, especialmente sobre o seu *Sala Comercial no Jardim das Palmeiras (Cód. V2279)*.\n\n📊 Cruzamos os dados dos portais com as normas periciais (NBR 14653) e notamos que a média de mercado para imóveis semelhantes na região está em torno de *R$ 269,000* (o valor anunciado atual está em R$ 1,258,000).\n\n💡 *Por que isso é importante?*\nQuando o anúncio fica acima da faixa de busca, o algoritmo dos portais reduz as visualizações e os compradores acabam priorizando outras opções do bairro.\n\nPodemos alinhar uma calibragem estratégica no valor para *aquecer as visitas e acelerar o fechamento*? Se preferir, posso te ligar ou te receber aqui na imobiliária para um café!\n\nUm abraço,\n*Equipe Expandh • Expandh Imobiliária*",
-      "link_wa": "https://api.whatsapp.com/send?text=Ol%C3%A1%2C%20Propriet%C3%A1rio%28a%29%21%20Aqui%20%C3%A9%20o%20Equipe%20Expandh%20da%20%2AExpandh%20Imobili%C3%A1ria%2A.%0A%0AEstive%20fazendo%20hoje%20uma%20revis%C3%A3o%20t%C3%A9cnica%20da%20nossa%20carteira%20ativa%20em%20Sert%C3%A3ozinho%2C%20especialmente%20sobre%20o%20seu%20%2ASala%20Comercial%20no%20Jardim%20das%20Palmeiras%20%28C%C3%B3d.%20V2279%29%2A.%0A%0A%F0%9F%93%8A%20Cruzamos%20os%20dados%20dos%20portais%20com%20as%20normas%20periciais%20%28NBR%2014653%29%20e%20notamos%20que%20a%20m%C3%A9dia%20de%20mercado%20para%20im%C3%B3veis%20semelhantes%20na%20regi%C3%A3o%20est%C3%A1%20em%20torno%20de%20%2AR%24%20269%2C000%2A%20%28o%20valor%20anunciado%20atual%20est%C3%A1%20em%20R%24%201%2C258%2C000%29.%0A%0A%F0%9F%92%A1%20%2APor%20que%20isso%20%C3%A9%20importante%3F%2A%0AQuando%20o%20an%C3%BAncio%20fica%20acima%20da%20faixa%20de%20busca%2C%20o%20algoritmo%20dos%20portais%20reduz%20as%20visualiza%C3%A7%C3%B5es%20e%20os%20compradores%20acabam%20priorizando%20outras%20op%C3%A7%C3%B5es%20do%20bairro.%0A%0APodemos%20alinhar%20uma%20calibragem%20estrat%C3%A9gica%20no%20valor%20para%20%2Aaquecer%20as%20visitas%20e%20acelerar%20o%20fechamento%2A%3F%20Se%20preferir%2C%20posso%20te%20ligar%20ou%20te%20receber%20aqui%20na%20imobili%C3%A1ria%20para%20um%20caf%C3%A9%21%0A%0AUm%20abra%C3%A7o%2C%0A%2AEquipe%20Expandh%20%E2%80%A2%20Expandh%20Imobili%C3%A1ria%2A"
+      "mensagem_wa": "Olá, Proprietário(a)! Aqui é o Equipe Expandh da *Expandh Imobiliária*.\n\nEstive fazendo hoje uma revisão técnica da nossa carteira ativa em Sertãozinho, especialmente sobre o seu *Sala Comercial no Centro (Cód. L64901)*.\n\n📊 Cruzamos os dados dos portais com as normas periciais (NBR 14653) e notamos que a média de mercado para imóveis semelhantes na região está em torno de *R$ 510* (o valor anunciado atual está em R$ 2,300).\n\n💡 *Por que isso é importante?*\nQuando o anúncio fica acima da faixa de busca, o algoritmo dos portais reduz as visualizações e os compradores acabam priorizando outras opções do bairro.\n\nPodemos alinhar uma calibragem estratégica no valor para *aquecer as visitas e acelerar o fechamento*? Se preferir, posso te ligar ou te receber aqui na imobiliária para um café!\n\nUm abraço,\n*Equipe Expandh • Expandh Imobiliária*",
+      "link_wa": "https://api.whatsapp.com/send?text=Ol%C3%A1%2C%20Propriet%C3%A1rio%28a%29%21%20Aqui%20%C3%A9%20o%20Equipe%20Expandh%20da%20%2AExpandh%20Imobili%C3%A1ria%2A.%0A%0AEstive%20fazendo%20hoje%20uma%20revis%C3%A3o%20t%C3%A9cnica%20da%20nossa%20carteira%20ativa%20em%20Sert%C3%A3ozinho%2C%20especialmente%20sobre%20o%20seu%20%2ASala%20Comercial%20no%20Centro%20%28C%C3%B3d.%20L64901%29%2A.%0A%0A%F0%9F%93%8A%20Cruzamos%20os%20dados%20dos%20portais%20com%20as%20normas%20periciais%20%28NBR%2014653%29%20e%20notamos%20que%20a%20m%C3%A9dia%20de%20mercado%20para%20im%C3%B3veis%20semelhantes%20na%20regi%C3%A3o%20est%C3%A1%20em%20torno%20de%20%2AR%24%20510%2A%20%28o%20valor%20anunciado%20atual%20est%C3%A1%20em%20R%24%202%2C300%29.%0A%0A%F0%9F%92%A1%20%2APor%20que%20isso%20%C3%A9%20importante%3F%2A%0AQuando%20o%20an%C3%BAncio%20fica%20acima%20da%20faixa%20de%20busca%2C%20o%20algoritmo%20dos%20portais%20reduz%20as%20visualiza%C3%A7%C3%B5es%20e%20os%20compradores%20acabam%20priorizando%20outras%20op%C3%A7%C3%B5es%20do%20bairro.%0A%0APodemos%20alinhar%20uma%20calibragem%20estrat%C3%A9gica%20no%20valor%20para%20%2Aaquecer%20as%20visitas%20e%20acelerar%20o%20fechamento%2A%3F%20Se%20preferir%2C%20posso%20te%20ligar%20ou%20te%20receber%20aqui%20na%20imobili%C3%A1ria%20para%20um%20caf%C3%A9%21%0A%0AUm%20abra%C3%A7o%2C%0A%2AEquipe%20Expandh%20%E2%80%A2%20Expandh%20Imobili%C3%A1ria%2A"
+    },
+    {
+      "codigo": "L3218",
+      "titulo": "Comerciais Salão em Sertãozinho",
+      "tipo": "Sala Comercial",
+      "transacao": "Locação",
+      "bairro": "Centro",
+      "preco_anunciado": 25000.0,
+      "preco_anunciado_fmt": "25.000",
+      "valor_mercado": 5800.0,
+      "valor_mercado_fmt": "5.800",
+      "desvio_pct": 331.0,
+      "desvio_fmt": "+331.0%",
+      "diagnostico": "Preço perfeitamente justificado pela localização no Polo Central da Praça 21 de Abril. Núcleo Praça 21 de Abril (Sem vaga privativa). Floc = 1.05x (gargalo de estacionamento no centro neutraliza o prêmio).",
+      "mensagem_wa": "Olá, Proprietário(a)! Aqui é o Equipe Expandh da *Expandh Imobiliária*.\n\nEstive fazendo hoje uma revisão técnica da nossa carteira ativa em Sertãozinho, especialmente sobre o seu *Sala Comercial no Centro (Cód. L3218)*.\n\n📊 Cruzamos os dados dos portais com as normas periciais (NBR 14653) e notamos que a média de mercado para imóveis semelhantes na região está em torno de *R$ 5,800* (o valor anunciado atual está em R$ 25,000).\n\n💡 *Por que isso é importante?*\nQuando o anúncio fica acima da faixa de busca, o algoritmo dos portais reduz as visualizações e os compradores acabam priorizando outras opções do bairro.\n\nPodemos alinhar uma calibragem estratégica no valor para *aquecer as visitas e acelerar o fechamento*? Se preferir, posso te ligar ou te receber aqui na imobiliária para um café!\n\nUm abraço,\n*Equipe Expandh • Expandh Imobiliária*",
+      "link_wa": "https://api.whatsapp.com/send?text=Ol%C3%A1%2C%20Propriet%C3%A1rio%28a%29%21%20Aqui%20%C3%A9%20o%20Equipe%20Expandh%20da%20%2AExpandh%20Imobili%C3%A1ria%2A.%0A%0AEstive%20fazendo%20hoje%20uma%20revis%C3%A3o%20t%C3%A9cnica%20da%20nossa%20carteira%20ativa%20em%20Sert%C3%A3ozinho%2C%20especialmente%20sobre%20o%20seu%20%2ASala%20Comercial%20no%20Centro%20%28C%C3%B3d.%20L3218%29%2A.%0A%0A%F0%9F%93%8A%20Cruzamos%20os%20dados%20dos%20portais%20com%20as%20normas%20periciais%20%28NBR%2014653%29%20e%20notamos%20que%20a%20m%C3%A9dia%20de%20mercado%20para%20im%C3%B3veis%20semelhantes%20na%20regi%C3%A3o%20est%C3%A1%20em%20torno%20de%20%2AR%24%205%2C800%2A%20%28o%20valor%20anunciado%20atual%20est%C3%A1%20em%20R%24%2025%2C000%29.%0A%0A%F0%9F%92%A1%20%2APor%20que%20isso%20%C3%A9%20importante%3F%2A%0AQuando%20o%20an%C3%BAncio%20fica%20acima%20da%20faixa%20de%20busca%2C%20o%20algoritmo%20dos%20portais%20reduz%20as%20visualiza%C3%A7%C3%B5es%20e%20os%20compradores%20acabam%20priorizando%20outras%20op%C3%A7%C3%B5es%20do%20bairro.%0A%0APodemos%20alinhar%20uma%20calibragem%20estrat%C3%A9gica%20no%20valor%20para%20%2Aaquecer%20as%20visitas%20e%20acelerar%20o%20fechamento%2A%3F%20Se%20preferir%2C%20posso%20te%20ligar%20ou%20te%20receber%20aqui%20na%20imobili%C3%A1ria%20para%20um%20caf%C3%A9%21%0A%0AUm%20abra%C3%A7o%2C%0A%2AEquipe%20Expandh%20%E2%80%A2%20Expandh%20Imobili%C3%A1ria%2A"
     }
   ],
   "data_kurole_pub": "2026-10-22T19:06:51"
