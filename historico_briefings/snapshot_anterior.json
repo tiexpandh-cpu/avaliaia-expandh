@@ -1,5 +1,5 @@
 {
-  "data_snapshot": "2026-10-24T14:45:53.050680",
+  "data_snapshot": "2026-10-25T15:00:37.393803",
   "total_imoveis": 250,
   "imoveis_mapa": {
     "V09521": {
@@ -11,7 +11,7 @@
       "bairro": "Jardim Recreio dos Bandeirantes",
       "cidade": "Sertãozinho",
       "area_util": 334.0,
-      "data_registro": "2026-10-24T14:45:53.050081"
+      "data_registro": "2026-10-25T15:00:37.393322"
     },
     "V99311": {
       "id": "V99311",
@@ -22,7 +22,7 @@
       "bairro": "Jardim Campo Alegre",
       "cidade": "Sertãozinho",
       "area_util": 483.0,
-      "data_registro": "2026-10-24T14:45:53.050090"
+      "data_registro": "2026-10-25T15:00:37.393331"
     },
     "V29021": {
       "id": "V29021",
@@ -33,7 +33,7 @@
       "bairro": "Shangri-Lá",
       "cidade": "Sertãozinho",
       "area_util": 237.0,
-      "data_registro": "2026-10-24T14:45:53.050093"
+      "data_registro": "2026-10-25T15:00:37.393334"
     },
     "V06521": {
       "id": "V06521",
@@ -44,7 +44,7 @@
       "bairro": "Jardim Eldorado",
       "cidade": "Sertãozinho",
       "area_util": 52.0,
-      "data_registro": "2026-10-24T14:45:53.050095"
+      "data_registro": "2026-10-25T15:00:37.393336"
     },
     "V87521": {
       "id": "V87521",
@@ -55,7 +55,7 @@
       "bairro": "Jardim Diamante",
       "cidade": "Sertãozinho",
       "area_util": 151.0,
-      "data_registro": "2026-10-24T14:45:53.050098"
+      "data_registro": "2026-10-25T15:00:37.393339"
     },
     "V28811": {
       "id": "V28811",
@@ -66,7 +66,7 @@
       "bairro": "Vista da Lago",
       "cidade": "Sertãozinho",
       "area_util": 254.0,
-      "data_registro": "2026-10-24T14:45:53.050100"
+      "data_registro": "2026-10-25T15:00:37.393342"
     },
     "V48521": {
       "id": "V48521",
@@ -77,7 +77,7 @@
       "bairro": "Vista da Lago",
       "cidade": "Sertãozinho",
       "area_util": 240.0,
-      "data_registro": "2026-10-24T14:45:53.050103"
+      "data_registro": "2026-10-25T15:00:37.393344"
     },
     "V78521": {
       "id": "V78521",
@@ -88,7 +88,7 @@
       "bairro": "Vista da Lago",
       "cidade": "Sertãozinho",
       "area_util": 240.0,
-      "data_registro": "2026-10-24T14:45:53.050108"
+      "data_registro": "2026-10-25T15:00:37.393349"
     },
     "V5324": {
       "id": "V5324",
@@ -99,7 +99,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 93.0,
-      "data_registro": "2026-10-24T14:45:53.050111"
+      "data_registro": "2026-10-25T15:00:37.393352"
     },
     "V35321": {
       "id": "V35321",
@@ -110,7 +110,7 @@
       "bairro": "Jardim Boa Vista",
       "cidade": "Sertãozinho",
       "area_util": 142.0,
-      "data_registro": "2026-10-24T14:45:53.050113"
+      "data_registro": "2026-10-25T15:00:37.393354"
     },
     "V5399": {
       "id": "V5399",
@@ -121,7 +121,7 @@
       "bairro": "Alvorada",
       "cidade": "Sertãozinho",
       "area_util": 88.0,
-      "data_registro": "2026-10-24T14:45:53.050115"
+      "data_registro": "2026-10-25T15:00:37.393356"
     },
     "V79211": {
       "id": "V79211",
@@ -132,7 +132,7 @@
       "bairro": "Jardim Montreal",
       "cidade": "Sertãozinho",
       "area_util": 331.0,
-      "data_registro": "2026-10-24T14:45:53.050118"
+      "data_registro": "2026-10-25T15:00:37.393358"
     },
     "V17321": {
       "id": "V17321",
@@ -143,7 +143,7 @@
       "bairro": "Jardim Eldorado",
       "cidade": "Sertãozinho",
       "area_util": 45.0,
-      "data_registro": "2026-10-24T14:45:53.050120"
+      "data_registro": "2026-10-25T15:00:37.393360"
     },
     "V2828": {
       "id": "V2828",
@@ -154,7 +154,7 @@
       "bairro": "Jardim Grande Aliança",
       "cidade": "Sertãozinho",
       "area_util": 162.0,
-      "data_registro": "2026-10-24T14:45:53.050121"
+      "data_registro": "2026-10-25T15:00:37.393361"
     },
     "V1424": {
       "id": "V1424",
@@ -165,7 +165,7 @@
       "bairro": "Alvorada",
       "cidade": "Sertãozinho",
       "area_util": 1320.0,
-      "data_registro": "2026-10-24T14:45:53.050123"
+      "data_registro": "2026-10-25T15:00:37.393363"
     },
     "V7439": {
       "id": "V7439",
@@ -176,7 +176,7 @@
       "bairro": "Jardim Boa Sorte",
       "cidade": "Sertãozinho",
       "area_util": 64.0,
-      "data_registro": "2026-10-24T14:45:53.050179"
+      "data_registro": "2026-10-25T15:00:37.393365"
     },
     "L26321": {
       "id": "L26321",
@@ -187,7 +187,7 @@
       "bairro": "Jardim das Araucárias",
       "cidade": "Sertãozinho",
       "area_util": 80.0,
-      "data_registro": "2026-10-24T14:45:53.050183"
+      "data_registro": "2026-10-25T15:00:37.393367"
     },
     "L24521": {
       "id": "L24521",
@@ -198,7 +198,7 @@
       "bairro": "Jardim Primeiro de Maio",
       "cidade": "Sertãozinho",
       "area_util": 80.0,
-      "data_registro": "2026-10-24T14:45:53.050186"
+      "data_registro": "2026-10-25T15:00:37.393368"
     },
     "L4484": {
       "id": "L4484",
@@ -209,7 +209,7 @@
       "bairro": "Conjunto Habitacional Lourenço Domenici",
       "cidade": "Sertãozinho",
       "area_util": 157.0,
-      "data_registro": "2026-10-24T14:45:53.050190"
+      "data_registro": "2026-10-25T15:00:37.393370"
     },
     "L42521": {
       "id": "L42521",
@@ -220,7 +220,7 @@
       "bairro": "Jardim Paraíso",
       "cidade": "Sertãozinho",
       "area_util": 70.0,
-      "data_registro": "2026-10-24T14:45:53.050199"
+      "data_registro": "2026-10-25T15:00:37.393372"
     },
     "L12221": {
       "id": "L12221",
@@ -231,7 +231,7 @@
       "bairro": "Jardim Santa Rosa",
       "cidade": "Sertãozinho",
       "area_util": 70.0,
-      "data_registro": "2026-10-24T14:45:53.050205"
+      "data_registro": "2026-10-25T15:00:37.393374"
     },
     "L75521": {
       "id": "L75521",
@@ -242,7 +242,7 @@
       "bairro": "Jardim Esmeralda",
       "cidade": "Sertãozinho",
       "area_util": 50.0,
-      "data_registro": "2026-10-24T14:45:53.050208"
+      "data_registro": "2026-10-25T15:00:37.393376"
     },
     "L84521": {
       "id": "L84521",
@@ -253,7 +253,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 211.0,
-      "data_registro": "2026-10-24T14:45:53.050210"
+      "data_registro": "2026-10-25T15:00:37.393382"
     },
     "L19511": {
       "id": "L19511",
@@ -264,7 +264,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 216.0,
-      "data_registro": "2026-10-24T14:45:53.050212"
+      "data_registro": "2026-10-25T15:00:37.393384"
     },
     "L86021": {
       "id": "L86021",
@@ -275,7 +275,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 139.0,
-      "data_registro": "2026-10-24T14:45:53.050214"
+      "data_registro": "2026-10-25T15:00:37.393386"
     },
     "L7889": {
       "id": "L7889",
@@ -286,7 +286,7 @@
       "bairro": "Jardim Nova Europa",
       "cidade": "Sertãozinho",
       "area_util": 59.0,
-      "data_registro": "2026-10-24T14:45:53.050216"
+      "data_registro": "2026-10-25T15:00:37.393388"
     },
     "L9194": {
       "id": "L9194",
@@ -297,7 +297,7 @@
       "bairro": "Jardim Eldorado",
       "cidade": "Sertãozinho",
       "area_util": 220.0,
-      "data_registro": "2026-10-24T14:45:53.050219"
+      "data_registro": "2026-10-25T15:00:37.393390"
     },
     "L96521": {
       "id": "L96521",
@@ -308,7 +308,7 @@
       "bairro": "Jardim Jamaica",
       "cidade": "Sertãozinho",
       "area_util": 124.0,
-      "data_registro": "2026-10-24T14:45:53.050221"
+      "data_registro": "2026-10-25T15:00:37.393392"
     },
     "L03911": {
       "id": "L03911",
@@ -319,7 +319,7 @@
       "bairro": "Jardim Campo Alegre",
       "cidade": "Sertãozinho",
       "area_util": 145.0,
-      "data_registro": "2026-10-24T14:45:53.050223"
+      "data_registro": "2026-10-25T15:00:37.393393"
     },
     "L69521": {
       "id": "L69521",
@@ -330,7 +330,7 @@
       "bairro": "Jardim Campo Belo",
       "cidade": "Sertãozinho",
       "area_util": 100.0,
-      "data_registro": "2026-10-24T14:45:53.050224"
+      "data_registro": "2026-10-25T15:00:37.393395"
     },
     "L7325": {
       "id": "L7325",
@@ -341,7 +341,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 33.0,
-      "data_registro": "2026-10-24T14:45:53.050226"
+      "data_registro": "2026-10-25T15:00:37.393397"
     },
     "V0218": {
       "id": "V0218",
@@ -352,7 +352,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 238.0,
-      "data_registro": "2026-10-24T14:45:53.050228"
+      "data_registro": "2026-10-25T15:00:37.393399"
     },
     "V0629": {
       "id": "V0629",
@@ -363,7 +363,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 435.0,
-      "data_registro": "2026-10-24T14:45:53.050230"
+      "data_registro": "2026-10-25T15:00:37.393401"
     },
     "V1787": {
       "id": "V1787",
@@ -374,7 +374,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 280.0,
-      "data_registro": "2026-10-24T14:45:53.050232"
+      "data_registro": "2026-10-25T15:00:37.393403"
     },
     "V3209": {
       "id": "V3209",
@@ -385,7 +385,7 @@
       "bairro": "Jardim Recreio dos Bandeirantes",
       "cidade": "Sertãozinho",
       "area_util": 209.0,
-      "data_registro": "2026-10-24T14:45:53.050234"
+      "data_registro": "2026-10-25T15:00:37.393405"
     },
     "V0479": {
       "id": "V0479",
@@ -396,7 +396,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 4908.0,
-      "data_registro": "2026-10-24T14:45:53.050236"
+      "data_registro": "2026-10-25T15:00:37.393407"
     },
     "V7898": {
       "id": "V7898",
@@ -407,7 +407,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 435.0,
-      "data_registro": "2026-10-24T14:45:53.050238"
+      "data_registro": "2026-10-25T15:00:37.393409"
     },
     "V03101": {
       "id": "V03101",
@@ -418,7 +418,7 @@
       "bairro": "Jardim Sumaré",
       "cidade": "Sertãozinho",
       "area_util": 221.0,
-      "data_registro": "2026-10-24T14:45:53.050240"
+      "data_registro": "2026-10-25T15:00:37.393411"
     },
     "V3599": {
       "id": "V3599",
@@ -429,7 +429,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 213.0,
-      "data_registro": "2026-10-24T14:45:53.050242"
+      "data_registro": "2026-10-25T15:00:37.393413"
     },
     "V62201": {
       "id": "V62201",
@@ -440,7 +440,7 @@
       "bairro": "Jardim Nobil Jose Lorenzato",
       "cidade": "Dumont",
       "area_util": 722.0,
-      "data_registro": "2026-10-24T14:45:53.050245"
+      "data_registro": "2026-10-25T15:00:37.393415"
     },
     "V92201": {
       "id": "V92201",
@@ -451,7 +451,7 @@
       "bairro": "Jardim Nobil Jose Lorenzato",
       "cidade": "Dumont",
       "area_util": 300.0,
-      "data_registro": "2026-10-24T14:45:53.050247"
+      "data_registro": "2026-10-25T15:00:37.393417"
     },
     "V6647": {
       "id": "V6647",
@@ -462,7 +462,7 @@
       "bairro": "Jardim Venezza",
       "cidade": "Sertãozinho",
       "area_util": 287.0,
-      "data_registro": "2026-10-24T14:45:53.050250"
+      "data_registro": "2026-10-25T15:00:37.393420"
     },
     "V9647": {
       "id": "V9647",
@@ -473,7 +473,7 @@
       "bairro": "Jardim Venezza",
       "cidade": "Sertãozinho",
       "area_util": 311.0,
-      "data_registro": "2026-10-24T14:45:53.050252"
+      "data_registro": "2026-10-25T15:00:37.393422"
     },
     "V2747": {
       "id": "V2747",
@@ -484,7 +484,7 @@
       "bairro": "Jardim Venezza",
       "cidade": "Sertãozinho",
       "area_util": 335.0,
-      "data_registro": "2026-10-24T14:45:53.050255"
+      "data_registro": "2026-10-25T15:00:37.393425"
     },
     "V5747": {
       "id": "V5747",
@@ -495,7 +495,7 @@
       "bairro": "Jardim Venezza",
       "cidade": "Sertãozinho",
       "area_util": 358.0,
-      "data_registro": "2026-10-24T14:45:53.050257"
+      "data_registro": "2026-10-25T15:00:37.393427"
     },
     "V1649": {
       "id": "V1649",
@@ -506,7 +506,7 @@
       "bairro": "Jardim do Engenho",
       "cidade": "Sertãozinho",
       "area_util": 396.0,
-      "data_registro": "2026-10-24T14:45:53.050259"
+      "data_registro": "2026-10-25T15:00:37.393429"
     },
     "V4649": {
       "id": "V4649",
@@ -517,7 +517,7 @@
       "bairro": "Jardim do Engenho",
       "cidade": "Sertãozinho",
       "area_util": 366.0,
-      "data_registro": "2026-10-24T14:45:53.050261"
+      "data_registro": "2026-10-25T15:00:37.393431"
     },
     "V6779": {
       "id": "V6779",
@@ -528,7 +528,7 @@
       "bairro": "Parque das Aroeiras",
       "cidade": "Sertãozinho",
       "area_util": 1040.0,
-      "data_registro": "2026-10-24T14:45:53.050263"
+      "data_registro": "2026-10-25T15:00:37.393433"
     },
     "V15701": {
       "id": "V15701",
@@ -539,7 +539,7 @@
       "bairro": "Jardim Alexandre Balbo",
       "cidade": "Sertãozinho",
       "area_util": 225.0,
-      "data_registro": "2026-10-24T14:45:53.050265"
+      "data_registro": "2026-10-25T15:00:37.393435"
     },
     "V81701": {
       "id": "V81701",
@@ -550,7 +550,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 473.0,
-      "data_registro": "2026-10-24T14:45:53.050267"
+      "data_registro": "2026-10-25T15:00:37.393436"
     },
     "V2549": {
       "id": "V2549",
@@ -561,7 +561,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 134.0,
-      "data_registro": "2026-10-24T14:45:53.050269"
+      "data_registro": "2026-10-25T15:00:37.393438"
     },
     "V94901": {
       "id": "V94901",
@@ -572,7 +572,7 @@
       "bairro": "Jardim Sumaré",
       "cidade": "Sertãozinho",
       "area_util": 359.0,
-      "data_registro": "2026-10-24T14:45:53.050271"
+      "data_registro": "2026-10-25T15:00:37.393440"
     },
     "V74201": {
       "id": "V74201",
@@ -583,7 +583,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 229.0,
-      "data_registro": "2026-10-24T14:45:53.050273"
+      "data_registro": "2026-10-25T15:00:37.393442"
     },
     "V19601": {
       "id": "V19601",
@@ -594,7 +594,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 218.0,
-      "data_registro": "2026-10-24T14:45:53.050275"
+      "data_registro": "2026-10-25T15:00:37.393443"
     },
     "V2654": {
       "id": "V2654",
@@ -605,7 +605,7 @@
       "bairro": "Jardim São José",
       "cidade": "Sertãozinho",
       "area_util": 351.0,
-      "data_registro": "2026-10-24T14:45:53.050277"
+      "data_registro": "2026-10-25T15:00:37.393445"
     },
     "V48011": {
       "id": "V48011",
@@ -616,7 +616,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 153.0,
-      "data_registro": "2026-10-24T14:45:53.050279"
+      "data_registro": "2026-10-25T15:00:37.393447"
     },
     "V9809": {
       "id": "V9809",
@@ -627,7 +627,7 @@
       "bairro": "Jardim Santo Antônio",
       "cidade": "Sertãozinho",
       "area_util": 149.0,
-      "data_registro": "2026-10-24T14:45:53.050281"
+      "data_registro": "2026-10-25T15:00:37.393449"
     },
     "V78401": {
       "id": "V78401",
@@ -638,7 +638,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 403.0,
-      "data_registro": "2026-10-24T14:45:53.050283"
+      "data_registro": "2026-10-25T15:00:37.393451"
     },
     "V57101": {
       "id": "V57101",
@@ -649,7 +649,7 @@
       "bairro": "Conjunto Habitacional Maurílio Biagi",
       "cidade": "Sertãozinho",
       "area_util": 185.0,
-      "data_registro": "2026-10-24T14:45:53.050285"
+      "data_registro": "2026-10-25T15:00:37.393453"
     },
     "V6878": {
       "id": "V6878",
@@ -660,7 +660,7 @@
       "bairro": "Jardim do Engenho",
       "cidade": "Sertãozinho",
       "area_util": 155.0,
-      "data_registro": "2026-10-24T14:45:53.050288"
+      "data_registro": "2026-10-25T15:00:37.393454"
     },
     "V9008": {
       "id": "V9008",
@@ -671,7 +671,7 @@
       "bairro": "Jardim Recreio dos Bandeirantes",
       "cidade": "Sertãozinho",
       "area_util": 424.0,
-      "data_registro": "2026-10-24T14:45:53.050290"
+      "data_registro": "2026-10-25T15:00:37.393456"
     },
     "V74111": {
       "id": "V74111",
@@ -682,7 +682,7 @@
       "bairro": "Jardim Recreio dos Bandeirantes",
       "cidade": "Sertãozinho",
       "area_util": 170.0,
-      "data_registro": "2026-10-24T14:45:53.050292"
+      "data_registro": "2026-10-25T15:00:37.393459"
     },
     "V4658": {
       "id": "V4658",
@@ -693,7 +693,7 @@
       "bairro": "Vila Industrial",
       "cidade": "Sertãozinho",
       "area_util": 111.0,
-      "data_registro": "2026-10-24T14:45:53.050294"
+      "data_registro": "2026-10-25T15:00:37.393460"
     },
     "V39011": {
       "id": "V39011",
@@ -704,7 +704,7 @@
       "bairro": "Centro",
       "cidade": "Dumont",
       "area_util": 194.0,
-      "data_registro": "2026-10-24T14:45:53.050296"
+      "data_registro": "2026-10-25T15:00:37.393462"
     },
     "V77111": {
       "id": "V77111",
@@ -715,7 +715,7 @@
       "bairro": "Jardim Alexandre Balbo",
       "cidade": "Sertãozinho",
       "area_util": 191.0,
-      "data_registro": "2026-10-24T14:45:53.050297"
+      "data_registro": "2026-10-25T15:00:37.393476"
     },
     "V6989": {
       "id": "V6989",
@@ -726,7 +726,7 @@
       "bairro": "Cruz das Posses",
       "cidade": "Cruz das posses",
       "area_util": 405.0,
-      "data_registro": "2026-10-24T14:45:53.050300"
+      "data_registro": "2026-10-25T15:00:37.393478"
     },
     "V22211": {
       "id": "V22211",
@@ -737,7 +737,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 264.0,
-      "data_registro": "2026-10-24T14:45:53.050302"
+      "data_registro": "2026-10-25T15:00:37.393480"
     },
     "V5549": {
       "id": "V5549",
@@ -748,7 +748,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 901.0,
-      "data_registro": "2026-10-24T14:45:53.050304"
+      "data_registro": "2026-10-25T15:00:37.393481"
     },
     "V7829": {
       "id": "V7829",
@@ -759,7 +759,7 @@
       "bairro": "Jardim 5 de Dezembro",
       "cidade": "Sertãozinho",
       "area_util": 499.0,
-      "data_registro": "2026-10-24T14:45:53.050306"
+      "data_registro": "2026-10-25T15:00:37.393483"
     },
     "V3239": {
       "id": "V3239",
@@ -770,7 +770,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 415.0,
-      "data_registro": "2026-10-24T14:45:53.050308"
+      "data_registro": "2026-10-25T15:00:37.393484"
     },
     "V16301": {
       "id": "V16301",
@@ -781,7 +781,7 @@
       "bairro": "Jardim das Araucárias",
       "cidade": "Sertãozinho",
       "area_util": 295.0,
-      "data_registro": "2026-10-24T14:45:53.050309"
+      "data_registro": "2026-10-25T15:00:37.393486"
     },
     "V81401": {
       "id": "V81401",
@@ -792,7 +792,7 @@
       "bairro": "Shangri-Lá",
       "cidade": "Sertãozinho",
       "area_util": 110.0,
-      "data_registro": "2026-10-24T14:45:53.050311"
+      "data_registro": "2026-10-25T15:00:37.393488"
     },
     "V78311": {
       "id": "V78311",
@@ -803,7 +803,7 @@
       "bairro": "Jardim Campo Alegre",
       "cidade": "Sertãozinho",
       "area_util": 284.0,
-      "data_registro": "2026-10-24T14:45:53.050313"
+      "data_registro": "2026-10-25T15:00:37.393489"
     },
     "V09311": {
       "id": "V09311",
@@ -814,7 +814,7 @@
       "bairro": "Jardim Campo Alegre",
       "cidade": "Sertãozinho",
       "area_util": 315.0,
-      "data_registro": "2026-10-24T14:45:53.050314"
+      "data_registro": "2026-10-25T15:00:37.393491"
     },
     "V39311": {
       "id": "V39311",
@@ -825,7 +825,7 @@
       "bairro": "Jardim Campo Alegre",
       "cidade": "Sertãozinho",
       "area_util": 344.0,
-      "data_registro": "2026-10-24T14:45:53.050316"
+      "data_registro": "2026-10-25T15:00:37.393493"
     },
     "V69311": {
       "id": "V69311",
@@ -836,7 +836,7 @@
       "bairro": "Jardim Campo Alegre",
       "cidade": "Sertãozinho",
       "area_util": 370.0,
-      "data_registro": "2026-10-24T14:45:53.050318"
+      "data_registro": "2026-10-25T15:00:37.393494"
     },
     "V20411": {
       "id": "V20411",
@@ -847,7 +847,7 @@
       "bairro": "Jardim Campo Alegre",
       "cidade": "Sertãozinho",
       "area_util": 300.0,
-      "data_registro": "2026-10-24T14:45:53.050320"
+      "data_registro": "2026-10-25T15:00:37.393496"
     },
     "V51011": {
       "id": "V51011",
@@ -858,7 +858,7 @@
       "bairro": "Jardim das Palmeiras",
       "cidade": "Sertãozinho",
       "area_util": 161.0,
-      "data_registro": "2026-10-24T14:45:53.050321"
+      "data_registro": "2026-10-25T15:00:37.393497"
     },
     "V5279": {
       "id": "V5279",
@@ -869,7 +869,7 @@
       "bairro": "Jardim das Palmeiras",
       "cidade": "Sertãozinho",
       "area_util": 1289.0,
-      "data_registro": "2026-10-24T14:45:53.050324"
+      "data_registro": "2026-10-25T15:00:37.393499"
     },
     "V5369": {
       "id": "V5369",
@@ -880,7 +880,7 @@
       "bairro": "Jardim das Palmeiras",
       "cidade": "Sertãozinho",
       "area_util": 1319.0,
-      "data_registro": "2026-10-24T14:45:53.050327"
+      "data_registro": "2026-10-25T15:00:37.393501"
     },
     "V2279": {
       "id": "V2279",
@@ -891,7 +891,7 @@
       "bairro": "Jardim das Palmeiras",
       "cidade": "Sertãozinho",
       "area_util": 170.0,
-      "data_registro": "2026-10-24T14:45:53.050328"
+      "data_registro": "2026-10-25T15:00:37.393504"
     },
     "V4829": {
       "id": "V4829",
@@ -902,7 +902,7 @@
       "bairro": "Jardim Liberdade",
       "cidade": "Sertãozinho",
       "area_util": 187.0,
-      "data_registro": "2026-10-24T14:45:53.050330"
+      "data_registro": "2026-10-25T15:00:37.393506"
     },
     "V41801": {
       "id": "V41801",
@@ -913,7 +913,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 170.0,
-      "data_registro": "2026-10-24T14:45:53.050332"
+      "data_registro": "2026-10-25T15:00:37.393508"
     },
     "V57611": {
       "id": "V57611",
@@ -924,7 +924,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 1093.0,
-      "data_registro": "2026-10-24T14:45:53.050334"
+      "data_registro": "2026-10-25T15:00:37.393509"
     },
     "V9131": {
       "id": "V9131",
@@ -935,7 +935,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 157.0,
-      "data_registro": "2026-10-24T14:45:53.050335"
+      "data_registro": "2026-10-25T15:00:37.393511"
     },
     "V1655": {
       "id": "V1655",
@@ -946,7 +946,7 @@
       "bairro": "Conjunto Habitacional Antônio Costa Patrão",
       "cidade": "Sertãozinho",
       "area_util": 128.0,
-      "data_registro": "2026-10-24T14:45:53.050337"
+      "data_registro": "2026-10-25T15:00:37.393513"
     },
     "V62711": {
       "id": "V62711",
@@ -957,7 +957,7 @@
       "bairro": "Jardim Tropical",
       "cidade": "Sertãozinho",
       "area_util": 418.0,
-      "data_registro": "2026-10-24T14:45:53.050340"
+      "data_registro": "2026-10-25T15:00:37.393516"
     },
     "V75611": {
       "id": "V75611",
@@ -968,7 +968,7 @@
       "bairro": "Jardim Gimenez",
       "cidade": "Sertãozinho",
       "area_util": 146.0,
-      "data_registro": "2026-10-24T14:45:53.050342"
+      "data_registro": "2026-10-25T15:00:37.393517"
     },
     "V5027": {
       "id": "V5027",
@@ -979,7 +979,7 @@
       "bairro": "Jardim das Araucárias",
       "cidade": "Sertãozinho",
       "area_util": 250.0,
-      "data_registro": "2026-10-24T14:45:53.050344"
+      "data_registro": "2026-10-25T15:00:37.393519"
     },
     "V47711": {
       "id": "V47711",
@@ -990,7 +990,7 @@
       "bairro": "São João",
       "cidade": "Sertãozinho",
       "area_util": 184.0,
-      "data_registro": "2026-10-24T14:45:53.050345"
+      "data_registro": "2026-10-25T15:00:37.393520"
     },
     "V62501": {
       "id": "V62501",
@@ -1001,7 +1001,7 @@
       "bairro": "Jardim Santa Isabel",
       "cidade": "Sertãozinho",
       "area_util": 65.0,
-      "data_registro": "2026-10-24T14:45:53.050347"
+      "data_registro": "2026-10-25T15:00:37.393522"
     },
     "V54911": {
       "id": "V54911",
@@ -1012,7 +1012,7 @@
       "bairro": "Jardim Recreio dos Bandeirantes",
       "cidade": "Sertãozinho",
       "area_util": 290.0,
-      "data_registro": "2026-10-24T14:45:53.050349"
+      "data_registro": "2026-10-25T15:00:37.393524"
     },
     "V96911": {
       "id": "V96911",
@@ -1023,7 +1023,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 187.0,
-      "data_registro": "2026-10-24T14:45:53.050351"
+      "data_registro": "2026-10-25T15:00:37.393526"
     },
     "V9317": {
       "id": "V9317",
@@ -1034,7 +1034,7 @@
       "bairro": "Conjunto Habitacional Antônio Costa Patrão",
       "cidade": "Sertãozinho",
       "area_util": 148.0,
-      "data_registro": "2026-10-24T14:45:53.050352"
+      "data_registro": "2026-10-25T15:00:37.393527"
     },
     "V47111": {
       "id": "V47111",
@@ -1045,7 +1045,7 @@
       "bairro": "Jardim Paraíso",
       "cidade": "Sertãozinho",
       "area_util": 170.0,
-      "data_registro": "2026-10-24T14:45:53.050354"
+      "data_registro": "2026-10-25T15:00:37.393529"
     },
     "V5936": {
       "id": "V5936",
@@ -1056,7 +1056,7 @@
       "bairro": "Jardim das Palmeiras",
       "cidade": "Sertãozinho",
       "area_util": 2588.0,
-      "data_registro": "2026-10-24T14:45:53.050356"
+      "data_registro": "2026-10-25T15:00:37.393531"
     },
     "V58601": {
       "id": "V58601",
@@ -1067,7 +1067,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 218.0,
-      "data_registro": "2026-10-24T14:45:53.050358"
+      "data_registro": "2026-10-25T15:00:37.393533"
     },
     "V3077": {
       "id": "V3077",
@@ -1078,7 +1078,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 241.0,
-      "data_registro": "2026-10-24T14:45:53.050360"
+      "data_registro": "2026-10-25T15:00:37.393535"
     },
     "V00311": {
       "id": "V00311",
@@ -1089,7 +1089,7 @@
       "bairro": "Jardim Alexandre Balbo",
       "cidade": "Sertãozinho",
       "area_util": 206.0,
-      "data_registro": "2026-10-24T14:45:53.050363"
+      "data_registro": "2026-10-25T15:00:37.393536"
     },
     "V5693": {
       "id": "V5693",
@@ -1100,7 +1100,7 @@
       "bairro": "Jardim Soljumar",
       "cidade": "Sertãozinho",
       "area_util": 325.0,
-      "data_registro": "2026-10-24T14:45:53.050365"
+      "data_registro": "2026-10-25T15:00:37.393538"
     },
     "V65021": {
       "id": "V65021",
@@ -1111,7 +1111,7 @@
       "bairro": "CENTRO",
       "cidade": "Pontal",
       "area_util": 209.0,
-      "data_registro": "2026-10-24T14:45:53.050367"
+      "data_registro": "2026-10-25T15:00:37.393541"
     },
     "V62411": {
       "id": "V62411",
@@ -1122,7 +1122,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 209.0,
-      "data_registro": "2026-10-24T14:45:53.050369"
+      "data_registro": "2026-10-25T15:00:37.393543"
     },
     "V24401": {
       "id": "V24401",
@@ -1133,7 +1133,7 @@
       "bairro": "Jardim Recreio dos Bandeirantes",
       "cidade": "Sertãozinho",
       "area_util": 161.0,
-      "data_registro": "2026-10-24T14:45:53.050370"
+      "data_registro": "2026-10-25T15:00:37.393544"
     },
     "V0659": {
       "id": "V0659",
@@ -1144,7 +1144,7 @@
       "bairro": "Jardim Nova Sertãozinho",
       "cidade": "Sertãozinho",
       "area_util": 625.0,
-      "data_registro": "2026-10-24T14:45:53.050372"
+      "data_registro": "2026-10-25T15:00:37.393546"
     },
     "V61121": {
       "id": "V61121",
@@ -1155,7 +1155,7 @@
       "bairro": "Jardim Morada das Estrelas",
       "cidade": "Sertãozinho",
       "area_util": 188.0,
-      "data_registro": "2026-10-24T14:45:53.050374"
+      "data_registro": "2026-10-25T15:00:37.393547"
     },
     "V9143": {
       "id": "V9143",
@@ -1166,7 +1166,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 122.0,
-      "data_registro": "2026-10-24T14:45:53.050376"
+      "data_registro": "2026-10-25T15:00:37.393549"
     },
     "V89021": {
       "id": "V89021",
@@ -1177,7 +1177,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 304.0,
-      "data_registro": "2026-10-24T14:45:53.050378"
+      "data_registro": "2026-10-25T15:00:37.393551"
     },
     "V89801": {
       "id": "V89801",
@@ -1188,7 +1188,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 200.0,
-      "data_registro": "2026-10-24T14:45:53.050379"
+      "data_registro": "2026-10-25T15:00:37.393552"
     },
     "V0356": {
       "id": "V0356",
@@ -1199,7 +1199,7 @@
       "bairro": "Jardim Itapuã",
       "cidade": "Sertãozinho",
       "area_util": 388.0,
-      "data_registro": "2026-10-24T14:45:53.050382"
+      "data_registro": "2026-10-25T15:00:37.393554"
     },
     "V67001": {
       "id": "V67001",
@@ -1210,7 +1210,7 @@
       "bairro": "Jardim Grande Aliança",
       "cidade": "Sertãozinho",
       "area_util": 200.0,
-      "data_registro": "2026-10-24T14:45:53.050383"
+      "data_registro": "2026-10-25T15:00:37.393555"
     },
     "V37511": {
       "id": "V37511",
@@ -1221,7 +1221,7 @@
       "bairro": "Jardim Recreio",
       "cidade": "Sertãozinho",
       "area_util": 118.0,
-      "data_registro": "2026-10-24T14:45:53.050385"
+      "data_registro": "2026-10-25T15:00:37.393557"
     },
     "V25811": {
       "id": "V25811",
@@ -1232,7 +1232,7 @@
       "bairro": "Cruz das Posses",
       "cidade": "Sertãozinho",
       "area_util": 200.0,
-      "data_registro": "2026-10-24T14:45:53.050387"
+      "data_registro": "2026-10-25T15:00:37.393559"
     },
     "V37121": {
       "id": "V37121",
@@ -1243,7 +1243,7 @@
       "bairro": "Jardim Recreio dos Bandeirantes",
       "cidade": "Sertãozinho",
       "area_util": 286.0,
-      "data_registro": "2026-10-24T14:45:53.050389"
+      "data_registro": "2026-10-25T15:00:37.393560"
     },
     "V51221": {
       "id": "V51221",
@@ -1254,7 +1254,7 @@
       "bairro": "Jardim Terras de Santa Elisa I",
       "cidade": "Sertãozinho",
       "area_util": 240.0,
-      "data_registro": "2026-10-24T14:45:53.050391"
+      "data_registro": "2026-10-25T15:00:37.393562"
     },
     "V6008": {
       "id": "V6008",
@@ -1265,7 +1265,7 @@
       "bairro": "Jardim Vista Alegre",
       "cidade": "Dumont",
       "area_util": 173.0,
-      "data_registro": "2026-10-24T14:45:53.050392"
+      "data_registro": "2026-10-25T15:00:37.393563"
     },
     "V15401": {
       "id": "V15401",
@@ -1276,7 +1276,7 @@
       "bairro": "Jardim Santa Rosa II",
       "cidade": "Sertãozinho",
       "area_util": 44.0,
-      "data_registro": "2026-10-24T14:45:53.050394"
+      "data_registro": "2026-10-25T15:00:37.393565"
     },
     "V2348": {
       "id": "V2348",
@@ -1287,7 +1287,7 @@
       "bairro": "Jardim Athenas",
       "cidade": "Sertãozinho",
       "area_util": 308.0,
-      "data_registro": "2026-10-24T14:45:53.050396"
+      "data_registro": "2026-10-25T15:00:37.393566"
     },
     "V82301": {
       "id": "V82301",
@@ -1298,7 +1298,7 @@
       "bairro": "Conjunto Habitacional Maurílio Biagi",
       "cidade": "Sertãozinho",
       "area_util": 99.0,
-      "data_registro": "2026-10-24T14:45:53.050399"
+      "data_registro": "2026-10-25T15:00:37.393568"
     },
     "V4124": {
       "id": "V4124",
@@ -1309,7 +1309,7 @@
       "bairro": "Jardim Gimenez",
       "cidade": "Sertãozinho",
       "area_util": 198.0,
-      "data_registro": "2026-10-24T14:45:53.050401"
+      "data_registro": "2026-10-25T15:00:37.393569"
     },
     "V72221": {
       "id": "V72221",
@@ -1320,7 +1320,7 @@
       "bairro": "Cidade Jardim",
       "cidade": "Sertãozinho",
       "area_util": 74.0,
-      "data_registro": "2026-10-24T14:45:53.050402"
+      "data_registro": "2026-10-25T15:00:37.393573"
     },
     "V81221": {
       "id": "V81221",
@@ -1331,7 +1331,7 @@
       "bairro": "Jardim Sul",
       "cidade": "Sertãozinho",
       "area_util": 242.0,
-      "data_registro": "2026-10-24T14:45:53.050440"
+      "data_registro": "2026-10-25T15:00:37.393574"
     },
     "V48221": {
       "id": "V48221",
@@ -1342,7 +1342,7 @@
       "bairro": "Jardim das Araucárias",
       "cidade": "Sertãozinho",
       "area_util": 295.0,
-      "data_registro": "2026-10-24T14:45:53.050443"
+      "data_registro": "2026-10-25T15:00:37.393576"
     },
     "V7859": {
       "id": "V7859",
@@ -1353,7 +1353,7 @@
       "bairro": "Jardim Helena",
       "cidade": "Sertãozinho",
       "area_util": 113.0,
-      "data_registro": "2026-10-24T14:45:53.050445"
+      "data_registro": "2026-10-25T15:00:37.393577"
     },
     "V16001": {
       "id": "V16001",
@@ -1364,7 +1364,7 @@
       "bairro": "São João",
       "cidade": "Sertãozinho",
       "area_util": 162.0,
-      "data_registro": "2026-10-24T14:45:53.050447"
+      "data_registro": "2026-10-25T15:00:37.393579"
     },
     "V23321": {
       "id": "V23321",
@@ -1375,7 +1375,7 @@
       "bairro": "Parque das Aroeiras",
       "cidade": "Sertãozinho",
       "area_util": 281.0,
-      "data_registro": "2026-10-24T14:45:53.050449"
+      "data_registro": "2026-10-25T15:00:37.393581"
     },
     "V53021": {
       "id": "V53021",
@@ -1386,7 +1386,7 @@
       "bairro": "Jardim Jamaica",
       "cidade": "Sertãozinho",
       "area_util": 190.0,
-      "data_registro": "2026-10-24T14:45:53.050451"
+      "data_registro": "2026-10-25T15:00:37.393582"
     },
     "V8078": {
       "id": "V8078",
@@ -1397,7 +1397,7 @@
       "bairro": "Jardim Boa Vista",
       "cidade": "Sertãozinho",
       "area_util": 113.0,
-      "data_registro": "2026-10-24T14:45:53.050453"
+      "data_registro": "2026-10-25T15:00:37.393584"
     },
     "V50021": {
       "id": "V50021",
@@ -1408,7 +1408,7 @@
       "bairro": "São João",
       "cidade": "Sertãozinho",
       "area_util": 212.0,
-      "data_registro": "2026-10-24T14:45:53.050454"
+      "data_registro": "2026-10-25T15:00:37.393586"
     },
     "V02711": {
       "id": "V02711",
@@ -1419,7 +1419,7 @@
       "bairro": "Jardim Sumaré",
       "cidade": "Sertãozinho",
       "area_util": 224.0,
-      "data_registro": "2026-10-24T14:45:53.050456"
+      "data_registro": "2026-10-25T15:00:37.393588"
     },
     "V45221": {
       "id": "V45221",
@@ -1430,7 +1430,7 @@
       "bairro": "Portal das Flores",
       "cidade": "Sertãozinho",
       "area_util": 117.0,
-      "data_registro": "2026-10-24T14:45:53.050458"
+      "data_registro": "2026-10-25T15:00:37.393589"
     },
     "V8228": {
       "id": "V8228",
@@ -1441,7 +1441,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 211.0,
-      "data_registro": "2026-10-24T14:45:53.050460"
+      "data_registro": "2026-10-25T15:00:37.393591"
     },
     "V5189": {
       "id": "V5189",
@@ -1452,7 +1452,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 135.0,
-      "data_registro": "2026-10-24T14:45:53.050462"
+      "data_registro": "2026-10-25T15:00:37.393593"
     },
     "V9191": {
       "id": "V9191",
@@ -1463,7 +1463,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 73.0,
-      "data_registro": "2026-10-24T14:45:53.050464"
+      "data_registro": "2026-10-25T15:00:37.393595"
     },
     "V01421": {
       "id": "V01421",
@@ -1474,7 +1474,7 @@
       "bairro": "Vila Industrial",
       "cidade": "Sertãozinho",
       "area_util": 480.0,
-      "data_registro": "2026-10-24T14:45:53.050465"
+      "data_registro": "2026-10-25T15:00:37.393597"
     },
     "V09611": {
       "id": "V09611",
@@ -1485,7 +1485,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 348.0,
-      "data_registro": "2026-10-24T14:45:53.050467"
+      "data_registro": "2026-10-25T15:00:37.393599"
     },
     "V88811": {
       "id": "V88811",
@@ -1496,7 +1496,7 @@
       "bairro": "Jardim Recreio",
       "cidade": "Sertãozinho",
       "area_util": 172.0,
-      "data_registro": "2026-10-24T14:45:53.050469"
+      "data_registro": "2026-10-25T15:00:37.393601"
     },
     "V33611": {
       "id": "V33611",
@@ -1507,7 +1507,7 @@
       "bairro": "Jardim Nova Europa",
       "cidade": "Sertãozinho",
       "area_util": 194.0,
-      "data_registro": "2026-10-24T14:45:53.050471"
+      "data_registro": "2026-10-25T15:00:37.393603"
     },
     "V7157": {
       "id": "V7157",
@@ -1518,7 +1518,7 @@
       "bairro": "Jardim Florenzza",
       "cidade": "Sertãozinho",
       "area_util": 276.0,
-      "data_registro": "2026-10-24T14:45:53.050474"
+      "data_registro": "2026-10-25T15:00:37.393605"
     },
     "V0257": {
       "id": "V0257",
@@ -1529,7 +1529,7 @@
       "bairro": "Jardim Florenzza",
       "cidade": "Sertãozinho",
       "area_util": 276.0,
-      "data_registro": "2026-10-24T14:45:53.050476"
+      "data_registro": "2026-10-25T15:00:37.393607"
     },
     "V3257": {
       "id": "V3257",
@@ -1540,7 +1540,7 @@
       "bairro": "Jardim Florenzza",
       "cidade": "Sertãozinho",
       "area_util": 276.0,
-      "data_registro": "2026-10-24T14:45:53.050478"
+      "data_registro": "2026-10-25T15:00:37.393610"
     },
     "V6257": {
       "id": "V6257",
@@ -1551,7 +1551,7 @@
       "bairro": "Jardim Florenzza",
       "cidade": "Sertãozinho",
       "area_util": 276.0,
-      "data_registro": "2026-10-24T14:45:53.050479"
+      "data_registro": "2026-10-25T15:00:37.393612"
     },
     "V9257": {
       "id": "V9257",
@@ -1562,7 +1562,7 @@
       "bairro": "Jardim Florenzza",
       "cidade": "Sertãozinho",
       "area_util": 276.0,
-      "data_registro": "2026-10-24T14:45:53.050481"
+      "data_registro": "2026-10-25T15:00:37.393613"
     },
     "V4157": {
       "id": "V4157",
@@ -1573,7 +1573,7 @@
       "bairro": "Jardim Florenzza",
       "cidade": "Sertãozinho",
       "area_util": 292.0,
-      "data_registro": "2026-10-24T14:45:53.050484"
+      "data_registro": "2026-10-25T15:00:37.393615"
     },
     "V2357": {
       "id": "V2357",
@@ -1584,7 +1584,7 @@
       "bairro": "Jardim Florenzza",
       "cidade": "Sertãozinho",
       "area_util": 280.0,
-      "data_registro": "2026-10-24T14:45:53.050485"
+      "data_registro": "2026-10-25T15:00:37.393616"
     },
     "V4118": {
       "id": "V4118",
@@ -1595,7 +1595,7 @@
       "bairro": "Jardim Diamante",
       "cidade": "Sertãozinho",
       "area_util": 169.0,
-      "data_registro": "2026-10-24T14:45:53.050487"
+      "data_registro": "2026-10-25T15:00:37.393618"
     },
     "V97421": {
       "id": "V97421",
@@ -1606,7 +1606,7 @@
       "bairro": "Jardim Liberdade",
       "cidade": "Sertãozinho",
       "area_util": 184.0,
-      "data_registro": "2026-10-24T14:45:53.050489"
+      "data_registro": "2026-10-25T15:00:37.393620"
     },
     "V35111": {
       "id": "V35111",
@@ -1617,7 +1617,7 @@
       "bairro": "Conjunto Habitacional Antônio Nadaletto Mazzer",
       "cidade": "Sertãozinho",
       "area_util": 117.0,
-      "data_registro": "2026-10-24T14:45:53.050491"
+      "data_registro": "2026-10-25T15:00:37.393622"
     },
     "V35021": {
       "id": "V35021",
@@ -1628,7 +1628,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 83.0,
-      "data_registro": "2026-10-24T14:45:53.050493"
+      "data_registro": "2026-10-25T15:00:37.393623"
     },
     "V6269": {
       "id": "V6269",
@@ -1639,7 +1639,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 73.0,
-      "data_registro": "2026-10-24T14:45:53.050494"
+      "data_registro": "2026-10-25T15:00:37.393625"
     },
     "V1178": {
       "id": "V1178",
@@ -1650,7 +1650,7 @@
       "bairro": "Jardim Boa Vista",
       "cidade": "Sertãozinho",
       "area_util": 143.0,
-      "data_registro": "2026-10-24T14:45:53.050497"
+      "data_registro": "2026-10-25T15:00:37.393627"
     },
     "V94211": {
       "id": "V94211",
@@ -1661,7 +1661,7 @@
       "bairro": "Jardim Campo Alegre",
       "cidade": "Sertãozinho",
       "area_util": 402.0,
-      "data_registro": "2026-10-24T14:45:53.050499"
+      "data_registro": "2026-10-25T15:00:37.393628"
     },
     "V13421": {
       "id": "V13421",
@@ -1672,7 +1672,7 @@
       "bairro": "Jardim Terras de Santa Elisa I",
       "cidade": "Sertãozinho",
       "area_util": 200.0,
-      "data_registro": "2026-10-24T14:45:53.050501"
+      "data_registro": "2026-10-25T15:00:37.393630"
     },
     "V9449": {
       "id": "V9449",
@@ -1683,7 +1683,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 2087.0,
-      "data_registro": "2026-10-24T14:45:53.050503"
+      "data_registro": "2026-10-25T15:00:37.393631"
     },
     "V73811": {
       "id": "V73811",
@@ -1694,7 +1694,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 643.0,
-      "data_registro": "2026-10-24T14:45:53.050504"
+      "data_registro": "2026-10-25T15:00:37.393633"
     },
     "V8729": {
       "id": "V8729",
@@ -1705,7 +1705,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 581.0,
-      "data_registro": "2026-10-24T14:45:53.050506"
+      "data_registro": "2026-10-25T15:00:37.393635"
     },
     "V11201": {
       "id": "V11201",
@@ -1716,7 +1716,7 @@
       "bairro": "Jardim das Araucárias",
       "cidade": "Sertãozinho",
       "area_util": 250.0,
-      "data_registro": "2026-10-24T14:45:53.050508"
+      "data_registro": "2026-10-25T15:00:37.393636"
     },
     "V4145": {
       "id": "V4145",
@@ -1727,7 +1727,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 372.0,
-      "data_registro": "2026-10-24T14:45:53.050511"
+      "data_registro": "2026-10-25T15:00:37.393638"
     },
     "V12521": {
       "id": "V12521",
@@ -1738,7 +1738,7 @@
       "bairro": "Jardim Nova Sertãozinho",
       "cidade": "Sertãozinho",
       "area_util": 300.0,
-      "data_registro": "2026-10-24T14:45:53.050512"
+      "data_registro": "2026-10-25T15:00:37.393640"
     },
     "V15521": {
       "id": "V15521",
@@ -1749,7 +1749,7 @@
       "bairro": "Jardim Campo Alegre",
       "cidade": "Sertãozinho",
       "area_util": 48.0,
-      "data_registro": "2026-10-24T14:45:53.050514"
+      "data_registro": "2026-10-25T15:00:37.393643"
     },
     "V8918": {
       "id": "V8918",
@@ -1760,7 +1760,7 @@
       "bairro": "Jardim Eldorado",
       "cidade": "Sertãozinho",
       "area_util": 68.0,
-      "data_registro": "2026-10-24T14:45:53.050516"
+      "data_registro": "2026-10-25T15:00:37.393645"
     },
     "V6332": {
       "id": "V6332",
@@ -1771,7 +1771,7 @@
       "bairro": "Conjunto Habitacional Lourenço Domenici",
       "cidade": "Sertãozinho",
       "area_util": 102.0,
-      "data_registro": "2026-10-24T14:45:53.050518"
+      "data_registro": "2026-10-25T15:00:37.393646"
     },
     "V6329": {
       "id": "V6329",
@@ -1782,7 +1782,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 125.0,
-      "data_registro": "2026-10-24T14:45:53.050519"
+      "data_registro": "2026-10-25T15:00:37.393648"
     },
     "V6611": {
       "id": "V6611",
@@ -1793,7 +1793,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 125.0,
-      "data_registro": "2026-10-24T14:45:53.050521"
+      "data_registro": "2026-10-25T15:00:37.393650"
     },
     "V65321": {
       "id": "V65321",
@@ -1804,7 +1804,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 99.0,
-      "data_registro": "2026-10-24T14:45:53.050523"
+      "data_registro": "2026-10-25T15:00:37.393652"
     },
     "V44321": {
       "id": "V44321",
@@ -1815,7 +1815,7 @@
       "bairro": "Cidade Jardim",
       "cidade": "Sertãozinho",
       "area_util": 151.0,
-      "data_registro": "2026-10-24T14:45:53.050525"
+      "data_registro": "2026-10-25T15:00:37.393654"
     },
     "V2969": {
       "id": "V2969",
@@ -1826,7 +1826,7 @@
       "bairro": "Jardim Santa Rosa",
       "cidade": "Sertãozinho",
       "area_util": 200.0,
-      "data_registro": "2026-10-24T14:45:53.050526"
+      "data_registro": "2026-10-25T15:00:37.393656"
     },
     "V66521": {
       "id": "V66521",
@@ -1837,7 +1837,7 @@
       "bairro": "Jardim do Engenho",
       "cidade": "Sertãozinho",
       "area_util": 200.0,
-      "data_registro": "2026-10-24T14:45:53.050528"
+      "data_registro": "2026-10-25T15:00:37.393657"
     },
     "V79421": {
       "id": "V79421",
@@ -1848,7 +1848,7 @@
       "bairro": "Jardim das Araucárias",
       "cidade": "Sertãozinho",
       "area_util": 500.0,
-      "data_registro": "2026-10-24T14:45:53.050530"
+      "data_registro": "2026-10-25T15:00:37.393659"
     },
     "V20321": {
       "id": "V20321",
@@ -1859,7 +1859,7 @@
       "bairro": "Jardim Nassim Mamed",
       "cidade": "Sertãozinho",
       "area_util": 140.0,
-      "data_registro": "2026-10-24T14:45:53.050532"
+      "data_registro": "2026-10-25T15:00:37.393661"
     },
     "L2138": {
       "id": "L2138",
@@ -1870,7 +1870,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 207.0,
-      "data_registro": "2026-10-24T14:45:53.050534"
+      "data_registro": "2026-10-25T15:00:37.393663"
     },
     "L8138": {
       "id": "L8138",
@@ -1881,7 +1881,7 @@
       "bairro": "Jardim Boa Vista",
       "cidade": "Sertãozinho",
       "area_util": 913.0,
-      "data_registro": "2026-10-24T14:45:53.050535"
+      "data_registro": "2026-10-25T15:00:37.393664"
     },
     "L0038": {
       "id": "L0038",
@@ -1892,7 +1892,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 227.0,
-      "data_registro": "2026-10-24T14:45:53.050540"
+      "data_registro": "2026-10-25T15:00:37.393667"
     },
     "L2669": {
       "id": "L2669",
@@ -1903,7 +1903,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 90.0,
-      "data_registro": "2026-10-24T14:45:53.050542"
+      "data_registro": "2026-10-25T15:00:37.393669"
     },
     "L9899": {
       "id": "L9899",
@@ -1914,7 +1914,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 524.0,
-      "data_registro": "2026-10-24T14:45:53.050543"
+      "data_registro": "2026-10-25T15:00:37.393671"
     },
     "L34601": {
       "id": "L34601",
@@ -1925,7 +1925,7 @@
       "bairro": "São João",
       "cidade": "Sertãozinho",
       "area_util": 49.0,
-      "data_registro": "2026-10-24T14:45:53.050545"
+      "data_registro": "2026-10-25T15:00:37.393673"
     },
     "L3218": {
       "id": "L3218",
@@ -1936,7 +1936,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 179.0,
-      "data_registro": "2026-10-24T14:45:53.050546"
+      "data_registro": "2026-10-25T15:00:37.393674"
     },
     "L5282": {
       "id": "L5282",
@@ -1947,7 +1947,7 @@
       "bairro": "Distrito Industrial Maria Lúcia Biagi Americano",
       "cidade": "Sertãozinho",
       "area_util": 10000.0,
-      "data_registro": "2026-10-24T14:45:53.050549"
+      "data_registro": "2026-10-25T15:00:37.393676"
     },
     "L11111": {
       "id": "L11111",
@@ -1958,7 +1958,7 @@
       "bairro": "Jardim Cajubá",
       "cidade": "Sertãozinho",
       "area_util": 374.0,
-      "data_registro": "2026-10-24T14:45:53.050551"
+      "data_registro": "2026-10-25T15:00:37.393677"
     },
     "L2903": {
       "id": "L2903",
@@ -1969,7 +1969,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 20.0,
-      "data_registro": "2026-10-24T14:45:53.050553"
+      "data_registro": "2026-10-25T15:00:37.393681"
     },
     "L4583": {
       "id": "L4583",
@@ -1980,7 +1980,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 20.0,
-      "data_registro": "2026-10-24T14:45:53.050555"
+      "data_registro": "2026-10-25T15:00:37.393682"
     },
     "L4409": {
       "id": "L4409",
@@ -1991,7 +1991,7 @@
       "bairro": "Jardim Lopes da Silva",
       "cidade": "Sertãozinho",
       "area_util": 1259.0,
-      "data_registro": "2026-10-24T14:45:53.050557"
+      "data_registro": "2026-10-25T15:00:37.393685"
     },
     "L00701": {
       "id": "L00701",
@@ -2002,7 +2002,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 31.0,
-      "data_registro": "2026-10-24T14:45:53.050558"
+      "data_registro": "2026-10-25T15:00:37.393686"
     },
     "L13811": {
       "id": "L13811",
@@ -2013,7 +2013,7 @@
       "bairro": "Distrito Industrial Waldemar Balbo Júnior (Cruz das Posses)",
       "cidade": "Sertãozinho",
       "area_util": 642.0,
-      "data_registro": "2026-10-24T14:45:53.050560"
+      "data_registro": "2026-10-25T15:00:37.393688"
     },
     "L68801": {
       "id": "L68801",
@@ -2024,7 +2024,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 50.0,
-      "data_registro": "2026-10-24T14:45:53.050562"
+      "data_registro": "2026-10-25T15:00:37.393689"
     },
     "L0509": {
       "id": "L0509",
@@ -2035,7 +2035,7 @@
       "bairro": "São João",
       "cidade": "Sertãozinho",
       "area_util": 572.0,
-      "data_registro": "2026-10-24T14:45:53.050563"
+      "data_registro": "2026-10-25T15:00:37.393691"
     },
     "L01211": {
       "id": "L01211",
@@ -2046,7 +2046,7 @@
       "bairro": "Chácaras Recreio Planal",
       "cidade": "Sertãozinho",
       "area_util": 23.0,
-      "data_registro": "2026-10-24T14:45:53.050565"
+      "data_registro": "2026-10-25T15:00:37.393692"
     },
     "L31211": {
       "id": "L31211",
@@ -2057,7 +2057,7 @@
       "bairro": "Chácaras Recreio Planal",
       "cidade": "Sertãozinho",
       "area_util": 23.0,
-      "data_registro": "2026-10-24T14:45:53.050567"
+      "data_registro": "2026-10-25T15:00:37.393694"
     },
     "L61211": {
       "id": "L61211",
@@ -2068,7 +2068,7 @@
       "bairro": "Chácaras Recreio Planal",
       "cidade": "Sertãozinho",
       "area_util": 23.0,
-      "data_registro": "2026-10-24T14:45:53.050568"
+      "data_registro": "2026-10-25T15:00:37.393695"
     },
     "L96401": {
       "id": "L96401",
@@ -2079,7 +2079,7 @@
       "bairro": "Loteamento Residencial Cidade Jardim",
       "cidade": "Catalão",
       "area_util": 90.0,
-      "data_registro": "2026-10-24T14:45:53.050570"
+      "data_registro": "2026-10-25T15:00:37.393697"
     },
     "L30221": {
       "id": "L30221",
@@ -2090,7 +2090,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 139.0,
-      "data_registro": "2026-10-24T14:45:53.050571"
+      "data_registro": "2026-10-25T15:00:37.393698"
     },
     "L60221": {
       "id": "L60221",
@@ -2101,7 +2101,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 263.0,
-      "data_registro": "2026-10-24T14:45:53.050573"
+      "data_registro": "2026-10-25T15:00:37.393701"
     },
     "L4124": {
       "id": "L4124",
@@ -2112,7 +2112,7 @@
       "bairro": "Jardim Gimenez",
       "cidade": "Sertãozinho",
       "area_util": 198.0,
-      "data_registro": "2026-10-24T14:45:53.050575"
+      "data_registro": "2026-10-25T15:00:37.393702"
     },
     "L1781": {
       "id": "L1781",
@@ -2123,7 +2123,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 34.0,
-      "data_registro": "2026-10-24T14:45:53.050576"
+      "data_registro": "2026-10-25T15:00:37.393704"
     },
     "L29321": {
       "id": "L29321",
@@ -2134,7 +2134,7 @@
       "bairro": "Jardim Montreal",
       "cidade": "Sertãozinho",
       "area_util": 138.0,
-      "data_registro": "2026-10-24T14:45:53.050578"
+      "data_registro": "2026-10-25T15:00:37.393705"
     },
     "L10421": {
       "id": "L10421",
@@ -2145,7 +2145,7 @@
       "bairro": "Jardim Recreio",
       "cidade": "Sertãozinho",
       "area_util": 45.0,
-      "data_registro": "2026-10-24T14:45:53.050580"
+      "data_registro": "2026-10-25T15:00:37.393706"
     },
     "L01811": {
       "id": "L01811",
@@ -2156,7 +2156,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 25.0,
-      "data_registro": "2026-10-24T14:45:53.050583"
+      "data_registro": "2026-10-25T15:00:37.393708"
     },
     "L59801": {
       "id": "L59801",
@@ -2167,7 +2167,7 @@
       "bairro": "Jardim Morada das Estrelas",
       "cidade": "Sertãozinho",
       "area_util": 220.0,
-      "data_registro": "2026-10-24T14:45:53.050584"
+      "data_registro": "2026-10-25T15:00:37.393710"
     },
     "L2108": {
       "id": "L2108",
@@ -2178,7 +2178,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 357.0,
-      "data_registro": "2026-10-24T14:45:53.050586"
+      "data_registro": "2026-10-25T15:00:37.393713"
     },
     "L5528": {
       "id": "L5528",
@@ -2189,7 +2189,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 50.0,
-      "data_registro": "2026-10-24T14:45:53.050588"
+      "data_registro": "2026-10-25T15:00:37.393716"
     },
     "L7637": {
       "id": "L7637",
@@ -2200,7 +2200,7 @@
       "bairro": "Zanini",
       "cidade": "Sertãozinho",
       "area_util": 34.0,
-      "data_registro": "2026-10-24T14:45:53.050590"
+      "data_registro": "2026-10-25T15:00:37.393717"
     },
     "L62321": {
       "id": "L62321",
@@ -2211,7 +2211,7 @@
       "bairro": "CINEP - Cidade Industrial e Empresarial",
       "cidade": "Sertãozinho",
       "area_util": 975.0,
-      "data_registro": "2026-10-24T14:45:53.050592"
+      "data_registro": "2026-10-25T15:00:37.393719"
     },
     "L01421": {
       "id": "L01421",
@@ -2222,7 +2222,7 @@
       "bairro": "Vila Industrial",
       "cidade": "Sertãozinho",
       "area_util": 480.0,
-      "data_registro": "2026-10-24T14:45:53.050593"
+      "data_registro": "2026-10-25T15:00:37.393720"
     },
     "L13121": {
       "id": "L13121",
@@ -2233,7 +2233,7 @@
       "bairro": "Jardim Alexandre Balbo",
       "cidade": "Sertãozinho",
       "area_util": 50.0,
-      "data_registro": "2026-10-24T14:45:53.050595"
+      "data_registro": "2026-10-25T15:00:37.393722"
     },
     "L59321": {
       "id": "L59321",
@@ -2244,7 +2244,7 @@
       "bairro": "Cidade Jardim",
       "cidade": "Sertãozinho",
       "area_util": 138.0,
-      "data_registro": "2026-10-24T14:45:53.050597"
+      "data_registro": "2026-10-25T15:00:37.393724"
     },
     "L1136": {
       "id": "L1136",
@@ -2255,7 +2255,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 17.0,
-      "data_registro": "2026-10-24T14:45:53.050599"
+      "data_registro": "2026-10-25T15:00:37.393725"
     },
     "L22811": {
       "id": "L22811",
@@ -2266,7 +2266,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 30.0,
-      "data_registro": "2026-10-24T14:45:53.050601"
+      "data_registro": "2026-10-25T15:00:37.393727"
     },
     "L2096": {
       "id": "L2096",
@@ -2277,7 +2277,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 52.0,
-      "data_registro": "2026-10-24T14:45:53.050603"
+      "data_registro": "2026-10-25T15:00:37.393729"
     },
     "L64901": {
       "id": "L64901",
@@ -2288,7 +2288,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 20.0,
-      "data_registro": "2026-10-24T14:45:53.050604"
+      "data_registro": "2026-10-25T15:00:37.393730"
     },
     "L5156": {
       "id": "L5156",
@@ -2299,7 +2299,7 @@
       "bairro": "Shangri-Lá",
       "cidade": "Sertãozinho",
       "area_util": 92.0,
-      "data_registro": "2026-10-24T14:45:53.050606"
+      "data_registro": "2026-10-25T15:00:37.393732"
     },
     "L58811": {
       "id": "L58811",
@@ -2310,7 +2310,7 @@
       "bairro": "Distrito Industrial Maria Lúcia Biagi Americano",
       "cidade": "Sertãozinho",
       "area_util": 890.0,
-      "data_registro": "2026-10-24T14:45:53.050608"
+      "data_registro": "2026-10-25T15:00:37.393733"
     },
     "L6059": {
       "id": "L6059",
@@ -2321,7 +2321,7 @@
       "bairro": "Jardim Veneto II",
       "cidade": "Sertãozinho",
       "area_util": 70.0,
-      "data_registro": "2026-10-24T14:45:53.050609"
+      "data_registro": "2026-10-25T15:00:37.393735"
     },
     "L54221": {
       "id": "L54221",
@@ -2332,7 +2332,7 @@
       "bairro": "Jardim Eldorado",
       "cidade": "Sertãozinho",
       "area_util": 78.0,
-      "data_registro": "2026-10-24T14:45:53.050611"
+      "data_registro": "2026-10-25T15:00:37.393736"
     },
     "L7562": {
       "id": "L7562",
@@ -2343,7 +2343,7 @@
       "bairro": "Zanini",
       "cidade": "Sertãozinho",
       "area_util": 23.0,
-      "data_registro": "2026-10-24T14:45:53.050612"
+      "data_registro": "2026-10-25T15:00:37.393738"
     },
     "L92321": {
       "id": "L92321",
@@ -2354,7 +2354,7 @@
       "bairro": "CINEP - Cidade Industrial e Empresarial",
       "cidade": "Sertãozinho",
       "area_util": 882.0,
-      "data_registro": "2026-10-24T14:45:53.050614"
+      "data_registro": "2026-10-25T15:00:37.393739"
     },
     "L3059": {
       "id": "L3059",
@@ -2365,7 +2365,7 @@
       "bairro": "Jardim Veneto II",
       "cidade": "Sertãozinho",
       "area_util": 70.0,
-      "data_registro": "2026-10-24T14:45:53.050616"
+      "data_registro": "2026-10-25T15:00:37.393741"
     },
     "L25421": {
       "id": "L25421",
@@ -2376,7 +2376,7 @@
       "bairro": "Shangri-Lá",
       "cidade": "Sertãozinho",
       "area_util": 109.0,
-      "data_registro": "2026-10-24T14:45:53.050618"
+      "data_registro": "2026-10-25T15:00:37.393742"
     },
     "L3746": {
       "id": "L3746",
@@ -2387,7 +2387,7 @@
       "bairro": "Jardim Canaã",
       "cidade": "Sertãozinho",
       "area_util": 130.0,
-      "data_registro": "2026-10-24T14:45:53.050620"
+      "data_registro": "2026-10-25T15:00:37.393744"
     },
     "L8516": {
       "id": "L8516",
@@ -2398,7 +2398,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 59.0,
-      "data_registro": "2026-10-24T14:45:53.050622"
+      "data_registro": "2026-10-25T15:00:37.393747"
     },
     "L479": {
       "id": "L479",
@@ -2409,7 +2409,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 274.0,
-      "data_registro": "2026-10-24T14:45:53.050624"
+      "data_registro": "2026-10-25T15:00:37.393749"
     },
     "L11021": {
       "id": "L11021",
@@ -2420,7 +2420,7 @@
       "bairro": "Jardim Recreio",
       "cidade": "Sertãozinho",
       "area_util": 163.0,
-      "data_registro": "2026-10-24T14:45:53.050626"
+      "data_registro": "2026-10-25T15:00:37.393751"
     },
     "L0608": {
       "id": "L0608",
@@ -2431,7 +2431,7 @@
       "bairro": "Jardim Golive",
       "cidade": "Sertãozinho",
       "area_util": 190.0,
-      "data_registro": "2026-10-24T14:45:53.050627"
+      "data_registro": "2026-10-25T15:00:37.393753"
     },
     "L7631": {
       "id": "L7631",
@@ -2442,7 +2442,7 @@
       "bairro": "Conjunto Habitacional Doutor Walter Antônio de Pádua Becker",
       "cidade": "Sertãozinho",
       "area_util": 99.0,
-      "data_registro": "2026-10-24T14:45:53.050629"
+      "data_registro": "2026-10-25T15:00:37.393755"
     },
     "L16421": {
       "id": "L16421",
@@ -2453,7 +2453,7 @@
       "bairro": "Jardim Santa Rosa II",
       "cidade": "Sertãozinho",
       "area_util": 59.0,
-      "data_registro": "2026-10-24T14:45:53.050631"
+      "data_registro": "2026-10-25T15:00:37.393756"
     },
     "L29021": {
       "id": "L29021",
@@ -2464,7 +2464,7 @@
       "bairro": "Shangri-Lá",
       "cidade": "Sertãozinho",
       "area_util": 237.0,
-      "data_registro": "2026-10-24T14:45:53.050632"
+      "data_registro": "2026-10-25T15:00:37.393758"
     },
     "L6464": {
       "id": "L6464",
@@ -2475,7 +2475,7 @@
       "bairro": "São João",
       "cidade": "Sertãozinho",
       "area_util": 118.0,
-      "data_registro": "2026-10-24T14:45:53.050634"
+      "data_registro": "2026-10-25T15:00:37.393760"
     },
     "L07421": {
       "id": "L07421",
@@ -2486,7 +2486,7 @@
       "bairro": "Jardim América",
       "cidade": "Sertãozinho",
       "area_util": 278.0,
-      "data_registro": "2026-10-24T14:45:53.050636"
+      "data_registro": "2026-10-25T15:00:37.393761"
     },
     "L8978": {
       "id": "L8978",
@@ -2497,7 +2497,7 @@
       "bairro": "São João",
       "cidade": "Sertãozinho",
       "area_util": 772.0,
-      "data_registro": "2026-10-24T14:45:53.050637"
+      "data_registro": "2026-10-25T15:00:37.393763"
     },
     "L72521": {
       "id": "L72521",
@@ -2508,7 +2508,7 @@
       "bairro": "Jardim Recreio",
       "cidade": "Sertãozinho",
       "area_util": 32.0,
-      "data_registro": "2026-10-24T14:45:53.050639"
+      "data_registro": "2026-10-25T15:00:37.393764"
     },
     "L2081": {
       "id": "L2081",
@@ -2519,7 +2519,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 189.0,
-      "data_registro": "2026-10-24T14:45:53.050641"
+      "data_registro": "2026-10-25T15:00:37.393766"
     },
     "L86321": {
       "id": "L86321",
@@ -2530,7 +2530,7 @@
       "bairro": "Cidade Jardim",
       "cidade": "Sertãozinho",
       "area_util": 80.0,
-      "data_registro": "2026-10-24T14:45:53.050642"
+      "data_registro": "2026-10-25T15:00:37.393767"
     },
     "L24221": {
       "id": "L24221",
@@ -2541,7 +2541,7 @@
       "bairro": "Conjunto Habitacional Lúcia Fabro Sverzut",
       "cidade": "Sertãozinho",
       "area_util": 32.0,
-      "data_registro": "2026-10-24T14:45:53.050644"
+      "data_registro": "2026-10-25T15:00:37.393769"
     },
     "L93521": {
       "id": "L93521",
@@ -2552,7 +2552,7 @@
       "bairro": "Alvorada",
       "cidade": "Sertãozinho",
       "area_util": 50.0,
-      "data_registro": "2026-10-24T14:45:53.050645"
+      "data_registro": "2026-10-25T15:00:37.393770"
     },
     "L63521": {
       "id": "L63521",
@@ -2563,7 +2563,7 @@
       "bairro": "Jardim Alexandre Balbo",
       "cidade": "Sertãozinho",
       "area_util": 46.0,
-      "data_registro": "2026-10-24T14:45:53.050647"
+      "data_registro": "2026-10-25T15:00:37.393772"
     },
     "L4031": {
       "id": "L4031",
@@ -2574,7 +2574,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 83.0,
-      "data_registro": "2026-10-24T14:45:53.050649"
+      "data_registro": "2026-10-25T15:00:37.393774"
     },
     "L7868": {
       "id": "L7868",
@@ -2585,7 +2585,7 @@
       "bairro": "Jardim Eldorado",
       "cidade": "Sertãozinho",
       "area_util": 52.0,
-      "data_registro": "2026-10-24T14:45:53.050652"
+      "data_registro": "2026-10-25T15:00:37.393776"
     },
     "L28421": {
       "id": "L28421",
@@ -2596,7 +2596,7 @@
       "bairro": "JARDIM TERRAS DE SANTA ELISA III",
       "cidade": "Sertãozinho",
       "area_util": 55.0,
-      "data_registro": "2026-10-24T14:45:53.050654"
+      "data_registro": "2026-10-25T15:00:37.393778"
     },
     "L4388": {
       "id": "L4388",
@@ -2607,7 +2607,7 @@
       "bairro": "Jardim Veneto II",
       "cidade": "Sertãozinho",
       "area_util": 143.0,
-      "data_registro": "2026-10-24T14:45:53.050655"
+      "data_registro": "2026-10-25T15:00:37.393781"
     },
     "L03521": {
       "id": "L03521",
@@ -2618,7 +2618,7 @@
       "bairro": "Jardim Campo Alegre",
       "cidade": "Sertãozinho",
       "area_util": 46.0,
-      "data_registro": "2026-10-24T14:45:53.050657"
+      "data_registro": "2026-10-25T15:00:37.393782"
     },
     "L19421": {
       "id": "L19421",
@@ -2629,7 +2629,7 @@
       "bairro": "Jardim Jamaica",
       "cidade": "Sertãozinho",
       "area_util": 35.0,
-      "data_registro": "2026-10-24T14:45:53.050659"
+      "data_registro": "2026-10-25T15:00:37.393784"
     },
     "L4193": {
       "id": "L4193",
@@ -2640,7 +2640,7 @@
       "bairro": "Jardim Eldorado",
       "cidade": "Sertãozinho",
       "area_util": 44.0,
-      "data_registro": "2026-10-24T14:45:53.050661"
+      "data_registro": "2026-10-25T15:00:37.393786"
     },
     "L58511": {
       "id": "L58511",
@@ -2651,7 +2651,7 @@
       "bairro": "Alvorada",
       "cidade": "Sertãozinho",
       "area_util": 2400.0,
-      "data_registro": "2026-10-24T14:45:53.050663"
+      "data_registro": "2026-10-25T15:00:37.393787"
     },
     "L58421": {
       "id": "L58421",
@@ -2662,7 +2662,7 @@
       "bairro": "JARDIM TERRAS DE SANTA ELISA III",
       "cidade": "Sertãozinho",
       "area_util": 48.0,
-      "data_registro": "2026-10-24T14:45:53.050665"
+      "data_registro": "2026-10-25T15:00:37.393789"
     },
     "L4139": {
       "id": "L4139",
@@ -2673,7 +2673,7 @@
       "bairro": "Jardim Europa",
       "cidade": "Sertãozinho",
       "area_util": 158.0,
-      "data_registro": "2026-10-24T14:45:53.050666"
+      "data_registro": "2026-10-25T15:00:37.393790"
     },
     "L5705": {
       "id": "L5705",
@@ -2684,7 +2684,7 @@
       "bairro": "CENTRO",
       "cidade": "Pontal",
       "area_util": 581.0,
-      "data_registro": "2026-10-24T14:45:53.050668"
+      "data_registro": "2026-10-25T15:00:37.393792"
     },
     "L3185": {
       "id": "L3185",
@@ -2695,7 +2695,7 @@
       "bairro": "Nova Dumont",
       "cidade": "Dumont",
       "area_util": 120.0,
-      "data_registro": "2026-10-24T14:45:53.050670"
+      "data_registro": "2026-10-25T15:00:37.393793"
     },
     "L5672": {
       "id": "L5672",
@@ -2706,7 +2706,7 @@
       "bairro": "Jardim Recreio dos Bandeirantes",
       "cidade": "Sertãozinho",
       "area_util": 183.0,
-      "data_registro": "2026-10-24T14:45:53.050672"
+      "data_registro": "2026-10-25T15:00:37.393795"
     },
     "L0779": {
       "id": "L0779",
@@ -2717,7 +2717,7 @@
       "bairro": "Centro",
       "cidade": "Sertãozinho",
       "area_util": 149.0,
-      "data_registro": "2026-10-24T14:45:53.050673"
+      "data_registro": "2026-10-25T15:00:37.393797"
     },
     "L88421": {
       "id": "L88421",
@@ -2728,7 +2728,7 @@
       "bairro": "Parque Residencial Francisco Paschoal",
       "cidade": "Sertãozinho",
       "area_util": 123.0,
-      "data_registro": "2026-10-24T14:45:53.050675"
+      "data_registro": "2026-10-25T15:00:37.393798"
     },
     "L30521": {
       "id": "L30521",
@@ -2739,7 +2739,7 @@
       "bairro": "Chácaras Recreio Planalto",
       "cidade": "Sertãozinho",
       "area_util": 2246.0,
-      "data_registro": "2026-10-24T14:45:53.050677"
+      "data_registro": "2026-10-25T15:00:37.393800"
     },
     "L83321": {
       "id": "L83321",
@@ -2750,7 +2750,7 @@
       "bairro": "São João",
       "cidade": "Sertãozinho",
       "area_util": 102.0,
-      "data_registro": "2026-10-24T14:45:53.050679"
+      "data_registro": "2026-10-25T15:00:37.393802"
     }
   }
 }
