@@ -1,11 +1,11 @@
 {
   "sucesso": true,
-  "data_briefing": "28/10/2026",
-  "hora_geracao": "17:15",
-  "timestamp": "2026-10-28T17:15:32.562981",
-  "total_ativos": 250,
-  "total_vendas": 154,
-  "total_locacao": 96,
+  "data_briefing": "29/10/2026",
+  "hora_geracao": "17:30",
+  "timestamp": "2026-10-29T17:30:05.084753",
+  "total_ativos": 251,
+  "total_vendas": 156,
+  "total_locacao": 95,
   "estatisticas_diagnostico": {
     "preco_justo": 39,
     "muito_acima": 101,
@@ -13,50 +13,56 @@
     "oportunidades": 76
   },
   "estatisticas_vendas": {
-    "total": 154,
+    "total": 156,
     "oportunidades": 47,
     "muito_acima": 64
   },
   "estatisticas_locacao": {
-    "total": 96,
+    "total": 95,
     "oportunidades": 39,
     "muito_acima": 37
   },
-  "novos_imoveis": [],
-  "total_novos": 0,
-  "mudancas_preco": [
+  "novos_imoveis": [
     {
-      "id": "V97421",
-      "titulo": "Casa com excelente localização e construção recente",
-      "tipo": "Casa",
+      "id": "V20621",
+      "titulo": "Loteamento em pleno desenvolvimento, venha realizar o sonho de sua casa.",
+      "tipo": "Terreno Residencial",
       "transacao": "Venda",
-      "bairro": "Jardim Liberdade",
-      "preco_antigo": 780000.0,
-      "preco_novo": 730000.0,
-      "preco_antigo_fmt": "780.000",
-      "preco_novo_fmt": "730.000",
-      "diferenca": -50000.0,
-      "diferenca_fmt": "50.000",
-      "variacao_pct": -6.4,
-      "tipo_mudanca": "reducao"
+      "bairro": "Vista da Lago",
+      "preco": 132000.0,
+      "preco_formatado": "132.000"
     },
     {
-      "id": "V45221",
-      "titulo": "Excelente sobrado em condomínio para morar ou investir",
-      "tipo": "Casa em Condomínio",
+      "id": "V99521",
+      "titulo": "Aqui está o Lote para construir a casa do  seu sonho.",
+      "tipo": "Terreno Residencial",
       "transacao": "Venda",
-      "bairro": "Portal das Flores",
-      "preco_antigo": 560000.0,
-      "preco_novo": 540000.0,
-      "preco_antigo_fmt": "560.000",
-      "preco_novo_fmt": "540.000",
-      "diferenca": -20000.0,
-      "diferenca_fmt": "20.000",
-      "variacao_pct": -3.6,
-      "tipo_mudanca": "reducao"
+      "bairro": "Jardim Paraíso",
+      "preco": 150000.0,
+      "preco_formatado": "150.000"
+    },
+    {
+      "id": "L07901",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Locação",
+      "bairro": "Jardim das Palmeiras",
+      "preco": 2900.0,
+      "preco_formatado": "2.900"
+    },
+    {
+      "id": "L24521",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Locação",
+      "bairro": "Jardim Primeiro de Maio",
+      "preco": 2200.0,
+      "preco_formatado": "2.200"
     }
   ],
-  "total_mudancas_preco": 2,
+  "total_novos": 4,
+  "mudancas_preco": [],
+  "total_mudancas_preco": 0,
   "top_oportunidades": [
     {
       "codigo": "L30521",
@@ -357,5 +363,5 @@
       "link_wa": "https://api.whatsapp.com/send?text=Ol%C3%A1%2C%20Propriet%C3%A1rio%28a%29%21%20Aqui%20%C3%A9%20o%20Equipe%20Expandh%20da%20%2AExpandh%20Imobili%C3%A1ria%2A.%0A%0AEstive%20fazendo%20hoje%20uma%20revis%C3%A3o%20t%C3%A9cnica%20da%20nossa%20carteira%20ativa%20em%20Sert%C3%A3ozinho%2C%20especialmente%20sobre%20o%20seu%20%2APonto%20Comercial%20/%20Sal%C3%A3o%20no%20Centro%20%28C%C3%B3d.%20L7325%29%2A.%0A%0A%F0%9F%93%8A%20Cruzamos%20os%20dados%20dos%20portais%20com%20as%20normas%20periciais%20%28NBR%2014653%29%20e%20notamos%20que%20a%20m%C3%A9dia%20de%20mercado%20para%20im%C3%B3veis%20semelhantes%20na%20regi%C3%A3o%20est%C3%A1%20em%20torno%20de%20%2AR%24%201%2C310%2A%20%28o%20valor%20anunciado%20atual%20est%C3%A1%20em%20R%24%203%2C000%29.%0A%0A%F0%9F%92%A1%20%2APor%20que%20isso%20%C3%A9%20importante%3F%2A%0AQuando%20o%20an%C3%BAncio%20fica%20acima%20da%20faixa%20de%20busca%2C%20o%20algoritmo%20dos%20portais%20reduz%20as%20visualiza%C3%A7%C3%B5es%20e%20os%20compradores%20acabam%20priorizando%20outras%20op%C3%A7%C3%B5es%20do%20bairro.%0A%0APodemos%20alinhar%20uma%20calibragem%20estrat%C3%A9gica%20no%20valor%20para%20%2Aaquecer%20as%20visitas%20e%20acelerar%20o%20fechamento%2A%3F%20Se%20preferir%2C%20posso%20te%20ligar%20ou%20te%20receber%20aqui%20na%20imobili%C3%A1ria%20para%20um%20caf%C3%A9%21%0A%0AUm%20abra%C3%A7o%2C%0A%2AEquipe%20Expandh%20%E2%80%A2%20Expandh%20Imobili%C3%A1ria%2A"
     }
   ],
-  "data_kurole_pub": "2026-10-27T19:06:38"
+  "data_kurole_pub": "2026-10-28T19:06:52"
 }
