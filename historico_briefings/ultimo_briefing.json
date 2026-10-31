@@ -1,11 +1,11 @@
 {
   "sucesso": true,
-  "data_briefing": "30/10/2026",
-  "hora_geracao": "17:06",
-  "timestamp": "2026-10-30T17:06:13.748819",
-  "total_ativos": 249,
+  "data_briefing": "31/10/2026",
+  "hora_geracao": "16:14",
+  "timestamp": "2026-10-31T16:14:47.491823",
+  "total_ativos": 252,
   "total_vendas": 156,
-  "total_locacao": 93,
+  "total_locacao": 96,
   "estatisticas_diagnostico": {
     "preco_justo": 39,
     "muito_acima": 101,
@@ -18,40 +18,42 @@
     "muito_acima": 64
   },
   "estatisticas_locacao": {
-    "total": 93,
+    "total": 96,
     "oportunidades": 39,
     "muito_acima": 37
   },
   "novos_imoveis": [
     {
-      "id": "L75521",
-      "titulo": "Apartamentos Padrão em Sertãozinho",
-      "tipo": "Apartamento",
-      "transacao": "Locação",
-      "bairro": "Jardim Esmeralda",
-      "preco": 1300.0,
-      "preco_formatado": "1.300"
-    }
-  ],
-  "total_novos": 1,
-  "mudancas_preco": [
-    {
-      "id": "V03101",
+      "id": "L7031",
       "titulo": "Casas Padrão em Sertãozinho",
       "tipo": "Casa",
-      "transacao": "Venda",
-      "bairro": "Jardim Sumaré",
-      "preco_antigo": 640000.0,
-      "preco_novo": 800000.0,
-      "preco_antigo_fmt": "640.000",
-      "preco_novo_fmt": "800.000",
-      "diferenca": 160000.0,
-      "diferenca_fmt": "160.000",
-      "variacao_pct": 25.0,
-      "tipo_mudanca": "aumento"
+      "transacao": "Locação",
+      "bairro": "Jardim Canaã",
+      "preco": 1620.0,
+      "preco_formatado": "1.620"
+    },
+    {
+      "id": "L54101",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Locação",
+      "bairro": "Jardim Alexandre Balbo",
+      "preco": 1600.0,
+      "preco_formatado": "1.600"
+    },
+    {
+      "id": "L9152",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Locação",
+      "bairro": "Jardim Boa Vista",
+      "preco": 980.0,
+      "preco_formatado": "980"
     }
   ],
-  "total_mudancas_preco": 1,
+  "total_novos": 3,
+  "mudancas_preco": [],
+  "total_mudancas_preco": 0,
   "top_oportunidades": [
     {
       "codigo": "L30521",
@@ -352,5 +354,5 @@
       "link_wa": "https://api.whatsapp.com/send?text=Ol%C3%A1%2C%20Propriet%C3%A1rio%28a%29%21%20Aqui%20%C3%A9%20o%20Equipe%20Expandh%20da%20%2AExpandh%20Imobili%C3%A1ria%2A.%0A%0AEstive%20fazendo%20hoje%20uma%20revis%C3%A3o%20t%C3%A9cnica%20da%20nossa%20carteira%20ativa%20em%20Sert%C3%A3ozinho%2C%20especialmente%20sobre%20o%20seu%20%2APonto%20Comercial%20/%20Sal%C3%A3o%20no%20Centro%20%28C%C3%B3d.%20L7325%29%2A.%0A%0A%F0%9F%93%8A%20Cruzamos%20os%20dados%20dos%20portais%20com%20as%20normas%20periciais%20%28NBR%2014653%29%20e%20notamos%20que%20a%20m%C3%A9dia%20de%20mercado%20para%20im%C3%B3veis%20semelhantes%20na%20regi%C3%A3o%20est%C3%A1%20em%20torno%20de%20%2AR%24%201%2C310%2A%20%28o%20valor%20anunciado%20atual%20est%C3%A1%20em%20R%24%203%2C000%29.%0A%0A%F0%9F%92%A1%20%2APor%20que%20isso%20%C3%A9%20importante%3F%2A%0AQuando%20o%20an%C3%BAncio%20fica%20acima%20da%20faixa%20de%20busca%2C%20o%20algoritmo%20dos%20portais%20reduz%20as%20visualiza%C3%A7%C3%B5es%20e%20os%20compradores%20acabam%20priorizando%20outras%20op%C3%A7%C3%B5es%20do%20bairro.%0A%0APodemos%20alinhar%20uma%20calibragem%20estrat%C3%A9gica%20no%20valor%20para%20%2Aaquecer%20as%20visitas%20e%20acelerar%20o%20fechamento%2A%3F%20Se%20preferir%2C%20posso%20te%20ligar%20ou%20te%20receber%20aqui%20na%20imobili%C3%A1ria%20para%20um%20caf%C3%A9%21%0A%0AUm%20abra%C3%A7o%2C%0A%2AEquipe%20Expandh%20%E2%80%A2%20Expandh%20Imobili%C3%A1ria%2A"
     }
   ],
-  "data_kurole_pub": "2026-10-29T19:06:43"
+  "data_kurole_pub": "2026-10-30T19:06:46"
 }
