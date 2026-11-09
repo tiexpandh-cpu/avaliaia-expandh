@@ -1,8 +1,8 @@
 {
   "sucesso": true,
-  "data_briefing": "08/11/2026",
-  "hora_geracao": "17:11",
-  "timestamp": "2026-11-08T17:11:49.062541",
+  "data_briefing": "09/11/2026",
+  "hora_geracao": "14:23",
+  "timestamp": "2026-11-09T14:23:38.047830",
   "total_ativos": 252,
   "total_vendas": 156,
   "total_locacao": 96,
@@ -22,18 +22,8 @@
     "oportunidades": 39,
     "muito_acima": 37
   },
-  "novos_imoveis": [
-    {
-      "id": "V50621",
-      "titulo": "Apartamento em localização privilegiada.",
-      "tipo": "Apartamento",
-      "transacao": "Venda",
-      "bairro": "Shangri-Lá",
-      "preco": 220000.0,
-      "preco_formatado": "220.000"
-    }
-  ],
-  "total_novos": 1,
+  "novos_imoveis": [],
+  "total_novos": 0,
   "mudancas_preco": [],
   "total_mudancas_preco": 0,
   "top_oportunidades": [

@@ -333,6 +333,13 @@ def obter_ou_carregar_ultimo_briefing(forcar_atualizacao: bool = False) -> dict:
                 return dados
         except Exception:
             pass
+
+    try:
+        return gerar_briefing_matinal(forcar_download=forcar_atualizacao)
+    except Exception as e:
+        return {"sucesso": False, "erro": str(e)}
+
+
 def render_painel_briefing(departamento: str = "Total"):
     """Renderiza a aba interativa de Briefing Matinal & Oportunidades no Streamlit, adaptada por departamento."""
     import streamlit as st
@@ -359,7 +366,8 @@ def render_painel_briefing(departamento: str = "Total"):
         briefing = obter_ou_carregar_ultimo_briefing(forcar_atualizacao=forcar)
 
     if not briefing or not briefing.get("sucesso"):
-        st.warning("Não foi possível compilar o briefing no momento.")
+        erro_detalhe = f": {briefing.get('erro')}" if briefing and briefing.get("erro") else ""
+        st.warning(f"Não foi possível compilar o briefing no momento{erro_detalhe}.")
         return
 
     # Banner informativo com data e hora (Estilo Expandh BI)
