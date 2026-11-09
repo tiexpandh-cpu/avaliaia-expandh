@@ -9,9 +9,9 @@ import streamlit as st
 import argumentario
 
 
-# Coordenadas de Referência Central: Praça 21 de Abril (Centro, Sertãozinho/SP)
-LAT_PRACA_21 = -21.1388
-LON_PRACA_21 = -48.0645
+# Coordenadas de Referência Central: Praça 21 de Abril (Centro Histórico e Comercial, Sertãozinho/SP)
+LAT_PRACA_21 = -21.1377
+LON_PRACA_21 = -47.9912
 
 
 def _obter_cor_status(status: str) -> list[int]:
@@ -171,24 +171,30 @@ def render_painel_mapa(imoveis_lista: list, dados_aud: dict, departamento: str =
 
     st.markdown("---")
 
-    # Barra de Legenda e Controle de Rótulo posicionados diretamente junto ao Mapa
-    col_leg, col_tog = st.columns([3.3, 1.2])
+    # Barra de Legenda e Controles do Mapa
+    col_leg, col_tog1, col_tog2 = st.columns([2.8, 1.1, 1.1])
     with col_leg:
         st.markdown("""
-        <div class="glass-card" style="padding: 10px 16px; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; gap: 16px; align-items: center; flex-wrap: wrap; font-size: 0.84rem; color: #f8fafc;">
-            <span style="font-weight: 800; color: #38bdf8; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.05em;">🎯 Legenda das Bolinhas:</span>
+        <div class="glass-card" style="padding: 10px 16px; border: 1px solid rgba(255, 255, 255, 0.08); display: flex; gap: 14px; align-items: center; flex-wrap: wrap; font-size: 0.84rem; color: #f8fafc;">
+            <span style="font-weight: 800; color: #38bdf8; text-transform: uppercase; font-size: 0.78rem; letter-spacing: 0.05em;">🎯 Legenda:</span>
             <span><span style="color: #22C55E; font-size: 1.15rem;">●</span> <b>Verde:</b> Justo (±5%)</span>
             <span><span style="color: #EF4444; font-size: 1.15rem;">●</span> <b>Vermelho:</b> Muito Acima (> 15%)</span>
             <span><span style="color: #EAB308; font-size: 1.15rem;">●</span> <b>Amarelo:</b> Levemente (+5% a 15%)</span>
             <span><span style="color: #3B82F6; font-size: 1.15rem;">●</span> <b>Azul:</b> Oportunidades (< -7%)</span>
-            <span><span style="color: #F59E0B; font-size: 1.15rem;">⭘</span> <b>Anel:</b> Centro Nobre (Praça 21)</span>
+            <span><span style="color: #F59E0B; font-size: 1.15rem;">⭘</span> <b>Anel Âmbar:</b> Polo Central Praça 21</span>
         </div>
         """, unsafe_allow_html=True)
-    with col_tog:
+    with col_tog1:
         mostrar_rotulos = st.toggle(
-            "🏷️ Código junto à bolinha",
+            "🏷️ Códigos",
             value=True,
             help="Exibe o código do imóvel (ex: L7562, V3239) diretamente sobre cada ponto no mapa"
+        )
+    with col_tog2:
+        mostrar_polo = st.toggle(
+            "🏛️ Polo Praça 21",
+            value=True,
+            help="Exibe o anel de delimitação da Praça 21 de Abril (Centro Nobre NBR, raio de 450m)"
         )
 
     # Centro do mapa baseado na seleção ou na Praça 21 de Abril
@@ -215,7 +221,7 @@ def render_painel_mapa(imoveis_lista: list, dados_aud: dict, departamento: str =
         "lat": LAT_PRACA_21,
         "lon": LON_PRACA_21,
         "nome": "Polo Praça 21 de Abril (Centro Comercial Nobre)",
-        "color": [245, 158, 11, 70],
+        "color": [245, 158, 11, 45],
     }])
 
     camada_praca = pdk.Layer(
@@ -224,14 +230,16 @@ def render_painel_mapa(imoveis_lista: list, dados_aud: dict, departamento: str =
         get_position="[lon, lat]",
         get_color="color",
         get_radius=450,
-        pickable=True,
+        pickable=False,
         stroked=True,
         filled=True,
         line_width_min_pixels=2,
-        get_line_color=[245, 158, 11, 230],
+        get_line_color=[245, 158, 11, 220],
     )
 
-    camadas = [camada_praca, camada_imoveis]
+    camadas = [camada_imoveis]
+    if mostrar_polo:
+        camadas.insert(0, camada_praca)
 
     # Camada 3: Rótulos de Texto (Códigos anexados diretamente às bolinhas)
     if mostrar_rotulos:
