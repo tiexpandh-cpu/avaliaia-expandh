@@ -1,0 +1,72 @@
+{
+  "imovel": {
+    "numero_matricula": "87.639",
+    "tipo_imovel": "apartamento",
+    "endereco": "Rua Neusa Ros Mazer nº 210",
+    "bairro": "Condomínio Vitta Veneto II",
+    "cidade": "Sertãozinho",
+    "uf": "SP",
+    "area_privativa_m2": 43.06,
+    "area_total_m2": 89.417,
+    "area_terreno_m2": 0,
+    "quartos": 2,
+    "vagas": 1,
+    "proprietarios_atuais": [
+      "Beatriz Carlos Macena"
+    ],
+    "onus_e_gravames": [
+      "Alienação Fiduciária em favor da Caixa Econômica Federal - CEF"
+    ],
+    "observacoes": "",
+    "cartorio": "Oficial de Registro de Imóveis e Anexos de Sertãozinho - SP",
+    "complemento": "Apto nº 22, 2º andar, Bloco B, Torre 04"
+  },
+  "mercado": {
+    "geolocalizacao": {
+      "erro": "Endereço não encontrado"
+    },
+    "amostras": [
+      {
+        "endereco": "Rua A, Condomínio Vitta Veneto II",
+        "area": 80,
+        "preco": 800000,
+        "vagas": 1
+      },
+      {
+        "endereco": "Rua B, Condomínio Vitta Veneto II",
+        "area": 85,
+        "preco": 830000,
+        "vagas": 2
+      },
+      {
+        "endereco": "Rua C, Condomínio Vitta Veneto II",
+        "area": 78,
+        "preco": 750000,
+        "vagas": 1
+      }
+    ],
+    "amostras_simuladas": true
+  },
+  "venda": {
+    "area_considerada_m2": 43.06,
+    "metodo": "Média de R$/m² das amostras (área fora da faixa das amostras)",
+    "regressao": {
+      "coeficiente_angular_m2": 10384.62,
+      "intercepto": -47820.51,
+      "r2_score": 0.8583
+    },
+    "preco_medio_m2": 9793.36,
+    "valor_venda_estimado": 422000.0,
+    "faixa_min": 380000.0,
+    "faixa_max": 464000.0
+  },
+  "locacao": {
+    "rentabilidade_bruta_aa_adotada": 5.5,
+    "aluguel_mensal_estimado": 1930.0,
+    "selic": {
+      "selic_meta_aa": 13.75,
+      "data": "04/11/2026"
+    },
+    "spread_vs_selic_pp": -8.25
+  }
+}

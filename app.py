@@ -1250,23 +1250,108 @@ def render_painel_operacao(imoveis_lista: list, operacao: str, api_key_val: str 
 
 
 def render_historico_laudos():
-    st.subheader("Laudos Gerados Anteriormente")
-    arquivos_laudos = sorted(glob.glob("laudos/*.pdf"), reverse=True)
+    st.subheader("📚 Central de Laudos & Documentos Emitidos")
+    st.caption("Repositório oficial de laudos periciais e comerciais gerados com a identidade visual da Expandh Imobiliária.")
+
+    # Emissor Rápido de Laudo Sob Demanda
+    with st.expander("⚡ Emitir Novo Laudo da Carteira para o Histórico", expanded=False):
+        st.caption("Gera instantaneamente o laudo em PDF de qualquer imóvel da carteira com cálculos NBR 14653 e amostras ZAP.")
+        col_em1, col_em2, col_em3 = st.columns([2.5, 1.5, 1])
+        with col_em1:
+            imoveis_dict = {
+                f"{im.get('id')} - {im.get('tipo')} ({im.get('bairro', 'Sertãozinho')}) • {im.get('transacao')} R$ {float(im.get('preco') or 0):,.0f}".replace(",", "."): im
+                for im in imoveis_lista if im.get("id")
+            }
+            sel_im_label = st.selectbox("Selecione o Imóvel:", options=list(imoveis_dict.keys()), key="sel_laudo_historico_rapido")
+            im_sel = imoveis_dict[sel_im_label] if sel_im_label else None
+        with col_em2:
+            tipo_laudo_rapido = st.radio("Tipo de Laudo:", ["Comercial (1 Pág)", "Pericial NBR (Completo)"], horizontal=True, key="tipo_laudo_rapido_opt")
+        with col_em3:
+            st.write("")
+            st.write("")
+            if st.button("🚀 Emitir Laudo", type="primary", use_container_width=True, key="btn_emitir_laudo_hist"):
+                if im_sel:
+                    with st.spinner("Gerando laudo técnico oficial..."):
+                        pasta_s = Path("laudos")
+                        pasta_s.mkdir(exist_ok=True)
+                        cid = str(im_sel.get("id"))
+                        op_im = im_sel.get("transacao", "Venda")
+                        suf = "Comercial" if "Comercial" in tipo_laudo_rapido else "Pericial"
+                        caminho_novo_pdf = pasta_s / f"Laudo_{suf}_{cid}.pdf"
+
+                        imp = {
+                            "numero_matricula": cid,
+                            "cartorio": "Oficial de Registro de Imóveis de Sertãozinho",
+                            "tipo_imovel": im_sel.get("tipo", "Casa"),
+                            "endereco": im_sel.get("endereco", ""),
+                            "bairro": im_sel.get("bairro", ""),
+                            "cidade": im_sel.get("cidade", "Sertãozinho"),
+                            "uf": "SP",
+                            "area_total_m2": im_sel.get("area_total") or im_sel.get("area_util") or 100,
+                            "area_construida_m2": im_sel.get("area_util") or im_sel.get("area_total") or 100,
+                            "quartos": im_sel.get("quartos", 0),
+                            "suites": im_sel.get("suites", 0),
+                            "vagas": im_sel.get("vagas", 0),
+                            "banheiros": im_sel.get("banheiros", 0),
+                            "proprietarios": ["Proprietário Cadastrado (Feed KSI)"],
+                            "onus": ["Não constam ônus impeditivos"],
+                            "preco_anunciado": im_sel.get("preco", 0),
+                            "transacao": op_im,
+                        }
+                        merp = pipeline.etapa2_market_intelligence(imp)
+                        venp = pipeline.etapa3_sales_valuation(imp, merp)
+                        locp = pipeline.etapa4_rental_valuation(imp, merp, venp)
+                        dp = {"imovel": imp, "mercado": merp, "venda": venp, "locacao": locp}
+                        gerar_pdf.criar_laudo_pdf(dp, caminho_novo_pdf, tipo_laudo="comercial" if "Comercial" in tipo_laudo_rapido else "completo")
+                        st.success(f"Laudo {caminho_novo_pdf.name} gerado e salvo com sucesso no histórico!")
+                        st.rerun()
+
+    st.markdown("---")
+
+    pasta_laudos = Path("laudos")
+    pasta_laudos.mkdir(exist_ok=True)
+    arquivos_laudos = sorted(pasta_laudos.glob("*.pdf"), key=lambda x: x.stat().st_mtime, reverse=True)
 
     if arquivos_laudos:
+        st.markdown(f"**Documentos Disponíveis ({len(arquivos_laudos)} laudos emitidos):**")
         for arq in arquivos_laudos:
-            p = Path(arq)
-            col_l1, col_l2 = st.columns([3, 1])
-            with col_l1:
-                st.write(f"📄 **{p.name}** • {datetime.fromtimestamp(p.stat().st_mtime).strftime('%d/%m/%Y às %H:%M')}")
-            with col_l2:
-                with open(p, "rb") as f_down:
+            nome = arq.name
+            tamanho_kb = arq.stat().st_size / 1024
+            data_criacao = datetime.fromtimestamp(arq.stat().st_mtime).strftime("%d/%m/%Y às %H:%M")
+
+            # Badge de Tipo
+            if "Pericial" in nome or "completo" in nome.lower():
+                tipo_badge = '<span style="background: rgba(37, 99, 235, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700;">📑 LAUDO PERICIAL (NBR)</span>'
+            elif "Comercial" in nome:
+                tipo_badge = '<span style="background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700;">📄 LAUDO COMERCIAL (1 PÁG)</span>'
+            elif "Matricula" in nome:
+                tipo_badge = '<span style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.4); padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700;">🏛️ LAUDO DE MATRÍCULA</span>'
+            else:
+                tipo_badge = '<span style="background: rgba(148, 163, 184, 0.2); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.4); padding: 3px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 700;">📄 DOCUMENTO PDF</span>'
+
+            col_card, col_acao = st.columns([3.4, 1.2])
+            with col_card:
+                st.markdown(f"""
+                <div class="glass-card" style="padding: 12px 16px; border: 1px solid rgba(255, 255, 255, 0.08); margin-bottom: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                        <span style="font-weight: 800; color: #f8fafc; font-size: 0.95rem;">{nome}</span>
+                        {tipo_badge}
+                    </div>
+                    <div style="font-size: 0.8rem; color: #94a3b8;">
+                        📅 Emitido em {data_criacao} • 💾 {tamanho_kb:.1f} KB
+                    </div>
+                </div>
+                """, unsafe_allow_html=True)
+            with col_acao:
+                st.markdown("<div style='height: 8px;'></div>", unsafe_allow_html=True)
+                with open(arq, "rb") as f_down:
                     st.download_button(
                         label="📥 Baixar PDF",
                         data=f_down,
-                        file_name=p.name,
+                        file_name=nome,
                         mime="application/pdf",
-                        key=p.name,
+                        key=f"dl_hist_{nome}",
+                        use_container_width=True,
                     )
     else:
         st.info("Nenhum laudo gerado ainda na pasta `laudos/`.")
