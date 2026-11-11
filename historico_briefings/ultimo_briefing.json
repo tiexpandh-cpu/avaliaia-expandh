@@ -1,11 +1,11 @@
 {
   "sucesso": true,
-  "data_briefing": "10/11/2026",
-  "hora_geracao": "18:45",
-  "timestamp": "2026-11-10T18:45:58.976309",
+  "data_briefing": "11/11/2026",
+  "hora_geracao": "18:50",
+  "timestamp": "2026-11-11T18:50:03.144383",
   "total_ativos": 255,
-  "total_vendas": 156,
-  "total_locacao": 99,
+  "total_vendas": 157,
+  "total_locacao": 98,
   "estatisticas_diagnostico": {
     "preco_justo": 39,
     "muito_acima": 101,
@@ -13,78 +13,38 @@
     "oportunidades": 76
   },
   "estatisticas_vendas": {
-    "total": 156,
+    "total": 157,
     "oportunidades": 47,
     "muito_acima": 64
   },
   "estatisticas_locacao": {
-    "total": 99,
+    "total": 98,
     "oportunidades": 39,
     "muito_acima": 37
   },
   "novos_imoveis": [
     {
-      "id": "L3368",
-      "titulo": "Apartamentos Padrão em Sertãozinho",
-      "tipo": "Apartamento",
-      "transacao": "Locação",
-      "bairro": "Jardim Veneto II",
-      "preco": 800.0,
-      "preco_formatado": "800"
-    },
-    {
-      "id": "L07811",
+      "id": "L30521",
       "titulo": "Casas Padrão em Sertãozinho",
       "tipo": "Casa",
       "transacao": "Locação",
-      "bairro": "Jardim Santa Rosa",
-      "preco": 1500.0,
-      "preco_formatado": "1.500"
+      "bairro": "Chácaras Recreio Planalto",
+      "preco": 1800.0,
+      "preco_formatado": "1.800"
     },
     {
-      "id": "L2705",
-      "titulo": "Comerciais Sala em Sertãozinho",
-      "tipo": "Sala Comercial",
-      "transacao": "Locação",
-      "bairro": "Centro",
-      "preco": 1000.0,
-      "preco_formatado": "1.000"
-    }
-  ],
-  "total_novos": 3,
-  "mudancas_preco": [
-    {
-      "id": "L4139",
-      "titulo": "Casas Padrão em Sertãozinho",
-      "tipo": "Casa",
-      "transacao": "Locação",
-      "bairro": "Jardim Europa",
-      "preco_antigo": 2600.0,
-      "preco_novo": 2300.0,
-      "preco_antigo_fmt": "2.600",
-      "preco_novo_fmt": "2.300",
-      "diferenca": -300.0,
-      "diferenca_fmt": "300",
-      "variacao_pct": -11.5,
-      "tipo_mudanca": "reducao"
-    },
-    {
-      "id": "V15401",
+      "id": "V03611",
       "titulo": "Apartamentos Padrão em Sertãozinho",
       "tipo": "Apartamento",
       "transacao": "Venda",
-      "bairro": "Jardim Santa Rosa II",
-      "preco_antigo": 76500.0,
-      "preco_novo": 62000.0,
-      "preco_antigo_fmt": "76.500",
-      "preco_novo_fmt": "62.000",
-      "diferenca": -14500.0,
-      "diferenca_fmt": "14.500",
-      "variacao_pct": -19.0,
-      "tipo_mudanca": "reducao"
+      "bairro": "Jardim Athenas",
+      "preco": 612000.0,
+      "preco_formatado": "612.000"
     }
   ],
-  "total_mudancas_preco": 2,
+  "total_novos": 2,
+  "mudancas_preco": [],
+  "total_mudancas_preco": 0,
   "top_oportunidades": [
     {
       "codigo": "L30521",
@@ -385,5 +345,5 @@
       "link_wa": "https://api.whatsapp.com/send?text=Ol%C3%A1%2C%20Propriet%C3%A1rio%28a%29%21%20Aqui%20%C3%A9%20o%20Equipe%20Expandh%20da%20%2AExpandh%20Imobili%C3%A1ria%2A.%0A%0AEstive%20fazendo%20hoje%20uma%20revis%C3%A3o%20t%C3%A9cnica%20da%20nossa%20carteira%20ativa%20em%20Sert%C3%A3ozinho%2C%20especialmente%20sobre%20o%20seu%20%2APonto%20Comercial%20/%20Sal%C3%A3o%20no%20Centro%20%28C%C3%B3d.%20L7325%29%2A.%0A%0A%F0%9F%93%8A%20Cruzamos%20os%20dados%20dos%20portais%20com%20as%20normas%20periciais%20%28NBR%2014653%29%20e%20notamos%20que%20a%20m%C3%A9dia%20de%20mercado%20para%20im%C3%B3veis%20semelhantes%20na%20regi%C3%A3o%20est%C3%A1%20em%20torno%20de%20%2AR%24%201%2C310%2A%20%28o%20valor%20anunciado%20atual%20est%C3%A1%20em%20R%24%203%2C000%29.%0A%0A%F0%9F%92%A1%20%2APor%20que%20isso%20%C3%A9%20importante%3F%2A%0AQuando%20o%20an%C3%BAncio%20fica%20acima%20da%20faixa%20de%20busca%2C%20o%20algoritmo%20dos%20portais%20reduz%20as%20visualiza%C3%A7%C3%B5es%20e%20os%20compradores%20acabam%20priorizando%20outras%20op%C3%A7%C3%B5es%20do%20bairro.%0A%0APodemos%20alinhar%20uma%20calibragem%20estrat%C3%A9gica%20no%20valor%20para%20%2Aaquecer%20as%20visitas%20e%20acelerar%20o%20fechamento%2A%3F%20Se%20preferir%2C%20posso%20te%20ligar%20ou%20te%20receber%20aqui%20na%20imobili%C3%A1ria%20para%20um%20caf%C3%A9%21%0A%0AUm%20abra%C3%A7o%2C%0A%2AEquipe%20Expandh%20%E2%80%A2%20Expandh%20Imobili%C3%A1ria%2A"
     }
   ],
-  "data_kurole_pub": "2026-11-09T19:07:14"
+  "data_kurole_pub": "2026-11-10T19:07:12"
 }
