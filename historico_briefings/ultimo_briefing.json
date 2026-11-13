@@ -1,11 +1,11 @@
 {
   "sucesso": true,
-  "data_briefing": "12/11/2026",
-  "hora_geracao": "19:02",
-  "timestamp": "2026-11-12T19:02:13.067909",
-  "total_ativos": 258,
+  "data_briefing": "13/11/2026",
+  "hora_geracao": "18:40",
+  "timestamp": "2026-11-13T18:40:07.846479",
+  "total_ativos": 260,
   "total_vendas": 157,
-  "total_locacao": 101,
+  "total_locacao": 103,
   "estatisticas_diagnostico": {
     "preco_justo": 39,
     "muito_acima": 101,
@@ -18,42 +18,73 @@
     "muito_acima": 64
   },
   "estatisticas_locacao": {
-    "total": 101,
+    "total": 103,
     "oportunidades": 39,
     "muito_acima": 37
   },
   "novos_imoveis": [
     {
-      "id": "L9191",
-      "titulo": "Apartamentos Padrão em Sertãozinho",
-      "tipo": "Apartamento",
-      "transacao": "Locação",
-      "bairro": "Centro",
-      "preco": 1850.0,
-      "preco_formatado": "1.850"
-    },
-    {
-      "id": "L31511",
-      "titulo": "Comerciais Salão em Sertãozinho",
-      "tipo": "Ponto Comercial / Salão",
-      "transacao": "Locação",
-      "bairro": "Centro",
-      "preco": 1800.0,
-      "preco_formatado": "1.800"
-    },
-    {
-      "id": "L7481",
+      "id": "L9587",
       "titulo": "Casas Padrão em Sertãozinho",
       "tipo": "Casa",
       "transacao": "Locação",
-      "bairro": "Jardim América",
-      "preco": 2700.0,
-      "preco_formatado": "2.700"
+      "bairro": "Jardim Recreio dos Bandeirantes",
+      "preco": 3320.0,
+      "preco_formatado": "3.320"
+    },
+    {
+      "id": "L47501",
+      "titulo": "Comerciais Salão em Sertãozinho",
+      "tipo": "Ponto Comercial / Salão",
+      "transacao": "Locação",
+      "bairro": "Conjunto Habitacional Antônio Pedro Ortolan",
+      "preco": 1200.0,
+      "preco_formatado": "1.200"
+    },
+    {
+      "id": "L9152",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Locação",
+      "bairro": "Jardim Boa Vista",
+      "preco": 980.0,
+      "preco_formatado": "980"
     }
   ],
   "total_novos": 3,
-  "mudancas_preco": [],
-  "total_mudancas_preco": 0,
+  "mudancas_preco": [
+    {
+      "id": "L4484",
+      "titulo": "Casas Padrão em Sertãozinho",
+      "tipo": "Casa",
+      "transacao": "Locação",
+      "bairro": "Conjunto Habitacional Lourenço Domenici",
+      "preco_antigo": 2650.0,
+      "preco_novo": 2500.0,
+      "preco_antigo_fmt": "2.650",
+      "preco_novo_fmt": "2.500",
+      "diferenca": -150.0,
+      "diferenca_fmt": "150",
+      "variacao_pct": -5.7,
+      "tipo_mudanca": "reducao"
+    },
+    {
+      "id": "L58811",
+      "titulo": "Comerciais Galpão em Sertãozinho",
+      "tipo": "Galpão Industrial",
+      "transacao": "Locação",
+      "bairro": "Distrito Industrial Maria Lúcia Biagi Americano",
+      "preco_antigo": 18000.0,
+      "preco_novo": 16800.0,
+      "preco_antigo_fmt": "18.000",
+      "preco_novo_fmt": "16.800",
+      "diferenca": -1200.0,
+      "diferenca_fmt": "1.200",
+      "variacao_pct": -6.7,
+      "tipo_mudanca": "reducao"
+    }
+  ],
+  "total_mudancas_preco": 2,
   "top_oportunidades": [
     {
       "codigo": "L30521",
@@ -354,5 +385,5 @@
       "link_wa": "https://api.whatsapp.com/send?text=Ol%C3%A1%2C%20Propriet%C3%A1rio%28a%29%21%20Aqui%20%C3%A9%20o%20Equipe%20Expandh%20da%20%2AExpandh%20Imobili%C3%A1ria%2A.%0A%0AEstive%20fazendo%20hoje%20uma%20revis%C3%A3o%20t%C3%A9cnica%20da%20nossa%20carteira%20ativa%20em%20Sert%C3%A3ozinho%2C%20especialmente%20sobre%20o%20seu%20%2APonto%20Comercial%20/%20Sal%C3%A3o%20no%20Centro%20%28C%C3%B3d.%20L7325%29%2A.%0A%0A%F0%9F%93%8A%20Cruzamos%20os%20dados%20dos%20portais%20com%20as%20normas%20periciais%20%28NBR%2014653%29%20e%20notamos%20que%20a%20m%C3%A9dia%20de%20mercado%20para%20im%C3%B3veis%20semelhantes%20na%20regi%C3%A3o%20est%C3%A1%20em%20torno%20de%20%2AR%24%201%2C310%2A%20%28o%20valor%20anunciado%20atual%20est%C3%A1%20em%20R%24%203%2C000%29.%0A%0A%F0%9F%92%A1%20%2APor%20que%20isso%20%C3%A9%20importante%3F%2A%0AQuando%20o%20an%C3%BAncio%20fica%20acima%20da%20faixa%20de%20busca%2C%20o%20algoritmo%20dos%20portais%20reduz%20as%20visualiza%C3%A7%C3%B5es%20e%20os%20compradores%20acabam%20priorizando%20outras%20op%C3%A7%C3%B5es%20do%20bairro.%0A%0APodemos%20alinhar%20uma%20calibragem%20estrat%C3%A9gica%20no%20valor%20para%20%2Aaquecer%20as%20visitas%20e%20acelerar%20o%20fechamento%2A%3F%20Se%20preferir%2C%20posso%20te%20ligar%20ou%20te%20receber%20aqui%20na%20imobili%C3%A1ria%20para%20um%20caf%C3%A9%21%0A%0AUm%20abra%C3%A7o%2C%0A%2AEquipe%20Expandh%20%E2%80%A2%20Expandh%20Imobili%C3%A1ria%2A"
     }
   ],
-  "data_kurole_pub": "2026-11-11T19:06:59"
+  "data_kurole_pub": "2026-11-12T19:06:18"
 }
