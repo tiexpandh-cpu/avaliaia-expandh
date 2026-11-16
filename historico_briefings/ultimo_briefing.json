@@ -1,8 +1,8 @@
 {
   "sucesso": true,
-  "data_briefing": "15/11/2026",
-  "hora_geracao": "17:55",
-  "timestamp": "2026-11-15T17:55:29.247623",
+  "data_briefing": "16/11/2026",
+  "hora_geracao": "21:10",
+  "timestamp": "2026-11-16T21:10:47.655815",
   "total_ativos": 260,
   "total_vendas": 157,
   "total_locacao": 103,
@@ -22,18 +22,8 @@
     "oportunidades": 39,
     "muito_acima": 37
   },
-  "novos_imoveis": [
-    {
-      "id": "L71621",
-      "titulo": "Apartamentos Padrão em Sertãozinho",
-      "tipo": "Apartamento",
-      "transacao": "Locação",
-      "bairro": "Alvorada",
-      "preco": 1200.0,
-      "preco_formatado": "1.200"
-    }
-  ],
-  "total_novos": 1,
+  "novos_imoveis": [],
+  "total_novos": 0,
   "mudancas_preco": [],
   "total_mudancas_preco": 0,
   "top_oportunidades": [
