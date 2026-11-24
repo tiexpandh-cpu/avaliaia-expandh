@@ -1,8 +1,8 @@
 {
   "sucesso": true,
-  "data_briefing": "23/11/2026",
-  "hora_geracao": "22:50",
-  "timestamp": "2026-11-23T22:50:39.816350",
+  "data_briefing": "24/11/2026",
+  "hora_geracao": "21:26",
+  "timestamp": "2026-11-24T21:27:02.363704",
   "total_ativos": 260,
   "total_vendas": 161,
   "total_locacao": 99,
@@ -22,78 +22,10 @@
     "oportunidades": 39,
     "muito_acima": 37
   },
-  "novos_imoveis": [
-    {
-      "id": "L3029",
-      "titulo": "Comerciais Sala em Sertãozinho",
-      "tipo": "Sala Comercial",
-      "transacao": "Locação",
-      "bairro": "Chácaras Recreio Planal",
-      "preco": 815.0,
-      "preco_formatado": "815"
-    },
-    {
-      "id": "L6029",
-      "titulo": "Comerciais Sala em Sertãozinho",
-      "tipo": "Sala Comercial",
-      "transacao": "Locação",
-      "bairro": "Chácaras Recreio Planal",
-      "preco": 899.0,
-      "preco_formatado": "899"
-    },
-    {
-      "id": "L5939",
-      "titulo": "Comerciais Sala em Sertãozinho",
-      "tipo": "Sala Comercial",
-      "transacao": "Locação",
-      "bairro": "Chácaras Recreio Planal",
-      "preco": 1904.0,
-      "preco_formatado": "1.904"
-    },
-    {
-      "id": "V92621",
-      "titulo": "Excelente Apartamento, para morar ou investir.",
-      "tipo": "Apartamento",
-      "transacao": "Venda",
-      "bairro": "Jardim Campo Alegre",
-      "preco": 180000.0,
-      "preco_formatado": "180.000"
-    }
-  ],
-  "total_novos": 4,
-  "mudancas_preco": [
-    {
-      "id": "V16301",
-      "titulo": "Terrenos Padrão em Sertãozinho",
-      "tipo": "Terreno Residencial",
-      "transacao": "Venda",
-      "bairro": "Jardim das Araucárias",
-      "preco_antigo": 128000.0,
-      "preco_novo": 139000.0,
-      "preco_antigo_fmt": "128.000",
-      "preco_novo_fmt": "139.000",
-      "diferenca": 11000.0,
-      "diferenca_fmt": "11.000",
-      "variacao_pct": 8.6,
-      "tipo_mudanca": "aumento"
-    },
-    {
-      "id": "V8228",
-      "titulo": "Casas Padrão em Sertãozinho",
-      "tipo": "Casa",
-      "transacao": "Venda",
-      "bairro": "Centro",
-      "preco_antigo": 400000.0,
-      "preco_novo": 428000.0,
-      "preco_antigo_fmt": "400.000",
-      "preco_novo_fmt": "428.000",
-      "diferenca": 28000.0,
-      "diferenca_fmt": "28.000",
-      "variacao_pct": 7.0,
-      "tipo_mudanca": "aumento"
-    }
-  ],
-  "total_mudancas_preco": 2,
+  "novos_imoveis": [],
+  "total_novos": 0,
+  "mudancas_preco": [],
+  "total_mudancas_preco": 0,
   "top_oportunidades": [
     {
       "codigo": "L30521",
